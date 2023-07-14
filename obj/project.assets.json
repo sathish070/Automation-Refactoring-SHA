@@ -11098,11 +11098,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Automation Refactoring\\SHAProjectNew\\SHAProject\\SHAProject.csproj",
+      "projectUniqueName": "D:\\Automation\\VsGit\\SHAProject.csproj",
       "projectName": "SHAProject",
-      "projectPath": "D:\\Automation Refactoring\\SHAProjectNew\\SHAProject\\SHAProject.csproj",
+      "projectPath": "D:\\Automation\\VsGit\\SHAProject.csproj",
       "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-      "outputPath": "D:\\Automation Refactoring\\SHAProjectNew\\SHAProject\\obj\\",
+      "outputPath": "D:\\Automation\\VsGit\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

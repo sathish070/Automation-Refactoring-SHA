@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "fv4xSI0UOYC9UVNRNaSoigmRADSfAexaGaoTGUId5D103/iSPuBgHS5P8sFXR++F8mjmTDoQy6XaVw/3yLP4FQ==",
+  "dgSpecHash": "NVnx+IQaEHUQ1f+JEn06tuNfCtGK/WRWcku468r0A2iKENzMwhAZwoUJeaJV42XncK5iveZMwNECZ+b3NZ10kw==",
   "success": true,
-  "projectFilePath": "D:\\Automation Refactoring\\SHAProjectNew\\SHAProject\\SHAProject.csproj",
+  "projectFilePath": "D:\\Automation\\VsGit\\SHAProject.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\DELL\\.nuget\\packages\\anglesharp\\0.17.1\\anglesharp.0.17.1.nupkg.sha512",
     "C:\\Users\\DELL\\.nuget\\packages\\coverlet.collector\\3.1.2\\coverlet.collector.3.1.2.nupkg.sha512",
