@@ -100,7 +100,7 @@ namespace SHAProject.Page_Object
 
                 _findElements.VerifyElement(NormalizationPopup, _currentPage, $"Normalization Popup");
 
-                _findElements.SendKeys(_normalizationData.Units, NormalizationUnits, _currentPage, "Given normalization unit is - " + _normalizationData.Units);
+                _findElements.SendKeys(_normalizationData.Units, NormalizationUnits, _currentPage, "Given normalization unit is-"+_normalizationData.Units);
 
                 _findElements.SendKeys(_normalizationData.ScaleFactor, ScaleFactorField, _currentPage, "Given scale factor is - " + _normalizationData.ScaleFactor);
 

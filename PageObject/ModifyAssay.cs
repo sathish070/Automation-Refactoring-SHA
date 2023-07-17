@@ -183,7 +183,7 @@ namespace SHAProject.PageObject
         [FindsBy(How = How.XPath, Using ="//*[@id=\"0_11\"]/td[1]")]
         public IWebElement BackgroundWell2;
 
-        [FindsBy(How = How.XPath, Using ="//*[@id=\"0_11\"]/td[1]")]
+        [FindsBy(How = How.XPath, Using ="//*[@id=\"7_0\"]/td[1]")]
         public IWebElement BackgroundWell3;
 
         [FindsBy(How = How.XPath, Using ="//*[@id=\"7_11\"]/td[1]")]
@@ -192,7 +192,7 @@ namespace SHAProject.PageObject
         [FindsBy(How = How.XPath, Using = "//*[@id='listgroup_1']")]
         public IWebElement BackgroundSelection;
 
-        [FindsBy(How = How.XPath, Using = "//label[@for='buffer-check0_0']")]
+        [FindsBy(How = How.XPath, Using = "(//div[@class='boxes'])[1]")]
         public IWebElement UnselectDefaultBF;
 
         [FindsBy(How = How.XPath, Using ="(//*[@class=\"boxes\"])[1]")]
@@ -403,7 +403,7 @@ namespace SHAProject.PageObject
         {
             try
             {
-                _findElements.ClickElementByJavaScript(AssayMedia, _currentPage, $"Modify Assay - Assay Media");
+                _findElements.ClickElement(AssayMedia, _currentPage, $"Modify Assay - Assay Media");
 
                 _findElements.VerifyElement(Name, _currentPage, $"Assay Media - Name");
 
@@ -411,7 +411,7 @@ namespace SHAProject.PageObject
 
                 _findElements.ClickElementByJavaScript(ApplyToAllGroups, _currentPage, $"Modify Assay - Apply To All groups");
 
-                _findElements.ClickElementByJavaScript(GroupTab, _currentPage, $"Modify Assay - Group Tab");
+                _findElements.ClickElement(GroupTab, _currentPage, $"Modify Assay - Group Tab");
 
                 _findElements.ScrollIntoViewAndClickElementByJavaScript(Groupexpansion, _currentPage, $"Group Tab - Group Expansion");
 
@@ -433,7 +433,7 @@ namespace SHAProject.PageObject
         {
             try
             {
-                _findElements.ClickElementByJavaScript(BackgroundBuffer, _currentPage, $"Modify Assay - Background Buffer");
+                _findElements.ClickElement(BackgroundBuffer, _currentPage, $"Modify Assay - Background Buffer");
 
                 _findElements.ElementTextVerify(Well, "Well", _currentPage, $"BackgroundBuffer - Well");
 
@@ -469,10 +469,12 @@ namespace SHAProject.PageObject
 
                 //extentTestNode.Log(selectionBackground.Displayed ? Status.Pass : Status.Fail, selectionBackground.Displayed ? "New background well names are added" : "New background well names are not added");
 
-                _findElements.ClickElementByJavaScript(BackgroundBuffer, _currentPage, $"Modify Assay - Background Selections"); /* Back to Background Buffer Tab*/
+                _findElements.ClickElement(BackgroundBuffer, _currentPage, $"Modify Assay - Background Selections"); /* Back to Background Buffer Tab*/
 
 
-                _findElements.ClickElementByJavaScript(UnselectDefaultBF, _currentPage, $"Unselect Default BF");
+                _findElements.ClickElement(UnselectDefaultBF, _currentPage, $"Unselect Default BF");
+
+                UnselectDefaultBF.Click();
 
                 //extentTestNode.Log(!unselectDefaultBF.Selected ? Status.Pass : Status.Fail, !unselectDefaultBF.Selected ? "DefaultBF checkbox is unselected" : "DefaultBF checkbox is not unselected");
 

@@ -51,6 +51,7 @@ namespace SHAProject.Utilities
                         Thread.Sleep(1000);
                     }
                 }
+                ImageName = ImageName.Replace("/","-");
                 string path = Tests.loginFolderPath;
                 string Imagefolder = status == ScreenshotType.Info ? "Success" : "Error";
                 string ImagePath = path + "\\" + currentPage + "\\" + Imagefolder + "\\" + ImageName + ".png";
@@ -85,7 +86,7 @@ namespace SHAProject.Utilities
             }
             catch (Exception ex)
             {
-                ExtentReport.ExtentTest("ExtentTest", Status.Fail, "An error occured in taking screenshot. The error is " + ex.Message);
+                ExtentReport.ExtentTest(currentPage == "Login"?"ExtentTest":"ExtentTestNode", Status.Fail, "An error occured in taking screenshot. The error is " + ex.Message);
             }
         }
     }

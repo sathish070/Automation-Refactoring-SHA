@@ -90,6 +90,12 @@ namespace SHAProject.Create_Widgets
         [FindsBy(How = How.CssSelector, Using = "[src='/images/svg/AddView/View-Widget-Dose-Response.svg']")]
         private IWebElement? DoseResponse;
 
+        [FindsBy(How = How.XPath, Using = "(//div[@class='comp-list-right']/span)[1]")]
+        private IWebElement? CompoundLIst;
+
+        [FindsBy(How = How.XPath, Using = "(//div[@class='group-list-right']/span)[1]")]
+        private IWebElement? Grouplist;
+
         #endregion
 
         #region MstView Element
@@ -197,6 +203,7 @@ namespace SHAProject.Create_Widgets
                     case WidgetCategories.XfStandard:
                         _findElements?.ClickElement(DefaultGraphClick, _currentPage, $"Add View popup - Standard view");
                         _findElements?.ClickElement(companionView, _currentPage, "Add View popup -Standard view");
+                        VerifyGroup(Grouplist);
                     break;
 
                     case WidgetCategories.XfCustomview:
@@ -207,7 +214,7 @@ namespace SHAProject.Create_Widgets
                     case WidgetCategories.XfStandardDose:
                         _findElements?.ClickElement(DefaultGraphClick, _currentPage, $"Add View popup - Standard view");
                         _findElements?.ClickElement(companionView, _currentPage, "Add View popup - Standard Dose view");
-                        VerifyGroup();
+                        VerifyGroup(CompoundLIst);
                     break;
 
                     case WidgetCategories.XfStandardBlank:
@@ -453,13 +460,11 @@ namespace SHAProject.Create_Widgets
 
         }
 
-        private void VerifyGroup()
+        private void VerifyGroup(IWebElement element)
         {
             try
             {
                 _findElements?.VerifyElement(AddviewGroups, _currentPage, "Add View popup Groups Area");
-
-                IWebElement element = _driver.FindElement(By.XPath("(//div[@class='comp-list-right']/span)[1]"));
 
                 _findElements.ClickElementByJavaScript(element, _currentPage, "Unselecting the First Group");
 
@@ -468,7 +473,7 @@ namespace SHAProject.Create_Widgets
             }
             catch (Exception ex) 
             {
-                
+                ExtentReport.ExtentTest("EntendtestNode", Status.Fail, "Error Occured while selecting a group with the Message:" + ex.Message);
             }
         }
     }
