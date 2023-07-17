@@ -1,0 +1,1735 @@
+
+
+<!DOCTYPE html>
+<html>
+	
+	<head>
+	<meta /> 
+	<meta name='robots' content='noodp, noydir' />
+	<meta name='viewport' content='width=device-width, initial-scale=1' />
+	
+	<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600' rel='stylesheet' type='text/css' />
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+	<link href='https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@8539670db814bf19a0ddbe9a6d19058aea0cf981/v3html/css/extent.css' type='text/css' rel='stylesheet' />
+  
+	<title>Seahorse Automation </title>
+
+	<style type='text/css'>
+		/* json-tree */
+		.jstBracket,.jstComma,.jstValue{white-space:pre-wrap}.jstValue{font-size:10px;font-weight:400;font-family:"Lucida Console",Monaco,monospace}.jstProperty{color:#666;word-wrap:break-word}.jstBool{color:#2525CC}.jstNum{color:#D036D0}.jstNull{color:gray}.jstStr{color:#2DB669}.jstFold:after{content:' -';cursor:pointer}.jstExpand{white-space:normal}.jstExpand:after{content:' +';cursor:pointer}.jstFolded{white-space:normal!important}.jstHiddenBlock{display:none}
+		
+	</style>
+	
+	<script type="text/javascript">
+		/*! json-tree - v0.2.2 - 2017-09-25, MIT LICENSE */
+		var JSONTree=function(){var n={"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#x27;","/":"&#x2F;"},t=0,r=0;this.create=function(n,t){return r+=1,N(u(n,0,!1),{class:"jstValue"})};var e=function(t){return t.replace(/[&<>'"]/g,function(t){return n[t]})},s=function(){return r+"_"+t++},u=function(n,t,r){if(null===n)return f(r?t:0);switch(typeof n){case"boolean":return l(n,r?t:0);case"number":return i(n,r?t:0);case"string":return o(n,r?t:0);default:return n instanceof Array?a(n,t,r):c(n,t,r)}},c=function(n,t,r){var e=s(),u=Object.keys(n).map(function(r){return j(r,n[r],t+1,!0)}).join(m()),c=[g("{",r?t:0,e),N(u,{id:e}),p("}",t)].join("\n");return N(c,{})},a=function(n,t,r){var e=s(),c=n.map(function(n){return u(n,t+1,!0)}).join(m());return[g("[",r?t:0,e),N(c,{id:e}),p("]",t)].join("\n")},o=function(n,t){var r=e(JSON.stringify(n));return N(v(r,t),{class:"jstStr"})},i=function(n,t){return N(v(n,t),{class:"jstNum"})},l=function(n,t){return N(v(n,t),{class:"jstBool"})},f=function(n){return N(v("null",n),{class:"jstNull"})},j=function(n,t,r){var s=v(e(JSON.stringify(n))+": ",r),c=N(u(t,r,!1),{});return N(s+c,{class:"jstProperty"})},m=function(){return N(",\n",{class:"jstComma"})},N=function(n,t){return d("span",t,n)},d=function(n,t,r){return"<"+n+Object.keys(t).map(function(n){return" "+n+'="'+t[n]+'"'}).join("")+">"+r+"</"+n+">"},g=function(n,t,r){return N(v(n,t),{class:"jstBracket"})+N("",{class:"jstFold",onclick:"JSONTree.toggle('"+r+"')"})};this.toggle=function(n){var t=document.getElementById(n),r=t.parentNode,e=t.previousElementSibling;""===t.className?(t.className="jstHiddenBlock",r.className="jstFolded",e.className="jstExpand"):(t.className="",r.className="",e.className="jstFold")};var p=function(n,t){return N(v(n,t),{})},v=function(n,t){return Array(2*t+1).join(" ")+n};return this}();
+	</script>
+</head>
+
+
+	<body class='extent default hide-overflow '>
+		<div id='theme-selector' alt='Click to toggle theme. To enable by default, use theme configuration.' title='Click to toggle theme. To enable by default, use theme configuration.'>
+			<span><i class='material-icons'>desktop_windows</i></span>
+		</div>
+		
+		<nav>
+	<div class="nav-wrapper">
+		<a href="#!" class="brand-logo black"><img src="https://cdn.rawgit.com/extent-framework/extent-github-cdn/d74480e/commons/img/logo.png"></a>
+		<ul id='slide-out' class='side-nav fixed hide-on-med-and-down'>
+			<li class='waves-effect active'><a href='#!' view='test-view' onclick="configureView(0);chartsView('test');"><i class='material-icons'>dashboard</i></a></li>
+            			<li class='waves-effect'><a href='#!' onclick="configureView(-1);chartsView('dashboard');" view='dashboard-view'><i class='material-icons'>track_changes</i></a></li>
+		</ul>
+		<span class='report-name'><b>Seahorse Automation Testing</b></span>
+		<span class='report-headline'></span>
+		<ul id='nav-mobile' class='right hide-on-med-and-down nav-right'>
+			<a href='#!'><span class='label blue darken-3 suite-start-time'>15-07-2023 04:24:27 PM</span></a>
+		</ul>
+	</div>
+</nav>
+
+		<!-- container -->
+		<div class='container'>
+			<div id='test-view' class='view'>
+	<section id='controls'>
+		<div class='controls grey lighten-4'>
+			<!-- test toggle -->
+			<div class='chip transparent'>
+				<a class='dropdown-button tests-toggle' data-activates='tests-toggle' data-constrainwidth='true' data-beloworigin='true' data-hover='true' href='#'>
+				<i class='material-icons'>warning</i> Status
+				</a>
+				<ul id='tests-toggle' class='dropdown-content'>
+					<li status='pass'><a href='#!'>Pass <i class='material-icons green-text'>check_circle</i></a></li>
+															<li status='fail'><a href='#!'>Fail <i class='material-icons red-text'>cancel</i></a></li>
+																				<li class='divider'></li>
+					<li status='clear' clear='true'><a href='#!'>Clear Filters <i class='material-icons'>clear</i></a></li>
+				</ul>
+			</div>
+			<!-- test toggle -->
+			<!-- category toggle -->
+			<!-- category toggle -->
+			<!-- clear filters -->
+			<div class='chip transparent hide'>
+				<a class='' id='clear-filters' alt='Clear Filters' title='Clear Filters'>
+				<i class='material-icons'>close</i> Clear
+				</a>
+			</div>
+			<!-- clear filters -->
+			<!-- enable dashboard -->
+			<div id='toggle-test-view-charts' class='chip transparent'>
+				<a class='' id='enable-dashboard' alt='Enable Dashboard' title='Enable Dashboard'>
+				<i class='material-icons'>track_changes</i> Dashboard
+				</a>
+			</div>
+			<!-- enable dashboard -->
+			<!-- search -->
+			<div class='chip transparent' alt='Search Tests' title='Search Tests'>
+				<a href="#" class='search-div'>
+				<i class='material-icons'>search</i> Search
+				</a>
+				<div class='input-field left hide'>
+					<input id='search-tests' type='text' class='validate browser-default' placeholder='Search Tests...'>
+				</div>
+			</div>
+			<!-- search -->
+		</div>
+	</section>
+	
+
+<div id='test-view-charts' class='subview-full'>
+    <div id='charts-row' class='row nm-v nm-h'>
+        <div class='col s12 m6 l6 np-h'>
+            <div class='card-panel nm-v'>
+                <div class='left panel-name'>Tests</div>
+                <div class='chart-box' style="max-height:94px;">
+                    <canvas id='parent-analysis' width='90' height='80'></canvas>
+                </div>
+                <div class='block text-small'>
+                    <span class='tooltipped' data-position='top' data-tooltip='66.66666666666666%'><span class='strong'>2</span> tests passed</span>
+                </div>
+                <div class='block text-small'>
+                    <span class='tooltipped' data-position='top' data-tooltip='33.33333333333333%'><span class='strong'>1</span> failed,</span>
+					<span class='tooltipped' data-position='top' data-tooltip='0%'><span class='strong'>0</span> skipped, </span>
+					<span class='tooltipped' data-position='top' data-tooltip='0%'><span class='strong'>0</span> others</span>
+                </div>
+            </div>
+        </div>
+        <div class='col s12 m6 l6 np-h'>
+            <div class='card-panel nm-v'>
+                <div class='left panel-name'>Steps</div>
+                <div class='chart-box' style="max-height:94px;">
+                    <canvas id='child-analysis' width='90' height='80'></canvas>
+                </div>
+                <div class='block text-small'>
+                    <span class='tooltipped' data-position='top' data-tooltip='50%'><span class='strong'>1</span> steps passed</span>
+                </div>
+                <div class='block text-small'>
+                    <span class='tooltipped' data-position='top' data-tooltip='50%'><span class='strong'>1</span> failed,</span>
+					<span class='tooltipped' data-position='top' data-tooltip='0%'><span class='strong'>0</span> skipped,</span>
+					<span class='tooltipped' data-position='top' data-tooltip='0%'><span class='strong'>0</span> others</span>                
+				</div>
+            </div>
+        </div>
+		    </div>
+</div>
+	<div class='subview-left left'>
+		<div class='view-summary'>
+			<ul id='test-collection' class='test-collection'>
+				<li class='test displayed active  pass' status='pass' test-id='1'>
+					<div class='test-heading'>
+						<span class='test-name'>Excel Reader</span>
+						<span class='test-time'>15-07-2023 04:24:28 PM</span>
+						<span class='test-status right pass'>Pass</span>
+					</div>
+					<div class='test-content hide'>
+						<div class='test-time-info'>
+							<span class='label start-time'>15-07-2023 04:24:28 PM</span>
+							<span class='label end-time'>15-07-2023 04:24:44 PM</span>
+							<span class='label time-taken grey lighten-1 white-text'>0h:0m:16s.993ms</span>
+						</div>
+							<div class='test-steps'>
+								<table class='bordered table-results'>
+									<thead>
+										<tr>
+											<th>Status</th>
+											<th>Timestamp</th>
+											<th>Details</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:28</td>
+											<td class='step-details'>
+The Selected browser is Chrome																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:28</td>
+											<td class='step-details'>
+Website: https://airborne-rogue1.sbx-10.aws.agilent.com/Account/Login																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:28</td>
+											<td class='step-details'>
+Username: divakarA@mailinator.com																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:28</td>
+											<td class='step-details'>
+Password: Aitech@275																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:28</td>
+											<td class='step-details'>
+All required Data's are available! and the verified sheet name is Login																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:28</td>
+											<td class='step-details'>
+Excel read status success for login page																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+FileUpload required status is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Fileupload path is present																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+FileName is present - SmokeB Titration 10_0_1_53																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+FileExtension is present - xflr																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Existing file name status is false																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+File Titration type is True																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+File Normalization status is True																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+File Type is XFe96																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Analysis page layout verification is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Normalization Verification is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+All required Data's are available! and the verified sheet name is Normalization																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+ScaleFactor for Barchart is False																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+ModifyAssay Verification is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Add group Name is : H2SO55																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Select the control is : Set Group as Vehicle Control																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+The given injection name is : Initial Injection																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Measurement value for Kineticgraph -OCR  is 1																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Ratetype for Kineticgraph -OCR  is ECAR																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Displaymode for Kineticgraph -OCR  is Well																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Y-toggle for Kineticgraph -OCR  is Rate																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Normalization for Kinetic graph -OCR is false																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Error format for Kineticgraph -OCR  is Std Dev																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Background correction for Kinetic graph -OCR is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Baseline for Kineticgraph -OCR  is OFF																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Expected GraphUnits for Kinetic graph OCR value is ECAR (pmol/min)																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+GraphSettingsVerify for Kinetic graph is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Remove Y AutoScale in GraphSettings for Kinetic graph is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Remove ZeroLine in GraphSettings for Kinetic graph is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Remove LineMarkers in GraphSettings for Kinetic graph is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Remove RateHighlight in GraphSettings for Kinetic graph is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Remove InjectionMarkers in GraphSettings for Kinetic graph is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Remove Zoom in GraphSettings for Kinetic graph is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Normalization needs to be verified with platemap																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+File Normalization status is True																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Expected GraphUnits for Kinetic graph ECAR value is ECAR (pmol/min)																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Rate for Kinetic graph ECAR value is ECAR																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+PlateMap Sync to View needs to be verified with platemap																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+GraphSettings Sync to View needs to be verified with platemap																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Expected GraphUnits for Kinetic graph PER value is OCR (pmol/min)																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Rate for Kinetic graph PER value is OCR																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Measurement value for Barchart is 1																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Rate for Barchart Rate is ECAR																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Display value for Barchart is Well																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Normalization for Barchart is false																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Error Format for Barchart is Std Dev																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Background Correction for Barchart is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Baseline for Barchart is OFF																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Sort By for Bar Chart  is Graph Descending																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Expected GraphUnits for Barchart is ECAR (pmol/min)																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+GraphSettingsVerify for Barchart is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Remove Y AutoScale in GraphSettings for Barchart is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Remove ZeroLine in GraphSettings for Barchart is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Remove Zoom in GraphSettings for Barchart is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Normalization needs to be verified with platemap																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+File Export status is True																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+PlateMap Sync to View needs to be verified with platemap																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+GraphSettings Sync to View needs to be verified with platemap																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Measurement value for EnergyMap is 1																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Rate for EnergyMap is PER																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Display for EnergyMap is Group																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+normalization for Energy graph is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Error Format for EnergyMap is Std Dev																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Background Correction for Energy graph is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Baseline for EnergyMap is OFF																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Expected Graph Units for Energy Map is OCR (pmol/min/1000 units/cell)																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+GraphSettingsVerify for EnergyMap is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Remove X AutoScale in GraphSettings for EnergyMap is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Remove Y AutoScale in GraphSettings for EnergyMap is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Remove Zoom in GraphSettings for EnergyMap is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Normalization needs to be verified with platemap																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+File Normalization status is True																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+PlateMap Sync to View needs to be verified with platemap																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+GraphSettings Sync to View needs to be verified with platemap																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Measurement value for HeatMap is 1																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Rate for HeatMap is OCR																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+normalization for HeatMap is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Background Correction for HeatMap is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Baseline for HeatMap is OFF																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+GraphSettingsVerify for HeatMap is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Remove Y AutoScale in GraphSettings for HeatMap is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Remove Zeroline in GraphSettings for HeatMap is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Remove LineMarkers in GraphSettings for HeatMap is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Remove RateHighlight in GraphSettings for HeatMap is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Remove InjectionMarkers in GraphSettings for HeatMap is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Remove Zoom in GraphSettings for HeatMap is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Assaykit Validation for HeatMap is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Cat Number for HeatMap is 103771-100																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Lot Number for HeatMap is 12345678																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+SW ID Number for HeatMap is 1234																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Colour Options for HeatMap is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Colour Tolerance for HeatMap is 20 %																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Expected Graph Units for Heat Map is OCR (pmol/min/1000 units/cell)																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Normalization needs to be verified with platemap																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+File Export status is True																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Add view for Dose response is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Measurement value for Dose Response is 1																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Rate for Dose response is PER																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+normalization for Dose response is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Error Format for Dose Response is Std Dev																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Background Correction for Dose Response is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+GraphSettingsVerify for Dose Response is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Remove Y AutoScale in GraphSettings for Dose Kinetic graph is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Remove ZeroLine in GraphSettings for Dose Kinetic graph is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Remove LineMarkers in GraphSettings for Dose Kinetic graph is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Remove RateHighlight in GraphSettings for Dose Kinetic graph is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Remove InjectionMarkers in GraphSettings for Dose Kinetic graph is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Remove Zoom in GraphSettings for Dose Kinetic graph is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Remove Dose X AutoScale in GraphSettings for Dose Kinetic graph is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Remove Dose Y AutoScale in GraphSettings for Dose Kinetic graph is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Remove Dose Zeroline in GraphSettings for Dose response is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Remove Dose LineMarkers in GraphSettings for Dose response is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Remove Dose Zoom in GraphSettings for Dose Kinetic graph is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Expected Graph Units for Dose Response is PER (pmol/min/Cells/100 Units Data)																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Normalization needs to be verified with platemap																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+File Export status is True																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+PlateMap Sync to View needs to be verified with platemap																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+GraphSettings Sync to View needs to be verified with platemap																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+GraphSettings Sync to View needs to be verified with platemap																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Create Blank View is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+AddBlankWidget is DoseResponse																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+CustomView Name is: Sample Test																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Custom View description is: Sample Custom Test																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+All required Data's are available! and the verified sheet name is Workflow-5																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Excel read status is true for Standard View																							</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+					</div>
+				</li>
+				<li class='test displayed active  pass' status='pass' test-id='2'>
+					<div class='test-heading'>
+						<span class='test-name'>LoginPage</span>
+						<span class='test-time'>15-07-2023 04:24:31 PM</span>
+						<span class='test-status right pass'>Pass</span>
+					</div>
+					<div class='test-content hide'>
+						<div class='test-time-info'>
+							<span class='label start-time'>15-07-2023 04:24:31 PM</span>
+							<span class='label end-time'>15-07-2023 04:24:44 PM</span>
+							<span class='label time-taken grey lighten-1 white-text'>0h:0m:13s.603ms</span>
+						</div>
+							<div class='test-steps'>
+								<table class='bordered table-results'>
+									<thead>
+										<tr>
+											<th>Status</th>
+											<th>Timestamp</th>
+											<th>Details</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:33</td>
+											<td class='step-details'>
+Login Page -Email Field is displayed																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:34</td>
+											<td class='step-details'>
+Screenshot  - Login Page -Email Field												<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Login\Success\Login Page -Email Field.png' src='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Login\Success\Login Page -Email Field.png' data-src='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Login\Success\Login Page -Email Field.png'>											</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:35</td>
+											<td class='step-details'>
+The given text - divakarA@mailinator.com and element text are equal																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:37</td>
+											<td class='step-details'>
+Screenshot  - Given mail id is divakarA@mailinator.com												<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Login\Success\Given mail id is divakarA@mailinator.com.png' src='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Login\Success\Given mail id is divakarA@mailinator.com.png' data-src='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Login\Success\Given mail id is divakarA@mailinator.com.png'>											</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:38</td>
+											<td class='step-details'>
+Login Page- Password Field is displayed																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:39</td>
+											<td class='step-details'>
+Screenshot  - Login Page- Password Field												<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Login\Success\Login Page- Password Field.png' src='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Login\Success\Login Page- Password Field.png' data-src='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Login\Success\Login Page- Password Field.png'>											</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:40</td>
+											<td class='step-details'>
+The given text - Aitech@275 and element text are equal																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:41</td>
+											<td class='step-details'>
+Screenshot  - Given Password is Aitech@275												<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Login\Success\Given Password is Aitech@275.png' src='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Login\Success\Given Password is Aitech@275.png' data-src='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Login\Success\Given Password is Aitech@275.png'>											</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:43</td>
+											<td class='step-details'>
+Screenshot  - Login Page - Sign in Button												<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Login\Success\Login Page - Sign in Button.png' src='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Login\Success\Login Page - Sign in Button.png' data-src='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Login\Success\Login Page - Sign in Button.png'>											</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Login Page - Sign in Button - is displayed and clickable on the page																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>16:24:44</td>
+											<td class='step-details'>
+Login successfully with the given credentials																							</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+					</div>
+				</li>
+				<li class='test displayed active has-leaf fail' status='fail' test-id='3'>
+					<div class='test-heading'>
+						<span class='test-name'>WorkFlow -5 : StandardView</span>
+						<span class='test-time'>15-07-2023 04:24:44 PM</span>
+						<span class='test-status right fail'>Fail</span>
+					</div>
+					<div class='test-content hide'>
+						<div class='test-time-info'>
+							<span class='label start-time'>15-07-2023 04:24:44 PM</span>
+							<span class='label end-time'>15-07-2023 04:27:14 PM</span>
+							<span class='label time-taken grey lighten-1 white-text'>0h:2m:29s.614ms</span>
+						</div>
+						<ul class='collapsible node-list' data-collapsible='accordion'>
+														<li class='node level-1 leaf pass' status='pass' test-id='4'>
+								<div class='collapsible-header'>
+									<div class='node-name'>CreateQuickView</div>
+									<span class='node-time'>15-07-2023 04:24:45 PM</span>
+									&middot; <span class='node-duration'>0h:0m:47s.258ms</span>
+									<span class='test-status right pass'>Pass</span>
+								</div>
+								<div class='collapsible-body'>
+																		<div class='node-steps'>
+										<table class='bordered table-results'>
+											<thead>
+												<tr>
+													<th>Status</th>
+													<th>Timestamp</th>
+													<th>Details</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>16:24:55</td>
+													<td class='step-details'>
+Screenshot  - Home Page -Upload File Button														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Standard View\Success\Home Page -Upload File Button.png' src='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Standard View\Success\Home Page -Upload File Button.png' data-src='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Standard View\Success\Home Page -Upload File Button.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>16:24:56</td>
+													<td class='step-details'>
+Home Page -Upload File Button - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>16:24:58</td>
+													<td class='step-details'>
+Screenshot  - Upload File Popup - Upload Button														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Standard View\Success\Upload File Popup - Upload Button.png' src='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Standard View\Success\Upload File Popup - Upload Button.png' data-src='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Standard View\Success\Upload File Popup - Upload Button.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>16:24:59</td>
+													<td class='step-details'>
+Upload File Popup - Upload Button - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>16:25:03</td>
+													<td class='step-details'>
+Screenshot  - Upload File Popup-Done Button														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Standard View\Success\Upload File Popup-Done Button.png' src='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Standard View\Success\Upload File Popup-Done Button.png' data-src='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Standard View\Success\Upload File Popup-Done Button.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>16:25:04</td>
+													<td class='step-details'>
+Upload File Popup-Done Button - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>16:25:05</td>
+													<td class='step-details'>
+Screenshot  - Given File														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Standard View\Success\Given File.png' src='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Standard View\Success\Given File.png' data-src='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Standard View\Success\Given File.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>16:25:07</td>
+													<td class='step-details'>
+Screenshot  - Uploaded as recent File														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Standard View\Success\Uploaded as recent File .png' src='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Standard View\Success\Uploaded as recent File .png' data-src='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Standard View\Success\Uploaded as recent File .png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>16:25:08</td>
+													<td class='step-details'>
+Uploaded as recent File  - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>16:25:08</td>
+													<td class='step-details'>
+File upload successfully																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>16:25:15</td>
+													<td class='step-details'>
+Screenshot  - Add View popup - Standard view														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Standard View\Success\Add View popup - Standard view.png' src='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Standard View\Success\Add View popup - Standard view.png' data-src='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Standard View\Success\Add View popup - Standard view.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>16:25:16</td>
+													<td class='step-details'>
+Add View popup - Standard view - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>16:25:17</td>
+													<td class='step-details'>
+Screenshot  - Add View popup -Standard view														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Standard View\Success\Add View popup -Standard view.png' src='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Standard View\Success\Add View popup -Standard view.png' data-src='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Standard View\Success\Add View popup -Standard view.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>16:25:18</td>
+													<td class='step-details'>
+Add View popup -Standard view - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>16:25:19</td>
+													<td class='step-details'>
+Screenshot  - XfStandard - KineticGraph widget														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Standard View\Success\XfStandard - KineticGraph widget.png' src='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Standard View\Success\XfStandard - KineticGraph widget.png' data-src='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Standard View\Success\XfStandard - KineticGraph widget.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>16:25:20</td>
+													<td class='step-details'>
+XfStandard - KineticGraph widget - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>16:25:22</td>
+													<td class='step-details'>
+Screenshot  - XfStandard - KineticGraphEcar widget														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Standard View\Success\XfStandard - KineticGraphEcar widget.png' src='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Standard View\Success\XfStandard - KineticGraphEcar widget.png' data-src='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Standard View\Success\XfStandard - KineticGraphEcar widget.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>16:25:23</td>
+													<td class='step-details'>
+XfStandard - KineticGraphEcar widget - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>16:25:24</td>
+													<td class='step-details'>
+Screenshot  - XfStandard - BarChart widget														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Standard View\Success\XfStandard - BarChart widget.png' src='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Standard View\Success\XfStandard - BarChart widget.png' data-src='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Standard View\Success\XfStandard - BarChart widget.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>16:25:25</td>
+													<td class='step-details'>
+XfStandard - BarChart widget - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>16:25:26</td>
+													<td class='step-details'>
+Screenshot  - XfStandard - EnergyMap widget														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Standard View\Success\XfStandard - EnergyMap widget.png' src='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Standard View\Success\XfStandard - EnergyMap widget.png' data-src='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Standard View\Success\XfStandard - EnergyMap widget.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>16:25:27</td>
+													<td class='step-details'>
+XfStandard - EnergyMap widget - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>16:25:28</td>
+													<td class='step-details'>
+Screenshot  - XfStandard - HeatMap widget														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Standard View\Success\XfStandard - HeatMap widget.png' src='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Standard View\Success\XfStandard - HeatMap widget.png' data-src='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Standard View\Success\XfStandard - HeatMap widget.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>16:25:29</td>
+													<td class='step-details'>
+XfStandard - HeatMap widget - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>16:25:31</td>
+													<td class='step-details'>
+Screenshot  - AddView Popup - AddView Button														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Standard View\Success\AddView Popup - AddView Button.png' src='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Standard View\Success\AddView Popup - AddView Button.png' data-src='D:\Divakar\New Projects\SHAProjectNew\SHAProjectNew\SHAProject\Logs\SA_Chrome-15-07-2023-4-24-27\Standard View\Success\AddView Popup - AddView Button.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>16:25:32</td>
+													<td class='step-details'>
+AddView Popup - AddView Button - is displayed and clickable on the page																											</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+																							</li>
+							<li class='node level-1 leaf fail' status='fail' test-id='5'>
+								<div class='collapsible-header'>
+									<div class='node-name'>Check Analysis Page Functionality</div>
+									<span class='node-time'>15-07-2023 04:25:32 PM</span>
+									&middot; <span class='node-duration'>0h:1m:42s.213ms</span>
+									<span class='test-status right fail'>Fail</span>
+								</div>
+								<div class='collapsible-body'>
+																		<div class='node-steps'>
+										<table class='bordered table-results'>
+											<thead>
+												<tr>
+													<th>Status</th>
+													<th>Timestamp</th>
+													<th>Details</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>16:26:35</td>
+													<td class='step-details'>
+Unknown error The HTTP request to the remote WebDriver server for URL http://localhost:49182/session/d823933420c268efc6d348ac186ffc44/element timed out after 60 seconds. occurred on page																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>16:27:14</td>
+													<td class='step-details'>
+The error occured in export view icon functionality. The error is no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=114.0.5735.199)																											</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+																							</li>
+						</ul>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!-- subview left -->
+	<div class='subview-right left'>
+		<div class='view-summary'>
+			<div id='step-filters' class="right sr-filters">
+				<a class="btn-floating waves-effect waves-light green" status="pass" alt="pass" title="pass"><i class="material-icons">check_circle</i></a>
+				<a class="btn-floating waves-effect waves-light red" status="fail" alt="fail" title="fail"><i class="material-icons">cancel</i></a>
+				<a class="btn-floating waves-effect waves-light red darken-4" status="fatal" alt="fatal" title="fatal"><i class="material-icons">cancel</i></a>
+				<a class="btn-floating waves-effect waves-light pink text-lighten-1" status="error" alt="error" title="error"><i class="material-icons">error</i></a>
+				<a class="btn-floating waves-effect waves-light orange" alt="warning" status="warning" title="warning"><i class="material-icons">warning</i></a>
+				<a class="btn-floating waves-effect waves-light teal" status="skip" alt="skip" title="skip"><i class="material-icons">redo</i></a>
+				<a class="btn-floating waves-effect waves-light grey" status="clear" alt="Clear filters" title="Clear filters"><i class="material-icons">clear</i></a>
+			</div>
+			<h5 class='test-name'></h5>
+		</div>
+	</div>
+	<!-- subview right -->
+</div>
+<!-- test view -->
+
+			
+			<!-- category view -->
+			
+<!-- exception view -->
+
+			
+
+<div id='dashboard-view' class='view hide'>
+	<div class='card-panel transparent np-v'>
+		<h5>Dashboard</h5>
+
+		<div class='row'>
+			<div class='col s2'>
+				<div class='card-panel r'>
+          Tests
+          <div class='panel-lead'>3</div>
+				</div>
+			</div>
+			<div class='col s2'>
+				<div class='card-panel r'>
+          Steps
+          <div class='panel-lead'>2</div>
+				</div>
+			</div>
+			<div class='col s2'>
+				<div class='card-panel r'>
+					Start
+					<div class='panel-lead'>15-07-2023 04:24:27 PM</div>
+				</div>
+			</div>
+			<div class='col s2'>
+				<div class='card-panel r'>
+			 		End
+			 		<div class='panel-lead'>15-07-2023 04:27:14 PM</div>
+				</div>
+			</div>
+			<div class='col s2'>
+				<div class='card-panel r'>
+					Time Taken
+					<div class='panel-lead'>00:02:53.1183896</div>
+				</div>
+			</div>
+			<div class='col s4'>
+				<div class='card-panel dashboard-environment'>
+					<span class='right label cyan white-text'>Environment</span><p>&nbsp;</p>
+					<table>
+						<tr>
+							<th>Name</th>
+							<th>Value</th>
+						</tr>
+							<tr>
+								<td>Execution Time</td>
+								<td>15-07-2023-4-24-27</td>
+							</tr>
+							<tr>
+								<td>Environment</td>
+								<td>QA</td>
+							</tr>
+					</table>
+				</div>
+			</div>
+					</div>
+	</div>
+</div>
+<!-- dashboard view -->
+
+			<!-- testrunner-logs view -->
+		</div>
+		<!-- container -->
+		<script>
+			var statusGroup = {
+                parentCount: 3,
+				passParent: 2,
+				failParent: 1,
+				fatalParent: 0,
+				errorParent: 0,
+				warningParent: 0,
+				skipParent: 0,
+				exceptionsParent: 1,
+				childCount: 2,
+				passChild: 1,
+				failChild: 1,
+				fatalChild: 0,
+				errorChild: 0,
+				warningChild: 0,
+				skipChild: 0,
+				infoChild: 0,
+				debugChild: 0,
+				exceptionsChild: 1,
+				grandChildCount: 0,
+				passGrandChild: 0,
+				failGrandChild: 0,
+				fatalGrandChild: 0,
+				errorGrandChild: 0,
+				warningGrandChild: 0,
+				skipGrandChild: 0,
+				infoGrandChild: 0,
+				debugGrandChild: 0,
+				exceptionsGrandChild: 0,
+			};
+		</script>
+		<script src='https://cdn.rawgit.com/extent-framework/extent-github-cdn/c23457b/v3html/js/extent.js' type='text/javascript'></script>
+		<script type='text/javascript'>
+			
+		</script>
+	</body>
+</html>

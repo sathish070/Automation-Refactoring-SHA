@@ -5,8 +5,6 @@ using SHAProject.SeleniumHelpers;
 using AventStack.ExtentReports;
 using SeleniumExtras.PageObjects;
 using OpenQA.Selenium.Support.Extensions;
-using OpenQA.Selenium.Support.UI;
-using SeleniumExtras.WaitHelpers;
 
 namespace SHAProject.EditPage
 {
@@ -17,19 +15,23 @@ namespace SHAProject.EditPage
         public CommonFunctions? _commonFunc;
         private readonly FileType _fileType;
         public string _currentPage = string.Empty;
+        public NormalizationData? _normalizationData;
         public FileUploadOrExistingFileData _fileUploadOrExistingFileData;
         private int WellCount => _fileType == FileType.Xfp ? 8 : _fileType == FileType.Xfe24 ? 24 : 96;
 
-        public PlateMap(string currentPage, IWebDriver driver, FindElements findElements, CommonFunctions commonFunc, FileUploadOrExistingFileData fileUploadOrExistingFileData, FileType fileType)
+        public PlateMap(string currentPage, IWebDriver driver, FindElements findElements, CommonFunctions commonFunc, FileUploadOrExistingFileData fileUploadOrExistingFileData, FileType fileType, NormalizationData? normalizationData)
         {
             _driver = driver;
             _fileType = fileType;
+            _commonFunc = commonFunc;
             _currentPage = currentPage;
             _findElements = findElements;
-            _commonFunc = commonFunc;
+            _normalizationData = normalizationData;
             _fileUploadOrExistingFileData = fileUploadOrExistingFileData;
             PageFactory.InitElements(_driver, this);
         }
+
+        #region Platemap Elements
 
         [FindsBy(How = How.Id, Using = "wellmode")]
         public IWebElement? WellSelection;
@@ -52,12 +54,16 @@ namespace SHAProject.EditPage
         [FindsBy(How = How.XPath, Using = "(//*[@id='btnok'])[3]")]
         public IWebElement? SyncToViewApplyButton;
 
+        [FindsBy(How = How.CssSelector, Using = ".syncviewresult-tost-success")]
+        public IWebElement? SyncToViewToast;
+
         [FindsBy(How = How.CssSelector, Using = "#plate-map-table tr")]
         private IList<IWebElement>? PlatemaprowCount { get; set; }
 
         [FindsBy(How = How.CssSelector, Using = "#plate-map-table th")]
         private IList<IWebElement>? PlatemapColumnCount { get; set; }
 
+        #endregion
 
         public void PlateMapIcons()
         {
@@ -72,13 +78,13 @@ namespace SHAProject.EditPage
             _findElements.VerifyElement(SyncToView, _currentPage, $"PlateMap - Sync to View");
         }
 
-        public void PlateMapFunctionality()
+        public void PlateMapFunctionalities()
         {
             PlateMapWells("WellSelectionMode"); // Unselect the wells
 
             PlateMapWells("WellUnSelectionMode"); // Select the wells
 
-            PlateMapWells("FlagMode"); //  Add the flags
+            PlateMapWells("FlagMode"); // Add the flags
 
             _findElements.ClickElementByJavaScript(FlagOff, _currentPage, $"PlateMap -Flag Off");
 
@@ -86,7 +92,7 @@ namespace SHAProject.EditPage
 
             PlateMapWells("UnflagMode"); // Remove the flags 
 
-            SyncToViewFunctionality();
+            PlateMapSyncToView();
         }
 
         public void PlateMapWells(string type)
@@ -94,30 +100,22 @@ namespace SHAProject.EditPage
             try
             {
                 if (type == "WellSelectionMode")
-                {
                     _findElements.ClickElementByJavaScript(WellSelection, _currentPage, $"PlateMap -WellSelection");
-                }
-                else if(type == "FlagMode")
-                {
+                else if (type == "FlagMode")
                     _findElements.ClickElementByJavaScript(FlagSelection, _currentPage, $"PlateMap - FlagSelection");
-                }
-                else if(type == "UnflagMode")
-                {
+                else if (type == "UnflagMode")
                     _findElements.ClickElementByJavaScript(FlagSelection, _currentPage, $"PlateMap - FlagSelection");
-                }
                 else
-                {
                     _findElements.ClickElementByJavaScript(WellSelection, _currentPage, $"PlateMap -WellSelection");
-                }
 
-
-                for(int count = 0; count < 5; count++) 
+                for (int count = 0; count < 5; count++)
                 {
                     IWebElement PlateMapWell = _driver.FindElement(By.Id("tbl" + count + ""));
                     string wellName = PlateMapWell.GetAttribute("data-wellvalue");
                     _findElements.ClickElementByJavaScript(PlateMapWell, _currentPage, $" {type} well name is - {wellName}");
                     Thread.Sleep(4000);
                 }
+
                 ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"Platemap well selection and flag selection functionality has been verified.");
             }
             catch (Exception e)
@@ -125,15 +123,67 @@ namespace SHAProject.EditPage
                 ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Platemap well selection and flag selection functionality has not been verified. The error is {e.Message}");
             }
         }
-        public void SyncToViewFunctionality() 
+
+        public void PlateMapSyncToView() 
         {
-            _findElements.ClickElementByJavaScript(SyncToView, _currentPage, $"PlateMap -Sync to View");
+            _findElements.ClickElementByJavaScript(SyncToView, _currentPage, $"Platemap - Sync to View");
 
-            _findElements.VerifyElement(SyncToViewPopup, _currentPage, $"Sync to view Popup");
+            _findElements.VerifyElement(SyncToViewPopup, _currentPage, $"Platemap - Sync to view Popup");
 
-            _findElements.ClickElementByJavaScript(SyncToViewApplyButton, _currentPage, $"Sync to view apply button");
+            _findElements.ClickElementByJavaScript(SyncToViewApplyButton, _currentPage, $"Platemap - Sync to view apply button");
 
+            _findElements.VerifyElement(SyncToViewToast, _currentPage, $"Graph Setting - Sync to view Toast Message");
         }
+
+        //public void VerifyNormalizationVal()
+        //{
+        //    try
+        //    {
+        //        _driver.ExecuteJavaScript<string>("return document.getElementById(\"chknormalize\").click()"); // OFF
+        //        Thread.Sleep(3000);
+
+        //        IReadOnlyCollection<IWebElement> wells = _driver.FindElements(By.CssSelector(".Wellclass"));
+        //        List<string> platemapName = wells.Select(well => well.GetAttribute("data-wellvalue")).ToList();
+
+        //        IReadOnlyCollection<IWebElement> tableValues = _driver.FindElements(By.CssSelector(".tablevalues"));
+        //        List<double> plateMapValues = tableValues.Select(tableValue => tableValue.FindElements(By.TagName("span")).FirstOrDefault()?.Text)
+        //            .Select(spanText => spanText == "N/A" ? 0 : double.Parse(spanText)).ToList();
+
+        //        _driver.ExecuteJavaScript<string>("return document.getElementById(\"chknormalize\").click()"); // ON
+        //        Thread.Sleep(3000);
+
+        //        IReadOnlyCollection<IWebElement> normalizedTableValues = _driver.FindElements(By.CssSelector(".tablevalues"));
+        //        List<double> normalizedPlateMapValues = normalizedTableValues.Select(tableValue => tableValue.FindElements(By.TagName("span")).FirstOrDefault()?.Text)
+        //            .Select(spanText => spanText == "N/A" ? 0 : double.Parse(spanText)).ToList();
+
+        //        List<string> normalizationData = Enumerable.Repeat("200", 96).ToList();
+
+        //        string scaleFactor = "2";
+
+        //        List<string> caluNormalizationValues = normalizationData
+        //            .Select((value, index) =>
+        //            {
+        //                double normalizationValue = value is null ? 0 : double.Parse(value);
+        //                double plateMapValue = index < plateMapValues.Count ? plateMapValues[index] : 0;
+        //                double calculatedValue = normalizationValue > 0 ? (plateMapValue / (normalizationValue / double.Parse(scaleFactor))) : 0;
+        //                return calculatedValue.ToString("0.00");
+        //            }).ToList();
+
+        //        for (int i = 0; i < normalizedPlateMapValues.Count; i++)
+        //        {
+        //            if (caluNormalizationValues[i] == normalizedPlateMapValues[i].ToString("0.00"))
+        //                ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"The calculation for the current cell {platemapName[i]} is success.");
+        //            else
+        //                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"The calculation for the current cell {platemapName[i]} has failed. The platemap value is {normalizedPlateMapValues[i]} and the calculated normalized data is {caluNormalizationValues[i]}");
+        //        }
+
+        //        ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"Platemap normalization calculation functionality has been verified.");
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Platemap normalization calculation functionality has not been verified. The error is {e.Message} ");
+        //    }
+        //}
 
         public void VerifyNormalizationVal()
         {
@@ -142,45 +192,81 @@ namespace SHAProject.EditPage
                 _driver.ExecuteJavaScript<string>("return document.getElementById(\"chknormalize\").click()"); // OFF
                 Thread.Sleep(3000);
 
-                IReadOnlyCollection<IWebElement> wells = _driver.FindElements(By.CssSelector(".Wellclass"));
+                List<IWebElement> wells = _driver.FindElements(By.CssSelector(".Wellclass")).ToList();
                 List<string> platemapName = wells.Select(well => well.GetAttribute("data-wellvalue")).ToList();
 
-                IReadOnlyCollection<IWebElement> tableValues = _driver.FindElements(By.CssSelector(".tablevalues"));
-                List<double> plateMapValues = tableValues.Select(tableValue => tableValue.FindElements(By.TagName("span")).FirstOrDefault()?.Text)
-                    .Select(spanText => spanText == "N/A" ? 0 : double.Parse(spanText)).ToList();
+                List<IWebElement> tableValues = _driver.FindElements(By.CssSelector(".tablevalues")).ToList();
+
+                List<double> plateMapValues = GetTableValues(tableValues, platemapName.Count);
+
+                List<double> bottomplateMapValues = null;
+                if (tableValues.First().FindElements(By.TagName("span")).Skip(1).Any())
+                {
+                    bottomplateMapValues = GetTableValues(tableValues, platemapName.Count, 1);
+                }
 
                 _driver.ExecuteJavaScript<string>("return document.getElementById(\"chknormalize\").click()"); // ON
+
                 Thread.Sleep(3000);
 
-                IReadOnlyCollection<IWebElement> normalizedTableValues = _driver.FindElements(By.CssSelector(".tablevalues"));
-                List<double> normalizedPlateMapValues = normalizedTableValues.Select(tableValue => tableValue.FindElements(By.TagName("span")).FirstOrDefault()?.Text)
-                    .Select(spanText => spanText == "N/A" ? 0 : double.Parse(spanText)).ToList();
+                List<double> normalizedPlateMapValues = GetTableValues(tableValues, platemapName.Count);
 
-                List<string> normalizationData = Enumerable.Repeat("200", 96).ToList();
-
-                string scaleFactor = "2";
-
-                List<string> caluNormalizationValues = normalizationData
-                    .Select((value, index) =>
-                    {
-                        double normalizationValue = value is null ? 0 : double.Parse(value);
-                        double plateMapValue = index < plateMapValues.Count ? plateMapValues[index] : 0;
-                        double calculatedValue = normalizationValue > 0 ? (plateMapValue / (normalizationValue / double.Parse(scaleFactor))) : 0;
-                        return calculatedValue.ToString("0.00");
-                    }).ToList();
-
-                for (int i = 0; i < normalizedPlateMapValues.Count; i++)
+                List<double> bottomNormalizedPlateMapValues = null;
+                if (tableValues.First().FindElements(By.TagName("span")).Skip(1).Any())
                 {
-                    if (caluNormalizationValues[i] == normalizedPlateMapValues[i].ToString("0.00"))
-                        ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"The calculation for the current cell {platemapName[i]} is success.");
-                    else
-                        ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"The calculation for the current cell {platemapName[i]} has failed. The platemap value is {normalizedPlateMapValues[i]} and the calculated normalized data is {caluNormalizationValues[i]}");
+                    bottomNormalizedPlateMapValues = GetTableValues(tableValues, platemapName.Count, 1);
                 }
+
+                List<string> normalizationData = _normalizationData.Values;
+                string scaleFactor = _normalizationData.ScaleFactor;
+
+                List<string> caluNormalizationValues = CalculateNormalizationValues(normalizationData, plateMapValues, scaleFactor);
+                CompareNormalizationValues(platemapName, caluNormalizationValues, normalizedPlateMapValues);
+
+                List<string> bottomcaluNormalizationValues = CalculateNormalizationValues(normalizationData, bottomplateMapValues, scaleFactor);
+                CompareNormalizationValues(platemapName, bottomcaluNormalizationValues, bottomNormalizedPlateMapValues);
+
                 ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"Platemap normalization calculation functionality has been verified.");
             }
             catch (Exception e)
             {
                 ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Platemap normalization calculation functionality has not been verified. The error is {e.Message} ");
+            }
+        }
+
+        private List<double> GetTableValues(IReadOnlyCollection<IWebElement> tableValue, int count, int skip = 0)
+        {
+            List<double> plateMapValues = tableValue
+                .Select(tableValue => tableValue.FindElements(By.TagName("span")).Skip(skip).FirstOrDefault()?.Text)
+                .Select(spanText => spanText == "N/A" ? 0 : double.Parse(spanText))
+                .Take(count)
+                .ToList();
+
+            return plateMapValues;
+        }
+
+        private List<string> CalculateNormalizationValues(List<string> normalizationData, List<double> plateMapValues, string scaleFactor)
+        {
+            List<string> caluNormalizationValues = normalizationData
+                .Select((value, index) =>
+                {
+                    double normalizationValue = value is null ? 0 : double.Parse(value);
+                    double plateMapValue = index < plateMapValues.Count ? plateMapValues[index] : 0;
+                    double calculatedValue = normalizationValue > 0 ? (plateMapValue / (normalizationValue / double.Parse(scaleFactor))) : 0;
+                    return calculatedValue.ToString("0.00");
+                })
+                .ToList();
+
+            return caluNormalizationValues;
+        }
+        private void CompareNormalizationValues(List<string> platemapName, List<string> caluNormalizationValues, List<double> normalizedPlateMapValues)
+        {
+            for (int i = 0; i < normalizedPlateMapValues.Count; i++)
+            {
+                if (caluNormalizationValues[i] == normalizedPlateMapValues[i].ToString("0.00"))
+                    ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"The calculation for the current cell {platemapName[i]} is success.");
+                else
+                    ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"The calculation for the current cell {platemapName[i]} has failed. The platemap value is {normalizedPlateMapValues[i]} and the calculated normalized data is {caluNormalizationValues[i]}");
             }
         }
 

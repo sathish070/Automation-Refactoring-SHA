@@ -409,7 +409,7 @@ namespace SHAProject.EditPage
                 {
 
                     var units = downloadedExcelData.Rows[0]["Units"].ToString();
-                    var unitsvalue = widget.NormalizedGraphUnits.ToString();
+                    var unitsvalue = widget.ExpectedGraphUnits.ToString();
                     if (unitsvalue != "")
                     {
                         string graphunits = string.Empty;
