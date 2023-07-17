@@ -209,16 +209,16 @@ namespace SHAProject.PageObject
         [FindsBy(How = How.CssSelector, Using = "[src=\"/images/svg/Modify.svg\"]")]
         public IWebElement ModifyAssayIcon;
 
-        //[FindsBy(How = How.CssSelector, Using = "//*[@class=\"ClassInjectionNames\"]")]
-        //public ReadOnlyCollection<IWebElement> InjectionCount;
+        [FindsBy(How = How.CssSelector, Using = "//div[@class='col-md-9']/table]")]
+        public IWebElement InjTable;
 
         [FindsBy(How = How.CssSelector, Using = "//*[@class=\"ClassInjectionNames\"]")]
         public IWebElement InjectionCount;
 
-        [FindsBy(How = How.CssSelector, Using ="(//*[@class='ClassInjectionNames'])[1]")]
+        [FindsBy(How = How.XPath, Using = "(//input[@class='ClassInjectionNames'])[1]")]
         public IWebElement InjectionRename;
 
-        [FindsBy(How = How.CssSelector, Using ="//button[@onclick=\"fnModifyDialog()\"]")]
+        [FindsBy(How = How.XPath, Using ="//button[@onclick='fnModifyDialog()']")]
         public IWebElement SaveBtn;
 
         [FindsBy(How = How.CssSelector, Using = "//button[@id=\"btnIsLinkedToProjects\"]")]
@@ -294,7 +294,7 @@ namespace SHAProject.PageObject
 
                 _findElements.ElementTextVerify(Assaymedia, "Assay Media", _currentPage, $"Group Expansion - Assay Media");
 
-                _findElements.ElementTextVerify(CellType, "Assay Media", _currentPage, $"Group Expansion - Assay Media");
+                _findElements.ElementTextVerify(CellType, "Cell Type", _currentPage, $"Group Expansion - Cell Type");
 
                 _findElements.ClickElementByJavaScript(ExpandIcon, _currentPage, $"Group Tab - Expand Icon"); // Expand/Collapse tab is back to normal
 
@@ -474,8 +474,6 @@ namespace SHAProject.PageObject
 
                 _findElements.ClickElement(UnselectDefaultBF, _currentPage, $"Unselect Default BF");
 
-                UnselectDefaultBF.Click();
-
                 //extentTestNode.Log(!unselectDefaultBF.Selected ? Status.Pass : Status.Fail, !unselectDefaultBF.Selected ? "DefaultBF checkbox is unselected" : "DefaultBF checkbox is not unselected");
 
                 //jScript.ExecuteScript("arguments[0].click();", unselectDefaultBF); /* Select the DefaultBF*/
@@ -501,16 +499,18 @@ namespace SHAProject.PageObject
         {
             try
             {
-                _findElements.ClickElementByJavaScript(ModifyAssayIcon, _currentPage, $"Modify Assay Icon ");
+                //_findElements.ClickElementByJavaScript(ModifyAssayIcon, _currentPage, $"Modify Assay Icon ");
 
-                _findElements.ClickElementByJavaScript(InjectionNames, _currentPage, $"Modify Assay - Injection Names ");
+                _findElements.ClickElement(InjectionNames, _currentPage, $"Modify Assay - Injection Names ");
 
+                //_findElements.VerifyElement(InjTable,_currentPage,$"All Injcetion Names");
 
-                //int count = InjectionCount.Count;
-                ////extentTestNode.Log(Status.Pass, "The file is - " + count + " injection file type");
-                ////ScreenshotNow(ScreenshotPath, workflow, testid + " - No.of.Injection is - " + count, ScreenshotType.Info);
+                //int count = InjectionCount
+                //extentTestNode.Log(Status.Pass, "The file is - " + count + " injection file type");
+                //ScreenshotNow(ScreenshotPath, workflow, testid + " - No.of.Injection is - " + count, ScreenshotType.Info);
+                InjectionRename.Clear();
 
-                //_findElements.SendKeys(injectionName, InjectionRename, _currentPage, "Injection Count ", "Modify Assay - Injection Count ");
+                _findElements.SendKeys(injectionName, InjectionRename, _currentPage,$"Modify Assay - Injection Count ");
 
                 _findElements.ClickElementByJavaScript(SaveBtn, _currentPage, $"Injection Name -Save button");
 

@@ -30,7 +30,6 @@ namespace SHAProject.Utilities
     {
         public readonly IWebDriver _driver;
         public LoginData? loginData;
-        public UploadFile? uploadFile;
         public FindElements? findElements;
         private static IWebDriver webdriver;
 

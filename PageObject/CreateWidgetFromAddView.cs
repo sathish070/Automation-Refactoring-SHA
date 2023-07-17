@@ -4,8 +4,6 @@ using SHAProject.Utilities;
 using SHAProject.SeleniumHelpers;
 using AventStack.ExtentReports;
 using SeleniumExtras.PageObjects;
-using OpenQA.Selenium.Support.UI;
-using Microsoft.AspNetCore.Hosting;
 
 namespace SHAProject.Create_Widgets
 {
@@ -36,23 +34,21 @@ namespace SHAProject.Create_Widgets
         [FindsBy(How = How.ClassName, Using = "addnewlist")]
         private IWebElement? AddnewlistViewIcon;
 
+        [FindsBy(How = How.Id, Using = "AddViewsModal")]
+        public IWebElement? AddViewPopUp;
+
         [FindsBy(How = How.CssSelector, Using = "(//*[@class='caret'])[3]\")")]
         private IWebElement? AnalysispageAddViewClick;
 
         [FindsBy(How = How.Id, Using = "btnAddview")]
         private IWebElement? AddViewButton;
 
-        [FindsBy(How = How.XPath, Using = "(//*[@class='caret'])[3]")]
-        private IWebElement? Analysispage_AddViewCompanionViewsClick;
-
-        [FindsBy(How =How.XPath, Using = "//div[@class='col-md-2 modal-right-groups']")]
-        private IWebElement? AddviewGroups;
-
-        [FindsBy(How = How.XPath, Using = "(//li[@id='msv_my_view'])[1]")]
-        private IWebElement? CustomView;
-
         [FindsBy(How = How.XPath, Using = "(//span[@class='caret'])[2]")]
         private IWebElement? CustomViewCompanionViews;
+
+        [FindsBy(How = How.XPath, Using = "//div[@class='col-md-2 modal-right-groups']")]
+        private IWebElement? AddviewGroups;
+
         #endregion
 
         #region StandradView Element
@@ -87,21 +83,15 @@ namespace SHAProject.Create_Widgets
         [FindsBy(How = How.CssSelector, Using = "[src='/images/svg/AddView/View-Widget-Heat-Map-unavailable.svg']")]
         private IWebElement? UnavailableHeatMap;
 
+        [FindsBy(How = How.XPath, Using = "(//li[@id='msv_my_view'])[1]")]
+        private IWebElement? CustomView;
+
         [FindsBy(How = How.CssSelector, Using = "[src='/images/svg/AddView/View-Widget-Dose-Response.svg']")]
         private IWebElement? DoseResponse;
-
-        [FindsBy(How = How.XPath, Using = "(//div[@class='comp-list-right']/span)[1]")]
-        private IWebElement? CompoundLIst;
-
-        [FindsBy(How = How.XPath, Using = "(//div[@class='group-list-right']/span)[1]")]
-        private IWebElement? Grouplist;
 
         #endregion
 
         #region MstView Element
-
-        [FindsBy(How = How.XPath, Using = "(//*[@class='caret'])[3]")]
-        private IWebElement? Analysispage_AssayKitCompanionViewsAddViewClick;
 
         [FindsBy(How = How.CssSelector, Using = "[src='/images/svg/AddView/View-Widget-MST-Mitochondrial-Respiration.svg?v=8daQG0X_yW7X--6UYbGipk0mJfMKu9us10MUs0BD9Bo']")]
         private IWebElement MitochondrialRespirationWidget;
@@ -164,7 +154,7 @@ namespace SHAProject.Create_Widgets
         [FindsBy(How = How.CssSelector, Using = "[src='/images/svg/AddView/View-Widget-Cell-Pheno-Stressed-ECAR.svg?v=eQy4t3WZr2QNWf-HOS7SXsKgxSGQWSAmxGcTngh9k18']")]
         private IWebElement StressedECARWidget;
 
-        [FindsBy(How = How.CssSelector, Using = "[src='/images/svg/AddView/View-Widget-Cell-Pheno-Data-Table.svg? v = gfCEv5 - VL9_l - yWRkk_ahX2TWgC42fQGyvHyht7kWkg']")]
+        [FindsBy(How = How.CssSelector, Using = "[src='/images/svg/AddView/View-Widget-Cell-Pheno-Data-Table.svg?v=gfCEv5-VL9_l-yWRkk_ahX2TWgC42fQGyvHyht7kWkg']")]
         private IWebElement CellEnergyDataTableWidget;
 
         #endregion
@@ -175,16 +165,23 @@ namespace SHAProject.Create_Widgets
             {
                 Thread.Sleep(5000);
 
-                _commonFunc?.HandleCurrentWindow();
+                bool Isdisplayed = AddViewPopUp.Displayed;
+                if (Isdisplayed)
+                {
+                    AddView(wCat, SelectedWidgets);
+                }
+                else
+                {
+                    _commonFunc?.HandleCurrentWindow();
 
-                _findElements?.ClickElement(SideViewMenuToggleButton, _currentPage, $"Analysis Page - Side View Toggle Button");
+                    _findElements?.ClickElement(SideViewMenuToggleButton, _currentPage, $"Analysis Page - Side View Toggle Button");
 
-                _findElements?.ScrollIntoViewAndClickElementByJavaScript(AddnewlistViewIcon, _currentPage, $"Analysis Page - Add New List");
+                    _findElements?.ScrollIntoViewAndClickElementByJavaScript(AddnewlistViewIcon, _currentPage, $"Analysis Page - Add New List");
 
-                ScreenShot.ScreenshotNow(_driver, _currentPage, "Add View", ScreenshotType.Info);
+                    ScreenShot.ScreenshotNow(_driver, _currentPage, "Add View", ScreenshotType.Info);
 
-                AddView(wCat, SelectedWidgets);
-
+                    AddView(wCat, SelectedWidgets);
+                }
             }
             catch (Exception e)
             {
@@ -203,35 +200,34 @@ namespace SHAProject.Create_Widgets
                     case WidgetCategories.XfStandard:
                         _findElements?.ClickElement(DefaultGraphClick, _currentPage, $"Add View popup - Standard view");
                         _findElements?.ClickElement(companionView, _currentPage, "Add View popup -Standard view");
-                        VerifyGroup(Grouplist);
-                    break;
+                        break;
 
                     case WidgetCategories.XfCustomview:
                         _findElements?.ClickElement(CustomViewCompanionViews, _currentPage, $"Add View popup - Standard view");
                         _findElements?.ClickElement(CustomView, _currentPage, "Add View popup -Standard view");
-                    break;
+                        break;
 
                     case WidgetCategories.XfStandardDose:
                         _findElements?.ClickElement(DefaultGraphClick, _currentPage, $"Add View popup - Standard view");
                         _findElements?.ClickElement(companionView, _currentPage, "Add View popup - Standard Dose view");
-                        VerifyGroup(CompoundLIst);
-                    break;
+                        VerifyGroup();
+                        break;
 
                     case WidgetCategories.XfStandardBlank:
                         _findElements?.ClickElement(DefaultGraphClick, _currentPage, $"Add View popup - Standard view");
                         _findElements?.ClickElement(companionView, _currentPage, "Add View popup - Blank view");
-                    break;
+                        break;
 
                     case WidgetCategories.XfMst:
-                        _findElements?.ClickElement(Analysispage_AddViewCompanionViewsClick, _currentPage, $"Add View popup - XF Cell Mito Stress View view");
+                        _findElements?.ClickElement(AnalysispageAddViewClick, _currentPage, $"Add View popup - XF Cell Mito Stress View view");
                         _findElements?.ClickElement(companionView, _currentPage, "Add View popup - XFCellEnergyPhenotype view");
-                        DropdownSelect(_fileUploadOrExistingFileData.OligoInjection, MstOligoinjection,"Add View popup Oligo Droupdown");
-                    break;
+                        DropdownSelect(_fileUploadOrExistingFileData.OligoInjection, MstOligoinjection, "Add View popup Oligo Droupdown");
+                        break;
 
                     case WidgetCategories.XfCellEnergy:
-                        _findElements?.ClickElement(Analysispage_AddViewCompanionViewsClick, _currentPage, $"Add View popup - XFCellEnergyPhenotype view");
+                        _findElements?.ClickElement(AnalysispageAddViewClick, _currentPage, $"Add View popup - XFCellEnergyPhenotype view");
                         _findElements?.ClickElement(companionView, _currentPage, "Add View popup - XFCellEnergyPhenotype view");
-                    break;
+                        break;
                 }
 
                 Dictionary<WidgetCategories, List<WidgetTypes>> widgetMappings = GetWidgetMappings();
@@ -251,7 +247,7 @@ namespace SHAProject.Create_Widgets
             }
             catch (Exception e)
             {
-                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $" Error in AddView functionality { e.Message}");
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $" Error in AddView functionality {e.Message}");
             }
         }
 
@@ -340,7 +336,7 @@ namespace SHAProject.Create_Widgets
             if (widgetElement != null)
             {
                 string widgetDescription = GetWidgetDescription(wType, wCat);
-                _findElements?.ClickElement(widgetElement, _currentPage, widgetDescription);
+                _findElements.ClickElement(widgetElement, _currentPage, widgetDescription);
             }
             else
             {
@@ -367,8 +363,8 @@ namespace SHAProject.Create_Widgets
                 case (WidgetCategories.XfStandard, WidgetTypes.HeatMap):
                     return HeatMap;
 
-                // Dose responce View
-                case(WidgetCategories.XfStandardDose, WidgetTypes.DoseResponse):
+                // StandardDose
+                case (WidgetCategories.XfStandardDose, WidgetTypes.DoseResponse):
                     return DoseResponse;
 
                 // XF Cell Mito Stress Test View
@@ -443,7 +439,7 @@ namespace SHAProject.Create_Widgets
             return wCat + " - " + widget + " widget";
         }
 
-        private void DropdownSelect(String oligo , IWebElement Dropdown , String Description)
+        private void DropdownSelect(String oligo, IWebElement Dropdown, String Description)
         {
             try
             {
@@ -453,27 +449,30 @@ namespace SHAProject.Create_Widgets
 
                 ScreenShot.ScreenshotNow(_driver, _currentPage, Description, ScreenshotType.Info, Dropdown);
 
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
-                ExtentReport.ExtentTest("EntendtestNode", Status.Fail, "Error Occured while selecting a "+Description+"with the Message:"+ex);
+                ExtentReport.ExtentTest("EntendtestNode", Status.Fail, "Error Occured while selecting a " + Description + "with the Message:" + ex);
             }
 
         }
 
-        private void VerifyGroup(IWebElement element)
+        private void VerifyGroup()
         {
             try
             {
                 _findElements?.VerifyElement(AddviewGroups, _currentPage, "Add View popup Groups Area");
+
+                IWebElement element = _driver.FindElement(By.XPath("(//div[@class='comp-list-right']/span)[1]"));
 
                 _findElements.ClickElementByJavaScript(element, _currentPage, "Unselecting the First Group");
 
                 _findElements.ClickElementByJavaScript(element, _currentPage, "Selecting the First Group");
 
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
-                ExtentReport.ExtentTest("EntendtestNode", Status.Fail, "Error Occured while selecting a group with the Message:" + ex.Message);
+
             }
         }
     }

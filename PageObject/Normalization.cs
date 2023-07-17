@@ -1,12 +1,12 @@
 ﻿using AventStack.ExtentReports;
 using OpenQA.Selenium;
 using SeleniumExtras.PageObjects;
-using SHAProject.PageObject;
 using SHAProject.SeleniumHelpers;
 using SHAProject.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -31,6 +31,8 @@ namespace SHAProject.Page_Object
             _commonFunc = commonFunc;
             PageFactory.InitElements(_driver, this);
         }
+
+        #region Normalization PopUp Elements
 
         [FindsBy(How = How.CssSelector, Using = "[title='Normalize']")]
         public IWebElement NormalizationIcon;
@@ -59,9 +61,9 @@ namespace SHAProject.Page_Object
         [FindsBy(How = How.CssSelector, Using = ".normalization-property")]
         public IWebElement? NormalizationField;
 
+        #endregion
         public void NormalizationElements()
         {
-
             try
             {
                 Thread.Sleep(5000);
@@ -87,9 +89,8 @@ namespace SHAProject.Page_Object
             }
             catch (Exception ex)
             {
-                ExtentReport.ExtentTest("ExtendTestNode", Status.Fail, "Error Occured while verfiying the File with the Normalization Concept: Message"+ex.Message);
+                ExtentReport.ExtentTest("ExtendTestNode", Status.Fail, "Error Occured while verfiying the File with the Normalization Concept: Message" + ex.Message);
             }
-
         }
 
         public void ApplyNormalizationValues(bool ApplyToAllWidgets)
@@ -100,7 +101,7 @@ namespace SHAProject.Page_Object
 
                 _findElements.VerifyElement(NormalizationPopup, _currentPage, $"Normalization Popup");
 
-                _findElements.SendKeys(_normalizationData.Units, NormalizationUnits, _currentPage, "Given normalization unit is-"+_normalizationData.Units);
+                _findElements.SendKeys(_normalizationData.Units, NormalizationUnits, _currentPage, "Given normalization unit is - " + _normalizationData.Units);
 
                 _findElements.SendKeys(_normalizationData.ScaleFactor, ScaleFactorField, _currentPage, "Given scale factor is - " + _normalizationData.ScaleFactor);
 
@@ -119,21 +120,6 @@ namespace SHAProject.Page_Object
             catch (Exception e)
             {
                 ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"The error occured in Apply Normalization Icon functionality. The error is { e.Message }");
-            }
-        }
-
-        public void NormalizationToggle()
-        {
-            try
-            {
-                _findElements.VerifyElement(NormalizationField, _currentPage, "Normalization toggle");
-
-                bool Toogle = NormalizationField.Selected;
-                ExtentReport.ExtentTest("ExtendTestNode", Toogle ? Status.Pass : Status.Fail, Toogle ? "Normalization Toddled in Enabled": "Normalization Toddled in Disabled");
-            }
-            catch (Exception ex)
-            {
-                ExtentReport.ExtentTest("ExtendTestNode", Status.Fail, "Error Occured while verfiying the File with the Normalization Concept: Message" + ex.Message);
             }
         }
     }

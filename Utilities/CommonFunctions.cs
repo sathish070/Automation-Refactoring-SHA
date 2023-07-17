@@ -134,7 +134,14 @@ namespace SHAProject.Utilities
                 (WidgetCategories.XfMst, WidgetTypes.SpareRespiratoryCapacityPercent) => "Spare Respiratory Capacity (%)",
 
                 // XfCellEnergyPhenotype View
-                (WidgetCategories.XfCellEnergy, WidgetTypes.XfCellEnergyPhenotype) => "Spare Respiratory Capacity (%)",
+                (WidgetCategories.XfCellEnergy, WidgetTypes.XfCellEnergyPhenotype) => "XF Cell Energy Phenotype",
+                (WidgetCategories.XfCellEnergy, WidgetTypes.MetabolicPotentialOcr) => "Metabolic Potential OCR",
+                (WidgetCategories.XfCellEnergy, WidgetTypes.MetabolicPotentialEcar) => "Metabolic Potential ECAR",
+                (WidgetCategories.XfCellEnergy, WidgetTypes.BaselineOcr) => "Baseline OCR",
+                (WidgetCategories.XfCellEnergy, WidgetTypes.BaselineEcar) => "Baseline ECAR",
+                (WidgetCategories.XfCellEnergy, WidgetTypes.StressedOcr) => "Stressed OCR",
+                (WidgetCategories.XfCellEnergy, WidgetTypes.StressedEcar) => "Stressed ECAR",
+                (WidgetCategories.XfCellEnergy, WidgetTypes.DataTable) => "Average Assay Parameter Calculations",
                 _ => "",
             };
             return chartName;
@@ -156,20 +163,27 @@ namespace SHAProject.Utilities
                 (WidgetCategories.XfStandard, WidgetTypes.DoseResponse) => 43,
 
                 // XfMitochondrialRespiration View
-                (WidgetCategories.XfMst, WidgetTypes.MitochondrialRespiration) => 24,
-                (WidgetCategories.XfMst, WidgetTypes.Basal) => 8,
-                (WidgetCategories.XfMst, WidgetTypes.AcuteResponse) => 1,
-                (WidgetCategories.XfMst, WidgetTypes.ProtonLeak) => 28,
-                (WidgetCategories.XfMst, WidgetTypes.MaximalRespiration) => 20,
-                (WidgetCategories.XfMst, WidgetTypes.SpareRespiratoryCapacity) => 29,
-                (WidgetCategories.XfMst, WidgetTypes.NonMitoO2Consumption) => 25,
-                (WidgetCategories.XfMst, WidgetTypes.AtpProductionCoupledRespiration) => 2,
-                (WidgetCategories.XfMst, WidgetTypes.CouplingEfficiencyPercent) => 7,
-                (WidgetCategories.XfMst, WidgetTypes.SpareRespiratoryCapacityPercent) => 30,
+                (WidgetCategories.XfMst, WidgetTypes.MitochondrialRespiration) => 1,
+                (WidgetCategories.XfMst, WidgetTypes.Basal) => 2,
+                (WidgetCategories.XfMst, WidgetTypes.AcuteResponse) => 3,
+                (WidgetCategories.XfMst, WidgetTypes.ProtonLeak) => 4,
+                (WidgetCategories.XfMst, WidgetTypes.MaximalRespiration) => 5,
+                (WidgetCategories.XfMst, WidgetTypes.SpareRespiratoryCapacity) => 6,
+                (WidgetCategories.XfMst, WidgetTypes.NonMitoO2Consumption) => 7,
+                (WidgetCategories.XfMst, WidgetTypes.AtpProductionCoupledRespiration) => 8,
+                (WidgetCategories.XfMst, WidgetTypes.CouplingEfficiencyPercent) => 9,
+                (WidgetCategories.XfMst, WidgetTypes.SpareRespiratoryCapacityPercent) => 10,
                 (WidgetCategories.XfMst, WidgetTypes.DataTable) => 13,
 
                 // XfCellEnergyPhenotype View
-                (WidgetCategories.XfCellEnergy, WidgetTypes.XfCellEnergyPhenotype) => 34
+                (WidgetCategories.XfCellEnergy, WidgetTypes.XfCellEnergyPhenotype) => 34,
+                (WidgetCategories.XfCellEnergy, WidgetTypes.MetabolicPotentialOcr) => 21,
+                (WidgetCategories.XfCellEnergy, WidgetTypes.MetabolicPotentialEcar) => 22,
+                (WidgetCategories.XfCellEnergy, WidgetTypes.BaselineOcr) => 10,
+                (WidgetCategories.XfCellEnergy, WidgetTypes.BaselineEcar) => 11,
+                (WidgetCategories.XfCellEnergy, WidgetTypes.StressedOcr) => 31,
+                (WidgetCategories.XfCellEnergy, WidgetTypes.StressedEcar) => 32,
+                (WidgetCategories.XfCellEnergy, WidgetTypes.DataTable) => 13
             };
             return (int)widgetPosition;
         }
@@ -217,9 +231,10 @@ namespace SHAProject.Utilities
         {
             Thread.Sleep(2000);
             if (type == ChartType.CanvasJS)
-                return driver.ExecuteJavaScript<string>("return currentchartsrc.options.axisY[0].title");
+                return _driver.ExecuteJavaScript<string>("return currentchartsrc.options.axisY[0].title");
             else
-                return driver.FindElement(By.CssSelector("[role='widget'] g[font-size] text tspan")).Text;
+                return _driver.ExecuteJavaScript<string>("return currentchartsrc._yAxes._values[0].title.currentText");
+            //return driver.FindElement(By.CssSelector("[role='widget'] g[font-size] text tspan")).Text;
         }
     }
 }

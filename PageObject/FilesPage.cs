@@ -9,6 +9,7 @@ using SeleniumExtras.PageObjects;
 using SeleniumExtras.WaitHelpers;
 using SHAProject.SeleniumHelpers;
 using SHAProject.Utilities;
+using SHAProject.Workflows;
 using SharpCompress.Common;
 using System;
 using System.Collections.Generic;
@@ -22,18 +23,32 @@ namespace SHAProject.Create_Widgets
     public class FilesPage
     {
         public IWebDriver? _driver;
-        public FindElements _findElements;
+        public FindElements? _findElements;
         public string _currentPage = string.Empty;
+        public FileUploadOrExistingFileData? _fileUploadOrExistingFileData;
         public FilesTabData? _FilesTabData;
 
-        public FilesPage(string currentPage, IWebDriver driver, FindElements findElements, FilesTabData filesTabData)
+        public FilesPage(string currentPage, IWebDriver driver, FindElements findElements, FileUploadOrExistingFileData fileUploadOrExistingFileData, FilesTabData FilesTabData)
         {
             _driver = driver;
             _currentPage = currentPage;
             _findElements = findElements;
-            _FilesTabData = filesTabData;
+            _fileUploadOrExistingFileData = fileUploadOrExistingFileData;
+            _FilesTabData = FilesTabData;
             PageFactory.InitElements(_driver, this);
         }
+
+        #region SearchBox
+
+        [FindsBy(How = How.Id, Using = "Files")]
+        public IWebElement? filesTab;
+
+        [FindsBy(How = How.CssSelector, Using = "#filter-text-box")]
+        public IWebElement? searchTextBox;
+
+        [FindsBy(How = How.XPath, Using = "(//span[@class=\"ag-cell-value\"]/span)[1]")]
+        public IWebElement? selectFirstResultedFile;
+        #endregion
 
         #region LayoutVerification Elements
 
@@ -313,8 +328,8 @@ namespace SHAProject.Create_Widgets
         [FindsBy(How = How.CssSelector, Using = "#filter-text-box")]
         private IWebElement searchbox { get; set; }
 
-        [FindsBy(How = How.CssSelector, Using = ".filetabAssayimage")]
-        private IWebElement selectFirstResultedFile { get; set; }
+        //[FindsBy(How = How.CssSelector, Using = ".filetabAssayimage")]
+        //private IWebElement selectFirstResultedFile { get; set; }
 
         [FindsBy(How = How.XPath, Using = "(//div[@class='ag-selection-checkbox'])[1]")] 
         private IWebElement firstCheckbox { get; set; }
@@ -501,8 +516,6 @@ namespace SHAProject.Create_Widgets
 
         [FindsBy(How = How.CssSelector, Using = ".btn.btn-primary.confirm-update")]
         private IWebElement updateBtn { get; set; }
-
-
         #endregion
 
         #region Test Functions
@@ -519,6 +532,25 @@ namespace SHAProject.Create_Widgets
             {
                 ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"Files tab button is not clicked. The error is {e.Message}");
                 ScreenShot.ScreenshotNow(_driver, _currentPage, "Error Screenshot", ScreenshotType.Error);
+                return false;
+            }
+        }
+        public bool SearchFilesInFileTab(string currentPage)
+        {
+            try
+            {
+                _findElements.ClickElement(filesTab, _currentPage, "Files Tab");
+
+                _findElements.SendKeys(_fileUploadOrExistingFileData.FileName, searchTextBox, _currentPage, $"Given file name is - {_fileUploadOrExistingFileData.FileName}");
+
+                _findElements.ClickElement(selectFirstResultedFile, _currentPage, $"Files Tab - First file");
+
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"Existing file selected successfully");
+                return true;
+            }
+            catch (Exception e)
+            {
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Existing file not selected.The error is {e.Message}");
                 return false;
             }
         }

@@ -39,7 +39,7 @@ namespace SHAProject.Create_Widgets
         [FindsBy(How = How.Id, Using = "btnAddWidget")]
         public IWebElement? AddWidgetBtn;
 
-        [FindsBy(How = How.XPath, Using = "//div[@id='addNewGraph']/img")]
+        [FindsBy(How = How.Id, Using = "icongraph")]
         public IWebElement? AddWidgetIcon;
 
         public void AddWidgets(WidgetCategories wCat, WidgetTypes wType)

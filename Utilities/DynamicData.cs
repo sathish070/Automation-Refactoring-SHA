@@ -164,10 +164,23 @@ namespace SHAProject.Utilities
 
     public class GraphSettings
     {
-        public bool Zeroline { get; set; }
-        public bool Linemarker { get; set; }
-        public bool RateHighlight { get; set; }
-        public bool InjectionMakers { get; set; }
+        public bool SynctoView { get; set; }
+        public bool RemoveZoom { get; set; }
+        public bool RemoveZeroLine { get; set; }
+        public bool RemoveXAutoScale { get; set; }
+        public bool RemoveYAutoScale { get; set; }
+        public bool RemoveLineMarkers { get; set; }
+        public bool RemoveRateHighlight { get; set; }
+        public bool RemoveInjectionMarkers { get; set; }
+
+        // Dose graph settings
+
+        public bool DoseSynctoView { get; set; }
+        public bool RemoveDoseZoom { get; set; }
+        public bool RemoveDoseZeroLine { get; set; }
+        public bool RemoveDoseXAutoScale { get; set; }
+        public bool RemoveDoseYAutoScale { get; set; }
+        public bool RemoveDoseLineMarkers { get; set; }
     }
 
     public class WidgetItems
@@ -177,32 +190,32 @@ namespace SHAProject.Utilities
         public string? Display { get; set; }
         public string? Y { get; set; }
         public bool Normalization { get; set; }
+        public string? SortBy { get; set; }
         public string? ErrorFormat { get; set; }
         public bool BackgroundCorrection { get; set; }
         public string? Baseline { get; set; }
-        public string? GraphUnits { get; set; }
-        public string? NormalizedGraphUnits { get; set; }
+        public string? ExpectedGraphUnits { get; set; }
         public bool GraphSettingsVerify { get; set; }
         public GraphSettings? GraphSettings { get; set; }
         public KitValidation? KitValidation { get; set; }
         public HeatTolerance? HeatTolerance { get; set; }
         public bool CheckNormalizationWithPlateMap { get; set; }
         public bool IsExportRequired { get; set; }
+        public bool PlateMapSynctoView { get; set; }
         public bool DoseResponseAddWidget { get; set; }
         public bool DoseResponseAddView { get; set; }
         public string? Oligo { get; set; }
     }
 
-    public class WorkFlow1Data
+    public class WorkFlow5Data
     {
+        public List<WidgetTypes> AddDoseWidget { get; set; }
         public bool AnalysisLayoutVerification { get; set; }
-        public string? ExportViewOption { get; set; }
         public bool DeleteWidgetRequired { get; set; }
         public WidgetTypes DeleteWidgetName { get; set; }
         public bool AddWidgetRequired { get; set; }
         public WidgetTypes AddWidgetName { get; set; }
         public bool NormalizationVerification { get; set; }
-        public string? NormalizedFileName { get; set; }
         public bool ApplyToAllWidgets { get; set; }
         public bool ModifyAssay { get; set; }
         public WidgetTypes SelectWidgetName { get; set; }
@@ -218,7 +231,6 @@ namespace SHAProject.Utilities
         public WidgetItems? DoseResponse { get; set; }
         public bool CreateBlankView { get; set; }
         public WidgetTypes AddBlankWidget { get; set; }
-        public List<WidgetTypes> AddDoseWidget { get; set; }
         public string? CustomViewName { get; set; }
         public string? CustomViewDescription { get; set; }
         public string? AddGroupName { get; set; }
@@ -274,28 +286,6 @@ namespace SHAProject.Utilities
         public string? EditCategoryName { get; set; }
     }
 
-    public class WorkFlow6Data
-    {
-        public bool AnalysisLayoutVerification { get; set; }
-        public bool Normalization { get; set; }
-        public string? NormalizationLabel { get; set; } = null;
-        public string NormalizationScaleFactor { get; set; } = "1";
-        public bool ApplyToAllWidgets { get; set; }
-        public List<string> NormalizationValues { get; set; }
-        public bool ModifyAssay { get; set; }
-        public WidgetItems MitochondrialRespiration { get; set; }
-        public WidgetItems BasalRespiration { get; set; }
-        public WidgetItems AcuteResponse { get; set; }
-        public WidgetItems ProtonLeak { get; set; }
-        public WidgetItems MaximalRespiration { get; set; }
-        public WidgetItems SpareRespiratoryCapacity { get; set; }
-        public WidgetItems NonmitoO2Consumption { get; set; }
-        public WidgetItems ATPProductionCoupledRespiration { get; set; }
-        public WidgetItems CouplingEfficiency { get; set; }
-        public WidgetItems SpareRespiratoryCapacityPercentage { get; set; }
-        public WidgetItems DataTable { get; set; }
-    }
-
     public class WorkFlow8Data
     {
         public bool LayoutVerification { get; set; }
@@ -303,14 +293,13 @@ namespace SHAProject.Utilities
         public WidgetTypes SelectWidgetName { get; set; }
         public bool GraphProperties { get; set; }
         public WidgetItems? CellEnergyPhenotype { get; set; }
-        public WidgetItems? KineticGraphEcar { get; set; }
-        public WidgetItems? KineticGraphPer { get; set; }
-        public WidgetItems? Barchart { get; set; }
-        public WidgetItems? EnergyMap { get; set; }
-        public WidgetItems? HeatMap { get; set; }
-        public WidgetItems? DoseResponseWidget { get; set; }
-        public WidgetItems? DoseResponseView { get; set; }
-        public WidgetItems? DoseResponse { get; set; }
+        public WidgetItems? MetabolicPotentialOCR { get; set; }
+        public WidgetItems? MetabolicPotentialECAR { get; set; }
+        public WidgetItems? BaselineOCR { get; set; }
+        public WidgetItems? BaselineECAR { get; set; }
+        public WidgetItems? StressedOCR { get; set; }
+        public WidgetItems? StressedECAR { get; set; }
+        public WidgetItems? DataTable { get; set; }
     }
 
     public class KitValidation

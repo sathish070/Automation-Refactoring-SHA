@@ -21,8 +21,7 @@ namespace SHAProject
         protected NormalizationData? normalizationData { get; set; }
         protected FileUploadOrExistingFileData? fileUploadOrExistingFileData { get; set; }
         protected WidgetItems? widgetItems { get; set; }
-        protected WorkFlow1Data WorkFlow1Data { get; set; }
-        protected WorkFlow6Data WorkFlow6Data { get; set; }
+        protected WorkFlow5Data? WorkFlow5Data { get; set; }
         protected WorkFlow8Data? WorkFlow8Data { get; set; }
         public FilesTabData? FilesTabData { get; set; }
         public ExtentTest? extentTest;
@@ -73,15 +72,14 @@ namespace SHAProject
                 currentBrowser = new CurrentBrowser();
                 normalizationData = new NormalizationData();
                 fileUploadOrExistingFileData = new FileUploadOrExistingFileData();
-                WorkFlow1Data = new WorkFlow1Data();
-                WorkFlow6Data = new WorkFlow6Data();
+                WorkFlow5Data = new WorkFlow5Data();
                 WorkFlow8Data = new WorkFlow8Data();
                 FilesTabData = new FilesTabData();
                 string CURRENT_BUILD_PATH = currentBulidPath;
 
                 currentBrowser.BrowserName = "Chrome";
 
-                reader = new ExcelReader(loginData, fileUploadOrExistingFileData, normalizationData, WorkFlow1Data, WorkFlow6Data,WorkFlow8Data, CURRENT_BUILD_PATH, currentBrowser, extentTest, FilesTabData);
+                reader = new ExcelReader(loginData, fileUploadOrExistingFileData, normalizationData, WorkFlow5Data, WorkFlow8Data, CURRENT_BUILD_PATH, currentBrowser, extentTest, FilesTabData);
 
                 bool excelReadStatus = reader.ReadDataFromExcel("Login");
                 if (excelReadStatus)

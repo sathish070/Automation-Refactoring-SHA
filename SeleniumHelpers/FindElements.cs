@@ -1,23 +1,9 @@
-﻿using AventStack.ExtentReports;
+﻿using System;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using SHAProject.Utilities;
-using SeleniumExtras.WaitHelpers;
-using SeleniumExtras.PageObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Reflection.Metadata.Ecma335;
-using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
-using System.Threading;
-using System.Text.RegularExpressions;
-using System.Reflection;
-using System.Diagnostics;
-using AngleSharp.Dom;
-using OpenQA.Selenium.DevTools.V112.Fetch;
 using OpenQA.Selenium.Interactions;
+using SHAProject.Utilities;
+using AventStack.ExtentReports;
 
 namespace SHAProject.SeleniumHelpers
 {
@@ -32,7 +18,7 @@ namespace SHAProject.SeleniumHelpers
 
         public IWebElement WaitForElementVisible(IWebElement element)
         {
-            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(60));
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
             return wait.Until(driver =>
             {
                 try
@@ -150,6 +136,7 @@ namespace SHAProject.SeleniumHelpers
         {
             try
             {
+                _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
                 IWebElement webElement = WaitForElementVisible(element);
                 if (webElement.Enabled && webElement.Displayed)
                 {
@@ -189,7 +176,7 @@ namespace SHAProject.SeleniumHelpers
                     IJavaScriptExecutor jScript = (IJavaScriptExecutor)_driver;
                     jScript?.ExecuteScript("arguments[0].scrollIntoView(true);", element);  
                     jScript?.ExecuteScript("arguments[0].click();", element);
-                    ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"{fieldName} - is displayed and clickable on the page");
+                    ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"{fieldName} - is displayed and clickable on the page");
                 }
                 else
                 {
@@ -242,7 +229,7 @@ namespace SHAProject.SeleniumHelpers
             }
             catch (Exception e)
             {
-                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Element text verification is failed.The error is {e.Message}");
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Element  - {fieldName} text verification is failed.The error is {e.Message}");
                 ScreenShot.ScreenshotNow(_driver, currentPage, fieldName, ScreenshotType.Error, element);
             }
         }

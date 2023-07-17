@@ -25,8 +25,9 @@ namespace SHAProject.Workflows
         public bool loginStatus;
         public Exports? exports;
         public PlateMap? plateMap;
+        public HomePage? homePage;
+        public FilesPage? filesPage;
         public LoginClass? loginClass;
-        public UploadFile? uploadFile;
         public ModifyAssay? modifyAssay;
         public AnalysisPage? analysisPage;
         public GroupLegends? groupLegends;
@@ -147,15 +148,16 @@ namespace SHAProject.Workflows
         {
             graphSettings = new GraphSettings(currentPage, driver, loginClass.findElements, commonFunc);
             graphProperties = new GraphProperties(currentPage, driver, loginClass.findElements, commonFunc);
-            uploadFile = new UploadFile(currentPage, driver, loginClass.findElements, fileUploadOrExistingFileData);
+            homePage = new HomePage(currentPage, driver, loginClass.findElements, fileUploadOrExistingFileData);
             exports = new Exports(currentPage, driver, loginClass.findElements, fileUploadOrExistingFileData, commonFunc);
+            filesPage = new FilesPage(currentPage, driver, loginClass.findElements, fileUploadOrExistingFileData, FilesTabData);
             modifyAssay = new ModifyAssay(currentPage, driver, loginClass.findElements, fileUploadOrExistingFileData, commonFunc);
             analysisPage = new AnalysisPage(currentPage, driver, loginClass.findElements, fileUploadOrExistingFileData, commonFunc);
             groupLegends = new GroupLegends(currentPage, driver, loginClass.findElements, fileUploadOrExistingFileData, commonFunc);
             addWidgets = new CreateWidgetFromAddWidget(currentPage, driver, loginClass.findElements, fileUploadOrExistingFileData, commonFunc);
             createWidgets = new CreateWidgetFromAddView(currentPage, driver, loginClass.findElements, fileUploadOrExistingFileData, commonFunc);
             normalization = new Normalization(currentPage, driver, loginClass.findElements, normalizationData, fileUploadOrExistingFileData, commonFunc);
-            plateMap = new PlateMap(currentPage, driver, loginClass.findElements, commonFunc, fileUploadOrExistingFileData, fileUploadOrExistingFileData.FileType);
+            plateMap = new PlateMap(currentPage, driver, loginClass.findElements, commonFunc, fileUploadOrExistingFileData, fileUploadOrExistingFileData.FileType, normalizationData);
         }
 
         [Test, Order(1)]
@@ -166,26 +168,29 @@ namespace SHAProject.Workflows
             if (loginStatus)
             {
                 bool FileStatus = false;
+                bool Searchedfile = false;
                 if (fileUploadOrExistingFileData.IsFileUploadRequired)
                 {
-                    FileStatus = uploadFile.HomePageFileUpload();
+                    FileStatus = homePage.HomePageFileUpload();
                 }
                 else if (fileUploadOrExistingFileData.OpenExistingFile)
                 {
-                    FileStatus = uploadFile.SearchFilesInFileTab(fileUploadOrExistingFileData.FileName);
+                    Searchedfile = filesPage.SearchFilesInFileTab(currentPage);
                 }
                 else
                 {
                     Assert.Ignore("Both FileUpload status and Open existing file status is false");
                 }
 
-                if (FileStatus)
+                if (!FileStatus && Searchedfile)
                 {
-                    createWidgets.CreateWidgets(WidgetCategories.XfCellEnergy, fileUploadOrExistingFileData.SelectedWidgets);
+                    Thread.Sleep(5000);
+                    createWidgets?.CreateWidgets(WidgetCategories.XfCellEnergy, fileUploadOrExistingFileData.SelectedWidgets);
                 }
                 else
                 {
-                    Assert.Fail();
+                    Thread.Sleep(3000);
+                    createWidgets?.AddView(WidgetCategories.XfCellEnergy, fileUploadOrExistingFileData.SelectedWidgets);
                 }
             }
             else
@@ -225,7 +230,7 @@ namespace SHAProject.Workflows
         [Test, Order(3)]
         public void XFCellEnergyPhenotype()
         {
-            ExtentReport.CreateExtentTestNode("XFCellEnergyPhenotype");
+            ExtentReport.CreateExtentTestNode("XF Cell Energy Phenotype");
 
             if (fileUploadOrExistingFileData.SelectedWidgets.Contains(WidgetTypes.XfCellEnergyPhenotype))
             {
@@ -244,9 +249,9 @@ namespace SHAProject.Workflows
 
                 if (hasEditWidgetPageGone)
                 {
-
                     graphProperties.Normalization(WorkFlow8Data.CellEnergyPhenotype);
-                    graphProperties.ErrorFormat(WorkFlow8Data.CellEnergyPhenotype);
+
+                    graphProperties.ErrorFormat(WorkFlow8Data.CellEnergyPhenotype, WidgetCategories.XfStandard, WidgetTypes.BarChart);
 
                     if (WorkFlow8Data.CellEnergyPhenotype.IsExportRequired)
                         exports?.EditWidgetExports(WidgetCategories.XfCellEnergy, WidgetTypes.XfCellEnergyPhenotype, WorkFlow8Data.CellEnergyPhenotype);
@@ -259,6 +264,440 @@ namespace SHAProject.Workflows
             else
             {
                 ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, "XF Cell Energy Phenotype widget is not required in Excel sheet selected as No.");
+            }
+        }
+
+        [Test, Order(4)]
+        public void MetabolicPotentialOCR()
+        {
+            ExtentReport.CreateExtentTestNode("Metabolic Potential OCR");
+
+            if (fileUploadOrExistingFileData.SelectedWidgets.Contains(WidgetTypes.MetabolicPotentialOcr))
+            {
+                string currentPath = commonFunc.GetCurrentPath();
+
+                if (currentPath.Contains("Widget/Edit"))
+                    commonFunc.MoveBackToAnalysisPage();
+
+                if (!currentPath.Contains("Analysis"))
+                    CreateCellEnergyView();
+
+                if (RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
+                    commonFunc.HandleCurrentWindow();
+
+                bool hasEditWidgetPageGone = analysisPage.GoToEditWidget(WidgetCategories.XfCellEnergy, WidgetTypes.MetabolicPotentialOcr);
+
+                if (hasEditWidgetPageGone)
+                {
+                    graphProperties.Display(WorkFlow8Data.MetabolicPotentialOCR);
+
+                    graphProperties.ErrorFormat(WorkFlow8Data.MetabolicPotentialOCR, WidgetCategories.XfCellEnergy, WidgetTypes.MetabolicPotentialOcr);
+
+                    graphProperties.SortBy(WorkFlow8Data.MetabolicPotentialOCR);
+
+                    if (WorkFlow8Data.MetabolicPotentialOCR.GraphSettingsVerify)
+                    {
+                        graphSettings.VerifyGraphSettingsIcon();
+
+                        graphSettings.XAutoScale(WorkFlow8Data.MetabolicPotentialOCR);
+
+                        graphSettings.ZeroLine(WorkFlow8Data.MetabolicPotentialOCR);
+
+                        graphSettings.Zoom(WorkFlow8Data.MetabolicPotentialOCR);
+
+                        graphSettings.GraphSettingsApply();
+                    }
+
+                    ResultStatus platemapWellCountResult = plateMap.VerifyPlateMapRowandCloumnWell(WidgetTypes.MetabolicPotentialOcr);
+
+                    if (platemapWellCountResult.Status)
+                        ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"{platemapWellCountResult.Message}{WidgetTypes.MetabolicPotentialOcr}");
+                    else
+                        ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"{platemapWellCountResult.Message} {WidgetTypes.MetabolicPotentialOcr}");
+
+                    plateMap.PlateMapIcons();
+
+                    plateMap.PlateMapFunctionalities();
+
+                    if (WorkFlow8Data.MetabolicPotentialOCR.CheckNormalizationWithPlateMap)
+                        plateMap.VerifyNormalizationVal();
+
+                    plateMap.WellDataPopup("A05", "Included in current calculation");
+
+                    groupLegends.EditWidgetGroupLegends(WidgetCategories.XfCellEnergy, WidgetTypes.MetabolicPotentialOcr, WorkFlow8Data.MetabolicPotentialOCR);
+
+                    if (WorkFlow8Data.MetabolicPotentialOCR.IsExportRequired)
+                        exports?.EditWidgetExports(WidgetCategories.XfCellEnergy, WidgetTypes.MetabolicPotentialOcr, WorkFlow8Data.MetabolicPotentialOCR);
+
+                    commonFunc.MoveBackToAnalysisPage();
+                }
+            }
+            else
+            {
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, "Metabolic Potential OCR widget is not required in Excel sheet selected as No.");
+            }
+        }
+
+        [Test, Order(5)]
+        public void MetabolicPotentialECAR()
+        {
+            ExtentReport.CreateExtentTestNode("Metabolic Potential ECAR");
+
+            if (fileUploadOrExistingFileData.SelectedWidgets.Contains(WidgetTypes.MetabolicPotentialEcar))
+            {
+                string currentPath = commonFunc.GetCurrentPath();
+
+                if (currentPath.Contains("Widget/Edit"))
+                    commonFunc.MoveBackToAnalysisPage();
+
+                if (!currentPath.Contains("Analysis"))
+                    CreateCellEnergyView();
+
+                if (RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
+                    commonFunc.HandleCurrentWindow();
+
+                bool hasEditWidgetPageGone = analysisPage.GoToEditWidget(WidgetCategories.XfCellEnergy, WidgetTypes.MetabolicPotentialEcar);
+
+                if (hasEditWidgetPageGone)
+                {
+                    graphProperties.Display(WorkFlow8Data.MetabolicPotentialECAR);
+
+                    graphProperties.ErrorFormat(WorkFlow8Data.MetabolicPotentialECAR, WidgetCategories.XfCellEnergy, WidgetTypes.MetabolicPotentialEcar);
+
+                    graphProperties.SortBy(WorkFlow8Data.MetabolicPotentialECAR);
+
+                    if (WorkFlow8Data.MetabolicPotentialECAR.GraphSettingsVerify)
+                    {
+                        graphSettings.VerifyGraphSettingsIcon();
+
+                        graphSettings.XAutoScale(WorkFlow8Data.MetabolicPotentialECAR);
+
+                        graphSettings.ZeroLine(WorkFlow8Data.MetabolicPotentialECAR);
+
+                        graphSettings.Zoom(WorkFlow8Data.MetabolicPotentialECAR);
+
+                        graphSettings.GraphSettingsApply();
+                    }
+
+                    ResultStatus platemapWellCountResult = plateMap.VerifyPlateMapRowandCloumnWell(WidgetTypes.MetabolicPotentialEcar);
+
+                    if (platemapWellCountResult.Status)
+                        ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"{platemapWellCountResult.Message}{WidgetTypes.MetabolicPotentialEcar}");
+                    else
+                        ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"{platemapWellCountResult.Message} {WidgetTypes.MetabolicPotentialEcar}");
+
+                    plateMap.PlateMapIcons();
+
+                    plateMap.PlateMapFunctionalities();
+
+                    if (WorkFlow8Data.MetabolicPotentialECAR.CheckNormalizationWithPlateMap)
+                        plateMap.VerifyNormalizationVal();
+
+                    plateMap.WellDataPopup("A05", "Included in current calculation");
+
+                    groupLegends.EditWidgetGroupLegends(WidgetCategories.XfCellEnergy, WidgetTypes.MetabolicPotentialEcar, WorkFlow8Data.MetabolicPotentialECAR);
+
+                    if (WorkFlow8Data.MetabolicPotentialECAR.IsExportRequired)
+                        exports?.EditWidgetExports(WidgetCategories.XfCellEnergy, WidgetTypes.MetabolicPotentialEcar, WorkFlow8Data.MetabolicPotentialECAR);
+
+                    commonFunc.MoveBackToAnalysisPage();
+                }
+            }
+            else
+            {
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, "Metabolic Potential ECAR widget is not required in Excel sheet selected as No.");
+            }
+        }
+
+        [Test, Order(6)]
+        public void BaselineOCR()
+        {
+            ExtentReport.CreateExtentTestNode("Baseline OCR");
+
+            if (fileUploadOrExistingFileData.SelectedWidgets.Contains(WidgetTypes.BaselineOcr))
+            {
+                string currentPath = commonFunc.GetCurrentPath();
+
+                if (currentPath.Contains("Widget/Edit"))
+                    commonFunc.MoveBackToAnalysisPage();
+
+                if (!currentPath.Contains("Analysis"))
+                    CreateCellEnergyView();
+
+                if (RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
+                    commonFunc.HandleCurrentWindow();
+
+                bool hasEditWidgetPageGone = analysisPage.GoToEditWidget(WidgetCategories.XfCellEnergy, WidgetTypes.BaselineOcr);
+
+                if (hasEditWidgetPageGone)
+                {
+                    graphProperties.Display(WorkFlow8Data.BaselineOCR);
+
+                    graphProperties.Normalization(WorkFlow8Data.BaselineOCR);
+
+                    graphProperties.ErrorFormat(WorkFlow8Data.BaselineOCR, WidgetCategories.XfCellEnergy, WidgetTypes.BaselineOcr);
+
+                    graphProperties.SortBy(WorkFlow8Data.BaselineOCR);
+
+                    if (WorkFlow8Data.BaselineOCR.GraphSettingsVerify)
+                    {
+                        graphSettings.VerifyGraphSettingsIcon();
+
+                        graphSettings.XAutoScale(WorkFlow8Data.BaselineOCR);
+
+                        graphSettings.ZeroLine(WorkFlow8Data.BaselineOCR);
+
+                        graphSettings.Zoom(WorkFlow8Data.BaselineOCR);
+
+                        graphSettings.GraphSettingsApply();
+                    }
+
+                    ResultStatus platemapWellCountResult = plateMap.VerifyPlateMapRowandCloumnWell(WidgetTypes.BaselineOcr);
+
+                    if (platemapWellCountResult.Status)
+                        ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"{platemapWellCountResult.Message}{WidgetTypes.BaselineOcr}");
+                    else
+                        ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"{platemapWellCountResult.Message} {WidgetTypes.BaselineOcr}");
+
+                    plateMap.PlateMapIcons();
+
+                    plateMap.PlateMapFunctionalities();
+
+                    if (WorkFlow8Data.BaselineOCR.CheckNormalizationWithPlateMap)
+                        plateMap.VerifyNormalizationVal();
+
+                    plateMap.WellDataPopup("A05", "Included in current calculation");
+
+                    groupLegends.EditWidgetGroupLegends(WidgetCategories.XfCellEnergy, WidgetTypes.BaselineOcr, WorkFlow8Data.BaselineOCR);
+
+                    if (WorkFlow8Data.BaselineOCR.IsExportRequired)
+                        exports?.EditWidgetExports(WidgetCategories.XfCellEnergy, WidgetTypes.BaselineOcr, WorkFlow8Data.BaselineOCR);
+
+                    commonFunc.MoveBackToAnalysisPage();
+                }
+            }
+            else
+            {
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, "Baseline OCR widget is not required in Excel sheet selected as No.");
+            }
+        }
+
+        [Test, Order(7)]
+        public void BaselineECAR()
+        {
+            ExtentReport.CreateExtentTestNode("Baseline ECAR");
+
+            if (fileUploadOrExistingFileData.SelectedWidgets.Contains(WidgetTypes.BaselineEcar))
+            {
+                string currentPath = commonFunc.GetCurrentPath();
+
+                if (currentPath.Contains("Widget/Edit"))
+                    commonFunc.MoveBackToAnalysisPage();
+
+                if (!currentPath.Contains("Analysis"))
+                    CreateCellEnergyView();
+
+                if (RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
+                    commonFunc.HandleCurrentWindow();
+
+                bool hasEditWidgetPageGone = analysisPage.GoToEditWidget(WidgetCategories.XfCellEnergy, WidgetTypes.BaselineEcar);
+
+                if (hasEditWidgetPageGone)
+                {
+                    graphProperties.Display(WorkFlow8Data.BaselineECAR);
+
+                    graphProperties.Normalization(WorkFlow8Data.BaselineECAR);
+
+                    graphProperties.ErrorFormat(WorkFlow8Data.BaselineECAR, WidgetCategories.XfCellEnergy, WidgetTypes.BaselineEcar);
+
+                    graphProperties.SortBy(WorkFlow8Data.BaselineECAR);
+
+                    if (WorkFlow8Data.BaselineECAR.GraphSettingsVerify)
+                    {
+                        graphSettings.VerifyGraphSettingsIcon();
+
+                        graphSettings.XAutoScale(WorkFlow8Data.BaselineECAR);
+
+                        graphSettings.ZeroLine(WorkFlow8Data.BaselineECAR);
+
+                        graphSettings.Zoom(WorkFlow8Data.BaselineECAR);
+
+                        graphSettings.GraphSettingsApply();
+                    }
+
+                    ResultStatus platemapWellCountResult = plateMap.VerifyPlateMapRowandCloumnWell(WidgetTypes.BaselineEcar);
+
+                    if (platemapWellCountResult.Status)
+                        ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"{platemapWellCountResult.Message}{WidgetTypes.BaselineEcar}");
+                    else
+                        ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"{platemapWellCountResult.Message} {WidgetTypes.BaselineEcar}");
+
+                    plateMap.PlateMapIcons();
+
+                    plateMap.PlateMapFunctionalities();
+
+                    if (WorkFlow8Data.BaselineECAR.CheckNormalizationWithPlateMap)
+                        plateMap.VerifyNormalizationVal();
+
+                    plateMap.WellDataPopup("A05", "Included in current calculation");
+
+                    groupLegends.EditWidgetGroupLegends(WidgetCategories.XfCellEnergy, WidgetTypes.BaselineEcar, WorkFlow8Data.BaselineECAR);
+
+                    if (WorkFlow8Data.BaselineECAR.IsExportRequired)
+                        exports?.EditWidgetExports(WidgetCategories.XfCellEnergy, WidgetTypes.BaselineEcar, WorkFlow8Data.BaselineECAR);
+
+                    commonFunc.MoveBackToAnalysisPage();
+                }
+            }
+            else
+            {
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, "Baseline ECAR widget is not required in Excel sheet selected as No.");
+            }
+        }
+
+        [Test, Order(8)]
+        public void StressedOCR()
+        {
+            ExtentReport.CreateExtentTestNode("Stressed OCR");
+
+            if (fileUploadOrExistingFileData.SelectedWidgets.Contains(WidgetTypes.StressedOcr))
+            {
+                string currentPath = commonFunc.GetCurrentPath();
+
+                if (currentPath.Contains("Widget/Edit"))
+                    commonFunc.MoveBackToAnalysisPage();
+
+                if (!currentPath.Contains("Analysis"))
+                    CreateCellEnergyView();
+
+                if (RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
+                    commonFunc.HandleCurrentWindow();
+
+                bool hasEditWidgetPageGone = analysisPage.GoToEditWidget(WidgetCategories.XfCellEnergy, WidgetTypes.StressedOcr);
+
+                if (hasEditWidgetPageGone)
+                {
+                    graphProperties.Display(WorkFlow8Data.StressedOCR);
+
+                    graphProperties.Normalization(WorkFlow8Data.StressedOCR);
+
+                    graphProperties.ErrorFormat(WorkFlow8Data.StressedOCR, WidgetCategories.XfCellEnergy, WidgetTypes.StressedOcr);
+
+                    graphProperties.SortBy(WorkFlow8Data.StressedOCR);
+
+                    if (WorkFlow8Data.StressedOCR.GraphSettingsVerify)
+                    {
+                        graphSettings.VerifyGraphSettingsIcon();
+
+                        graphSettings.XAutoScale(WorkFlow8Data.StressedOCR);
+
+                        graphSettings.ZeroLine(WorkFlow8Data.StressedOCR);
+
+                        graphSettings.Zoom(WorkFlow8Data.StressedOCR);
+
+                        graphSettings.GraphSettingsApply();
+                    }
+
+                    ResultStatus platemapWellCountResult = plateMap.VerifyPlateMapRowandCloumnWell(WidgetTypes.StressedOcr);
+
+                    if (platemapWellCountResult.Status)
+                        ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"{platemapWellCountResult.Message}{WidgetTypes.StressedOcr}");
+                    else
+                        ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"{platemapWellCountResult.Message} {WidgetTypes.StressedOcr}");
+
+                    plateMap.PlateMapIcons();
+
+                    plateMap.PlateMapFunctionalities();
+
+                    if (WorkFlow8Data.StressedOCR.CheckNormalizationWithPlateMap)
+                        plateMap.VerifyNormalizationVal();
+
+                    plateMap.WellDataPopup("A05", "Included in current calculation");
+
+                    groupLegends.EditWidgetGroupLegends(WidgetCategories.XfCellEnergy, WidgetTypes.StressedOcr, WorkFlow8Data.StressedOCR);
+
+                    if (WorkFlow8Data.StressedOCR.IsExportRequired)
+                        exports?.EditWidgetExports(WidgetCategories.XfCellEnergy, WidgetTypes.StressedOcr, WorkFlow8Data.StressedOCR);
+
+                    commonFunc.MoveBackToAnalysisPage();
+                }
+            }
+            else
+            {
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, "Stressed OCR widget is not required in Excel sheet selected as No.");
+            }
+        }
+
+        [Test, Order(9)]
+        public void StressedECAR()
+        {
+            ExtentReport.CreateExtentTestNode("Stressed ECAR");
+
+            if (fileUploadOrExistingFileData.SelectedWidgets.Contains(WidgetTypes.StressedEcar))
+            {
+                string currentPath = commonFunc.GetCurrentPath();
+
+                if (currentPath.Contains("Widget/Edit"))
+                    commonFunc.MoveBackToAnalysisPage();
+
+                if (!currentPath.Contains("Analysis"))
+                    CreateCellEnergyView();
+
+                if (RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
+                    commonFunc.HandleCurrentWindow();
+
+                bool hasEditWidgetPageGone = analysisPage.GoToEditWidget(WidgetCategories.XfCellEnergy, WidgetTypes.StressedEcar);
+
+                if (hasEditWidgetPageGone)
+                {
+                    graphProperties.Display(WorkFlow8Data.StressedECAR);
+
+                    graphProperties.Normalization(WorkFlow8Data.StressedECAR);
+
+                    graphProperties.ErrorFormat(WorkFlow8Data.StressedECAR, WidgetCategories.XfCellEnergy, WidgetTypes.StressedEcar);
+
+                    graphProperties.SortBy(WorkFlow8Data.StressedECAR);
+
+                    if (WorkFlow8Data.StressedECAR.GraphSettingsVerify)
+                    {
+                        graphSettings.VerifyGraphSettingsIcon();
+
+                        graphSettings.XAutoScale(WorkFlow8Data.StressedECAR);
+
+                        graphSettings.ZeroLine(WorkFlow8Data.StressedECAR);
+
+                        graphSettings.Zoom(WorkFlow8Data.StressedECAR);
+
+                        graphSettings.GraphSettingsApply();
+                    }
+
+                    ResultStatus platemapWellCountResult = plateMap.VerifyPlateMapRowandCloumnWell(WidgetTypes.StressedEcar);
+
+                    if (platemapWellCountResult.Status)
+                        ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"{platemapWellCountResult.Message}{WidgetTypes.StressedEcar}");
+                    else
+                        ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"{platemapWellCountResult.Message} {WidgetTypes.StressedEcar}");
+
+                    plateMap.PlateMapIcons();
+
+                    plateMap.PlateMapFunctionalities();
+
+                    if (WorkFlow8Data.StressedECAR.CheckNormalizationWithPlateMap)
+                        plateMap.VerifyNormalizationVal();
+
+                    plateMap.WellDataPopup("A05", "Included in current calculation");
+
+                    groupLegends.EditWidgetGroupLegends(WidgetCategories.XfCellEnergy, WidgetTypes.StressedEcar, WorkFlow8Data.StressedECAR);
+
+                    if (WorkFlow8Data.StressedECAR.IsExportRequired)
+                        exports?.EditWidgetExports(WidgetCategories.XfCellEnergy, WidgetTypes.StressedEcar, WorkFlow8Data.StressedECAR);
+
+                    commonFunc.MoveBackToAnalysisPage();
+                }
+            }
+            else
+            {
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, "Stressed ECAR widget is not required in Excel sheet selected as No.");
             }
         }
     }

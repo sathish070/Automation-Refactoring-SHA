@@ -5,6 +5,7 @@ using SeleniumExtras.PageObjects;
 using SHAProject.Utilities;
 using SHAProject.SeleniumHelpers;
 using AventStack.ExtentReports;
+using System.Runtime.InteropServices;
 
 
 namespace SHAProject.Create_Widgets
@@ -79,37 +80,40 @@ namespace SHAProject.Create_Widgets
 
         #region StandardView Widget Elements
 
-        #endregion
-
         [FindsBy(How = How.XPath, Using = "(//div[@class='list-options'])[last()]")]
-        public IWebElement? lastOption;
+        public IWebElement? LastOption;
 
         [FindsBy(How = How.XPath, Using = "//a[@id='menu-toggle-views']")]
-        public IWebElement? SideViewMenuToggleButton;
+        public IWebElement? SideViewMenuToggleBtn;
 
         [FindsBy(How = How.XPath, Using = "((//div[@class='popup-options'])[last()]/ul/li)[last()]")]
         public IWebElement? CustomViewOption;
 
         [FindsBy(How = How.Id, Using = "newmasterviewname")]
-        public IWebElement? CustomNametxtbox;
+        public IWebElement? CustomNameTxtBox;
 
         [FindsBy(How = How.Id, Using = "txtdescription")]
         public IWebElement? CustomDescription;
 
         [FindsBy(How = How.Id, Using = "btnsaveasmasterview")]
-        public IWebElement? Savebtn;
+        public IWebElement? SaveBtn;
 
         [FindsBy(How = How.ClassName, Using = "addnewlist")]
-        private IWebElement? AddnewlistViewIcon;
+        private IWebElement? AddNewListViewIcon;
 
         [FindsBy(How = How.XPath, Using = "(//li[@class='pannel-li'])[last()]")]
-        private IWebElement? lastcretedview;
+        private IWebElement? LastCretedView;
+
+        #endregion
 
         public void AnalysisPageHeaderIcons()
         {
             try
             {
                 Thread.Sleep(3000);
+
+                if (RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
+                    _commonFunc.HandleCurrentWindow();
 
                 _findElements.VerifyElement(breadcrumFile, _currentPage, $"Analysis Page - Breadcrum File");
 
@@ -185,7 +189,7 @@ namespace SHAProject.Create_Widgets
                     if (gridStackItem.FindElements(By.CssSelector(".measurement-view")).Count > 0)
                     {
                         IWebElement measurement = gridStackItem.FindElement(By.CssSelector(".measurement-view"));
-                        _findElements.ElementTextVerify(measurement, "Measurement1", _currentPage, $"Element name - {widgetName}");
+                        _findElements.ElementTextVerify(measurement, "Measurement 1", _currentPage, $"Element name - {widgetName}");
                     }
 
                     // verify the group legend element (if present)
@@ -208,9 +212,8 @@ namespace SHAProject.Create_Widgets
         {
             try
             {
-                _findElements.ClickElement(ExportView, _currentPage, "Analysis Page - Export View Icon");
-
                 bool downloadStatus = false;
+                _findElements.ClickElement(ExportView, _currentPage, "Analysis Page - Export View Icon");
                 _findElements.ActionsClass(ExportExcel);
                 downloadStatus = _findElements.ClickElement(ExportExcel, _currentPage, $"Analysis Page - Export View - Excel");
                 ExtentReport.ExtentTest("ExtentTestNode", downloadStatus ? Status.Pass : Status.Fail, downloadStatus ? $"Excel file is download scuccessfully" : $"Excel file is not downloaded");
@@ -261,60 +264,30 @@ namespace SHAProject.Create_Widgets
             }
         }
 
-        public bool GoToEditWidget(WidgetCategories widgetCategory, WidgetTypes widgetType)
+        public void CreateCustomView(WorkFlow5Data workFlow5Data)
         {
             try
             {
-                Thread.Sleep(10000);
-                _commonFunc.HandleCurrentWindow();
-                int widgetPosition = _commonFunc.GetWidgetPosition(widgetCategory, widgetType);
-                IWebElement widgetDiv;
-                if (widgetType == WidgetTypes.KineticGraphEcar)
-                {
-                     widgetDiv = _driver.FindElement(By.XPath("//*[@data-ratetype='ECAR'][@data-widgettype='" + widgetPosition + "']/div[1]/div[1]/a/img"));
-                }
-                else if(widgetType == WidgetTypes.KineticGraphPer)
-                {
-                     widgetDiv = _driver.FindElement(By.XPath("//*[@data-ratetype='PER'][@data-widgettype='" + widgetPosition + "']/div[1]/div[1]/a/img"));
-                }
-                else
-                {
-                     widgetDiv = _driver.FindElement(By.XPath("//*[@data-widgettype='" + widgetPosition + "']/div[1]/div[1]/a/img"));
-                }
-                _findElements.ScrollIntoViewAndClickElementByJavaScript(widgetDiv, _currentPage, $"Analysis Page - Edit Icon");
+                _findElements?.ClickElementByJavaScript(SideViewMenuToggleBtn, _currentPage, $"Analysis Page - Side View Toggle Button");
 
-                return true;
-            }catch (Exception e)
-            {
-                ExtentReport.ExtentTest("ExtendTestNode", Status.Fail, "Unable to locate the Widget"+e.Message);
-                return false;
-            }
-        }
-
-        public void CreatecustomView(WorkFlow1Data workFlow1Data)
-        {
-            try
-            {
-                _findElements?.ClickElementByJavaScript(SideViewMenuToggleButton, _currentPage, $"Analysis Page - Side View Toggle Button");
-
-                _findElements?.ClickElementByJavaScript(lastOption, _currentPage, $"Analysis Page - Three Dot Option");
+                _findElements?.ClickElementByJavaScript(LastOption, _currentPage, $"Analysis Page - Three Dot Option");
 
                 _findElements?.ClickElementByJavaScript(CustomViewOption, _currentPage, $"Analysis Page - Custom View Option");
 
-                _findElements?.VerifyElement(CustomNametxtbox, _currentPage, $"Analysis Page - Create Custom View Popup Name Text box");
+                _findElements?.VerifyElement(CustomNameTxtBox, _currentPage, $"Analysis Page - Create Custom View Popup Name Text box");
 
-                _findElements?.SendKeys(workFlow1Data.CustomViewName, CustomNametxtbox,_currentPage, $"Analysis Page - Create Custom View Popup Name Text box");
+                _findElements?.SendKeys(workFlow5Data.CustomViewName,  CustomNameTxtBox, _currentPage, $"Analysis Page - Create Custom View Popup Name Text box");
 
                 _findElements?.VerifyElement(CustomDescription, _currentPage, $"Analysis Page - Create Custom View Popup Description Text box");
 
-                _findElements?.SendKeys(workFlow1Data.CustomViewDescription, CustomDescription, _currentPage, $"Analysis Page - Create Custom View Popup Description Text box");
+                _findElements?.SendKeys(workFlow5Data.CustomViewDescription, CustomDescription, _currentPage, $"Analysis Page - Create Custom View Popup Description Text box");
 
-                _findElements?.ClickElementByJavaScript(Savebtn, _currentPage, $"Analysis Page - Create Custom View Popup Save Button");
+                _findElements?.ClickElementByJavaScript(SaveBtn, _currentPage, $"Analysis Page - Create Custom View Popup Save Button");
 
-                _findElements?.ClickElementByJavaScript(AddnewlistViewIcon,_currentPage, $"Analysis Page - Add New View");
+                _findElements?.ClickElementByJavaScript(AddNewListViewIcon, _currentPage, $"Analysis Page - Add New View");
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ExtentReport.ExtentTest("ExtendTestNode", Status.Fail, "Error Occured while trying to create a custom view");
             }
@@ -324,16 +297,27 @@ namespace SHAProject.Create_Widgets
         {
             try
             {
-                _findElements?.ClickElement(SideViewMenuToggleButton, _currentPage, $"Analysis Page - Side View Toggle Button");
+                _findElements?.ClickElement(SideViewMenuToggleBtn, _currentPage, $"Analysis Page - Side View Toggle Button");
 
-                _findElements?.ScrollIntoView(AddnewlistViewIcon);
+                _findElements?.ScrollIntoView(AddNewListViewIcon);
 
-                _findElements?.VerifyElement(lastcretedview, _currentPage, $"Analysis Page - Created Custom View");
+                _findElements?.VerifyElement(LastCretedView, _currentPage, $"Analysis Page - Created Custom View");
             }
             catch (Exception ex)
             {
                 ExtentReport.ExtentTest("ExtendTestNode", Status.Fail, "Error Occured while trying to verify the create a custom view");
             }
+        }
+
+        public bool GoToEditWidget(WidgetCategories widgetCategory, WidgetTypes widgetType)
+        {
+            Thread.Sleep(5000);
+            int widgetPosition = _commonFunc.GetWidgetPosition(widgetCategory, widgetType);
+
+            IWebElement widgetDiv = _driver.FindElement(By.XPath("//*[@data-widgettype='" + widgetPosition + "']/div[1]/div[1]/a/img"));
+            _findElements.ScrollIntoViewAndClickElementByJavaScript(widgetDiv, _currentPage, $"Analysis Page - Edit Icon");
+
+            return true;
         }
     }
 }

@@ -14,14 +14,16 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
 using SHAProject.Create_Widgets;
+using System.IO;
 
 namespace SHAProject.Workflows
 {
     [TestFixtureSource(nameof(GetTestFixtureBrowsers))]
     [Category("Files Tab")]
-    public class FilesTab:Tests
+    public class FilesTab :Tests
     {
         public LoginClass? loginClass;
+        public FilesPage? filesPage;
         public static readonly string currentPage = "Files Tab";
         public bool loginStatus;
         public bool files = false;
@@ -144,6 +146,13 @@ namespace SHAProject.Workflows
                 return;
             }
 
+            ObjectInitalize();
+
+        }
+
+        public void ObjectInitalize()
+        {
+            filesPage = new FilesPage(currentPage, driver, loginClass.findElements, fileUploadOrExistingFileData, FilesTabData);
         }
 
         [Test,Order(1)]
@@ -152,19 +161,16 @@ namespace SHAProject.Workflows
             ExtentReport.CreateExtentTestNode("LayoutVerification");
             if (loginStatus)
             {
-                FilesPage filesTab = new FilesPage(currentPage, driver, loginClass.findElements, FilesTabData);
-                files = filesTab.FilesPageRedirect();
+                files = filesPage.FilesPageRedirect();
                 if (files)
                 {
-                    filesTab.LayoutIconsVerification();  
+                    filesPage.LayoutIconsVerification();  
                 }
-
             }
             else
             {
              Assert.Ignore();
             }
-
         }
 
         [Test,Order(2)]
@@ -173,15 +179,14 @@ namespace SHAProject.Workflows
             ExtentReport.CreateExtentTestNode("PaginationVerification");
             if (loginStatus)
             {
-               FilesPage filesTab = new FilesPage(currentPage, driver, loginClass.findElements, FilesTabData);
                 if (files)
                 {
-                    filesTab.PagenationVerificattion(); 
+                    filesPage.PagenationVerificattion(); 
                 }
                 else
                 {
-                    files = filesTab.FilesPageRedirect();
-                    filesTab.PagenationVerificattion();
+                    files = filesPage.FilesPageRedirect();
+                    filesPage.PagenationVerificattion();
                 }
             }
             else
@@ -196,15 +201,14 @@ namespace SHAProject.Workflows
             ExtentReport.CreateExtentTestNode("SearchBoxVerification");
             if (loginStatus)
             {
-                FilesPage filesTab = new FilesPage(currentPage, driver, loginClass.findElements, FilesTabData);
                 if (files)
                 {
-                    filesTab.SearchboxVerification();
+                    filesPage.SearchboxVerification();
                 }
                 else
                 {
-                    files = filesTab.FilesPageRedirect();
-                    filesTab.SearchboxVerification();
+                    files = filesPage.FilesPageRedirect();
+                    filesPage.SearchboxVerification();
                 }
             }
             else
@@ -219,15 +223,14 @@ namespace SHAProject.Workflows
             ExtentReport.CreateExtentTestNode("Create New Assay and Project");
             if (loginStatus)
             {
-                FilesPage filesTab = new FilesPage(currentPage, driver, loginClass.findElements, FilesTabData);
                 if (files)
                 {
-                    filesTab.CreateNewAssayandProject();
+                    filesPage.CreateNewAssayandProject();
                 }
                 else
                 {
-                    files = filesTab.FilesPageRedirect();
-                    filesTab.CreateNewAssayandProject();
+                    files = filesPage.FilesPageRedirect();
+                    filesPage.CreateNewAssayandProject();
                 }
             }
             else
@@ -242,15 +245,14 @@ namespace SHAProject.Workflows
             ExtentReport.CreateExtentTestNode("Create New Folder");
             if (loginStatus)
             {
-                FilesPage filesTab = new FilesPage(currentPage, driver, loginClass.findElements, FilesTabData);
                 if (files)
                 {
-                    filesTab.CreateNewFolder();
+                    filesPage.CreateNewFolder();
                 }
                 else
                 {
-                    files = filesTab.FilesPageRedirect();
-                    filesTab.CreateNewFolder();
+                    files = filesPage.FilesPageRedirect();
+                    filesPage.CreateNewFolder();
                 }
             }
             else
@@ -264,15 +266,14 @@ namespace SHAProject.Workflows
             ExtentReport.CreateExtentTestNode("Upload a file functionality");
             if (loginStatus)
             {
-                FilesPage filesTab = new FilesPage(currentPage, driver, loginClass.findElements, FilesTabData);
                 if (files)
                 {
-                    filesTab.fileUpload();
+                    filesPage.fileUpload();
                 }
                 else
                 {
-                    files = filesTab.FilesPageRedirect();
-                    filesTab.fileUpload();
+                    files = filesPage.FilesPageRedirect();
+                    filesPage.fileUpload();
 
                 }
             }
@@ -288,15 +289,14 @@ namespace SHAProject.Workflows
             ExtentReport.CreateExtentTestNode("Create Folder and Sub Folder Functionality");
             if (loginStatus)
             {
-                FilesPage filesTab = new FilesPage(currentPage, driver, loginClass.findElements, FilesTabData);
                 if (files)
                 {
-                    filesTab.folderFunctions();
+                    filesPage.folderFunctions();
                 }
                 else
                 {
-                    files = filesTab.FilesPageRedirect();
-                    filesTab.folderFunctions();
+                    files = filesPage.FilesPageRedirect();
+                    filesPage.folderFunctions();
 
                 }
             }
@@ -312,15 +312,14 @@ namespace SHAProject.Workflows
             ExtentReport.CreateExtentTestNode("Rename and Delete Functionality");
             if (loginStatus)
             {
-                FilesPage filesTab = new FilesPage(currentPage, driver, loginClass.findElements, FilesTabData);
                 if (files)
                 {
-                    filesTab.renameAnddelete();
+                    filesPage.renameAnddelete();
                 }
                 else
                 {
-                    files = filesTab.FilesPageRedirect();
-                    filesTab.renameAnddelete();
+                    files = filesPage.FilesPageRedirect();
+                    filesPage.renameAnddelete();
 
                 }
             }
@@ -336,15 +335,14 @@ namespace SHAProject.Workflows
             ExtentReport.CreateExtentTestNode("Header Icon Functionality");
             if (loginStatus)
             {
-                FilesPage filesTab = new FilesPage(currentPage, driver, loginClass.findElements, FilesTabData);
                 if (files)
                 {
-                    filesTab.HeaderIconFunction();
+                    filesPage.HeaderIconFunction();
                 }
                 else
                 {
-                    files = filesTab.FilesPageRedirect();
-                    filesTab.HeaderIconFunction();
+                    files = filesPage.FilesPageRedirect();
+                    filesPage.HeaderIconFunction();
 
                 }
             }
