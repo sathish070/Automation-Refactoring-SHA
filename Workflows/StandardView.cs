@@ -126,14 +126,13 @@ namespace SHAProject.Workflows
                 yield return browser.ToString();
             }
         }
-
         public StandardView(string browser)
         {
             current_browser = browser;
-        }
+        } 
 
         [OneTimeSetUp]
-        public void Setup()
+        public new void Setup()
         {
             commonFunc.CreateDirectory(loginFolderPath, currentPage);
             string loginFoldersPath = loginFolderPath + "\\" + currentPage;
@@ -152,7 +151,6 @@ namespace SHAProject.Workflows
 
             ExtentReport.CreateExtentTest("WorkFlow -5 : StandardView");
             bool ExcelReadStatus = reader.ReadDataFromExcel("Workflow-5");
-            //Thread.sleep(2000);
 
             if (ExcelReadStatus)
             {
@@ -162,12 +160,12 @@ namespace SHAProject.Workflows
             {
                 extentTest.Log(Status.Fail, "Excel read status is false for " + currentPage);
                 return;
-            }
+            }   
 
-            ObjectInitalize();
+            ObjectInitalized();
         }
 
-        public void ObjectInitalize()
+        public void ObjectInitalized()
         {
             graphSettings = new GraphSettings(currentPage, driver, loginClass.findElements, commonFunc);
             graphProperties = new GraphProperties(currentPage, driver, loginClass.findElements, commonFunc);
@@ -192,28 +190,21 @@ namespace SHAProject.Workflows
             {
                 bool FileStatus = false;
                 bool Searchedfile = false;
+
                 if (fileUploadOrExistingFileData.IsFileUploadRequired)
-                {
                     FileStatus = homePage.HomePageFileUpload();
-                }
+
                 else if (fileUploadOrExistingFileData.OpenExistingFile)
-                {
-                    Searchedfile = filesPage.SearchFilesInFileTab(currentPage);
-                }
+                    Searchedfile = filesPage.SearchFilesInFileTab(fileUploadOrExistingFileData.FileName);
+
                 else
-                {
                     Assert.Ignore("Both FileUpload status and Open existing file status is false");
-                }
 
                 if (FileStatus || Searchedfile)
-                {
                     createWidgets?.CreateWidgets(WidgetCategories.XfStandard, fileUploadOrExistingFileData.SelectedWidgets);
-                }
             }
             else
-            {
                 Assert.Fail();
-            }
         }
 
         [Test, Order(2)]
@@ -283,10 +274,21 @@ namespace SHAProject.Workflows
                 ExtentReport.CreateExtentTestNode("Normalization Concept");
 
                 Thread.Sleep(3000);
+
                 if (RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
                     commonFunc.HandleCurrentWindow();
 
                 normalization.ApplyNormalizationValues(WorkFlow5Data.ApplyToAllWidgets);
+
+                analysisPage.GoToEditWidget(WidgetCategories.XfStandard, WidgetTypes.BarChart);
+
+                normalization.NormalizationToggle();
+
+                commonFunc.MoveBackToAnalysisPage();
+
+                filesPage.SearchFilesInFileTab(WorkFlow5Data.NormalizedFileName);
+
+                normalization.NormalizationElements();
             }
             else
                 ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, "The Verification for normalization concept is given in the excel sheet is selected as No.");
@@ -318,13 +320,14 @@ namespace SHAProject.Workflows
                 modifyAssay.BackgroundBufferElements();
 
                 modifyAssay.InjectionNamesElements(WorkFlow5Data.InjectionName);
+
+                modifyAssay.GeneralInfoElements();
             }
             else
                 ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, "The verification for modify assay is given in the excel sheet is selected as No.");
         }
 
         [Test, Order(7)]
-
         public void CheckEditWidgetPage()
         {
             string currentPath = commonFunc.GetCurrentPath();
@@ -335,35 +338,27 @@ namespace SHAProject.Workflows
             if (!currentPath.Contains("Analysis"))
                 CreateQuickView();
 
+            if (!driver.Title.Contains(fileUploadOrExistingFileData.FileName))
+                filesPage.SearchFilesInFileTab(fileUploadOrExistingFileData.FileName);
+
             ExtentReport.CreateExtentTestNode("Check Edit Widget Page Functionality");
 
-            switch (WorkFlow5Data.SelectWidgetName)
+            bool hasEditWidgetPageGone = analysisPage.GoToEditWidget(WidgetCategories.XfStandard, WorkFlow5Data.SelectWidgetName);
+            if (hasEditWidgetPageGone)
             {
-                case WidgetTypes.KineticGraph:
-                    ExtentReport.CreateExtentTestNode("Kinetic Graph OCR");
-                    KineticGraphs(WorkFlow5Data.KineticGraphOcr, WidgetTypes.KineticGraph);
-                    break;
-                case WidgetTypes.KineticGraphEcar:
-                    ExtentReport.CreateExtentTestNode("Kinetic Graph ECAR");
-                    KineticGraphs(WorkFlow5Data.KineticGraphEcar, WidgetTypes.KineticGraphEcar);
-                    break;
-                case WidgetTypes.KineticGraphPer:
-                    ExtentReport.CreateExtentTestNode("Kinetic Graph PER");
-                    KineticGraphs(WorkFlow5Data.KineticGraphPer, WidgetTypes.KineticGraphPer);
-                    break;
-                case WidgetTypes.BarChart:
-                    BarChart();
-                    break;
-                case WidgetTypes.EnergyMap:
-                    EnergyMap();
-                    break;
-                case WidgetTypes.HeatMap:
-                    HeatMap();
-                    break;
-                default:
-                    ExtentReport.CreateExtentTestNode("Kinetic Graph OCR");
-                    KineticGraphs(WorkFlow5Data.KineticGraphOcr, WidgetTypes.KineticGraph);
-                    break;
+                graphProperties.GraphProperty();
+
+                graphSettings.VerifyGraphSettingsIcon();
+
+                graphSettings.GraphSettingsApply();
+
+                graphProperties.GraphArea();
+
+                plateMap.PlateMapArea();
+
+                groupLegends.GroupLegendsArea();
+
+                commonFunc.MoveBackToAnalysisPage();
             }
         }
 
@@ -377,6 +372,9 @@ namespace SHAProject.Workflows
 
             if (!currentPath.Contains("Analysis"))
                 CreateQuickView();
+
+            if (!driver.Title.Contains(fileUploadOrExistingFileData.FileName))
+                filesPage.SearchFilesInFileTab(fileUploadOrExistingFileData.FileName);
 
             foreach (WidgetTypes widget in fileUploadOrExistingFileData.SelectedWidgets)
             {
@@ -413,6 +411,9 @@ namespace SHAProject.Workflows
                 if (!currentPath.Contains("Analysis"))
                     CreateQuickView();
 
+                if (!driver.Title.Contains(fileUploadOrExistingFileData.FileName))
+                    filesPage.SearchFilesInFileTab(fileUploadOrExistingFileData.FileName);
+
                 Thread.Sleep(5000);
 
                 ExtentReport.CreateExtentTestNode("Bar Chart");
@@ -423,6 +424,9 @@ namespace SHAProject.Workflows
                 bool hasEditWidgetPageGone = analysisPage.GoToEditWidget(WidgetCategories.XfStandard, WidgetTypes.BarChart);
                 if (hasEditWidgetPageGone)
                 {
+                    WidgetTypes widgetType = WidgetTypes.BarChart;
+                    widgetName = widgetType.ToString();
+
                     graphProperties.Measurement(WorkFlow5Data.Barchart);
 
                     graphProperties.Rate(WorkFlow5Data.Barchart);
@@ -439,8 +443,7 @@ namespace SHAProject.Workflows
 
                     graphProperties.SortBy(WorkFlow5Data.Barchart);
 
-                    if (fileUploadOrExistingFileData.IsNormalized)
-                        graphProperties.VerifyExpectedGraphUnits(WorkFlow5Data.Barchart.ExpectedGraphUnits, WidgetTypes.BarChart, false);
+                    graphProperties.VerifyExpectedGraphUnits(WorkFlow5Data.Barchart.ExpectedGraphUnits, WidgetTypes.BarChart);
 
                     if (WorkFlow5Data.Barchart.GraphSettingsVerify)
                     {
@@ -462,12 +465,14 @@ namespace SHAProject.Workflows
                     if (WorkFlow5Data.Barchart.CheckNormalizationWithPlateMap)
                         plateMap.VerifyNormalizationVal();
 
-                    plateMap.WellDataPopup("A05", "Included in current calculation");
+                    plateMap.WellDataPopup("A05", "Included in the current calculation");
 
                     groupLegends.EditWidgetGroupLegends(WidgetCategories.XfStandard, WidgetTypes.BarChart, WorkFlow5Data.Barchart);
 
                     if (WorkFlow5Data.Barchart.IsExportRequired)
                         exports?.EditWidgetExports(WidgetCategories.XfStandard, WidgetTypes.BarChart, WorkFlow5Data.Barchart);
+
+                    commonFunc.MoveBackToAnalysisPage();
                 }
             }
             else
@@ -489,6 +494,9 @@ namespace SHAProject.Workflows
                 if (!currentPath.Contains("Analysis"))
                     CreateQuickView();
 
+                if (!driver.Title.Contains(fileUploadOrExistingFileData.FileName))
+                    filesPage.SearchFilesInFileTab(fileUploadOrExistingFileData.FileName);
+
                 if (RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
                     commonFunc.HandleCurrentWindow();
 
@@ -497,6 +505,9 @@ namespace SHAProject.Workflows
                 bool hasEditWidgetPageGone = analysisPage.GoToEditWidget(WidgetCategories.XfStandard, WidgetTypes.EnergyMap);
                 if (hasEditWidgetPageGone)
                 {
+                    WidgetTypes widgetType = WidgetTypes.EnergyMap;
+                    widgetName = widgetType.ToString();
+
                     graphProperties.Measurement(WorkFlow5Data.EnergyMap);
 
                     graphProperties.Rate(WorkFlow5Data.EnergyMap);
@@ -511,8 +522,7 @@ namespace SHAProject.Workflows
 
                     graphProperties.Baseline(WorkFlow5Data.EnergyMap);
 
-                    if (fileUploadOrExistingFileData.IsNormalized)
-                        graphProperties.VerifyExpectedGraphUnits(WorkFlow5Data.EnergyMap.ExpectedGraphUnits, WidgetTypes.EnergyMap, false);
+                    graphProperties.VerifyExpectedGraphUnits(WorkFlow5Data.EnergyMap.ExpectedGraphUnits, WidgetTypes.EnergyMap);
 
                     if (WorkFlow5Data.EnergyMap.GraphSettingsVerify)
                     {
@@ -520,7 +530,7 @@ namespace SHAProject.Workflows
 
                         graphSettings.XAutoScale(WorkFlow5Data.EnergyMap);
 
-                        graphSettings.YAutoScale(WorkFlow5Data.EnergyMap);
+                        graphSettings.YEnergyAutoScale(WorkFlow5Data.EnergyMap);
 
                         graphSettings.Zoom(WorkFlow5Data.EnergyMap);
 
@@ -534,12 +544,14 @@ namespace SHAProject.Workflows
                     if (WorkFlow5Data.EnergyMap.CheckNormalizationWithPlateMap)
                         plateMap.VerifyNormalizationVal();
 
-                    plateMap.WellDataPopup("A05", "Included in current calculation");
+                    plateMap.WellDataPopup("A05", "Included in the current calculation");
 
                     groupLegends.EditWidgetGroupLegends(WidgetCategories.XfStandard, WidgetTypes.EnergyMap, WorkFlow5Data.EnergyMap);
 
                     if (WorkFlow5Data.EnergyMap.IsExportRequired)
                         exports?.EditWidgetExports(WidgetCategories.XfStandard, WidgetTypes.EnergyMap, WorkFlow5Data.EnergyMap);
+
+                    commonFunc.MoveBackToAnalysisPage();
                 }
             }
             else
@@ -561,6 +573,9 @@ namespace SHAProject.Workflows
                 if (!currentPath.Contains("Analysis"))
                     CreateQuickView();
 
+                if (!driver.Title.Contains(fileUploadOrExistingFileData.FileName))
+                    filesPage.SearchFilesInFileTab(fileUploadOrExistingFileData.FileName);
+
                 if (RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
                     commonFunc.HandleCurrentWindow();
 
@@ -569,6 +584,9 @@ namespace SHAProject.Workflows
                 bool hasEditWidgetPageGone = analysisPage.GoToEditWidget(WidgetCategories.XfStandard, WidgetTypes.HeatMap);
                 if (hasEditWidgetPageGone)
                 {
+                    WidgetTypes widgetType = WidgetTypes.HeatMap;
+                    widgetName = widgetType.ToString();
+
                     graphProperties.Measurement(WorkFlow5Data.HeatMap);
 
                     graphProperties.Rate(WorkFlow5Data.HeatMap);
@@ -579,8 +597,7 @@ namespace SHAProject.Workflows
 
                     graphProperties.Baseline(WorkFlow5Data.HeatMap);
 
-                    if (fileUploadOrExistingFileData.IsNormalized)
-                        graphProperties.VerifyExpectedGraphUnits(WorkFlow5Data.HeatMap.ExpectedGraphUnits, WidgetTypes.HeatMap, false);
+                    graphProperties.VerifyExpectedGraphUnits(WorkFlow5Data.HeatMap.ExpectedGraphUnits, WidgetTypes.HeatMap);
 
                     if (WorkFlow5Data.HeatMap.GraphSettingsVerify)
                     {
@@ -590,7 +607,7 @@ namespace SHAProject.Workflows
 
                         graphSettings.ZeroLine(WorkFlow5Data.HeatMap);
 
-                        graphSettings.LineMarkers(WorkFlow5Data.HeatMap);
+                        graphSettings.DataPointSymbols(WorkFlow5Data.HeatMap);
 
                         graphSettings.RateHighlight(WorkFlow5Data.HeatMap);
 
@@ -601,19 +618,27 @@ namespace SHAProject.Workflows
                         graphSettings.GraphSettingsApply();
                     }
 
-                    plateMap.PlateMapIcons();
+                    plateMap.HeatMapPlateMapIcons();
 
-                    plateMap.PlateMapFunctionalities();
+                    plateMap.HeatMapColorOptions(WorkFlow5Data.HeatMap.HeatTolerance.ColourTolerance);
+
+                    plateMap.HeatMapPlateMapfunctionality();
 
                     if (WorkFlow5Data.HeatMap.CheckNormalizationWithPlateMap)
                         plateMap.VerifyNormalizationVal();
 
-                    plateMap.WellDataPopup("A05", "Included in current calculation");
+                    plateMap.WellDataPopup("A05", "Included in the current calculation");
 
                     groupLegends.EditWidgetGroupLegends(WidgetCategories.XfStandard, WidgetTypes.HeatMap, WorkFlow5Data.HeatMap);
 
                     if (WorkFlow5Data.HeatMap.IsExportRequired)
                         exports?.EditWidgetExports(WidgetCategories.XfStandard, WidgetTypes.HeatMap, WorkFlow5Data.HeatMap);
+
+                    commonFunc.MoveBackToAnalysisPage();
+                }
+                else 
+                {
+                    ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, "Heat Map widget is not created and not present in the analysis page");
                 }
             }
             else
@@ -633,7 +658,10 @@ namespace SHAProject.Workflows
             if (!currentPath.Contains("Analysis"))
                 CreateQuickView();
 
-            //ExtentReport.CreateExtentTestNode("Dosr Response in Add Widget");
+            if (!driver.Title.Contains(fileUploadOrExistingFileData.FileName))
+                filesPage.SearchFilesInFileTab(fileUploadOrExistingFileData.FileName);
+
+            ExtentReport.CreateExtentTestNode("Dose Response in Add Widget");
 
             Thread.Sleep(10000);
 
@@ -642,6 +670,7 @@ namespace SHAProject.Workflows
 
             addWidgets.AddWidgets(WidgetCategories.XfStandard, WidgetTypes.DoseResponse);
 
+            commonFunc.MoveBackToAnalysisPage();
         }
 
         [Test, Order(13)]
@@ -654,6 +683,9 @@ namespace SHAProject.Workflows
 
             if (!currentPath.Contains("Analysis"))
                 CreateQuickView();
+
+            if (!driver.Title.Contains(fileUploadOrExistingFileData.FileName))
+                filesPage.SearchFilesInFileTab(fileUploadOrExistingFileData.FileName);
 
             ExtentReport.CreateExtentTestNode("Dose Response in Add View");
 
@@ -671,11 +703,17 @@ namespace SHAProject.Workflows
             if (!currentPath.Contains("Analysis"))
                 DoseResponseAddView();
 
+            if (!driver.Title.Contains(fileUploadOrExistingFileData.FileName))
+                filesPage.SearchFilesInFileTab(fileUploadOrExistingFileData.FileName);
+
             ExtentReport.CreateExtentTestNode("Dose Response Widget");
 
             bool hasEditWidgetPageGone = analysisPage.GoToEditWidget(WidgetCategories.XfStandardDose, WidgetTypes.DoseResponse);
             if (hasEditWidgetPageGone)
             {
+                WidgetTypes widgetType = WidgetTypes.DoseResponse;
+                widgetName = widgetType.ToString();
+
                 graphProperties.Measurement(WorkFlow5Data.DoseResponse);
 
                 graphProperties.Rate(WorkFlow5Data.DoseResponse);
@@ -686,18 +724,30 @@ namespace SHAProject.Workflows
 
                 graphProperties.BackgroundCorrection(WorkFlow5Data.DoseResponse);
 
-                if (WorkFlow5Data.DoseResponse.CheckNormalizationWithPlateMap)
-                    graphProperties.VerifyExpectedGraphUnits(WorkFlow5Data.DoseResponse.ExpectedGraphUnits, WidgetTypes.DoseResponse, false);
-
                 if (WorkFlow5Data.DoseResponse.GraphSettingsVerify)
                 {
-                    graphSettings.VerifyGraphSettingsIcon();
+                    graphSettings.VerifyDoseGraphSettingsIcon();
+
+                    graphSettings.DoseYAutoScale(WorkFlow5Data.DoseResponse);
+
+                    graphSettings.DoseXAutoScale(WorkFlow5Data.DoseResponse);
+
+                    graphSettings.DoseZeroLine(WorkFlow5Data.DoseResponse);
+
+                    graphSettings.DataPointSymbols(WorkFlow5Data.DoseResponse);
+
+                    graphSettings.DoseZoom(WorkFlow5Data.DoseResponse);
+
+                    graphSettings.DoseGraphSettingsApply();
+
+                    // Dose graph settings
+                    graphSettings.VerifyDoseKineticGraphSettingsIcon();
 
                     graphSettings.YAutoScale(WorkFlow5Data.DoseResponse);
 
                     graphSettings.ZeroLine(WorkFlow5Data.DoseResponse);
 
-                    graphSettings.LineMarkers(WorkFlow5Data.DoseResponse);
+                    graphSettings.DataPointSymbols(WorkFlow5Data.DoseResponse);
 
                     graphSettings.RateHighlight(WorkFlow5Data.DoseResponse);
 
@@ -706,21 +756,6 @@ namespace SHAProject.Workflows
                     graphSettings.Zoom(WorkFlow5Data.DoseResponse);
 
                     graphSettings.GraphSettingsApply();
-
-                    graphSettings.VerifyDoseGraphSettingsIcon();
-
-                    // Dose graph settings
-                    graphSettings.DoseYAutoScale(WorkFlow5Data.DoseResponse);
-
-                    graphSettings.DoseXAutoScale(WorkFlow5Data.DoseResponse);
-
-                    graphSettings.DoseZeroLine(WorkFlow5Data.DoseResponse);
-
-                    graphSettings.DoseLineMarkers(WorkFlow5Data.DoseResponse);
-
-                    graphSettings.DoseZoom(WorkFlow5Data.DoseResponse);
-
-                    graphSettings.DoseGraphSettingsApply();
                 }
 
                 plateMap.PlateMapIcons();
@@ -730,12 +765,17 @@ namespace SHAProject.Workflows
                 if (WorkFlow5Data.DoseResponse.CheckNormalizationWithPlateMap)
                     plateMap.VerifyNormalizationVal();
 
-                plateMap.WellDataPopup("A05", "Included in current calculation");
+                plateMap.WellDataPopup("A05", "Included in the current calculation");
 
                 groupLegends.EditWidgetGroupLegends(WidgetCategories.XfStandard, WidgetTypes.DoseResponse, WorkFlow5Data.DoseResponse);
 
                 if (WorkFlow5Data.DoseResponse.IsExportRequired)
+                {
                     exports?.EditWidgetExports(WidgetCategories.XfStandard, WidgetTypes.DoseResponse, WorkFlow5Data.DoseResponse);
+
+                    exports?.EditWidgetExports(WidgetCategories.XfStandard, WidgetTypes.KineticGraph, WorkFlow5Data.KineticGraphOcr);
+                }
+                commonFunc.MoveBackToAnalysisPage();
             }
         }
 
@@ -748,7 +788,10 @@ namespace SHAProject.Workflows
                 commonFunc.MoveBackToAnalysisPage();
 
             if (!currentPath.Contains("Analysis"))
-                homePage.HomePageFileUpload();
+                CreateQuickView();
+
+            if (!driver.Title.Contains(fileUploadOrExistingFileData.FileName))
+                filesPage.SearchFilesInFileTab(fileUploadOrExistingFileData.FileName);
 
             ExtentReport.CreateExtentTestNode("Create Blank View");
 
@@ -770,6 +813,9 @@ namespace SHAProject.Workflows
             if (!currentPath.Contains("Analysis"))
                 CreateQuickView();
 
+            if (!driver.Title.Contains(fileUploadOrExistingFileData.FileName))
+                filesPage.SearchFilesInFileTab( fileUploadOrExistingFileData.FileName);
+
             ExtentReport.CreateExtentTestNode("Create Custom View");
 
             analysisPage.CreateCustomView(WorkFlow5Data);
@@ -781,12 +827,19 @@ namespace SHAProject.Workflows
             analysisPage.VerifyCustomview();
 
         }
-
         public void KineticGraphs(WidgetItems widget, WidgetTypes wType)
         {
+            Thread.Sleep(5000);
+
+            if (RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
+                commonFunc.HandleCurrentWindow();
+
             bool hasEditWidgetPageGone = analysisPage.GoToEditWidget(WidgetCategories.XfStandard, wType);
             if (hasEditWidgetPageGone)
             {
+                WidgetTypes widgetType = wType;
+                widgetName = widgetType.ToString();
+
                 graphProperties.Measurement(widget);
 
                 graphProperties.Rate(widget);
@@ -803,8 +856,7 @@ namespace SHAProject.Workflows
 
                 graphProperties.Baseline(widget);
 
-                if (fileUploadOrExistingFileData.IsNormalized)
-                    graphProperties.VerifyExpectedGraphUnits(widget.ExpectedGraphUnits, wType, false);
+                graphProperties.VerifyExpectedGraphUnits(widget.ExpectedGraphUnits, wType);
 
                 if (widget.GraphSettingsVerify)
                 {
@@ -814,7 +866,7 @@ namespace SHAProject.Workflows
 
                     graphSettings.ZeroLine(widget);
 
-                    graphSettings.LineMarkers(widget);
+                    graphSettings.DataPointSymbols(widget);
 
                     graphSettings.RateHighlight(widget);
 
@@ -832,12 +884,14 @@ namespace SHAProject.Workflows
                 if (widget.CheckNormalizationWithPlateMap)
                     plateMap.VerifyNormalizationVal();
 
-                plateMap.WellDataPopup("A05", "Included in current calculation");
+                plateMap.WellDataPopup("A05", "Included in the current calculation");
 
                 groupLegends.EditWidgetGroupLegends(WidgetCategories.XfStandard, wType, widget);
 
                 if (widget.IsExportRequired)
                     exports?.EditWidgetExports(WidgetCategories.XfStandard, wType, widget);
+
+                commonFunc.MoveBackToAnalysisPage();
             }
         }
     }

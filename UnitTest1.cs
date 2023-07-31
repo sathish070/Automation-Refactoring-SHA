@@ -4,6 +4,7 @@ using OfficeOpenXml;
 using OpenQA.Selenium;
 using SHAProject.Utilities;
 using SHAProject.Workflows;
+using SharpCompress.Common;
 using System;
 using System.Data;
 using System.Diagnostics;
@@ -14,7 +15,7 @@ namespace SHAProject
     public class Tests
     {
         public static ExcelReader? reader;
-        public string CURRENT_BUILD_PATH = string.Empty;
+        public string currentBuildPath = string.Empty;
         public String current_browser;
         public LoginData? loginData { get; set; }
         protected CurrentBrowser? currentBrowser { get; set; }
@@ -22,6 +23,8 @@ namespace SHAProject
         protected FileUploadOrExistingFileData? fileUploadOrExistingFileData { get; set; }
         protected WidgetItems? widgetItems { get; set; }
         protected WorkFlow5Data? WorkFlow5Data { get; set; }
+        protected WorkFlow6Data? WorkFlow6Data { get; set; }
+        protected WorkFlow7Data? WorkFlow7Data { get; set; }
         protected WorkFlow8Data? WorkFlow8Data { get; set; }
         public FilesTabData? FilesTabData { get; set; }
         public ExtentTest? extentTest;
@@ -32,25 +35,26 @@ namespace SHAProject
         public DataTable? dtExecutionStatus;
         public DataRow? dtExecutionRow;
         private readonly Process caffeineProcess = new();
-        public CommonFunctions? commonFunc;
+        public CommonFunctions commonFunc;
         public static string loginFolderPath;
-        public static string pathToBeCreated;
+        public static string reportFolderName;
         public IWebDriver? driver;
         public DriverSetup? setup;
+        public static string widgetName;
 
         [OneTimeSetUp]
         public void Setup()
         {
             commonFunc = new CommonFunctions();
-            string currentBuildPath = commonFunc.LogPath();
+            currentBuildPath = commonFunc.LogPath();
             string timestamp = commonFunc.GetTimestamp();
 
-            pathToBeCreated = "Logs\\SA_" + "Chrome" + "-" + timestamp.ToString();
+            reportFolderName = "Logs\\SHA_" + "Report" + "-" + timestamp.ToString();
 
-            extentReport = ExtentReport.ExtentStart(currentBuildPath, pathToBeCreated, timestamp);
-            RunBeforeAnyTests(currentBuildPath);
+            extentReport = ExtentReport.ExtentStart(currentBuildPath, reportFolderName, timestamp);
+            RunBeforeAnyTests();
 
-            loginFolderPath = currentBuildPath + pathToBeCreated;
+            loginFolderPath = currentBuildPath + reportFolderName;
         }
 
         [OneTimeTearDown]
@@ -58,13 +62,14 @@ namespace SHAProject
         {
             ExtentReport.ExtentClose();
             ShutDownScreenAlwaysOn();
+            FolderNames();
             setup.driver?.Close();
             setup.driver?.Quit();
         }
 
-        public void RunBeforeAnyTests(string currentBulidPath)
+        public void RunBeforeAnyTests()
         {
-            //InitiateScreenAlwaysOn();
+            InitiateScreenAlwaysOn();
             extentTest = extentReport.CreateTest("Excel Reader");
             try
             {
@@ -73,13 +78,14 @@ namespace SHAProject
                 normalizationData = new NormalizationData();
                 fileUploadOrExistingFileData = new FileUploadOrExistingFileData();
                 WorkFlow5Data = new WorkFlow5Data();
+                WorkFlow6Data = new WorkFlow6Data();
+                WorkFlow7Data = new WorkFlow7Data();
                 WorkFlow8Data = new WorkFlow8Data();
                 FilesTabData = new FilesTabData();
-                string CURRENT_BUILD_PATH = currentBulidPath;
 
                 currentBrowser.BrowserName = "Chrome";
 
-                reader = new ExcelReader(loginData, fileUploadOrExistingFileData, normalizationData, WorkFlow5Data, WorkFlow8Data, CURRENT_BUILD_PATH, currentBrowser, extentTest, FilesTabData);
+                reader = new ExcelReader(loginData, fileUploadOrExistingFileData, normalizationData, WorkFlow5Data, WorkFlow6Data, WorkFlow7Data, WorkFlow8Data, currentBuildPath, currentBrowser, extentTest, FilesTabData);
 
                 bool excelReadStatus = reader.ReadDataFromExcel("Login");
                 if (excelReadStatus)
@@ -103,7 +109,7 @@ namespace SHAProject
         {
             try
             {
-                caffeineProcess.StartInfo.FileName = Path.Combine(CURRENT_BUILD_PATH + "Caffeine\\caffeine64.exe");
+                caffeineProcess.StartInfo.FileName = Path.Combine(currentBuildPath + "Caffeine\\caffeine64.exe");
                 caffeineProcess.Start();
             }
             catch (Exception ex)
@@ -120,7 +126,25 @@ namespace SHAProject
             }
             catch (Exception ex)
             {
-                extentTest.Log(Status.Fail, "Some error has occured in shutting down of Caffeine process for always screen On. The error is " + ex.Message);
+                extentTest.Log(Status.Fail, "Some error has occured in shutting down of caffeine process for always screen On. The error is " + ex.Message);
+            }
+        }
+
+        public void FolderNames()
+        {
+            if (Directory.Exists(loginFolderPath))
+            {
+                reportFolderName = reportFolderName.Replace("Report", current_browser);
+                string newFolderPath = Path.Combine(currentBuildPath, reportFolderName);
+                Directory.Move(loginFolderPath, newFolderPath);
+
+                var directoryInfo = new DirectoryInfo(newFolderPath);
+                var htmlFile = directoryInfo.GetFiles("*.html").OrderByDescending(f => f.LastWriteTime).FirstOrDefault();
+                string htmlContent = File.ReadAllText(htmlFile.FullName);
+                htmlContent = htmlContent.Replace("SHA_Report", "SHA_" + current_browser);
+
+                string newFile = newFolderPath+"\\"+htmlFile.Name;
+                File.WriteAllText(newFile, htmlContent);
             }
         }
     }

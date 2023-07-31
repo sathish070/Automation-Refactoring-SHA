@@ -32,22 +32,22 @@ namespace SHAProject.PageObject
 
         #region Modify Assay Header Tabs
 
-        [FindsBy(How = How.XPath, Using = "//*[@class ='nav-item pill-1']")]
+        [FindsBy(How = How.XPath, Using = "//a[@href=\"#groups\"]")]
         public IWebElement GroupTab;
 
-        [FindsBy(How = How.XPath, Using = "//*[@class ='nav-item pill-2']")]
+        [FindsBy(How = How.XPath, Using = "//a[@href=\"#plateMap\"]")]
         public IWebElement PlateMap;
 
-        [FindsBy(How = How.XPath, Using = "//*[@class ='nav-item pill-3']")]
+        [FindsBy(How = How.XPath, Using = "//a[@href=\"#media_buffer\"]")]
         public IWebElement AssayMedia;
 
-        [FindsBy(How = How.XPath, Using = "//*[@class ='nav-item pill-4']")]
+        [FindsBy(How = How.XPath, Using = "//a[@href=\"#tab3\"]")]
         public IWebElement BackgroundBuffer;
 
-        [FindsBy(How = How.XPath, Using = "//*[@class ='nav-item pill-6']")]
+        [FindsBy(How = How.XPath, Using = "//a[@href=\"#Injection_Names\"]")]
         public IWebElement InjectionNames;
 
-        [FindsBy(How = How.XPath, Using = "//*[@class ='nav-item pill-5']")]
+        [FindsBy(How = How.XPath, Using = "//a[@href=\"#tab4\"]")]
         public IWebElement GeneralInfo;
 
         [FindsBy(How = How.XPath, Using = "//a[@title='Modify Assay']")]
@@ -75,6 +75,9 @@ namespace SHAProject.PageObject
         [FindsBy(How = How.XPath, Using = "//*[@id='row1']/div/div[2]/div[2]")]
         public IWebElement CellType;
 
+        [FindsBy(How = How.XPath, Using = "(//span[@class=\"imgarea\"])[2]")]
+        public IWebElement ExpansionIcon;
+
         [FindsBy(How = How.XPath, Using = "//*[@title ='Move Selection Down']")]
         public IWebElement MoveSelectionDown;
 
@@ -84,7 +87,7 @@ namespace SHAProject.PageObject
         [FindsBy(How = How.Id, Using = "addgrp-btn")]
         public IWebElement AddGroupBtn;
 
-        [FindsBy(How = How.Id, Using = "(//*[@class ='row grouprow selected'])[last()]")]
+        [FindsBy(How = How.XPath, Using = "(//div[@class ='row grouprow selected'])[last()]")]
         public IWebElement AddedGroup;
 
         [FindsBy(How = How.XPath, Using = "//*[@class=\"row grouprow selected\"]/span[3]/a/img")]
@@ -93,7 +96,7 @@ namespace SHAProject.PageObject
         [FindsBy(How = How.XPath, Using = "(//*[@onclick=\"grouplistrename(this)\"])[last()]")]
         public IWebElement RenameButton;
 
-        [FindsBy(How = How.XPath, Using = "(//*[@onblur=\"ChangeGroupName(this)\"])[last()]")]
+        [FindsBy(How = How.XPath, Using = "(//label[@onblur=\"ChangeGroupName(this)\"])[last()]")]
         public IWebElement GroupRename;
 
         [FindsBy(How = How.XPath, Using = "//*[@onclick=\"fnModifyDialog()\"]")]
@@ -127,13 +130,13 @@ namespace SHAProject.PageObject
         [FindsBy(How = How.XPath, Using ="(//*[@Class=\"list-options groupoption\"])[last()]")]
         public IWebElement LastGroupList;
 
-        [FindsBy(How = How.XPath, Using ="(//*[@Class=\"set-group-ctrl\"])[last()]")]
+        [FindsBy(How = How.XPath, Using ="(//select[@Class=\"set-group-ctrl\"])[last()]")]
         public IWebElement DropdownControlGroups;
 
         [FindsBy(How = How.XPath, Using ="//*[@class =\"col-md-12 platemapArea\"]")]
         public IWebElement PlateMapArea;
 
-        [FindsBy(How = How.XPath, Using ="(//*[@data-wellnum=\"4\"])[2]")]
+        [FindsBy(How = How.XPath, Using ="(//td[@data-wellnum=\"4\"])[2]")]
         public IWebElement WellDataPopup;
 
         #endregion
@@ -218,7 +221,10 @@ namespace SHAProject.PageObject
         [FindsBy(How = How.XPath, Using = "(//input[@class='ClassInjectionNames'])[1]")]
         public IWebElement InjectionRename;
 
-        [FindsBy(How = How.XPath, Using ="//button[@onclick='fnModifyDialog()']")]
+        //[FindsBy(How = How.XPath, Using ="//button[@onclick='fnModifyDialog()']")]
+        //public IWebElement SaveBtn;
+
+        [FindsBy(How = How.XPath, Using = "(//button[@class=\"btn btn-primary\"])[12]")]
         public IWebElement SaveBtn;
 
         [FindsBy(How = How.CssSelector, Using = "//button[@id=\"btnIsLinkedToProjects\"]")]
@@ -296,10 +302,7 @@ namespace SHAProject.PageObject
 
                 _findElements.ElementTextVerify(CellType, "Cell Type", _currentPage, $"Group Expansion - Cell Type");
 
-                _findElements.ClickElementByJavaScript(ExpandIcon, _currentPage, $"Group Tab - Expand Icon"); // Expand/Collapse tab is back to normal
-
-                /*Move Selection Down Icon*/
-                // jScript.ExecuteScript("arguments[0].click();", groupexpansion);
+                _findElements.ClickElementByJavaScript(ExpansionIcon, _currentPage, $"Group Tab - Group Expansion back to position"); // Expand/Collapse tab is back to normal
 
                 _findElements.ClickElementByJavaScript(MoveSelectionDown, _currentPage, $"Group Tab - Move Selection Down");
 
@@ -315,28 +318,29 @@ namespace SHAProject.PageObject
 
                     _findElements.ClickElementByJavaScript(DotIcon, _currentPage, $"Add Group - Three Dot Icon");
 
-                    _findElements.ScrollIntoViewAndClickElementByJavaScript(RenameButton, _currentPage, $"Rename Button");
+                    _findElements.ActionsClassClick(RenameButton);
 
                     GroupRename.SendKeys(Keys.End);
                     while (GroupRename.Text.Length > 0)
                     {
                         GroupRename.SendKeys(Keys.Backspace);
                     }
+                    Thread.Sleep(2000);
 
-                    _findElements.SendKeys(groupName, GroupRename, _currentPage, $"Given group nmae is  {groupName}");
+                    _findElements.SendKeys(groupName, GroupRename, _currentPage, $"Given group name is  {groupName}");
 
                     ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"Group Name added in the list");
 
                     _findElements.ClickElementByJavaScript(SaveButton, _currentPage, $"Add Group - Save Button");
 
-                    //ScreenshotNow(ScreenshotPath, workflow, testid + "- Verified in the Analysis Page", ScreenshotType.Info);
-                    //extentTestNode.Log(Status.Pass, "Group Name added is verified in the Analysis Page");
+                    ScreenShot.ScreenshotNow(_driver, _currentPage, "Group Added in the Analysis Page", ScreenshotType.Info);
+                    ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, "Group Name added is verified in the Analysis Page");
 
                     _findElements.ClickElementByJavaScript(Modifyassay, _currentPage, $"Modify Assay Button");
 
                     AddGroupBtn.Click();
 
-                    _findElements.ScrollIntoViewAndClickElementByJavaScript(RenameButton, _currentPage, $"Rename Button");
+                    _findElements.ActionsClassClick(RenameButton);
 
                     _findElements.ClickElementByJavaScript(DotIcon, _currentPage, $"Add Group - Three Dot Icon");
 
@@ -345,7 +349,7 @@ namespace SHAProject.PageObject
                     {
                         DuplicateGroupName.SendKeys(Keys.Backspace);
                     }
-                    _findElements.SendKeys(groupName, GroupRename, _currentPage, $"Given group nmae is {groupName}");
+                    _findElements.SendKeys(groupName, GroupRename, _currentPage, $"Given group name is {groupName}");
 
                     DuplicateGroupName.SendKeys(Keys.Tab);
 
@@ -380,16 +384,22 @@ namespace SHAProject.PageObject
 
                 _findElements.ScrollIntoViewAndClickElementByJavaScript(LastGroupList, _currentPage, $"Last Group List");
 
+                _findElements.ClickElement(DropdownControlGroups, _currentPage, $"Select the control popup");
+
                 int selectedIndex = selectTheControls == "Set Group as Positive Control" ? 1 : selectTheControls == "Set Group as Negative Control" ? 2 :
                                     selectTheControls == "Set Group as Vehicle Control" ? 3 : 0;
 
-                _findElements.SelectByIndex(DropdownControlGroups, selectedIndex);
+                //_findElements.SelectByIndex(DropdownControlGroups, selectedIndex);
+
+                _findElements.SelectFromDropdown(DropdownControlGroups, _currentPage, "index", selectedIndex.ToString() , "Select the Controls" );
 
                 _findElements.VerifyElement(PlateMapArea, _currentPage, $"Selected controls in Plate Map Area ");
 
-                _findElements.ActionsClass(WellDataPopup);
+                string elementId = "Groudetail7";
+                string script = $"document.getElementById('{elementId}').style.display = 'block';";
+                ((IJavaScriptExecutor)_driver).ExecuteScript(script);
 
-                //ScreenshotNow(ScreenshotPath, workflow, testid + " - Well Data Popup", ScreenshotType.Info);
+                ScreenShot.ScreenshotNow(_driver, _currentPage, "WellData popup in the platemap tab", ScreenshotType.Info);
 
                 ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"Modify assay - plate map tab has been verified");
             }
@@ -503,23 +513,18 @@ namespace SHAProject.PageObject
 
                 _findElements.ClickElement(InjectionNames, _currentPage, $"Modify Assay - Injection Names ");
 
-                //_findElements.VerifyElement(InjTable,_currentPage,$"All Injcetion Names");
-
-                //int count = InjectionCount
-                //extentTestNode.Log(Status.Pass, "The file is - " + count + " injection file type");
-                //ScreenshotNow(ScreenshotPath, workflow, testid + " - No.of.Injection is - " + count, ScreenshotType.Info);
                 InjectionRename.Clear();
 
                 _findElements.SendKeys(injectionName, InjectionRename, _currentPage,$"Modify Assay - Injection Count ");
 
                 _findElements.ClickElementByJavaScript(SaveBtn, _currentPage, $"Injection Name -Save button");
 
+                Thread.Sleep(2000);
+
                 if (_driver.PageSource.Contains("Continue"))
                 {
-
                     _findElements.ClickElementByJavaScript(ContinueBtn, _currentPage, $"Injection Name - Continue Button");
 
-                    //ScreenshotNow(ScreenshotPath, workflow, testid + "- Injection Name Changed", ScreenshotType.Info);
                 }
 
                 ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"Modify assay - injection name tab has been verified");
@@ -537,6 +542,7 @@ namespace SHAProject.PageObject
                 _findElements.ClickElementByJavaScript(ModifyAssayIcon, _currentPage, $"Modify Assay Icon ");
 
                 /*Click on the general info tab*/
+                Thread.Sleep(2000);
 
                 _findElements.ClickElementByJavaScript(GeneralInfo, _currentPage, $"Modify Assay -General Info ");
 
@@ -550,9 +556,13 @@ namespace SHAProject.PageObject
 
                 _findElements.VerifyElement(PlatedBy, _currentPage, $"General Info - PlateBy");
 
+                _findElements.VerifyElement(PlatedOn, _currentPage, $"General Info - PlateOn");
+
                 _findElements.VerifyElement(Notes, _currentPage, $"General Info - Notes");
 
                 _findElements.VerifyElement(AssayInformation, _currentPage, $"General Info - Assay Information");
+
+                _findElements.ClickElementByJavaScript(SaveBtn, _currentPage, $"General Info - Save Button");
 
                 ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"Modify assay - general info tab has been verified");
             }

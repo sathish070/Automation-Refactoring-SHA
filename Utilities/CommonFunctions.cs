@@ -46,22 +46,22 @@ namespace SHAProject.Utilities
             return dateTime;
         }
 
-        public void CreateDirectory(string currentBuildPath, string pathToBeCreated)
+        public void CreateDirectory(string currentBuildPath, string reportFolderName)
         {
             try
             {
                 /* Check if the directory exists and create it if not*/
-                if (!Directory.Exists(currentBuildPath + "\\" + pathToBeCreated) || !Directory.Exists(currentBuildPath + "/" + pathToBeCreated))
+                if (!Directory.Exists(currentBuildPath + "\\" + reportFolderName) || !Directory.Exists(currentBuildPath + "/" + reportFolderName))
                 {
                     /* Create directory and get directory info*/
-                    string folderPath = Environment.OSVersion.Platform == PlatformID.MacOSX || Environment.OSVersion.Platform == PlatformID.Unix ? currentBuildPath + "/" + pathToBeCreated : currentBuildPath + "\\" + pathToBeCreated;
+                    string folderPath = Environment.OSVersion.Platform == PlatformID.MacOSX || Environment.OSVersion.Platform == PlatformID.Unix ? currentBuildPath + "/" + reportFolderName : currentBuildPath + "\\" + reportFolderName;
                     DirectoryInfo di = Directory.CreateDirectory(folderPath);
                     //ExtentReport.ExtentTest("ExtentTest", Status.Pass, "The Directory has been created successfully. The path is " + di.FullName);
                 }
                 else
                 {
                     /* If directory already exists, log it and set status to false*/
-                    string folderPath = Environment.OSVersion.Platform == PlatformID.MacOSX || Environment.OSVersion.Platform == PlatformID.Unix ? currentBuildPath + "/" + pathToBeCreated : currentBuildPath + "\\" + pathToBeCreated;
+                    string folderPath = Environment.OSVersion.Platform == PlatformID.MacOSX || Environment.OSVersion.Platform == PlatformID.Unix ? currentBuildPath + "/" + reportFolderName : currentBuildPath + "\\" + reportFolderName;
                     //ExtentReport.ExtentTest("ExtentTest", Status.Fail, "The Directory has been already created. The path is " + folderPath);
                 }
             }
@@ -160,20 +160,32 @@ namespace SHAProject.Utilities
                 (WidgetCategories.XfStandard, WidgetTypes.HeatMap) => 42,
 
                 // Dose Response View
-                (WidgetCategories.XfStandard, WidgetTypes.DoseResponse) => 43,
+                (WidgetCategories.XfStandardDose, WidgetTypes.DoseResponse) => 43,
 
                 // XfMitochondrialRespiration View
-                (WidgetCategories.XfMst, WidgetTypes.MitochondrialRespiration) => 1,
-                (WidgetCategories.XfMst, WidgetTypes.Basal) => 2,
-                (WidgetCategories.XfMst, WidgetTypes.AcuteResponse) => 3,
-                (WidgetCategories.XfMst, WidgetTypes.ProtonLeak) => 4,
-                (WidgetCategories.XfMst, WidgetTypes.MaximalRespiration) => 5,
-                (WidgetCategories.XfMst, WidgetTypes.SpareRespiratoryCapacity) => 6,
-                (WidgetCategories.XfMst, WidgetTypes.NonMitoO2Consumption) => 7,
-                (WidgetCategories.XfMst, WidgetTypes.AtpProductionCoupledRespiration) => 8,
-                (WidgetCategories.XfMst, WidgetTypes.CouplingEfficiencyPercent) => 9,
-                (WidgetCategories.XfMst, WidgetTypes.SpareRespiratoryCapacityPercent) => 10,
+                (WidgetCategories.XfMst, WidgetTypes.MitochondrialRespiration) => 24,
+                (WidgetCategories.XfMst, WidgetTypes.Basal) => 8,
+                (WidgetCategories.XfMst, WidgetTypes.AcuteResponse) => 1,
+                (WidgetCategories.XfMst, WidgetTypes.ProtonLeak) => 28,
+                (WidgetCategories.XfMst, WidgetTypes.MaximalRespiration) => 20,
+                (WidgetCategories.XfMst, WidgetTypes.SpareRespiratoryCapacity) => 29,
+                (WidgetCategories.XfMst, WidgetTypes.NonMitoO2Consumption) => 25,
+                (WidgetCategories.XfMst, WidgetTypes.AtpProductionCoupledRespiration) => 2,
+                (WidgetCategories.XfMst, WidgetTypes.CouplingEfficiencyPercent) => 7,
+                (WidgetCategories.XfMst, WidgetTypes.SpareRespiratoryCapacityPercent) => 30,
                 (WidgetCategories.XfMst, WidgetTypes.DataTable) => 13,
+
+
+                //XfAtpRateAssayView
+                (WidgetCategories.XfAtp, WidgetTypes.MitoAtpProductionRate) => 23,
+                (WidgetCategories.XfAtp, WidgetTypes.GlycoAtpProductionRate) => 17,
+                (WidgetCategories.XfAtp, WidgetTypes.AtpProductionRateData) => 4,
+                (WidgetCategories.XfAtp, WidgetTypes.AtpProductionRateBasal) => 3,
+                (WidgetCategories.XfAtp, WidgetTypes.AtpProductionRateInduced) => 5,
+                (WidgetCategories.XfAtp, WidgetTypes.EnergeticMapBasal) => 14,
+                (WidgetCategories.XfAtp, WidgetTypes.EnergeticMapInduced) => 15,
+                (WidgetCategories.XfAtp, WidgetTypes.XfAtpRateIndex) => 33,
+                (WidgetCategories.XfAtp, WidgetTypes.DataTable) => 13,
 
                 // XfCellEnergyPhenotype View
                 (WidgetCategories.XfCellEnergy, WidgetTypes.XfCellEnergyPhenotype) => 34,
@@ -190,8 +202,15 @@ namespace SHAProject.Utilities
 
         public void MoveBackToAnalysisPage()
         {
-            var backToAnalysis = _driver.FindElement(By.CssSelector(".nav-link-back"));
-            backToAnalysis.Click();
+            try
+            {
+                var backToAnalysis = _driver.FindElement(By.XPath("//a[@class='nav-link-back']"));
+                backToAnalysis.Click();
+            }
+            catch (Exception e)
+            {
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Unable to move back to analysis page.The error is {e.Message}");
+            }
         }
 
         public int GetWellIndexFromLabel(FileType fileType, string label)

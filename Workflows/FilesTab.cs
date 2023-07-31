@@ -123,7 +123,7 @@ namespace SHAProject.Workflows
         public void Setup()
         {
             setup = new DriverSetup();
-            driver = setup.browser(current_browser, loginData.Website, pathToBeCreated);
+            driver = setup.browser(current_browser, loginData.Website, reportFolderName);
             loginClass = new LoginClass(driver, loginData, commonFunc);
             loginStatus = loginClass.LoginAsExcelUser();
             commonFunc.CreateDirectory(loginFolderPath, currentPage);

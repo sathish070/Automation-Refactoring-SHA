@@ -10,6 +10,7 @@ using OpenQA.Selenium;
 using SHAProject.Utilities;
 using SHAProject.SeleniumHelpers;
 using AventStack.ExtentReports;
+using OpenQA.Selenium.Interactions;
 
 namespace SHAProject.EditPage
 {
@@ -126,8 +127,8 @@ namespace SHAProject.EditPage
 
                 // export jpg
                 Thread.Sleep(5000);
-                IWebElement exportJPG = _driver.FindElement(By.CssSelector("li.export-image-menu.jpg"));
-                _findElements.ClickElement(exportJPG, _currentPage, "Editwidget Page - Export JPG");
+                IWebElement exportPNG = _driver.FindElement(By.CssSelector("li.export-image-menu.png"));
+                _findElements.ClickElement(exportPNG, _currentPage, "Editwidget Page - Export PNG");
 
                 // export icon 
                 Thread.Sleep(5000);
@@ -141,8 +142,8 @@ namespace SHAProject.EditPage
 
                 // export png
                 Thread.Sleep(5000);
-                IWebElement exportPNG = _driver.FindElement(By.CssSelector("li.export-image-menu.png"));
-                _findElements.ClickElement(exportPNG, _currentPage, "Editwidget Page - Export PNG");
+                IWebElement exportJPG = _driver.FindElement(By.CssSelector("li.export-image-menu.jpg"));
+                _findElements.ClickElement(exportJPG, _currentPage, "Editwidget Page - Export JPG");
 
                 // export icon 
                 Thread.Sleep(5000);
@@ -176,7 +177,7 @@ namespace SHAProject.EditPage
             }
             catch (Exception e)
             {
-                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"The error occured in editwidget page canvas chart exports functionality. The error is {e.Message}");
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"The error occured in edit widget page canvas chart exports functionality. The error is {e.Message}");
             }
         }
 
@@ -199,7 +200,31 @@ namespace SHAProject.EditPage
             }
             catch (Exception e)
             {
-                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"The error occured in editwidget page heatmap exports functionality. The error is {e.Message}");
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"The error occured in edit widget page heatmap exports functionality. The error is {e.Message}");
+            }
+        }
+
+        private void DataTableExport()
+        {
+            try
+            {
+                IWebElement exporticon = _driver.FindElement(By.CssSelector(".tablexport-icon"));
+
+                _findElements.ClickElementByJavaScript(exporticon, _currentPage, "DataTable - Export View Icon");
+
+                IWebElement exporticonExcel = _driver.FindElement(By.CssSelector("#expexcel"));
+                _findElements.ClickElementByJavaScript(exporticonExcel, _currentPage, "DataTable - Export Icon Excel");
+
+                Thread.Sleep(1000);
+                IWebElement exporticonprism = _driver.FindElement(By.CssSelector("#expprism"));
+                _findElements.ClickElementByJavaScript(exporticonprism, _currentPage, "DataTable - Export Icon Prism");
+
+                Actions actions = new Actions(_driver);
+                actions.MoveToElement(exporticonprism, -100, -100).Perform();
+            }
+            catch (Exception e)
+            {
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"The error occured in edit widget page data table exports functionality. The error is {e.Message}");
             }
         }
 
@@ -212,7 +237,7 @@ namespace SHAProject.EditPage
 
                 if (_driver.FindElements(By.CssSelector(".export_Heatmap_icon")).Count == 0)
                 {
-                    #region verify-images
+                    #region Verify - PNG & JPG Images
 
                     var pngImage = directoryInfo.GetFiles("*.png").OrderByDescending(f => f.LastWriteTime).FirstOrDefault();
                     var jpgImage = directoryInfo.GetFiles("*.jpg").OrderByDescending(f => f.LastWriteTime).FirstOrDefault();
@@ -255,7 +280,8 @@ namespace SHAProject.EditPage
 
                     #endregion
                 }
-                #region verify-datas
+
+                #region Verify- Excel & Prism data
 
                 var excelFile = directoryInfo.GetFiles("*.xlsx").OrderByDescending(f => f.LastWriteTime).FirstOrDefault();
                 var prismFile = directoryInfo.GetFiles("*.pzfx").OrderByDescending(f => f.LastWriteTime).FirstOrDefault();
@@ -298,7 +324,6 @@ namespace SHAProject.EditPage
                     ArrayList dataTable = new ArrayList() { "Basal Rates (Average)(1)", "Well Data Basal Rates (2)", };
                     ArrayList arrayListsheetNames = new ArrayList();
 
-
                     string filePath = excelFile.FullName;
                     using (ExcelPackage package = new ExcelPackage(new FileInfo(filePath)))
                     {
@@ -330,52 +355,39 @@ namespace SHAProject.EditPage
                     downloadedExcelData = GetExcelData(chartName, excelFile.FullName);
                 }
 
-                if (downloadedExcelData != null && wType != WidgetTypes.DataTable)
+                string normalization = _driver.FindElement(By.Id("chknormalize")).Selected ? "Yes" : "No";
+                var excelnormalization = downloadedExcelData.Rows[0]["Normalized"].ToString();
+                if (excelnormalization == normalization)
                 {
-                    var normalized = downloadedExcelData.Rows[0]["Normalized"].ToString();
-                    var normalizedvalue = widget.Normalization ? "Yes" : "No";
-                    if (normalized == normalizedvalue)
-                    {
-                        ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, "Downloaded excel file Normalized value for " + chartName + " is " + normalized);
-                    }
-                    else
-                    {
-                        ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, "The Exported Data is not in Prism format.");
-                    }
+                    ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, "Downloaded excel file Normalized value for " + chartName + " is " + excelnormalization.ToString());
+                }
+                else
+                {
+                    ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Downloaded excel file normalization value - {excelnormalization} and expect baseline are not equal");
                 }
 
-                if (wType != WidgetTypes.DoseResponse)
+                string baseLine = _driver.FindElement(By.Id("select2-ddl_baseline-container")).Text == "OFF" ? "No" : "Yes";
+                var excelBaseline = downloadedExcelData.Rows[0]["Baseline"].ToString();
+                if (excelBaseline == baseLine)
                 {
-                    IWebElement baseLine = _driver.FindElement(By.Id("baselineselection"));
-                    if (baseLine.Displayed)
-                    {
-                        var baseline = downloadedExcelData.Rows[0]["Baseline"].ToString();
-                        var baselinevalue = widget.Baseline == "OFF" ? "No" : "Yes";
-                        if (baseline == baselinevalue)
-                        {
-                            ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, "Downloaded excel file Baseline value for " + chartName + " is " + baselinevalue);
-                        }
-                        else
-                        {
-                            ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, "Downloaded excel file Baseline value is invaild  for " + chartName + " is " + baselinevalue);
-                        }
-                    }
+                    ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, "Downloaded excel file Baseline value for " + chartName + " is " + excelBaseline);
+                }
+                else
+                {
+                    ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Downloaded excel file Baseline value {excelBaseline} and expect baseline are not equal");
                 }
 
-                IWebElement backgroundCorrection = _driver.FindElement(By.CssSelector(".graph-ms.bg-correction.hideprop"));
-                if (backgroundCorrection.Displayed)
+                bool backgroundCorrection = _driver.FindElement(By.Id("chkbackground")).Selected;
+                var excelbackgroundcorrection = downloadedExcelData.Rows[0]["Background Correction"].ToString();
+                if (excelbackgroundcorrection == backgroundCorrection.ToString())
                 {
-                    var backgroundcorrection = downloadedExcelData.Rows[0]["Background Correction"].ToString();
-                    var backgroundcorrectionvalue = widget.BackgroundCorrection.ToString();
-                    if (backgroundcorrection == backgroundcorrectionvalue)
-                    {
-                        ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, "Downloaded excel file Background Correction value for " + chartName + " is " + backgroundcorrection);
-                    }
-                    else
-                    {
-                        ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, "Downloaded excel file Background Correction value is invalid for " + chartName + " is " + backgroundcorrectionvalue);
-                    }
+                    ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, "Downloaded excel file Background Correction value for " + chartName + " is " + excelbackgroundcorrection);
                 }
+                else
+                {
+                    ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Downloaded excel file Background Correction value is {excelbackgroundcorrection} and expect background correction are not equal");
+                }
+
 
                 if (downloadedExcelData != null && wType != WidgetTypes.DataTable)
                 {
@@ -390,46 +402,28 @@ namespace SHAProject.EditPage
                     }
                 }
 
-                IWebElement rateType = _driver.FindElement(By.CssSelector(".graph-ms.select-measurement.rate.hiderate"));
-                if (rateType.Displayed)
+                var unitsvalue = widget.ExpectedGraphUnits.ToString();
+                var datatype = downloadedExcelData.Rows[0]["Data Type"].ToString();
+                if (unitsvalue.Contains(datatype))
                 {
-                    var datatype = downloadedExcelData.Rows[0]["Data Type"].ToString();
-                    var datatypevalue = widget.Rate.ToString();
-                    if (datatype == datatypevalue)
-                    {
-                        ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, "Downloaded excel file Datatype for " + chartName + " is " + datatype);
-                    }
-                    else
-                    {
-                        ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, "Downloaded excel file Datatype is invalid for " + chartName + " is " + datatypevalue);
-                    }
+                    ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, "Downloaded excel file Datatype for " + chartName + " is " + datatype);
+                }
+                else
+                {
+                    ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Downloaded excel file Datatype is - {datatype} and expect data type are not equal ");
                 }
 
                 if (downloadedExcelData != null && wType != WidgetTypes.DataTable)
                 {
-
                     var units = downloadedExcelData.Rows[0]["Units"].ToString();
-                    var unitsvalue = widget.ExpectedGraphUnits.ToString();
-                    if (unitsvalue != "")
+
+                    if (unitsvalue.Contains(units))
                     {
-                        string graphunits = string.Empty;
-                        if (unitsvalue != "N/A")
-                        {
-                            string[] unitsList = unitsvalue.Split("(");
-                            graphunits = unitsList[1].Replace(")", "");
-                        }
-                        if (unitsvalue == "N/A")
-                        {
-                            graphunits = "N/A";
-                        }
-                        if (units == graphunits)
-                        {
-                            ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, "Downloaded excel file Units values for " + chartName + " is " + units);
-                        }
-                        else
-                        {
-                            ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, "Downloaded excel file Units values is invalid for " + chartName + " is " + unitsvalue);
-                        }
+                        ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, "Downloaded excel file Units values for " + chartName + " is " + units);
+                    }
+                    else
+                    {
+                        ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Downloaded excel file Units values is -{unitsvalue} and expect unit values are not equal");
                     }
                     downloadedExcelData?.Dispose();
                 }
@@ -524,7 +518,7 @@ namespace SHAProject.EditPage
             }
 
             var dtHeader1 = dtExcel.AsEnumerable().Select(r => r.Field<string>("Assay Name")).ToList();
-            var dtHeader2 = dtExcel.AsEnumerable().Select(r => r.Field<string>(_fileUploadOrExistingFileData.FileName)).ToList();
+            var dtHeader2 = dtExcel.AsEnumerable().Select(r => r.Field<string>(_driver.Title)).ToList();
             DataTable _table = new();
             DataRow dr = _table.NewRow();
             _table.Rows.Add(dr);

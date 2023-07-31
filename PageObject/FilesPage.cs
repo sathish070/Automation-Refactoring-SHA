@@ -535,13 +535,13 @@ namespace SHAProject.Create_Widgets
                 return false;
             }
         }
-        public bool SearchFilesInFileTab(string currentPage)
+        public bool SearchFilesInFileTab(string fileName)
         {
             try
             {
                 _findElements.ClickElement(filesTab, _currentPage, "Files Tab");
 
-                _findElements.SendKeys(_fileUploadOrExistingFileData.FileName, searchTextBox, _currentPage, $"Given file name is - {_fileUploadOrExistingFileData.FileName}");
+                _findElements.SendKeys(fileName, searchTextBox, _currentPage, $"Given file name is - {fileName}");
 
                 _findElements.ClickElement(selectFirstResultedFile, _currentPage, $"Files Tab - First file");
 
@@ -668,8 +668,10 @@ namespace SHAProject.Create_Widgets
 
                 _findElements.ClickElementByJavaScript(textBoxEnter, _currentPage, "Files Page - pagination text box");
 
-                SelectElement select = new(pageDropdown);
-                select.SelectByText(_FilesTabData?.FilesList); 
+                //SelectElement select = new(pageDropdown);
+                //select.SelectByText(_FilesTabData?.FilesList); 
+
+                _findElements.SelectFromDropdown(pageDropdown, _currentPage, "text", _FilesTabData?.FilesList, $"File list - {_FilesTabData?.FilesList}");
 
             }
             catch(Exception e) 
@@ -1104,8 +1106,10 @@ namespace SHAProject.Create_Widgets
 
                         _findElements?.VerifyElement(makeACopyCloseIcon, _currentPage, "Files Page - Make A Copy Close Icon");
 
-                        SelectElement dropdown = new(copyDropDown);
-                        dropdown.SelectByText(_FilesTabData.CopyFilePath);
+                        //SelectElement dropdown = new(copyDropDown);
+                        //dropdown.SelectByText(_FilesTabData.CopyFilePath);
+                        _findElements.SelectFromDropdown(copyDropDown, _currentPage, "text", _FilesTabData.CopyFilePath, $"Copied File Path - {_FilesTabData.CopyFilePath}" );
+
                         //Thread.sleep(2000);
 
                         _findElements?.ClickElementByJavaScript(copyFile, _currentPage, "Copy File");
@@ -1142,6 +1146,8 @@ namespace SHAProject.Create_Widgets
 
                         SelectElement dropdown = new SelectElement(foldername);
                         dropdown.SelectByText(_FilesTabData.FolderPath);
+
+                        _findElements.SelectFromDropdown(foldername, _currentPage, "text", _FilesTabData.FolderPath, $"Folder Path - {_FilesTabData.FolderPath}");
                         //Thread.sleep(5000);
 
                         _findElements.ClickElementByJavaScript(moveButton, _currentPage, "Move Button");

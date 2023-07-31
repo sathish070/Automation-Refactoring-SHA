@@ -4,6 +4,7 @@ using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium.Interactions;
 using SHAProject.Utilities;
 using AventStack.ExtentReports;
+using SeleniumExtras.WaitHelpers;
 
 namespace SHAProject.SeleniumHelpers
 {
@@ -39,6 +40,7 @@ namespace SHAProject.SeleniumHelpers
         {
             try
             {
+                fieldName =$" {widgetName} {fieldName}";
                 IWebElement webElement = WaitForElementVisible(element);
                 if (webElement.Enabled && webElement.Displayed)
                 {
@@ -49,7 +51,7 @@ namespace SHAProject.SeleniumHelpers
                 }
                 else
                 {
-                    ExtentReport.ExtentTest(currentPage == "Login" ? "ExtentTest" : "ExtentTestNode", Status.Fail, $"{fieldName} - is displayed  not clickable on the page");
+                    ExtentReport.ExtentTest(currentPage == "Login" ? "ExtentTest" : "ExtentTestNode", Status.Fail, $"{fieldName} - is displayed not clickable on the page");
                     ScreenShot.ScreenshotNow(_driver, currentPage, fieldName, ScreenshotType.Error, element);
                     return false;
                 }
@@ -71,6 +73,7 @@ namespace SHAProject.SeleniumHelpers
         {
             try
             {
+                fieldName =$" {widgetName} {fieldName}";
                 IWebElement webElement = WaitForElementVisible(element);
                 if (webElement.Displayed)
                 {
@@ -99,6 +102,7 @@ namespace SHAProject.SeleniumHelpers
         {
             try
             {
+                fieldName =$" {widgetName} {fieldName}";
                 IWebElement webElement = WaitForElementVisible(element);
                 if (webElement.Displayed)
                 {
@@ -136,7 +140,8 @@ namespace SHAProject.SeleniumHelpers
         {
             try
             {
-                _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
+                fieldName =$" {widgetName} {fieldName}";
+                //_driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
                 IWebElement webElement = WaitForElementVisible(element);
                 if (webElement.Enabled && webElement.Displayed)
                 {
@@ -169,6 +174,7 @@ namespace SHAProject.SeleniumHelpers
         {
             try
             {
+                fieldName =$" {widgetName} {fieldName}";
                 IWebElement webElement = WaitForElementVisible(element);
                 if (webElement.Enabled && webElement.Displayed)
                 {
@@ -176,7 +182,7 @@ namespace SHAProject.SeleniumHelpers
                     IJavaScriptExecutor jScript = (IJavaScriptExecutor)_driver;
                     jScript?.ExecuteScript("arguments[0].scrollIntoView(true);", element);  
                     jScript?.ExecuteScript("arguments[0].click();", element);
-                    ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"{fieldName} - is displayed and clickable on the page");
+                    ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"{fieldName} - is displayed and clickable on the page");
                 }
                 else
                 {
@@ -211,6 +217,7 @@ namespace SHAProject.SeleniumHelpers
         {
             try
             {
+                fieldName =$" {widgetName} {fieldName}";
                 IWebElement webElement = WaitForElementVisible(element);
                 if (webElement.Displayed && webElement.Text.Contains(givenName))
                 {
@@ -251,29 +258,48 @@ namespace SHAProject.SeleniumHelpers
         public bool ActionsClassDoubleClick(IWebElement element)
         {
             Actions actions = new Actions(_driver);
-            actions.MoveToElement(element).DoubleClick().Perform();
+            //actions.MoveToElement(element).DoubleClick().Perform();
+            actions.DoubleClick(element).Perform();
             return true;
         }
-
-        public bool SelectByIndex(IWebElement element, int value )
+        public void SelectFromDropdown(IWebElement element, string currentPage, string selectionMethod, string value, string propertyName)
         {
-            SelectElement dropdown = new SelectElement(element);
-            dropdown.SelectByIndex(value);
-            return true;
-        }
+            try
+            {
+                SelectElement dropdown = new SelectElement(element);
 
-        public bool SelectByText(IWebElement element, string text)
-        {
-            SelectElement dropdown = new SelectElement(element);
-            dropdown.SelectByText(text.ToString());
-            return true;
-        }
+                switch (selectionMethod.ToLower())
+                {
+                    case "index":
+                        int index = int.Parse(value);
+                        dropdown.SelectByIndex(index);
+                        break;
 
-        public bool SelectByValue(IWebElement element, string text)
-        {
-            SelectElement dropdown = new SelectElement(element);
-            dropdown.SelectByValue(text);
-            return true;
+                    case "text":
+                        dropdown.SelectByText(value);
+                        break;
+
+                    case "value":
+                        dropdown.SelectByValue(value);
+                        break;
+
+                    default:
+                        throw new ArgumentException("Invalid selection method.");
+                }
+
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"{propertyName}option - {value} was selected from the dropdown.");
+                ScreenShot.ScreenshotNow(_driver, currentPage, $"Dropdown option - {value}", ScreenshotType.Info, element);
+            }
+            catch (ArgumentException ex)
+            {
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Invalid selection method. The error is {ex.Message}");
+                ScreenShot.ScreenshotNow(_driver, currentPage, $"Invalid selection method - {selectionMethod}", ScreenshotType.Error, element);
+            }
+            catch (Exception e)
+            {
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"{propertyName}option - {value} was not selected from the dropdown.");
+                ScreenShot.ScreenshotNow(_driver, currentPage, $"Dropdown option - {value}", ScreenshotType.Error, element);
+            }
         }
     }
 }

@@ -4,6 +4,7 @@ using SHAProject.Utilities;
 using SHAProject.SeleniumHelpers;
 using AventStack.ExtentReports;
 using SeleniumExtras.PageObjects;
+using OpenQA.Selenium.Support.UI;
 
 namespace SHAProject.Create_Widgets
 {
@@ -29,25 +30,25 @@ namespace SHAProject.Create_Widgets
         #region Common Element
 
         [FindsBy(How = How.XPath, Using = "//a[@id='menu-toggle-views']")]
-        private IWebElement? SideViewMenuToggleButton;
+        public IWebElement? SideViewMenuToggleButton;
 
         [FindsBy(How = How.ClassName, Using = "addnewlist")]
-        private IWebElement? AddnewlistViewIcon;
+        public IWebElement? AddnewlistViewIcon;
 
         [FindsBy(How = How.Id, Using = "AddViewsModal")]
         public IWebElement? AddViewPopUp;
 
-        [FindsBy(How = How.CssSelector, Using = "(//*[@class='caret'])[3]\")")]
-        private IWebElement? AnalysispageAddViewClick;
+        [FindsBy(How = How.XPath, Using = "(//span[@class=\"caret\"])[3]")]
+        public IWebElement? AssayKitCompanionViews;
 
         [FindsBy(How = How.Id, Using = "btnAddview")]
-        private IWebElement? AddViewButton;
+        public IWebElement? AddViewButton;
 
         [FindsBy(How = How.XPath, Using = "(//span[@class='caret'])[2]")]
-        private IWebElement? CustomViewCompanionViews;
+        public IWebElement? CustomViewCompanionViews;
 
         [FindsBy(How = How.XPath, Using = "//div[@class='col-md-2 modal-right-groups']")]
-        private IWebElement? AddviewGroups;
+        public IWebElement? AddviewGroups;
 
         #endregion
 
@@ -91,7 +92,23 @@ namespace SHAProject.Create_Widgets
 
         #endregion
 
-        #region MstView Element
+        #region Dropdown Elements
+
+        [FindsBy(How = How.XPath, Using = "(//div[@class=\"graphsettingsarea views\"])[3]")]
+        public IWebElement? OligoInjectionField;
+
+        [FindsBy(How = How.Id, Using = "dlloligoinjection")]
+        public IWebElement? OligoDropdown;
+
+        [FindsBy(How = How.XPath, Using = "(//div[@class=\"graphsettingsarea views\"])[4]")]
+        public IWebElement? InducedInjectionField;
+
+        [FindsBy(How = How.Id, Using = "inducedinjection")]
+        public IWebElement? InducedDropdown;
+
+        #endregion
+
+        #region XF Mito Stress View Elements
 
         [FindsBy(How = How.CssSelector, Using = "[src='/images/svg/AddView/View-Widget-MST-Mitochondrial-Respiration.svg?v=8daQG0X_yW7X--6UYbGipk0mJfMKu9us10MUs0BD9Bo']")]
         private IWebElement MitochondrialRespirationWidget;
@@ -131,7 +148,38 @@ namespace SHAProject.Create_Widgets
 
         #endregion
 
-        #region XFCellEnergyPhenotype Elements
+        #region XF ATP Rate Assay View Elements
+
+        [FindsBy(How = How.CssSelector, Using = "[src='/images/svg/AddView/View-Widget-ATP-mitoATP-Production-Rate.svg?v=Y7DhwC72V_x9OIj8tdjX8Cw6EKFsrbu1DYTFqVpm86o']")]
+        private IWebElement MitoAtpProductionRatewidget;
+
+        [FindsBy(How = How.CssSelector, Using = "[src='/images/svg/AddView/View-Widget-ATP-glycoATP-Production-Rate.svg?v=ez78EL12iA1NDdC5oyEm2riuFKxmGQtrG1pAPh4-DUA']")]
+        private IWebElement GlycoAtpProductionRatewidget;
+
+        [FindsBy(How = How.CssSelector, Using = "[src='/images/svg/AddView/View-Widget-ATP-ATP-Production-Rate-Data.svg?v=yYPAIeIrsW3jxhEVFWwPsntgv_jmHhzGElzlRxR2ojY']")]
+        private IWebElement AtpProductionRateDataWidget;
+
+        [FindsBy(How = How.CssSelector, Using = "[src='/images/svg/AddView/View-Widget-ATP-ATP-Production-Rate-Basal.svg?v=7vRj_ThXHbYIya_jrlyIbSsJqNV6ExiJnTyBpoDZ2YI']")]
+        private IWebElement AtpProductionRateBasalWidget;
+
+        [FindsBy(How = How.CssSelector, Using = "[src='/images/svg/AddView/View-Widget-ATP-ATP-Production-Rate-Induced.svg?v=wgpT4uLuRBjxt9lVF7niL3gpvUA-9NAuw1qBLRZkql4']")]
+        private IWebElement AtpProductionRateInducedWidget;
+
+        [FindsBy(How = How.CssSelector, Using = "[src='/images/svg/AddView/View-Widget-ATP-Energetic-Map-Basal.svg?v=6uh2nn8Othje2l8F48Rct7N6fCraoW1xy79Mi-8dhfA']")]
+        private IWebElement EnergeticMapBasalWidget;
+
+        [FindsBy(How = How.CssSelector, Using = "[src='/images/svg/AddView/View-Widget-ATP-Energetic-Map-Induced.svg?v=CC3UgTL-evK_WCZIWVC6oOiaUqJ8e3e_REYGEKJlWRY']")]
+        private IWebElement EnergeticMapInducedWidget;
+
+        [FindsBy(How = How.CssSelector, Using = "[src='/images/svg/AddView/View-Widget-ATP-XF-ATP-Rate-Index.svg?v=luG2YnbJhOe7ZP7--a1oh0nTvwNlPt2-F61-9WqAci0']")]
+        private IWebElement XfAtpRateIndexWidget;
+
+        [FindsBy(How = How.CssSelector, Using = "[src='/images/svg/AddView/View-Widget-ATP-Data-Table-Basal-and-Induced.svg?v=fKWsLf4FHsZwTP11XeiKxcBnLytG8Q7dEUbnX2m0k8g']")]
+        private IWebElement DataTableBasalandInduced;
+
+        #endregion
+
+        #region XF Cell Energy Phenotype Elements
 
         [FindsBy(How = How.CssSelector, Using = "[src='/images/svg/AddView/View-Widget-Cell-Pheno-XF-Cell-Energy-Phenotype.svg?v=YCmC2zY50DgephevUec7MU8pIjFQdoaVkE01W1_LPm0']")]
         private IWebElement CellEnergyPhenotypeWidget;
@@ -191,9 +239,11 @@ namespace SHAProject.Create_Widgets
 
         public void AddView(WidgetCategories wCat, List<WidgetTypes> SelectedWidgets)
         {
+            IWebElement companionView = null;
             try
             {
-                IWebElement companionView = _driver.FindElement(By.XPath("//li[@data-viewname='" + GetCompanionViewName(wCat) + "']"));
+                if (wCat != WidgetCategories.XfCustomview)
+                    companionView = _driver.FindElement(By.XPath("//li[@data-viewname='" + GetCompanionViewName(wCat) + "']"));
 
                 switch (wCat)
                 {
@@ -219,13 +269,20 @@ namespace SHAProject.Create_Widgets
                         break;
 
                     case WidgetCategories.XfMst:
-                        _findElements?.ClickElement(AnalysispageAddViewClick, _currentPage, $"Add View popup - XF Cell Mito Stress View view");
-                        _findElements?.ClickElement(companionView, _currentPage, "Add View popup - XFCellEnergyPhenotype view");
-                        DropdownSelect(_fileUploadOrExistingFileData.OligoInjection, MstOligoinjection, "Add View popup Oligo Droupdown");
+                        _findElements?.ClickElement(AssayKitCompanionViews, _currentPage, $"Add View popup - Assay Kit Companion Views");
+                        _findElements?.ClickElement(companionView, _currentPage, "Add View popup - XF Mito stress View");
+                        DropdownSelect(_fileUploadOrExistingFileData.OligoInjection, MstOligoinjection, "Add View popup Oligo Dropdown");
+                        break;
+
+
+                    case WidgetCategories.XfAtp:
+                        _findElements?.ClickElement(AssayKitCompanionViews, _currentPage, $"Add View popup - Assay Kit Companion Views");
+                        _findElements?.ClickElement(companionView, _currentPage, "Add View popup - XF ATP Rate Assay View");
+                        DropdownVerification();
                         break;
 
                     case WidgetCategories.XfCellEnergy:
-                        _findElements?.ClickElement(AnalysispageAddViewClick, _currentPage, $"Add View popup - XFCellEnergyPhenotype view");
+                        _findElements?.ClickElement(AssayKitCompanionViews, _currentPage, $"Add View popup -Assay Kit Companion Views");
                         _findElements?.ClickElement(companionView, _currentPage, "Add View popup - XFCellEnergyPhenotype view");
                         break;
                 }
@@ -235,10 +292,20 @@ namespace SHAProject.Create_Widgets
                 {
                     foreach (var widget in SelectedWidgets)
                     {
-                        if (widgetMappings[wCat].Contains(widget))
-                            ClickWidgetElement(widget, wCat);
+                        if(widget == WidgetTypes.HeatMap)
+                        {
+                            if (HeatMap.Displayed)
+                            {
+                                ClickWidgetElement(widget, wCat);
+                            }
+                        }
                         else
-                            ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, "Widgets are not selected");
+                        {
+                            if (widgetMappings[wCat].Contains(widget))
+                                ClickWidgetElement(widget, wCat);
+                            else
+                                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, "Widgets are not selected");
+                        }
                     }
                 }
 
@@ -333,14 +400,14 @@ namespace SHAProject.Create_Widgets
         private void ClickWidgetElement(WidgetTypes wType, WidgetCategories wCat)
         {
             IWebElement widgetElement = GetWidgetElement(wType, wCat);
-            if (widgetElement != null)
+            if (widgetElement.Displayed)
             {
                 string widgetDescription = GetWidgetDescription(wType, wCat);
                 _findElements.ClickElement(widgetElement, _currentPage, widgetDescription);
             }
             else
             {
-                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, "Widgets are not selected");
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Info, $"{wCat} -Widgets are not selected");
             }
         }
 
@@ -391,25 +458,25 @@ namespace SHAProject.Create_Widgets
                 case (WidgetCategories.XfMst, WidgetTypes.DataTable):
                     return DataTableWidget;
 
-                //    // XF ATP Rate Assay View
-                //    case (WidgetCategories.XfAtp, WidgetTypes.MitoAtpProductionRate):
-                //        return MitoAtpProductionRatewidget;
-                //    case (WidgetCategories.XfAtp, WidgetTypes.GlycoAtpProductionRate):
-                //        return GlycoAtpProductionRatewidget;
-                //    case (WidgetCategories.XfAtp, WidgetTypes.AtpProductionRateData):
-                //        return AtpProductionRateDataWidget;
-                //    case (WidgetCategories.XfAtp, WidgetTypes.AtpProductionRateBasal):
-                //        return AtpProductionRateBasalWidget;
-                //    case (WidgetCategories.XfAtp, WidgetTypes.AtpProductionRateInduced):
-                //        return AtpProductionRateInducedWidget;
-                //    case (WidgetCategories.XfAtp, WidgetTypes.EnergeticMapBasal):
-                //        return EnergeticMapBasalWidget;
-                //    case (WidgetCategories.XfAtp, WidgetTypes.EnergeticMapInduced):
-                //        return EnergeticMapInducedWidget;
-                //    case (WidgetCategories.XfAtp, WidgetTypes.XfAtpRateIndex):
-                //        return XfAtpRateIndexWidget;
-                //    case (WidgetCategories.XfAtp, WidgetTypes.DataTable):
-                //        return DataTableBasalandInduced;
+                // XF ATP Rate Assay View
+                case (WidgetCategories.XfAtp, WidgetTypes.MitoAtpProductionRate):
+                    return MitoAtpProductionRatewidget;
+                case (WidgetCategories.XfAtp, WidgetTypes.GlycoAtpProductionRate):
+                    return GlycoAtpProductionRatewidget;
+                case (WidgetCategories.XfAtp, WidgetTypes.AtpProductionRateData):
+                    return AtpProductionRateDataWidget;
+                case (WidgetCategories.XfAtp, WidgetTypes.AtpProductionRateBasal):
+                    return AtpProductionRateBasalWidget;
+                case (WidgetCategories.XfAtp, WidgetTypes.AtpProductionRateInduced):
+                    return AtpProductionRateInducedWidget;
+                case (WidgetCategories.XfAtp, WidgetTypes.EnergeticMapBasal):
+                    return EnergeticMapBasalWidget;
+                case (WidgetCategories.XfAtp, WidgetTypes.EnergeticMapInduced):
+                    return EnergeticMapInducedWidget;
+                case (WidgetCategories.XfAtp, WidgetTypes.XfAtpRateIndex):
+                    return XfAtpRateIndexWidget;
+                case (WidgetCategories.XfAtp, WidgetTypes.DataTable):
+                    return DataTableBasalandInduced;
 
                 // XfCellEnergyPhenotyp view
                 case (WidgetCategories.XfCellEnergy, WidgetTypes.XfCellEnergyPhenotype):
@@ -435,7 +502,6 @@ namespace SHAProject.Create_Widgets
 
         private string GetWidgetDescription(WidgetTypes widget, WidgetCategories wCat)
         {
-            // Return the widget description based on the widget type and widget category
             return wCat + " - " + widget + " widget";
         }
 
@@ -445,16 +511,14 @@ namespace SHAProject.Create_Widgets
             {
                 _findElements?.VerifyElement(Dropdown, _currentPage, Description);
 
-                _findElements?.SelectByText(Dropdown, oligo);
+                _findElements.SelectFromDropdown(Dropdown, _currentPage, "text", oligo, $"Oligo dropdown - {oligo}");
 
                 ScreenShot.ScreenshotNow(_driver, _currentPage, Description, ScreenshotType.Info, Dropdown);
-
             }
             catch (Exception ex)
             {
-                ExtentReport.ExtentTest("EntendtestNode", Status.Fail, "Error Occured while selecting a " + Description + "with the Message:" + ex);
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, "Error Occured while selecting a " + Description + "with the Message:" + ex);
             }
-
         }
 
         private void VerifyGroup()
@@ -468,11 +532,64 @@ namespace SHAProject.Create_Widgets
                 _findElements.ClickElementByJavaScript(element, _currentPage, "Unselecting the First Group");
 
                 _findElements.ClickElementByJavaScript(element, _currentPage, "Selecting the First Group");
-
             }
             catch (Exception ex)
             {
 
+            }
+        }
+
+        private void DropdownVerification()
+        {
+            try
+            {
+                Dictionary<string, string> inducedDropdownOptions = new Dictionary<string, string>
+                {
+                    { "1", "N/A" },
+                    { "2", "1st" },
+                    { "3", "1st, 2nd" }
+                };
+
+                SelectElement selectOligo = new SelectElement(OligoDropdown);
+                foreach (IWebElement option in selectOligo.Options)
+                {
+                    string optionValue = option.GetAttribute("value");
+
+                    if (string.IsNullOrEmpty(optionValue))
+                        continue;
+
+                    _findElements.SelectFromDropdown(OligoDropdown, _currentPage, "value", optionValue, $"Add View Popup - Oligo dropdown");
+
+                    SelectElement selectInduced = new SelectElement(InducedDropdown);
+                    string selectedOptionText = selectInduced.SelectedOption.Text;
+
+                    foreach (IWebElement Inducedoptions in selectInduced.Options)
+                    {
+                        string inducedOptionValue = Inducedoptions.Text;
+
+                        if (string.IsNullOrEmpty(inducedOptionValue))
+                            continue;
+
+                        string expectedText = inducedDropdownOptions[optionValue];
+
+                        if (expectedText.Contains(inducedOptionValue))
+                        {
+                            ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"Verification Passed for option {optionValue}: Expected '{expectedText}', Actual '{selectedOptionText}'");
+                        }
+                        else
+                        {
+                            ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Verification Failed for option {optionValue}: Expected '{expectedText}', Actual '{selectedOptionText}'");
+                        }
+                    }
+
+                    ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"Induced option - {selectedOptionText} was selected from the dropdown.");
+                    ScreenShot.ScreenshotNow(_driver, _currentPage, $"Dropdown option - {selectedOptionText}", ScreenshotType.Info, InducedDropdown);
+
+                }
+            }
+            catch (Exception e)
+            {
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $" Error ocuured while verify the oligo and induced ");
             }
         }
     }

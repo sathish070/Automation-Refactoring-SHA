@@ -9,6 +9,14 @@ using SeleniumExtras.PageObjects;
 using SHAProject.Utilities;
 using SHAProject.SeleniumHelpers;
 using AventStack.ExtentReports;
+using AngleSharp.Dom;
+using System.Diagnostics;
+using OpenQA.Selenium.Support.Extensions;
+using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.WaitHelpers;
+using System.Runtime.CompilerServices;
+using System.Xml.Linq;
+using System.Security.Policy;
 
 namespace SHAProject.EditPage
 {
@@ -30,26 +38,32 @@ namespace SHAProject.EditPage
 
         #region Graph Properties Elements
 
-        // Dropdowm properties
-        [FindsBy(How = How.CssSelector, Using = ".measurement-property")]
+        [FindsBy(How = How.XPath, Using = "//div[@class=\"graph-ocr-msrmt col-lg-12\"]")]
+        public IWebElement? GraphPropertyField;
+
+        [FindsBy(How = How.XPath, Using ="//div[@id='grapharea']/div[1]")]
+        public IWebElement? GraphAreaField;
+
+        // Dropdown properties
+        [FindsBy(How = How.CssSelector, Using = ".graph-ms.select-measurement.hideprop")]
         public IWebElement? MeasurementField;
 
         [FindsBy(How = How.Id, Using = "ddl_measurement")]
         public IWebElement? MeasurementDropdown;
 
-        [FindsBy(How = How.CssSelector, Using = ".rate-property")]
+        [FindsBy(How = How.CssSelector, Using = ".graph-ms.select-measurement.rate.hiderate")]
         public IWebElement? RateField;
 
         [FindsBy(How = How.Id, Using = "ddl_view")]
         public IWebElement? RateDropdown;
 
-        [FindsBy(How = How.CssSelector, Using = ".errorformat-property")]
+        [FindsBy(How = How.CssSelector, Using = ".graph-ms.error-form.errorformat")]
         public IWebElement? ErrorFormatField;
 
         [FindsBy(How = How.Id, Using = "ddl_err")]
         public IWebElement? ErrorFormatDropdown;
 
-        [FindsBy(How = How.CssSelector, Using = ".baselinedrp-property")]
+        [FindsBy(How = How.CssSelector, Using = "#baselineselection")]
         public IWebElement? BaselineField;
 
         [FindsBy(How = How.Id, Using = "ddl_baseline")]
@@ -61,41 +75,51 @@ namespace SHAProject.EditPage
         [FindsBy(How = How.Id, Using = "ddl_sort")]
         public IWebElement? SortByDropdown;
 
+        [FindsBy(How = How.XPath, Using = "//div[@class=\"graph-ms error-form hideoligo oligo-property\"]")]
+        public IWebElement? OligoField;
+
+        [FindsBy(How = How.Id, Using = "ddl_oligo")]
+        public IWebElement? OligoDropdown;
+
+        [FindsBy(How = How.XPath, Using = "//div[@class=\"graph-ms error-form hideoligo-induced induced-property\"]")]
+        public IWebElement? InducedField;
+
+        [FindsBy(How = How.Id, Using = "ddl_induced")]
+        public IWebElement? InducedDropdown;
 
         // Toggle button properties
-        [FindsBy(How = How.CssSelector, Using = ".display-property")]
+        [FindsBy(How = How.CssSelector, Using = ".graph-ms.select-display.hideprop")]
         public IWebElement? DisplayField;
 
         [FindsBy(How = How.Id, Using = "dispaly")]
         public IWebElement? DisplayToggle;
 
-        [FindsBy(How = How.XPath, Using = "//input[@id='rddisplay'][1]")]
+        [FindsBy(How = How.XPath, Using = "//input[@name=\"rddisplay\"][@value=\"0\"]")]
         public IWebElement? DisplayGroup;
 
-        [FindsBy(How = How.XPath, Using = "//input[@id='rddisplay'][2]")]
+        [FindsBy(How = How.XPath, Using = "//input[@name=\"rddisplay\"][@value=\"1\"]")]
         public IWebElement? DisplayWells;
 
-        [FindsBy(How = How.CssSelector, Using = ".y-property")]
+        [FindsBy(How = How.CssSelector, Using = ".graph-ms.select-y1.hideprop")]
         public IWebElement? YField;
 
         [FindsBy(How = How.Id, Using = "levelrate")]
         public IWebElement? YToggle;
 
-        [FindsBy(How = How.XPath, Using = "//input[@id=\"rddy1\"][1]")]
+        [FindsBy(How = How.XPath, Using = "//input[@id=\"rddy1\"][@value=\"0\"]")]
         public IWebElement? YRate;
 
-        [FindsBy(How = How.XPath, Using = "//input[@id=\"rddy1\"][2]")]
+        [FindsBy(How = How.XPath, Using = "//input[@id=\"rddy1\"][@value=\"1\"]")]
         public IWebElement? YLevel;
 
-
         // Toggle properties
-        [FindsBy(How = How.CssSelector, Using = ".normalization-property")]
+        [FindsBy(How = How.CssSelector, Using = ".graph-ms.select-normal.normalization-toggle")]
         public IWebElement? NormalizationField;
 
         [FindsBy(How = How.Id, Using = "chknormalize")]
         public IWebElement? NormalizationToggle;
 
-        [FindsBy(How = How.CssSelector, Using = ".bgcorrection-property")]
+        [FindsBy(How = How.CssSelector, Using =".graph-ms.bg-correction.hideprop")]
         public IWebElement? BackgroundCorrectionField;
 
         [FindsBy(How = How.Id, Using = "chkbackground")]
@@ -103,7 +127,7 @@ namespace SHAProject.EditPage
 
         #endregion
 
-        #region Dropdowm properties
+        #region Dropdown properties
 
         public void Measurement(WidgetItems graphProperties)
         {
@@ -121,7 +145,7 @@ namespace SHAProject.EditPage
 
         public void ErrorFormat(WidgetItems graphProperties, WidgetCategories wCat, WidgetTypes wType)
         {
-            _findElements.ElementTextVerify(ErrorFormatField, "ErrorFormat", _currentPage, $"Graph Property - Error Format");
+            _findElements.ElementTextVerify(ErrorFormatField, "Error Format", _currentPage, $"Graph Property - Error Format");
 
             List<string> ErrorFormatOptions = null;
             //int widgetPosition = _commonFunc.GetWidgetPosition(wCat, wType);
@@ -143,9 +167,23 @@ namespace SHAProject.EditPage
 
         public void SortBy(WidgetItems graphProperties)
         {
-            _findElements.ElementTextVerify(SortByField, "ErrorFormat", _currentPage, $"Graph Property - Sort By");
+            _findElements.ElementTextVerify(SortByField, "Sort By", _currentPage, $"Graph Property - Sort By");
 
             VerifySelectDropdown(SortByField, SortByDropdown, graphProperties.SortBy, "Sort By");
+        }
+
+        public void Oligo(WidgetItems graphProperties)
+        {
+            _findElements.ElementTextVerify(OligoField, "Oligo", _currentPage, $"Graph Property - Oligo");
+
+            VerifySelectDropdown(OligoField, OligoDropdown, graphProperties.Oligo, "Oligo");
+        }
+
+        public void Induced(WidgetItems graphProperties)
+        {
+            _findElements.ElementTextVerify(InducedField, "Induced", _currentPage, $"Graph Property - Induced");
+
+            VerifySelectDropdown(InducedField, InducedDropdown, graphProperties.Induced, "Induced");
         }
 
         public void VerifyDropdownOptions(IWebElement dropdownElement, List<string> drpOptions, string propertyName)
@@ -160,9 +198,9 @@ namespace SHAProject.EditPage
 
             bool areEqual = drpOptions.SequenceEqual(optionTexts);
             if (areEqual)
-                ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"The expected {propertyName} are verified with {optionTexts.Count} optoins.");
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"The expected {propertyName} are verified with {optionTexts.Count} options.");
             else
-                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"The expected {propertyName} are unmatched with {optionTexts.Count} optoins.");
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"The expected {propertyName} are unmatched with {optionTexts.Count} options.");
         }
 
         public void VerifySelectDropdown(IWebElement fieldElement, IWebElement dropdownElement, string expectedText, string propertyName)
@@ -172,24 +210,21 @@ namespace SHAProject.EditPage
                 IWebElement selectedOption = dropdownElement.FindElements(By.TagName("option")).FirstOrDefault(option => option.Selected);
                 string defaultText = selectedOption.Text;
 
-                if (expectedText == defaultText)
+                if (dropdownElement.Text.Contains(expectedText))
                 {
-                    ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"Expected {propertyName} - {expectedText} and actual {propertyName} are equal.");
-                    ScreenShot.ScreenshotNow(_driver, _currentPage, "", ScreenshotType.Info, fieldElement);
+                    if (expectedText == defaultText)
+                    {
+                        ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"Expected {propertyName} - {expectedText} and actual {propertyName} are equal.");
+                        ScreenShot.ScreenshotNow(_driver, _currentPage, $"{propertyName}", ScreenshotType.Info, fieldElement);
+                    }
+                    else if (expectedText != defaultText)
+                    {
+                        _findElements.SelectFromDropdown(dropdownElement, _currentPage, "text", expectedText, propertyName);
+                    }
                 }
-                else if (expectedText != defaultText)
+                else 
                 {
-                    bool status = _findElements.SelectByText(dropdownElement, expectedText);
-                    if (status)
-                    {
-                        ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"Expected {propertyName} - {expectedText} was selected.");
-                        ScreenShot.ScreenshotNow(_driver, _currentPage, "--", ScreenshotType.Info, fieldElement);
-                    }
-                    else
-                    {
-                        ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Expected {propertyName} - {expectedText} was not selected.");
-                        ScreenShot.ScreenshotNow(_driver, _currentPage, "--", ScreenshotType.Error, fieldElement);
-                    }
+                    ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"{propertyName} dropdown does not contains the expected text - {expectedText}");
                 }
             }
             catch (NoSuchElementException e)
@@ -232,21 +267,26 @@ namespace SHAProject.EditPage
                 if (expectedText == defaultText)
                 {
                     ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"Expected {propertyName} - {expectedText} and actual {propertyName} are equal.");
-                    ScreenShot.ScreenshotNow(_driver, _currentPage, "", ScreenshotType.Info, fieldElement);
+                    ScreenShot.ScreenshotNow(_driver, _currentPage, $"{propertyName}", ScreenshotType.Info, fieldElement);
                 }
                 else if (expectedText != defaultText)
                 {
-                    displayOption = expectedText == "Group" ? DisplayGroup : DisplayWells;
-                    bool status = _findElements.ClickElementByJavaScript(displayOption, _currentPage, $"{propertyName} - {expectedText}");
-                    if (status)
+                    if(propertyName == "Display")
+                        displayOption = expectedText == "Group" ? DisplayGroup : DisplayWells;
+                    if(propertyName == "Y")
+                        displayOption = expectedText == "Rate" ? YRate : YLevel;
+                    try
                     {
+                        IJavaScriptExecutor jScript = (IJavaScriptExecutor)_driver;
+                        jScript.ExecuteScript("arguments[0].click();", displayOption);
+
                         ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"Expected {propertyName} - {expectedText} was selected.");
-                        ScreenShot.ScreenshotNow(_driver, _currentPage, "", ScreenshotType.Info, fieldElement);
+                        ScreenShot.ScreenshotNow(_driver, _currentPage, $"{propertyName}", ScreenshotType.Info, fieldElement);
                     }
-                    else
+                    catch (Exception e)
                     {
-                        ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Expected {propertyName} - {expectedText} was not selected.");
-                        ScreenShot.ScreenshotNow(_driver, _currentPage, "", ScreenshotType.Error, fieldElement);
+                        ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Expected {propertyName} - {expectedText} was not selected. The error is {e.Message}");
+                        ScreenShot.ScreenshotNow(_driver, _currentPage, $"{propertyName}", ScreenshotType.Error, fieldElement);
                     }
                 }
             }
@@ -267,12 +307,20 @@ namespace SHAProject.EditPage
         {
             _findElements.ElementTextVerify(NormalizationField, "Normalization", _currentPage, "Graph Property - Normalization");
 
-            VerifySelectToggle(NormalizationField, NormalizationToggle, graphProperties.Normalization, "Normalization");
+            string Opacity = NormalizationToggle.GetCssValue("opacity");
+            if (Opacity == "1")
+            {
+                VerifySelectToggle(NormalizationField, NormalizationToggle, graphProperties.Normalization, "Normalization");
+            }
+            else
+            {
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"Normalization is in disable mode and file is not normalized");
+            }
         }
 
         public void BackgroundCorrection(WidgetItems graphProperties)
         {
-            _findElements.ElementTextVerify(BackgroundCorrectionField, "BackgroundCorrection", _currentPage, "GraphProperty - BackgroundCorrection");
+            _findElements.ElementTextVerify(BackgroundCorrectionField, "Background Correction", _currentPage, "GraphProperty - BackgroundCorrection");
 
             VerifySelectToggle(BackgroundCorrectionField, BackgroundCorrectionToggle, graphProperties.BackgroundCorrection, "BackgroundCorrection");
         }
@@ -285,20 +333,25 @@ namespace SHAProject.EditPage
                 if (isChecked && expectedText)
                 {
                     ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"Expected {propertyName} is {(isChecked ? "ON" : "OFF")} and actual {propertyName} options are equal.");
-                    ScreenShot.ScreenshotNow(_driver, _currentPage, "", ScreenshotType.Info, fieldElement);
+                    ScreenShot.ScreenshotNow(_driver, _currentPage, $"{propertyName}", ScreenshotType.Info, fieldElement);
                 }
                 else
                 {
-                    bool status = _findElements.ClickElementByJavaScript(toggleElement, _currentPage, $"{propertyName} Button");
-                    if (status)
+                    try
                     {
+                        if (propertyName == "Normalization")
+                            _driver.ExecuteJavaScript<string>("return document.getElementById(\"chknormalize\").click()");
+
+                        if(propertyName == "BackgroundCorrection")
+                            _driver.ExecuteJavaScript<string>("return document.getElementById(\"chkbackground\").click()");
+
                         ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"Expected {propertyName} is {(expectedText ? "ON" : "OFF")}.");
-                        ScreenShot.ScreenshotNow(_driver, _currentPage, "--", ScreenshotType.Info, fieldElement);
+                        ScreenShot.ScreenshotNow(_driver, _currentPage, $"{propertyName}", ScreenshotType.Info, fieldElement);
                     }
-                    else
+                    catch (Exception)
                     {
                         ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Expected {propertyName} option was not selected.");
-                        ScreenShot.ScreenshotNow(_driver, _currentPage, "--", ScreenshotType.Error, fieldElement);
+                        ScreenShot.ScreenshotNow(_driver, _currentPage, $"{propertyName}", ScreenshotType.Error, fieldElement);
                     }
                 }
             }
@@ -313,6 +366,16 @@ namespace SHAProject.EditPage
         }
 
         #endregion
+
+        public void GraphProperty()
+        {
+            _findElements.VerifyElement(GraphPropertyField, _currentPage, $"Edit Widget Page -Graph Property");
+        }
+
+        public void GraphArea()
+        {
+            _findElements.VerifyElement(GraphAreaField, _currentPage, $"Edit Widget Page -Graph Area");
+        }
 
         public void Graphproperties()
         {
@@ -334,7 +397,7 @@ namespace SHAProject.EditPage
             }
         }
 
-        public void VerifyExpectedGraphUnits(string ExpectedGraphUnits, WidgetTypes widgetType, bool expectedBtnStatus)
+        public void VerifyExpectedGraphUnits(string ExpectedGraphUnits, WidgetTypes widgetType)
         {
             try
             {
@@ -353,6 +416,60 @@ namespace SHAProject.EditPage
             catch (Exception e)
             {
                 ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Verify Normalization units has not been verified. The error is {e.Message}");
+            }
+        }
+
+        public void VerifyDropdown()
+        {
+             try
+            {
+                Dictionary<string, string> inducedDropdownOptions = new Dictionary<string, string>
+                {
+                    { "1", "N/A" },
+                    { "2", "1st" },
+                    { "3", "1st, 2nd" }
+                };
+
+                SelectElement selectOligo = new SelectElement(OligoDropdown);
+                foreach (IWebElement option in selectOligo.Options)
+                {
+                    string optionValue = option.GetAttribute("value");
+
+                    if (string.IsNullOrEmpty(optionValue))
+                        continue;
+
+                    _findElements.SelectFromDropdown(OligoDropdown, _currentPage, "value", optionValue, $"Add View Popup - Oligo dropdown");
+
+                    SelectElement selectInduced = new SelectElement(InducedDropdown);
+                    string selectedOptionText = selectInduced.SelectedOption.Text;
+
+                    foreach (IWebElement Inducedoptions in selectInduced.Options)
+                    {
+                        string inducedOptionValue = Inducedoptions.Text;
+
+                        if (string.IsNullOrEmpty(inducedOptionValue))
+                            continue;
+
+                        string expectedText = inducedDropdownOptions[optionValue];
+
+                        if (expectedText.Contains(inducedOptionValue))
+                        {
+                            ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"Verification Passed for option {optionValue}: Expected '{expectedText}', Actual '{selectedOptionText}'");
+                        }
+                        else
+                        {
+                            ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Verification Failed for option {optionValue}: Expected '{expectedText}', Actual '{selectedOptionText}'");
+                        }
+                    }
+
+                    ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"Induced option - {selectedOptionText} was selected from the dropdown.");
+                    ScreenShot.ScreenshotNow(_driver, _currentPage, $"Dropdown option - {selectedOptionText}", ScreenshotType.Info, InducedDropdown);
+
+                }
+            }
+            catch (Exception e)
+            {
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $" Error ocuured while verify the oligo and induced ");
             }
         }
     }

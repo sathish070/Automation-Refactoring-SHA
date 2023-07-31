@@ -52,11 +52,6 @@ namespace SHAProject.Create_Widgets
 
                 _findElements.ClickElement(StandardGraphs, _currentPage, $"Add Widget -Standard graphs");
 
-                //if (wCat != WidgetCategories.XfStandard)
-                //{
-                //    _driver.FindElement(By.CssSelector("[data-catgtype='" + GetAddWidgetCatgName(wCat) + "']")).Click();
-                //}
-
                 var selectWidget = _driver.FindElement(By.CssSelector("#AddWidgetModal li[data-widgetcategory='" + (int)wCat + "'][data-widgettype='" + (int)wType + "']"));
 
                 _findElements.ClickElementByJavaScript(selectWidget, _currentPage, $"Add widget -{wType.ToString()} ");

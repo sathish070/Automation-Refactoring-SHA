@@ -169,7 +169,7 @@ namespace SHAProject.Utilities
         public bool RemoveZeroLine { get; set; }
         public bool RemoveXAutoScale { get; set; }
         public bool RemoveYAutoScale { get; set; }
-        public bool RemoveLineMarkers { get; set; }
+        public bool RemoveDataPointSymbols { get; set; }
         public bool RemoveRateHighlight { get; set; }
         public bool RemoveInjectionMarkers { get; set; }
 
@@ -180,7 +180,7 @@ namespace SHAProject.Utilities
         public bool RemoveDoseZeroLine { get; set; }
         public bool RemoveDoseXAutoScale { get; set; }
         public bool RemoveDoseYAutoScale { get; set; }
-        public bool RemoveDoseLineMarkers { get; set; }
+        public bool RemoveDoseDataPointSymbols { get; set; }
     }
 
     public class WidgetItems
@@ -196,6 +196,7 @@ namespace SHAProject.Utilities
         public string? Baseline { get; set; }
         public string? ExpectedGraphUnits { get; set; }
         public bool GraphSettingsVerify { get; set; }
+        public bool DataTableSettingsVerify { get; set; }
         public GraphSettings? GraphSettings { get; set; }
         public KitValidation? KitValidation { get; set; }
         public HeatTolerance? HeatTolerance { get; set; }
@@ -205,38 +206,46 @@ namespace SHAProject.Utilities
         public bool DoseResponseAddWidget { get; set; }
         public bool DoseResponseAddView { get; set; }
         public string? Oligo { get; set; }
+        public string? Induced { get; set; }
     }
 
-    public class WorkFlow5Data
+    public class KitValidation
     {
-        public List<WidgetTypes> AddDoseWidget { get; set; }
-        public bool AnalysisLayoutVerification { get; set; }
-        public bool DeleteWidgetRequired { get; set; }
-        public WidgetTypes DeleteWidgetName { get; set; }
-        public bool AddWidgetRequired { get; set; }
-        public WidgetTypes AddWidgetName { get; set; }
-        public bool NormalizationVerification { get; set; }
-        public bool ApplyToAllWidgets { get; set; }
-        public bool ModifyAssay { get; set; }
-        public WidgetTypes SelectWidgetName { get; set; }
-        public bool GraphProperties { get; set; }
-        public WidgetItems? KineticGraphOcr { get; set; }
-        public WidgetItems? KineticGraphEcar { get; set; }
-        public WidgetItems? KineticGraphPer { get; set; }
-        public WidgetItems? Barchart { get; set; }
-        public WidgetItems? EnergyMap { get; set; }
-        public WidgetItems? HeatMap { get; set; }
-        public WidgetItems? DoseResponseWidget { get; set; }
-        public WidgetItems? DoseResponseView { get; set; }
-        public WidgetItems? DoseResponse { get; set; }
-        public bool CreateBlankView { get; set; }
-        public WidgetTypes AddBlankWidget { get; set; }
-        public string? CustomViewName { get; set; }
-        public string? CustomViewDescription { get; set; }
-        public string? AddGroupName { get; set; }
-        public string? SelecttheControls { get; set; }
-        public string? InjectionName { get; set; }
+        public bool AssayKitValidation { get; set; }
+        public string? CatNumber { get; set; }
+        public string? LotNumber { get; set; }
+        public string? SWID { get; set; }
     }
+    public class NormalizationData
+    {
+        public List<string>? Values { get; set; }
+        public string? Units { get; set; } = null;
+        public string? ScaleFactor { get; set; } = "1";
+    }
+    public class HeatTolerance
+    {
+        public bool ColourOptions { get; set; }
+        public string? ColourTolerance { get; set; }
+    }
+    public static class PlateMapName
+    {
+        public static List<string> GetXfpWellName()
+        {
+            return new() { "A01", "B01", "C01", "D01", "E01", "F01", "G01", "H01" };
+        }
+        public static List<string> GetXfe24WellName()
+        {
+            return new() { "A01", "A02", "A03", "A04", "A05", "A06", "B01", "B02", "B03", "B04", "B05", "B06", "C01", "C02", "C03", "C04", "C05", "C06", "D01", "D02", "D03", "D04", "D05", "D06" };
+        }
+        public static List<string> GetXfe96WellName()
+        {
+            return new() { "A01", "A02", "A03", "A04", "A05", "A06", "A07", "A08", "A09", "A10", "A11", "A12", "B01", "B02", "B03", "B04", "B05", "B06", "B07", "B08", "B09", "B10", "B11", "B12", "C01", "C02", "C03",
+                    "C04", "C05", "C06", "C07", "C08", "C09", "C10", "C11", "C12", "D01", "D02", "D03", "D04", "D05", "D06", "D07", "D08", "D09", "D10", "D11", "D12", "E01", "E02", "E03", "E04", "E05", "E06", "E07", "E08", "E09", "E10",
+                    "E11", "E12", "F01", "F02", "F03", "F04", "F05", "F06", "F07", "F08", "F09", "F10", "F11", "F12", "G01", "G02", "G03", "G04", "G05", "G06", "G07", "G08", "G09", "G10", "G11", "G12", "H01", "H02", "H03", "H04", "H05", "H06",
+                    "H07", "H08", "H09", "H10", "H11", "H12" };
+        }
+    }
+
     public class FilesTabData
     {
         public bool LayoutVerification { get; set; }
@@ -286,6 +295,92 @@ namespace SHAProject.Utilities
         public string? EditCategoryName { get; set; }
     }
 
+    public class WorkFlow5Data
+    {
+        public List<WidgetTypes> AddDoseWidget { get; set; }
+        public bool AnalysisLayoutVerification { get; set; }
+        public bool DeleteWidgetRequired { get; set; }
+        public WidgetTypes DeleteWidgetName { get; set; }
+        public bool AddWidgetRequired { get; set; }
+        public WidgetTypes AddWidgetName { get; set; }
+        public bool NormalizationVerification { get; set; }
+        public bool ApplyToAllWidgets { get; set; }
+        public bool ModifyAssay { get; set; }
+        public WidgetTypes SelectWidgetName { get; set; }
+        public bool GraphProperties { get; set; }
+        public WidgetItems? KineticGraphOcr { get; set; }
+        public WidgetItems? KineticGraphEcar { get; set; }
+        public WidgetItems? KineticGraphPer { get; set; }
+        public WidgetItems? Barchart { get; set; }
+        public WidgetItems? EnergyMap { get; set; }
+        public WidgetItems? HeatMap { get; set; }
+        public WidgetItems? DoseResponseWidget { get; set; }
+        public WidgetItems? DoseResponseView { get; set; }
+        public WidgetItems? DoseResponse { get; set; }
+        public bool CreateBlankView { get; set; }
+        public WidgetTypes AddBlankWidget { get; set; }
+        public string? CustomViewName { get; set; }
+        public string? CustomViewDescription { get; set; }
+        public string? AddGroupName { get; set; }
+        public string? SelecttheControls { get; set; }
+        public string? InjectionName { get; set; }
+        public string NormalizedFileName { get; set; }
+    }
+
+    public class WorkFlow6Data
+    {
+        public bool AnalysisLayoutVerification { get; set; }
+        public bool NormalizationVerification { get; set; }
+        public string? NormalizationLabel { get; set; } = null;
+        public string NormalizationScaleFactor { get; set; } = "1";
+        public bool ApplyToAllWidgets { get; set; }
+        public List<string> NormalizationValues { get; set; }
+        public bool ModifyAssay { get; set; }
+        public string? AddGroupName { get; set; }
+        public string? SelecttheControls { get; set; }
+        public string? InjectionName { get; set; }
+        public WidgetItems MitochondrialRespiration { get; set; }
+        public WidgetItems BasalRespiration { get; set; }
+        public WidgetItems AcuteResponse { get; set; }
+        public WidgetItems ProtonLeak { get; set; }
+        public WidgetItems MaximalRespiration { get; set; }
+        public WidgetItems SpareRespiratoryCapacity { get; set; }
+        public WidgetItems NonmitoO2Consumption { get; set; }
+        public WidgetItems ATPProductionCoupledRespiration { get; set; }
+        public WidgetItems CouplingEfficiency { get; set; }
+        public WidgetItems SpareRespiratoryCapacityPercentage { get; set; }
+        public WidgetItems DataTable { get; set; }
+        public string NormalizedFileName { get; set; }
+    }
+
+    public class WorkFlow7Data
+    {
+        public string[]? PreRequest2 { get; set; }
+        public bool AnalysisLayoutVerification { get; set; }
+        public string[]? PreRequest3 { get; set; }
+        public bool Normalization { get; set; }
+        public string NormalizationLabel { get; set; } = null;
+        public string NormalizationScaleFactor { get; set; } = "1";
+        public bool ApplyToAllWidgets { get; set; }
+        public List<string>? NormalizationValues { get; set; }
+        public string[]? PreRequest4 { get; set; }
+        public bool ModifyAssay { get; set; }
+        public string? ModifyAssayAddGroupName { get; set; }
+        public string? ModifyAssaySelecttheControls { get; set; }
+        public string? ModifyAssayInjectionName { get; set; }
+        public WidgetItems? MitoATPProductionRate { get; set; }
+        public WidgetItems? GlycoATPProductionRate { get; set; }
+        public WidgetItems? ATPProductionRateData { get; set; }
+        public WidgetItems? ATPProductionRate_Basal { get; set; }
+        public WidgetItems? ATPproductionRate_Induced { get; set; }
+        public WidgetItems? EnergeticMap_Basal { get; set; }
+        public WidgetItems? EnergeticMap_Induced { get; set; }
+        public WidgetItems? XFATPRateIndex { get; set; }
+        public WidgetItems? DataTable { get; set; }
+        public WidgetItems? Induced { get; set; }
+
+        public string NormalizedFileName { get; set; }
+    }
     public class WorkFlow8Data
     {
         public bool LayoutVerification { get; set; }
@@ -300,45 +395,6 @@ namespace SHAProject.Utilities
         public WidgetItems? StressedOCR { get; set; }
         public WidgetItems? StressedECAR { get; set; }
         public WidgetItems? DataTable { get; set; }
-    }
 
-    public class KitValidation
-    {
-        public bool AssayKitValidation { get; set; }
-        public string? CatNumber { get; set; }
-        public string? LotNumber { get; set; }
-        public string? SWID { get; set; }
-    }
-
-    public class NormalizationData
-    {
-        public List<string>? Values { get; set; }
-        public string? Units { get; set; } = null;
-        public string? ScaleFactor { get; set; } = "1";
-    }
-
-    public class HeatTolerance
-    {
-        public bool ColourOptions { get; set; }
-        public string? ColourTolerance { get; set; }
-    }
-
-    public static class PlateMapName
-    {
-        public static List<string> GetXfpWellName()
-        {
-            return new() { "A01", "B01", "C01", "D01", "E01", "F01", "G01", "H01" };
-        }
-        public static List<string> GetXfe24WellName()
-        {
-            return new() { "A01", "A02", "A03", "A04", "A05", "A06", "B01", "B02", "B03", "B04", "B05", "B06", "C01", "C02", "C03", "C04", "C05", "C06", "D01", "D02", "D03", "D04", "D05", "D06" };
-        }
-        public static List<string> GetXfe96WellName()
-        {
-            return new() { "A01", "A02", "A03", "A04", "A05", "A06", "A07", "A08", "A09", "A10", "A11", "A12", "B01", "B02", "B03", "B04", "B05", "B06", "B07", "B08", "B09", "B10", "B11", "B12", "C01", "C02", "C03",
-                    "C04", "C05", "C06", "C07", "C08", "C09", "C10", "C11", "C12", "D01", "D02", "D03", "D04", "D05", "D06", "D07", "D08", "D09", "D10", "D11", "D12", "E01", "E02", "E03", "E04", "E05", "E06", "E07", "E08", "E09", "E10",
-                    "E11", "E12", "F01", "F02", "F03", "F04", "F05", "F06", "F07", "F08", "F09", "F10", "F11", "F12", "G01", "G02", "G03", "G04", "G05", "G06", "G07", "G08", "G09", "G10", "G11", "G12", "H01", "H02", "H03", "H04", "H05", "H06",
-                    "H07", "H08", "H09", "H10", "H11", "H12" };
-        }
     }
 }

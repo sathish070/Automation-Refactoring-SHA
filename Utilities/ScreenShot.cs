@@ -6,14 +6,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace SHAProject.Utilities
 {
     public static class ScreenShot
     {
         public static IJavaScriptExecutor? jScript;
-
-
         public static IJavaScriptExecutor JavaScriptExecutor(IWebDriver driver)
         {
             IJavaScriptExecutor jScript = (IJavaScriptExecutor)driver;
@@ -22,7 +21,6 @@ namespace SHAProject.Utilities
 
         public static void ScreenshotNow(IWebDriver driver, string currentPage, string ImageName, ScreenshotType status = ScreenshotType.Info, IWebElement? element = null, ArrayList elementList = null)
         {
-
             try
             {
                 jScript = JavaScriptExecutor(driver);
@@ -51,7 +49,8 @@ namespace SHAProject.Utilities
                         Thread.Sleep(1000);
                     }
                 }
-                ImageName = ImageName.Replace("/", "-"); 
+
+                ImageName = (ImageName.Replace("/", "-").Replace("|", "-").Replace(":", "").Replace("\r\n", "-"));
                 string path = Tests.loginFolderPath;
                 string Imagefolder = status == ScreenshotType.Info ? "Success" : "Error";
                 string ImagePath = path + "\\" + currentPage + "\\" + Imagefolder + "\\" + ImageName + ".png";
@@ -67,7 +66,6 @@ namespace SHAProject.Utilities
                 screenshot.SaveAsFile(screenshotPath, ScreenshotImageFormat.Png);
                 ExtentReport.ExtentScreenshot(currentPage == "Login" ? "ExtentTest" : "ExtentTestNode", Imagefolder == "Success" ? Status.Pass : Status.Fail, ImageName, reportScreenshotPath);
 
-          
                 if (element != null)
                 {
                     Thread.Sleep(1000);
@@ -86,7 +84,7 @@ namespace SHAProject.Utilities
             }
             catch (Exception ex)
             {
-                ExtentReport.ExtentTest("ExtentTest", Status.Fail, "An error occured in taking screenshot. The error is " + ex.Message);
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, "An error occured in taking screenshot. The error is " + ex.Message);
             }
         }
     }

@@ -10,6 +10,7 @@ using OpenQA.Selenium;
 using SHAProject.Utilities;
 using SHAProject.SeleniumHelpers;
 using AventStack.ExtentReports;
+using SeleniumExtras.PageObjects;
 
 namespace SHAProject.EditPage
 {
@@ -28,11 +29,21 @@ namespace SHAProject.EditPage
             _currentPage = currentPage;
             _findElements = findElements;
             _fileUploadOrExistingFileData = fileUploadOrExistingFileData;
+            PageFactory.InitElements(_driver, this);
+        }
+
+        [FindsBy(How = How.XPath, Using = "//div[@class=\"col-md-12 groups-blocks\"]")]
+        public IWebElement? GroupLegendsField;
+
+        public void GroupLegendsArea()
+        {
+            _findElements.ScrollIntoView(GroupLegendsField);
+
+            _findElements.VerifyElement(GroupLegendsField, _currentPage, "Edit Widget Page - Group Legends");
         }
 
         public void EditWidgetGroupLegends(WidgetCategories wCat, WidgetTypes wType, WidgetItems widget)
         {
-
             Thread.Sleep(2000);
             try
             {
@@ -46,28 +57,56 @@ namespace SHAProject.EditPage
                     _findElements.ActionsClass(groupLegend);
 
                     // verify the group values
+
+                     string errorType = widget.ErrorFormat  == "Std Dev" ? "SD" : widget.ErrorFormat   == "SEM" ? "SM" : "None";
+
                     IWebElement groupError = groupLegend.FindElement(By.CssSelector(".groupmean"));
                     if (groupError.Enabled && groupError.Displayed)
                     {
-                        if (groupLegend.Text.Contains(widget.ErrorFormat))
+                        if (groupLegend.Text.Contains(errorType))
                         {
                             _findElements.VerifyElement(groupError, _currentPage, "Mean & Error Value");
                         }
                         else
                         {
                             ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, "Group details Mean & Error Value are not displayed.");
-                            ScreenShot.ScreenshotNow(_driver, _currentPage, "", ScreenshotType.Error, groupError);
+                            ScreenShot.ScreenshotNow(_driver, _currentPage, "Error Screenshot", ScreenshotType.Error, groupError);
                         }
                     }
 
                     // verify the single-click event
                     _findElements.ActionsClassClick(groupLegend);
 
+                    ScreenShot.ScreenshotNow(_driver, _currentPage, $"HightLight the group legend  {groupLegend.Text}", ScreenshotType.Info, groupLegend);
+
                     // verify the double-click event
                     _findElements.ActionsClassDoubleClick(groupLegend);
 
-                    ScreenShot.ScreenshotNow(_driver, _currentPage, "", ScreenshotType.Error);
+                    ScreenShot.ScreenshotNow(_driver, _currentPage, $"Unselect the group legend - {groupLegend.Text}", ScreenshotType.Info, groupLegend);
                 }
+            }
+            catch (Exception e)
+            {
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"The error occured in edit widget page exports functionality. The error is {e.Message}");
+            }
+        }
+
+        public void EditWidgetDataTableGroupLegends(WidgetCategories wCat, WidgetTypes wType, WidgetItems widget)
+        {
+
+            Thread.Sleep(2000);
+            try
+            {
+                IReadOnlyCollection<IWebElement> groupLegends = _driver.FindElements(By.CssSelector(".stress-li")).Take(4).ToList();
+
+                foreach (IWebElement groupLegend in groupLegends)
+                {
+                    if (groupLegend.Text.Contains("Background"))
+                        continue;
+
+                    _findElements.ClickElement(groupLegend, _currentPage, $"Selected Group Legends  and Group Legends are highlighted &  The Groups  are showing in the DataTable Widget{groupLegend.Text}");
+                }
+
             }
             catch (Exception e)
             {

@@ -81,15 +81,18 @@ namespace SHAProject.Page_Object
                 _findElements?.ClickElementByJavaScript(SaveBtn, _currentPage, "Normalization - Save button");
 
                 Thread.Sleep(8000);
+
                 _findElements.ClickElement(NormalizationIcon, _currentPage, "Analysis Page - Normalization Icon");
 
                 _findElements?.ClickElementByJavaScript(ReimportButton, _currentPage, "Normalization - Re Import button");
 
                 _findElements?.VerifyElement(NormalizedWell, _currentPage, "Normalized Well With the Old Value");
+
+                _findElements?.ClickElementByJavaScript(SaveBtn, _currentPage, "Normalization - Save button");
             }
             catch (Exception ex)
             {
-                ExtentReport.ExtentTest("ExtendTestNode", Status.Fail, "Error Occured while verfiying the File with the Normalization Concept: Message" + ex.Message);
+                ExtentReport.ExtentTest("ExtendTestNode", Status.Fail, "Error occured while verfiying the file with the Normalization Concept: Message" + ex.Message);
             }
         }
 
@@ -120,6 +123,21 @@ namespace SHAProject.Page_Object
             catch (Exception e)
             {
                 ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"The error occured in Apply Normalization Icon functionality. The error is { e.Message }");
+            }
+        }
+
+        public void NormalizationToggle()
+        {
+            try
+            {
+                _findElements.VerifyElement(NormalizationField, _currentPage, "Normalization toggle");
+
+                bool Toogle = NormalizationField.Selected;
+                ExtentReport.ExtentTest("ExtendTestNode", Toogle ? Status.Pass : Status.Fail, Toogle ? "Normalization Toddled in Enabled" : "Normalization Toddled in Disabled");
+            }
+            catch (Exception ex)
+            {
+                ExtentReport.ExtentTest("ExtendTestNode", Status.Fail, "Error occured while verfiying the File with the Normalization Concept: Message" + ex.Message);
             }
         }
     }

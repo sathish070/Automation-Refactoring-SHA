@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "SHAProject": {
+      "commandName": "Project",
+      "hotReloadEnabled": true
+    }
+  }
+}

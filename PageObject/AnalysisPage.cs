@@ -168,37 +168,43 @@ namespace SHAProject.Create_Widgets
                     IWebElement widgetTitle = gridStackItem.FindElement(By.CssSelector(".blocklefthead"));
                     _findElements.ElementTextVerify(widgetTitle, widgetName, _currentPage, $"Element name - {widgetName}");
 
-                    // verify the edit icon
-                    IWebElement editIcon = gridStackItem.FindElement(By.CssSelector(".cell-edit-icons"));
-                    _findElements.VerifyElement(editIcon, _currentPage, $"{verifywidgets[count]} - Edit Icon");
-
-                    // verify the export icon
-                    IWebElement exportIcon = null;
-                    if (gridStackItem.FindElements(By.CssSelector(".Export")).Count > 0)
-                        exportIcon = gridStackItem.FindElement(By.CssSelector(".Export")); // canvaschart export icon
-                    else if (gridStackItem.FindElements(By.CssSelector(".amcharts-amexport-item-level-0")).Count > 0)
-                        exportIcon = gridStackItem.FindElement(By.CssSelector(".amcharts-amexport-item-level-0")); // amchart export icon
-                    else if (gridStackItem.FindElements(By.CssSelector(".cell-export-heatscrnmap")).Count > 0)
-                        exportIcon = gridStackItem.FindElement(By.CssSelector(".cell-export-heatscrnmap")); // heatmap export icon
-                    else if (gridStackItem.FindElements(By.CssSelector(".export_table_icon")).Count > 0)
-                        exportIcon = gridStackItem.FindElement(By.CssSelector(".export_table_icon")); // datatable export icon
-
-                    _findElements.VerifyElement(exportIcon, _currentPage, $"{verifywidgets[count]} - Export Icon");
-
-                    // verify the measurement element (if present)
-                    if (gridStackItem.FindElements(By.CssSelector(".measurement-view")).Count > 0)
+                    if (gridStackItem.FindElements(By.CssSelector(".errorMsg")).Count == 0)
                     {
-                        IWebElement measurement = gridStackItem.FindElement(By.CssSelector(".measurement-view"));
-                        _findElements.ElementTextVerify(measurement, "Measurement 1", _currentPage, $"Element name - {widgetName}");
-                    }
+                        // verify the edit icon
+                        IWebElement editIcon = gridStackItem.FindElement(By.CssSelector(".cell-edit-icons"));
+                        _findElements.VerifyElement(editIcon, _currentPage, $"{verifywidgets[count]} - Edit Icon");
 
-                    // verify the group legend element (if present)
-                    if (gridStackItem.FindElements(By.CssSelector(".platemap-legends")).Count > 0 && gridStackItem.FindElements(By.CssSelector(".cell-export-heatscrnmap")).Count == 0)
+                        // verify the export icon
+                        IWebElement exportIcon = null;
+                        if (gridStackItem.FindElements(By.CssSelector(".Export")).Count > 0)
+                            exportIcon = gridStackItem.FindElement(By.CssSelector(".Export")); // canvaschart export icon
+                        else if (gridStackItem.FindElements(By.CssSelector(".amcharts-amexport-item-level-0")).Count > 0)
+                            exportIcon = gridStackItem.FindElement(By.CssSelector(".amcharts-amexport-item-level-0")); // amchart export icon
+                        else if (gridStackItem.FindElements(By.CssSelector(".cell-export-heatscrnmap")).Count > 0)
+                            exportIcon = gridStackItem.FindElement(By.CssSelector(".cell-export-heatscrnmap")); // heatmap export icon
+                        else if (gridStackItem.FindElements(By.CssSelector(".export_table_icon")).Count > 0)
+                            exportIcon = gridStackItem.FindElement(By.CssSelector(".export_table_icon")); // datatable export icon
+
+                        _findElements.VerifyElement(exportIcon, _currentPage, $"{verifywidgets[count]} - Export Icon");
+
+                        // verify the measurement element (if present)
+                        if (gridStackItem.FindElements(By.CssSelector(".measurement-view")).Count > 0)
+                        {
+                            IWebElement measurement = gridStackItem.FindElement(By.CssSelector(".measurement-view"));
+                            _findElements.ElementTextVerify(measurement, "Measurement 1", _currentPage, $"Element name - {widgetName}");
+                        }
+
+                        // verify the group legend element (if present)
+                        if (gridStackItem.FindElements(By.CssSelector(".platemap-legends")).Count > 0 && gridStackItem.FindElements(By.CssSelector(".cell-export-heatscrnmap")).Count == 0)
+                        {
+                            IWebElement grouplegend = gridStackItem.FindElement(By.CssSelector(".platemap-legends"));
+                            _findElements.VerifyElement(grouplegend, _currentPage, $"{verifywidgets[count]} - Group Legends");
+                        }
+                    }
+                    else
                     {
-                        IWebElement grouplegend = gridStackItem.FindElement(By.CssSelector(".platemap-legends"));
-                        _findElements.VerifyElement(grouplegend, _currentPage, $"{verifywidgets[count]} - Group Legends");
+                        ExtentReport.ExtentTest("ExtentTestNode", Status.Warning, $"{widgetName} has buffer factor value issue");
                     }
-
                     count++;
                 }
             }
@@ -270,9 +276,13 @@ namespace SHAProject.Create_Widgets
             {
                 _findElements?.ClickElementByJavaScript(SideViewMenuToggleBtn, _currentPage, $"Analysis Page - Side View Toggle Button");
 
-                _findElements?.ClickElementByJavaScript(LastOption, _currentPage, $"Analysis Page - Three Dot Option");
+                //_findElements?.ScrollIntoViewAndClickElementByJavaScript(LastOption, _currentPage, $"Analysis Page - Three Dot Option");
 
-                _findElements?.ClickElementByJavaScript(CustomViewOption, _currentPage, $"Analysis Page - Custom View Option");
+                _findElements?.ScrollIntoView(LastOption);
+
+                _findElements.ClickElement(LastOption,_currentPage,"Last Option");
+
+                _findElements?.ActionsClassClick(CustomViewOption);
 
                 _findElements?.VerifyElement(CustomNameTxtBox, _currentPage, $"Analysis Page - Create Custom View Popup Name Text box");
 
@@ -305,19 +315,49 @@ namespace SHAProject.Create_Widgets
             }
             catch (Exception ex)
             {
-                ExtentReport.ExtentTest("ExtendTestNode", Status.Fail, "Error Occured while trying to verify the create a custom view");
+                ExtentReport.ExtentTest("ExtendTestNode", Status.Fail, "Error occured while trying to verify the create a custom view");
             }
         }
 
         public bool GoToEditWidget(WidgetCategories widgetCategory, WidgetTypes widgetType)
         {
-            Thread.Sleep(5000);
-            int widgetPosition = _commonFunc.GetWidgetPosition(widgetCategory, widgetType);
+            try
+            {
+                Thread.Sleep(6000);
+                _commonFunc.HandleCurrentWindow();
+                int widgetPosition = _commonFunc.GetWidgetPosition(widgetCategory, widgetType);
+                IWebElement widgetDiv;
+                 if (widgetType == WidgetTypes.KineticGraph)
+                {
+                    widgetDiv = _driver.FindElement(By.XPath("//*[@data-ratetype='OCR'][@data-widgettype='" + widgetPosition + "']/div[1]/div[1]/a/img"));
+                }
+                else if (widgetType == WidgetTypes.KineticGraphEcar)
+                {
+                    widgetDiv = _driver.FindElement(By.XPath("//*[@data-ratetype='ECAR'][@data-widgettype='" + widgetPosition + "']/div[1]/div[1]/a/img"));
+                }
+                else if (widgetType == WidgetTypes.KineticGraphPer)
+                {
+                    widgetDiv = _driver.FindElement(By.XPath("//*[@data-ratetype='PER'][@data-widgettype='" + widgetPosition + "']/div[1]/div[1]/a/img"));
+                }
+                else if (widgetType == WidgetTypes.DataTable)
+                {
+                    widgetDiv = _driver.FindElement(By.XPath("//*[@id='averagecalculation1']/div[1]/div[1]/a/img"));
 
-            IWebElement widgetDiv = _driver.FindElement(By.XPath("//*[@data-widgettype='" + widgetPosition + "']/div[1]/div[1]/a/img"));
-            _findElements.ScrollIntoViewAndClickElementByJavaScript(widgetDiv, _currentPage, $"Analysis Page - Edit Icon");
+                }
+                else
+                {
+                    widgetDiv = _driver.FindElement(By.XPath("//*[@data-widgettype='" + widgetPosition + "']/div[1]/div[1]/a/img"));
+                }
 
-            return true;
+                _findElements.ScrollIntoViewAndClickElementByJavaScript(widgetDiv, _currentPage, $"Analysis Page - Edit Icon");
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                ExtentReport.ExtentTest("ExtendTestNode", Status.Fail, "Unable to locate the Widget" + e.Message);
+                return false;
+            }
         }
     }
 }

@@ -16,14 +16,14 @@ namespace SHAProject.Utilities
         public static ExtentTest? extentTest;
         public static ExtentTest? extentTestNode;
 
-        public static ExtentReports ExtentStart(string screenshotPath, string pathToBeCreated, string timeStamp)
+        public static ExtentReports ExtentStart(string screenshotPath, string reportFolderName, string timeStamp)
         {
             string dateTime = timeStamp;
             extentReport = new ExtentReports();
 
-            string extentReportFile = @"QA Report - " + "Chrome" + " - " + dateTime + ".html";
+            string extentReportFile = @"QA Report - " + dateTime + ".html";
 
-            var htmlReporter = new ExtentV3HtmlReporter(screenshotPath + pathToBeCreated +"\\" + extentReportFile);
+            var htmlReporter = new ExtentV3HtmlReporter(screenshotPath + reportFolderName +"\\" + extentReportFile);
             htmlReporter.Config.ReportName = "<b>Seahorse Automation Testing</b>";
             htmlReporter.Config.DocumentTitle = "Seahorse Automation ";
 

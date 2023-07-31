@@ -43,6 +43,10 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "Aspose.SVG": {
+              "target": "Package",
+              "version": "[23.6.0, )"
+            },
             "DotNetSeleniumExtras.PageObjects": {
               "target": "Package",
               "version": "[3.11.0, )"
