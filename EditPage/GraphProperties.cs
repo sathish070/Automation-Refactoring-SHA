@@ -17,6 +17,8 @@ using SeleniumExtras.WaitHelpers;
 using System.Runtime.CompilerServices;
 using System.Xml.Linq;
 using System.Security.Policy;
+using Aspose.Svg.Dom;
+using OpenQA.Selenium.Interactions;
 
 namespace SHAProject.EditPage
 {
@@ -125,6 +127,23 @@ namespace SHAProject.EditPage
         [FindsBy(How = How.Id, Using = "chkbackground")]
         public IWebElement? BackgroundCorrectionToggle;
 
+        [FindsBy(How = How.XPath, Using ="//div[@class='graph-ms select-display hideprop chartmode-property']")]
+        public IWebElement? BoxPlotToggle;
+
+        [FindsBy(How = How.XPath, Using = "(//div[@class='graph-ms select-display hideprop chartmode-property']/div/label)[1]")]
+        public IWebElement? Boxplot;
+
+        [FindsBy(How = How.XPath, Using = "//span[@class='col-md-12 stress-li selected-li']")]
+        public IList<IWebElement>? BoxplotGroups;
+
+        [FindsBy(How = How.XPath, Using = "(//div[@class='graph-ms select-display hideprop chartmode-property']/div/label)[1]/input")]
+        public IWebElement? BarToggle;
+
+        [FindsBy(How =How.XPath, Using = "//th[@id='th0']")]
+        public IWebElement? PlatemapOverallSelect;
+
+        [FindsBy(How = How.XPath, Using = "//div[@class='toast-body-content']")]
+        public IWebElement? BoxPlotTost;
         #endregion
 
         #region Dropdown properties
@@ -367,6 +386,23 @@ namespace SHAProject.EditPage
 
         #endregion
 
+        #region PanZoom
+        [FindsBy(How = How.XPath, Using = "(//canvas[@class='canvasjs-chart-canvas'])[2]")]
+        public IWebElement? CanvasChart;
+
+        [FindsBy(How = How.XPath, Using ="//button[@title='Switch to Pan']")]
+        public IWebElement? PanIcon;
+
+        [FindsBy(How = How.XPath, Using = "//button[@title='Switch to Zoom']")]
+        public IWebElement? ZoomIcon;
+
+        [FindsBy(How = How.XPath, Using = "//button[@title='Reset']")]
+        public IWebElement? ResetIcon;
+
+        [FindsBy(How = How.Id, Using = "divwidget1")]
+        public IWebElement? AmchartChart;
+        #endregion
+
         public void GraphProperty()
         {
             _findElements.VerifyElement(GraphPropertyField, _currentPage, $"Edit Widget Page -Graph Property");
@@ -471,6 +507,165 @@ namespace SHAProject.EditPage
             {
                 ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $" Error ocuured while verify the oligo and induced ");
             }
+        }
+
+        public void VerifyBoxplot()
+        {
+            try
+            {
+                _findElements.VerifyElement(BoxPlotToggle, _currentPage, $"Edit Page BoxPlot Toogle");
+
+                if (Boxplot.Enabled)
+                {
+                    IJavaScriptExecutor jScript = (IJavaScriptExecutor)_driver;
+                    jScript.ExecuteScript("arguments[0].click();", BarToggle);
+                    _findElements.ClickElementByJavaScript(BarToggle, _currentPage, $"Boxplpot toggle");
+                    BarToggle.Click();
+                    Thread.Sleep(5000);
+                    var groupCount = 1;
+                    foreach( IWebElement group in BoxplotGroups)
+                    {
+                        _findElements.ScrollIntoView(group);
+                        _findElements.VerifyElement(group, _currentPage, $"BoxPlot Groups");
+                        IWebElement Group = _driver.FindElement(By.XPath("(//span[@class='col-md-12 stress-li selected-li']["+groupCount+"]/span)[2]"));
+                        String GroupName =  Group.GetAttribute("title");
+
+                        IEnumerable<IWebElement> wellElements = _driver.FindElements(By.XPath("//span[@data-wellgroup='"+ GroupName + "']/span"));
+                        IList<IWebElement> well = new List<IWebElement>(wellElements);
+
+                        if (well.Count >= 5)
+                        {
+                           foreach( IWebElement PlatemapWell in wellElements)
+                           {
+                                _findElements.ScrollIntoView(PlatemapWell);
+                                _findElements.VerifyElement(PlatemapWell, _currentPage, $"BoxPlot Well of group: " + GroupName);
+                           }
+
+                            string color = group.GetAttribute("data-groupcolor").ToLower();
+                            IWebElement Graph = _driver.FindElement(By.XPath("(//*[@stroke='"+color+"'])[1]"));
+                            _findElements.VerifyElement(Graph,_currentPage,$"BoxPlot Graph");
+                            ExtentReport.ExtentTest("ExtendTestNode",Graph.Displayed ? Status.Pass :Status.Fail,Graph.Displayed ? $"The Group Color and the Graph Color are Same" : $"The Group color doesnot matches the Graph");
+
+                            Actions actions = new Actions(_driver);
+                            actions.MoveToElement(Graph).Perform();
+                            _findElements.ScrollIntoView(Graph);
+
+                            //IEnumerable<IWebElement> tooltip = _driver.FindElements(By.XPath("(//*[@role='tooltip'])[4]/*/*/*/*"));
+                            //IList<IWebElement> tooltipDetails = new List<IWebElement>(tooltip);
+
+                            //foreach (IWebElement tooltipValues in tooltipDetails)
+                            //{
+                            //    _findElements.ScrollIntoView(Graph);
+                            //    actions.MoveToElement(Graph).Perform();
+                            //    Thread.Sleep(1000);
+                            //    var tooltiptext = tooltipValues.Text;
+                            //    _findElements.VerifyElement(tooltipValues, _currentPage, $"BoxPlot Well of Tooltip of "+ tooltiptext);
+                            //}
+                                groupCount++;
+                        }
+                        else
+                        {
+                            _findElements.VerifyElement(group, _currentPage, $"BoxPlot Invalid Groups with N/A values");
+                            groupCount++;
+                            ExtentReport.ExtentTest("ExtendTestNode", Status.Pass, $"The Group " + GroupName + " does not have minimum 5 wells");
+                        }
+                    }
+
+                    jScript.ExecuteScript("arguments[0].click();", BarToggle);
+                    Thread.Sleep(3000);
+
+                    _findElements.VerifyElement(DisplayField, _currentPage, $"Display Property");
+
+                    _findElements.VerifyElement(ErrorFormatField, _currentPage, $"Error Format Property");
+
+                    jScript.ExecuteScript("arguments[0].click();", DisplayWells);
+                    Thread.Sleep(5000);
+                    ExtentReport.ExtentTest("ExtendTestNode",BoxPlotToggle.Displayed? Status.Fail : Status.Pass,BoxPlotToggle.Displayed ? $"Boxplot Toogle is not Displayed" : $"Boxplot Toggle is Displayed");
+
+                    jScript.ExecuteScript("arguments[0].click();", DisplayGroup);
+                    Thread.Sleep(5000);
+
+                    _findElements.VerifyElement(BoxPlotToggle, _currentPage, $"Edit Page BoxPlot Toogle");
+
+                    jScript.ExecuteScript("arguments[0].click();", Boxplot);
+                    Thread.Sleep(3000);
+
+                    jScript.ExecuteScript("arguments[0].click();", Boxplot);
+                    Thread.Sleep(5000);
+
+                    ExtentReport.ExtentTest("ExtendTestNode", DisplayField.Displayed ? Status.Fail : Status.Pass, DisplayField.Displayed ? $"The Display Property is displayed" : $"The Display Property is not DIsplayed");
+                    ExtentReport.ExtentTest("ExtendTestNode", ErrorFormatField.Displayed ? Status.Fail : Status.Pass, ErrorFormatField.Displayed ? $"The Error Format field is displayed" : $"The Error Format field is not Displayed");
+
+                    _findElements.ClickElementByJavaScript(PlatemapOverallSelect, _currentPage, "$PlateMap Overall Select Button");
+
+                    _findElements.VerifyElement(BoxPlotTost, _currentPage, $"BoxPlot Graph warning Message Popup");
+
+                    var status = BoxPlotTost.Text.Contains("A minimum of 5 wells in a group is required to construct a boxplot.");
+                    ExtentReport.ExtentTest("ExtendTestNode",status ? Status.Pass : Status.Fail, $"The BoxPlot warning Message Contains the given text.");
+
+                }
+                else
+                {
+                    ExtentReport.ExtentTest("ExtendTestNode",Status.Pass,$"The BoxPlot Toggle is Disabled in the Given file");
+                }
+            }
+            catch (Exception ex)
+            {
+                ExtentReport.ExtentTest("ExtendTestNode", Status.Fail, $"The BoxPlot Verification failed with the Messagr: "+ex.Message);
+
+            }
+        }
+
+        public void VerifyNonBoxplotFile()
+        {
+            _findElements.VerifyElement(BoxPlotToggle, _currentPage, $"Edit Page BoxPlot Toogle");
+
+            bool boxplotstatus = Boxplot.Enabled;
+
+            ExtentReport.ExtentTest("ExtendTestNode", boxplotstatus ? Status.Fail : Status.Pass, boxplotstatus ? $"BoxPlot Toogle is not disabled" : $"BoxPlot Toogle is disabled");
+
+            var tooltip = BoxPlotToggle.GetAttribute("title");
+
+            bool tooltipStatus =  tooltip.Contains("This assay does not have at least one non-background group with 5 or more Wells");
+
+            ExtentReport.ExtentTest("ExtendTestNode", tooltipStatus ? Status.Pass : Status.Fail, tooltipStatus ? $"The Tooltip Contains the given Tooltip Text" : $"The Tooltip Doesnot Contains the given toolrip");
+
+        }
+
+        public void PanZoom(ChartType Chart)
+        {
+            IWebElement? element = ChartType.CanvasJS == Chart ? CanvasChart : AmchartChart;
+
+            _findElements.VerifyElement(element, _currentPage, $"Canvas Chart");
+
+            Actions actions = new Actions(_driver);
+            actions.MoveToElement(element)
+                  .ClickAndHold()
+                  .Build()
+                  .Perform();
+
+            actions.MoveByOffset(300, 150)
+                  .Release()
+                  .Build()
+                  .Perform();
+
+
+            _findElements.ClickElementByJavaScript(PanIcon, _currentPage, $"Pan Icon functionality");
+
+            actions.MoveToElement(element)
+                  .ClickAndHold()
+                  .Build()
+                  .Perform();
+
+            actions.MoveByOffset(300, 150)
+                  .Release()
+                  .Build()
+                  .Perform();
+
+            _findElements.ClickElementByJavaScript(ResetIcon, _currentPage, $"Reset Icon");
+
+            _findElements.VerifyElement(element, _currentPage, $"Canvas Chart");
+
         }
     }
 }

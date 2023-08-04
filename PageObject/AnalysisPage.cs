@@ -6,7 +6,7 @@ using SHAProject.Utilities;
 using SHAProject.SeleniumHelpers;
 using AventStack.ExtentReports;
 using System.Runtime.InteropServices;
-
+using OpenQA.Selenium.Interactions;
 
 namespace SHAProject.Create_Widgets
 {
@@ -104,6 +104,17 @@ namespace SHAProject.Create_Widgets
         [FindsBy(How = How.XPath, Using = "(//li[@class='pannel-li'])[last()]")]
         private IWebElement? LastCretedView;
 
+        [FindsBy(How = How.XPath, Using = "(//div[@id='graphlst']/div/div)[1]")]
+        private IWebElement? DragStart;
+
+        [FindsBy(How = How.XPath, Using = "(//div[@id='graphlst']/div/div)[2]")]
+        private IWebElement? DragEnd;
+
+        [FindsBy(How = How.Id, Using = "divwidget1_legend")]
+        private IWebElement? LegendsArea;
+
+        [FindsBy(How = How.XPath, Using = "(//div[@id='divwidget1_legend']/span)[1]")]
+        private IWebElement? GroupLegend;
         #endregion
 
         public void AnalysisPageHeaderIcons()
@@ -239,6 +250,7 @@ namespace SHAProject.Create_Widgets
         {
             try
             {
+                Thread.Sleep(2000);
                 _findElements.ClickElement(EditLayoutBtn, _currentPage, $"Analysis Page - Edit Layout Icon");
 
                 int widgetPosition = _commonFunc.GetWidgetPosition(wCat, wType);
@@ -246,6 +258,8 @@ namespace SHAProject.Create_Widgets
                 var deleteWidget = _driver.FindElement(By.XPath("//*[@data-widgettype='" + widgetPosition + "']/div[1]/div[2]/a/img"));
                 if (deleteWidget != null)
                 {
+                    DragandDrop();
+
                     _findElements.ClickElementByJavaScript(deleteWidget, _currentPage, $"The Deleted widget is - {wType}");
 
                     _findElements.VerifyElement(deleteWidgetPopup, _currentPage, $"Analysis Page -Delete widget popup ");
@@ -257,6 +271,7 @@ namespace SHAProject.Create_Widgets
                     ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"Deleted Widget in the Analysis page is { wType.ToString()}");
 
                     _findElements.ClickElement(ExitEditLayout, _currentPage, $"Analysis Page - Exit Edit Layout Icon");
+
                 }
                 else
                 {
@@ -358,6 +373,51 @@ namespace SHAProject.Create_Widgets
                 ExtentReport.ExtentTest("ExtendTestNode", Status.Fail, "Unable to locate the Widget" + e.Message);
                 return false;
             }
+        }
+
+        public void DragandDrop()
+        {
+            try
+            {
+                Actions actions = new Actions(_driver);
+                actions.MoveToElement(LegendsArea).Perform();
+                Thread.Sleep(2000);
+
+                IWebElement Resize = _driver.FindElement(By.XPath("//div[@class='ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se'][@style='z-index: 90; display: block;']"));
+                actions.MoveToElement(Resize).Perform();
+                actions.ClickAndHold(Resize).MoveByOffset(200, 100).Release().Perform();
+                _findElements.VerifyElement(DragStart, _currentPage, $"Edit Layout Expanding  Widget");
+                Thread.Sleep(2000);
+
+                actions.MoveToElement(LegendsArea).Perform();
+                actions.ClickAndHold(Resize).MoveByOffset(-200, -50).Release().Perform();
+                _findElements.VerifyElement(DragStart, _currentPage, $"Edit Layout Resized Widget");
+                Thread.Sleep(2000);
+
+                _findElements.VerifyElement(GroupLegend, _currentPage, $"Group Legend");
+
+                _findElements.ClickElementByJavaScript(GroupLegend, _currentPage, $"UnSelecting the Group Legend");
+
+                Thread.Sleep(1000);
+                _findElements.ClickElementByJavaScript(GroupLegend, _currentPage, $"ReSelecting the Group Legend");
+
+                actions.ClickAndHold(DragStart).Perform();
+                _findElements.VerifyElement(DragStart, _currentPage, $"Edit Layout Possition Changing Widget");
+                Thread.Sleep(1000);
+
+                actions.MoveToElement(DragEnd).Perform();
+                Thread.Sleep(1000);
+                actions.Release(DragStart).Perform();
+
+                _findElements.VerifyElement(DragStart, _currentPage, $"Edit Layout Possition Changed Widget");
+
+            }
+            catch (Exception ex)
+            {
+                ExtentReport.ExtentTest("ExtendTestNode",Status.Fail,$"Error Occured While performing Drag and Drop Functionality with the Message: "+ex.Message);
+            }
+
+          
         }
     }
 }

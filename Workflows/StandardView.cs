@@ -427,50 +427,65 @@ namespace SHAProject.Workflows
                     WidgetTypes widgetType = WidgetTypes.BarChart;
                     widgetName = widgetType.ToString();
 
-                    graphProperties.Measurement(WorkFlow5Data.Barchart);
+                    //graphProperties.Measurement(WorkFlow5Data.Barchart);
 
-                    graphProperties.Rate(WorkFlow5Data.Barchart);
+                    //graphProperties.Rate(WorkFlow5Data.Barchart);
 
-                    graphProperties.Display(WorkFlow5Data.Barchart);
+                    //graphProperties.Display(WorkFlow5Data.Barchart);
 
-                    graphProperties.Normalization(WorkFlow5Data.Barchart);
+                    //pgraphProperties.Normalization(WorkFlow5Data.Barchart);
 
-                    graphProperties.ErrorFormat(WorkFlow5Data.Barchart, WidgetCategories.XfStandard, WidgetTypes.BarChart);
+                    //graphProperties.ErrorFormat(WorkFlow5Data.Barchart, WidgetCategories.XfStandard, WidgetTypes.BarChart);
 
-                    graphProperties.BackgroundCorrection(WorkFlow5Data.Barchart);
+                    //graphProperties.BackgroundCorrection(WorkFlow5Data.Barchart);
 
-                    graphProperties.Baseline(WorkFlow5Data.Barchart);
+                    //graphProperties.Baseline(WorkFlow5Data.Barchart);
 
-                    graphProperties.SortBy(WorkFlow5Data.Barchart);
+                    //graphProperties.SortBy(WorkFlow5Data.Barchart);
+                    graphProperties.PanZoom(ChartType.Amchart);
 
-                    graphProperties.VerifyExpectedGraphUnits(WorkFlow5Data.Barchart.ExpectedGraphUnits, WidgetTypes.BarChart);
+                    //graphProperties.VerifyBoxplot();
 
-                    if (WorkFlow5Data.Barchart.GraphSettingsVerify)
-                    {
-                        graphSettings.VerifyGraphSettingsIcon();
+                    //commonFunc.MoveBackToAnalysisPage();
 
-                        graphSettings.YAutoScale(WorkFlow5Data.Barchart);
+                    //filesPage.SearchFilesInFileTab(WorkFlow5Data.Barchart.NonBoxPlotFile);
 
-                        graphSettings.ZeroLine(WorkFlow5Data.Barchart);
+                    //commonFunc.HandleCurrentWindow();
 
-                        graphSettings.Zoom(WorkFlow5Data.Barchart);
+                    //CreateQuickView();
 
-                        graphSettings.GraphSettingsApply();
-                    }
+                    //analysisPage.GoToEditWidget(WidgetCategories.XfStandard, WidgetTypes.BarChart);
 
-                    plateMap.PlateMapIcons();
+                    //graphProperties.VerifyNonBoxplotFile();
 
-                    plateMap.PlateMapFunctionalities();
+                    //graphProperties.VerifyExpectedGraphUnits(WorkFlow5Data.Barchart.ExpectedGraphUnits, WidgetTypes.BarChart);
 
-                    if (WorkFlow5Data.Barchart.CheckNormalizationWithPlateMap)
-                        plateMap.VerifyNormalizationVal();
+                    //if (WorkFlow5Data.Barchart.GraphSettingsVerify)
+                    //{
+                    //    graphSettings.VerifyGraphSettingsIcon();
 
-                    plateMap.WellDataPopup("A05", "Included in the current calculation");
+                    //    graphSettings.YAutoScale(WorkFlow5Data.Barchart);
 
-                    groupLegends.EditWidgetGroupLegends(WidgetCategories.XfStandard, WidgetTypes.BarChart, WorkFlow5Data.Barchart);
+                    //    graphSettings.ZeroLine(WorkFlow5Data.Barchart);
 
-                    if (WorkFlow5Data.Barchart.IsExportRequired)
-                        exports?.EditWidgetExports(WidgetCategories.XfStandard, WidgetTypes.BarChart, WorkFlow5Data.Barchart);
+                    //    graphSettings.Zoom(WorkFlow5Data.Barchart);
+
+                    //    graphSettings.GraphSettingsApply();
+                    //}
+
+                    //plateMap.PlateMapIcons();
+
+                    //plateMap.PlateMapFunctionalities();
+
+                    //if (WorkFlow5Data.Barchart.CheckNormalizationWithPlateMap)
+                    //    plateMap.VerifyNormalizationVal();
+
+                    //plateMap.WellDataPopup("A05", "Included in the current calculation");
+
+                    //groupLegends.EditWidgetGroupLegends(WidgetCategories.XfStandard, WidgetTypes.BarChart, WorkFlow5Data.Barchart);
+
+                    //if (WorkFlow5Data.Barchart.IsExportRequired)
+                    //    exports?.EditWidgetExports(WidgetCategories.XfStandard, WidgetTypes.BarChart, WorkFlow5Data.Barchart);
 
                     commonFunc.MoveBackToAnalysisPage();
                 }
@@ -840,56 +855,58 @@ namespace SHAProject.Workflows
                 WidgetTypes widgetType = wType;
                 widgetName = widgetType.ToString();
 
-                graphProperties.Measurement(widget);
+                graphProperties.PanZoom(ChartType.CanvasJS);
 
-                graphProperties.Rate(widget);
+                //graphProperties.Measurement(widget);
 
-                graphProperties.Display(widget);
+                //graphProperties.Rate(widget);
 
-                graphProperties.Y(widget);
+                //graphProperties.Display(widget);
 
-                graphProperties.Normalization(widget);
+                //graphProperties.Y(widget);
 
-                graphProperties.ErrorFormat(widget, WidgetCategories.XfStandard, wType);
+                //graphProperties.Normalization(widget);
 
-                graphProperties.BackgroundCorrection(widget);
+                //graphProperties.ErrorFormat(widget, WidgetCategories.XfStandard, wType);
 
-                graphProperties.Baseline(widget);
+                //graphProperties.BackgroundCorrection(widget);
 
-                graphProperties.VerifyExpectedGraphUnits(widget.ExpectedGraphUnits, wType);
+                //graphProperties.Baseline(widget);
 
-                if (widget.GraphSettingsVerify)
-                {
-                    graphSettings.VerifyGraphSettingsIcon();
+                //graphProperties.VerifyExpectedGraphUnits(widget.ExpectedGraphUnits, wType);
 
-                    graphSettings.YAutoScale(widget);
+                //if (widget.GraphSettingsVerify)
+                //{
+                //    graphSettings.VerifyGraphSettingsIcon();
 
-                    graphSettings.ZeroLine(widget);
+                //    graphSettings.YAutoScale(widget);
 
-                    graphSettings.DataPointSymbols(widget);
+                //    graphSettings.ZeroLine(widget);
 
-                    graphSettings.RateHighlight(widget);
+                //    graphSettings.DataPointSymbols(widget);
 
-                    graphSettings.InjectionMarkers(widget);
+                //    graphSettings.RateHighlight(widget);
 
-                    graphSettings.Zoom(widget);
+                //    graphSettings.InjectionMarkers(widget);
 
-                    graphSettings.GraphSettingsApply();
-                }
+                //    graphSettings.Zoom(widget);
 
-                plateMap.PlateMapIcons();
+                //    graphSettings.GraphSettingsApply();
+                //}
 
-                plateMap.PlateMapFunctionalities();
+                //plateMap.PlateMapIcons();
 
-                if (widget.CheckNormalizationWithPlateMap)
-                    plateMap.VerifyNormalizationVal();
+                //plateMap.PlateMapFunctionalities();
 
-                plateMap.WellDataPopup("A05", "Included in the current calculation");
+                //if (widget.CheckNormalizationWithPlateMap)
+                //    plateMap.VerifyNormalizationVal();
 
-                groupLegends.EditWidgetGroupLegends(WidgetCategories.XfStandard, wType, widget);
+                //plateMap.WellDataPopup("A05", "Included in the current calculation");
 
-                if (widget.IsExportRequired)
-                    exports?.EditWidgetExports(WidgetCategories.XfStandard, wType, widget);
+                //groupLegends.EditWidgetGroupLegends(WidgetCategories.XfStandard, wType, widget);
+
+                //if (widget.IsExportRequired)
+                //    exports?.EditWidgetExports(WidgetCategories.XfStandard, wType, widget);
 
                 commonFunc.MoveBackToAnalysisPage();
             }
