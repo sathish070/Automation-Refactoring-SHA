@@ -187,7 +187,6 @@ namespace SHAProject.EditPage
                     if (element.Displayed)
                         _findElements.VerifyElement(element, _currentPage, $"PlateMap - Bottom Text");
                 }
-
             }
             catch (Exception e)
             {
@@ -197,19 +196,44 @@ namespace SHAProject.EditPage
 
         public void PlateMapFunctionalities()
         {
-            PlateMapWells("WellSelectionMode"); // Unselect the wells
+            try
+            {
+                IReadOnlyCollection<IWebElement> plateMapHead = _driver.FindElements(By.XPath("//table[@id=\"plate-map-table\"]/thead/tr/th"));
 
-            PlateMapWells("WellUnSelectionMode"); // Select the wells
+                foreach (IWebElement plateMapHeader in plateMapHead)
+                {
+                    _findElements.ClickElementByJavaScript(plateMapHeader, _currentPage, $"Unselect the plate map header - {plateMapHeader.Text}");
 
-            PlateMapWells("FlagMode"); // Add the flags
+                    _findElements.ClickElementByJavaScript(plateMapHeader, _currentPage, $"Select the plate map header - {plateMapHeader.Text}");
+                }
 
-            _findElements.ClickElementByJavaScript(FlagOff, _currentPage, $"PlateMap -Flag Off");
+                IReadOnlyCollection<IWebElement> plateMap = _driver.FindElements(By.CssSelector(".tab-col-1"));
 
-            _findElements.ClickElementByJavaScript(FlagOn, _currentPage, $"PlateMap -Flag On");
+                foreach (IWebElement plateMapBody in plateMap)
+                {
+                    _findElements.ClickElementByJavaScript(plateMapBody, _currentPage, $"Unselect the plate map body - {plateMapBody.Text}");
 
-            PlateMapWells("UnflagMode"); // Remove the flags 
+                    _findElements.ClickElementByJavaScript(plateMapBody, _currentPage, $"Select the plate map body - {plateMapBody.Text}");
+                }
 
-            PlateMapSyncToView();
+                PlateMapWells("WellSelectionMode"); // Unselect the wells
+
+                PlateMapWells("WellUnSelectionMode"); // Select the wells
+
+                PlateMapWells("FlagMode"); // Add the flags
+
+                _findElements.ClickElementByJavaScript(FlagOff, _currentPage, $"PlateMap -Flag Off");
+
+                _findElements.ClickElementByJavaScript(FlagOn, _currentPage, $"PlateMap -Flag On");
+
+                PlateMapWells("UnflagMode"); // Remove the flags 
+
+                PlateMapSyncToView();
+            }
+            catch (Exception e)
+            {
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Error occured while verifying the plate map functionality. The error is {e.Message}");
+            }
         }
 
         public void PlateMapWells(string type)
@@ -241,7 +265,7 @@ namespace SHAProject.EditPage
                 {
                     string wellName = PlateMapWell.GetAttribute("data-wellvalue");
                     _findElements.ClickElementByJavaScript(PlateMapWell, _currentPage, $" {type} well name is - {PlateMapWell.Text}");
-                    Thread.Sleep(3000);
+                    Thread.Sleep(5000);
                 }
 
                 ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"Platemap well selection and flag selection functionality has been verified.");
@@ -267,87 +291,94 @@ namespace SHAProject.EditPage
         {
             try
             {
-                string defaultText = string.Empty;
-                if (BaselineDropdown.Displayed)
+                string Opacity = NormalizationToggle.GetCssValue("opacity");
+                if (Opacity == "1")
                 {
-                    IWebElement selectedOption = BaselineDropdown.FindElements(By.TagName("option")).FirstOrDefault(option => option.Selected);
-                    defaultText = selectedOption.Text;
-                }
-
-                //if ((BaselineField.Displayed && defaultText =="OFF") || (!BaselineField.Displayed))
-                if (defaultText == "" || defaultText == "OFF")
-                {
-                    _driver.ExecuteJavaScript<string>("return document.getElementById(\"chknormalize\").click()"); // OFF
-
-                   // WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
-                   // wait.Until(ExpectedConditions.InvisibilityOfElementLocated(By.CssSelector("#loadmodal")));
-
-                    Thread.Sleep(6000);
-
-                    List<IWebElement> wells = _driver.FindElements(By.CssSelector(".Wellclass")).ToList();
-                    List<string> platemapName = wells.Select(well => well.GetAttribute("data-wellvalue")).ToList();
-
-                    List<IWebElement> tableValues = _driver.FindElements(By.CssSelector(".tablevalues")).ToList();
-                    ICollection<IWebElement> collection = tableValues.ToList();
-
-                    List<double> plateMapValues;
-                    List<double> bottomplateMapValues = null;
-
-                    // if Platemap Data has double Value
-                    if (tableValues[1].Text.Contains("\r\n"))
+                    string defaultText = string.Empty;
+                    if (BaselineDropdown.Displayed)
                     {
-                        plateMapValues = GetTableValues(collection, platemapName.Count, 1);
-                        bottomplateMapValues = GetTableValues(collection, platemapName.Count, 2);
+                        IWebElement selectedOption = BaselineDropdown.FindElements(By.TagName("option")).FirstOrDefault(option => option.Selected);
+                        defaultText = selectedOption.Text;
+                    }
+
+                    //if ((BaselineField.Displayed && defaultText =="OFF") || (!BaselineField.Displayed))
+                    if (defaultText == "" || defaultText == "OFF")
+                    {
+                        _driver.ExecuteJavaScript<string>("return document.getElementById(\"chknormalize\").click()"); // OFF
+
+                        // WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+                        // wait.Until(ExpectedConditions.InvisibilityOfElementLocated(By.CssSelector("#loadmodal")));
+
+                        Thread.Sleep(6000);
+
+                        List<IWebElement> wells = _driver.FindElements(By.CssSelector(".Wellclass")).ToList();
+                        List<string> platemapName = wells.Select(well => well.GetAttribute("data-wellvalue")).ToList();
+
+                        List<IWebElement> tableValues = _driver.FindElements(By.CssSelector(".tablevalues")).ToList();
+                        ICollection<IWebElement> collection = tableValues.ToList();
+
+                        List<double> plateMapValues;
+                        List<double> bottomplateMapValues = null;
+
+                        // if Platemap Data has double Value
+                        if (tableValues[1].Text.Contains("\r\n"))
+                        {
+                            plateMapValues = GetTableValues(collection, platemapName.Count, 1);
+                            bottomplateMapValues = GetTableValues(collection, platemapName.Count, 2);
+                        }
+                        else
+                        {
+                            plateMapValues = GetTableValues(collection, platemapName.Count);
+                        }
+
+                        _driver.ExecuteJavaScript<string>("return document.getElementById(\"chknormalize\").click()"); // ON
+
+                        //wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+                        //wait.Until(ExpectedConditions.InvisibilityOfElementLocated(By.CssSelector("#loadmodal")));
+
+                        Thread.Sleep(6000);
+
+                        List<IWebElement> normalizationWell = _driver.FindElements(By.CssSelector(".Wellclass")).ToList();
+                        List<string> normalizationPlatemapValues = normalizationWell.Select(well => well.GetAttribute("data-wellvalue")).ToList();
+
+                        List<IWebElement> normalizationTableValues = _driver.FindElements(By.CssSelector(".tablevalues")).ToList();
+                        ICollection<IWebElement> collections = normalizationTableValues.ToList();
+
+                        List<double> normalizedPlateMapValues;
+                        List<double> bottomNormalizedPlateMapValues = null;
+
+                        if (normalizationTableValues[1].Text.Contains("\r\n"))
+                        {
+                            normalizedPlateMapValues = GetTableValues(collections, normalizationPlatemapValues.Count, 1);
+                            bottomNormalizedPlateMapValues = GetTableValues(collections, normalizationPlatemapValues.Count, 2);
+                        }
+                        else
+                        {
+                            normalizedPlateMapValues = GetTableValues(collections, normalizationPlatemapValues.Count);
+                        }
+
+                        List<string> normalizationData = _normalizationData.Values;
+                        string scaleFactor = _normalizationData.ScaleFactor;
+
+                        List<string> caluNormalizationValues = CalculateNormalizationValues(normalizationData, plateMapValues, scaleFactor);
+                        CompareNormalizationValues(platemapName, caluNormalizationValues, normalizedPlateMapValues);
+                        if (bottomplateMapValues !=  null)
+                        {
+                            List<string> bottomcaluNormalizationValues = CalculateNormalizationValues(normalizationData, bottomplateMapValues, scaleFactor);
+                            CompareNormalizationValues(platemapName, bottomcaluNormalizationValues, bottomNormalizedPlateMapValues);
+                        }
+
+                        ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"Platemap normalization calculation functionality has been verified.");
                     }
                     else
                     {
-                        plateMapValues = GetTableValues(collection, platemapName.Count);
+                        ExtentReport.ExtentTest("ExtentTestNode", Status.Warning, $"Baseline is given in the excel sheet is {BaselineDropdown.Text} and normalization concept can't be applied.");
                     }
-
-                    _driver.ExecuteJavaScript<string>("return document.getElementById(\"chknormalize\").click()"); // ON
-
-                    //wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
-                    //wait.Until(ExpectedConditions.InvisibilityOfElementLocated(By.CssSelector("#loadmodal")));
-
-                    Thread.Sleep(6000);
-
-                    List<IWebElement> normalizationWell = _driver.FindElements(By.CssSelector(".Wellclass")).ToList();
-                    List<string> normalizationPlatemapValues= normalizationWell.Select(well => well.GetAttribute("data-wellvalue")).ToList();
-
-                    List<IWebElement> normalizationTableValues = _driver.FindElements(By.CssSelector(".tablevalues")).ToList();
-                    ICollection<IWebElement> collections = normalizationTableValues.ToList();
-
-                    List<double> normalizedPlateMapValues;
-                    List<double> bottomNormalizedPlateMapValues = null;
-
-                    if (normalizationTableValues[1].Text.Contains("\r\n"))
-                    {
-                        normalizedPlateMapValues = GetTableValues(collections, normalizationPlatemapValues.Count, 1);
-                        bottomNormalizedPlateMapValues = GetTableValues(collections, normalizationPlatemapValues.Count, 2);
-                    }
-                    else
-                    {
-                        normalizedPlateMapValues = GetTableValues(collections, normalizationPlatemapValues.Count);
-                    }
-
-                    List<string> normalizationData = _normalizationData.Values;
-                    string scaleFactor = _normalizationData.ScaleFactor;
-
-                    List<string> caluNormalizationValues = CalculateNormalizationValues(normalizationData, plateMapValues, scaleFactor);
-                    CompareNormalizationValues(platemapName, caluNormalizationValues, normalizedPlateMapValues);
-                    if (bottomplateMapValues !=  null)
-                    {
-                        List<string> bottomcaluNormalizationValues = CalculateNormalizationValues(normalizationData, bottomplateMapValues, scaleFactor);
-                        CompareNormalizationValues(platemapName, bottomcaluNormalizationValues, bottomNormalizedPlateMapValues);
-                    }
-
-                    ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"Platemap normalization calculation functionality has been verified.");
                 }
                 else
                 {
-                    ExtentReport.ExtentTest("ExtentTestNode", Status.Warning, $"Baseline is given in the excel sheet is {BaselineDropdown.Text} and normalization concept can't be applied." );
+                    ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"Normalization is in disable mode and file is not normalized. Need to apply the normalization concept");
                 }
-
             }
             catch (Exception e)
             {

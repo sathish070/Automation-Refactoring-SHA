@@ -46,6 +46,9 @@ namespace SHAProject.Create_Widgets
         [FindsBy(How = How.CssSelector, Using = "#filter-text-box")]
         public IWebElement? searchTextBox;
 
+        //[FindsBy(How = How.XPath, Using = "(//div[@col-id=\"Name\"])[2]")]
+        //public IWebElement? selectFirstResultedFile;
+
         [FindsBy(How = How.XPath, Using = "(//span[@class=\"ag-cell-value\"]/span)[1]")]
         public IWebElement? selectFirstResultedFile;
         #endregion
@@ -535,6 +538,39 @@ namespace SHAProject.Create_Widgets
                 return false;
             }
         }
+        //public bool SearchFilesInFileTab(string fileName)
+        //{
+        //    try
+        //    {
+        //        _findElements.ClickElement(filesTab, _currentPage, "Files Tab");
+
+        //        _findElements.SendKeys(fileName, searchTextBox, _currentPage, $"Given file name is - {fileName}");
+
+        //        IReadOnlyCollection<IWebElement> FileList = _driver.FindElements(By.CssSelector(".ag-cell-value"));
+
+        //        foreach (IWebElement File in FileList)
+        //        {
+        //            if (File.Text.Equals(fileName))
+        //            {
+        //                Thread.Sleep(2000);
+        //                _findElements.ClickElement(File, _currentPage, $"Files Tab - First file");
+        //                ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"Existing file selected successfully");
+        //                return true;
+        //            }
+        //        }
+
+        //        ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"The given existing file name is not present in the files tab. Upload a new file");
+        //        Assert.Fail();
+        //        throw new Exception("Existing file was not selected.");
+        //        return false;
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Existing file was not selected.The error is {e.Message}");
+        //        return false;
+        //    }
+        //}
+
         public bool SearchFilesInFileTab(string fileName)
         {
             try
@@ -543,7 +579,9 @@ namespace SHAProject.Create_Widgets
 
                 _findElements.SendKeys(fileName, searchTextBox, _currentPage, $"Given file name is - {fileName}");
 
-                _findElements.ClickElement(selectFirstResultedFile, _currentPage, $"Files Tab - First file");
+                Thread.Sleep(2000);
+
+                _findElements.ClickElementByJavaScript(selectFirstResultedFile, _currentPage, $"Files Tab - First file");
 
                 ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"Existing file selected successfully");
                 return true;
@@ -559,9 +597,9 @@ namespace SHAProject.Create_Widgets
         {
             try
             {
-                _findElements.VerifyElement(Filetabnavlinkbutton, _currentPage,"Files Page -Files tab Navigate link Button");
+                _findElements.VerifyElement(Filetabnavlinkbutton, _currentPage,"Files Page - Files tab Navigate link Button");
 
-                _findElements.VerifyElement(folderList, _currentPage, "Files Page -Folder List");
+                _findElements.VerifyElement(folderList, _currentPage, "Files Page - Folder List");
 
                 _findElements.VerifyElement(breadcrumsBar, _currentPage, "Files Page - Breadcrums Bar");
 
@@ -583,7 +621,7 @@ namespace SHAProject.Create_Widgets
 
                 _findElements.VerifyElement(addAssayKit, _currentPage, "Files Page - Add Assay Kit to Files");
 
-                _findElements.VerifyElement(export, _currentPage, "Files Page -Export Files");
+                _findElements.VerifyElement(export, _currentPage, "Files Page - Export Files");
 
                 _findElements.VerifyElement(sendTo, _currentPage, "Files Page - Send Files");
 
@@ -595,7 +633,7 @@ namespace SHAProject.Create_Widgets
 
                 _findElements.VerifyElement(newAssay, _currentPage, "Files Page - Add new Assay");
 
-                _findElements.VerifyElement(newProject, _currentPage, "Files Page -Create new Projcet");
+                _findElements.VerifyElement(newProject, _currentPage, "Files Page - Create new Project");
 
                 _findElements.VerifyElement(newFolder, _currentPage, "Files Page - Add new Folder");
 
@@ -1038,7 +1076,6 @@ namespace SHAProject.Create_Widgets
 
             }
         }
-
         public void HeaderIconFunction()
         {
             try

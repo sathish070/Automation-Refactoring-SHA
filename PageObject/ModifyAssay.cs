@@ -8,6 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -50,12 +51,15 @@ namespace SHAProject.PageObject
         [FindsBy(How = How.XPath, Using = "//a[@href=\"#tab4\"]")]
         public IWebElement GeneralInfo;
 
-        [FindsBy(How = How.XPath, Using = "//a[@title='Modify Assay']")]
+        [FindsBy(How = How.XPath, Using = "//img[@src='/images/svg/Modify.svg']")]
         public IWebElement ModifyAssayTab;
 
         #endregion
 
         #region Group Tab Elements
+
+        [FindsBy(How = How.XPath, Using = "//div[@class='col-md-12 atp_advanced_sec']")]
+        public IWebElement GroupListArea;
 
         [FindsBy(How = How.XPath, Using = "//*[@title ='Expand/Collapse All']")]
         public IWebElement ExpandIcon;
@@ -154,6 +158,9 @@ namespace SHAProject.PageObject
 
         [FindsBy(How = How.XPath, Using ="(//*[@class=\"form-group col-md-5\"])[1]")]
         public IWebElement BufferFactor;
+            
+        [FindsBy(How = How.Id, Using = "txtbufferfactor1")]
+        public IWebElement BufferFactorValue;
 
         [FindsBy(How = How.XPath, Using ="(//*[@id =\"btnApplytoallGroup1\"])[1]")]
         public IWebElement ApplyToAllGroups;
@@ -195,15 +202,11 @@ namespace SHAProject.PageObject
         [FindsBy(How = How.XPath, Using = "//*[@id='listgroup_1']")]
         public IWebElement BackgroundSelection;
 
-        [FindsBy(How = How.XPath, Using = "(//div[@class='boxes'])[1]")]
-        public IWebElement UnselectDefaultBF;
-
-        [FindsBy(How = How.XPath, Using ="(//*[@class=\"boxes\"])[1]")]
-        public IWebElement UnselectDefaultBFChkBox;
+        [FindsBy(How = How.XPath, Using = "//label[@for=\"buffer-check0_0\"]")]
+        public IWebElement FirstBackgroundDefaultBF;
 
         [FindsBy(How = How.XPath, Using ="//*[@id=\"chkselectall\"]")]
-        public IWebElement UnselectAllCheckBox;
-
+        public IWebElement SelectAllCheckBox;
 
         #endregion
 
@@ -258,25 +261,33 @@ namespace SHAProject.PageObject
         [FindsBy(How = How.XPath, Using = "//*[@id=\"tab4\"]/div/div[2]")]
         public IWebElement AssayInformation;
 
+        [FindsBy(How = How.XPath, Using = "//input[@id=\"Wellvolume\"]")]
+        public IWebElement WellVolumeValue;
+
         #endregion
 
         public void ModifyAssayHeaderTabs()
         {
             try
             {
+                Thread.Sleep(5000);
+
+                if (RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
+                    _commonFunc.HandleCurrentWindow();
+
                 _findElements?.ClickElementByJavaScript(ModifyAssayTab, _currentPage, $"Modify Assay - Icon Button");
 
-                _findElements.ElementTextVerify(GroupTab, "Groups", _currentPage, $"Modify Assay - Group Tab");
+                _findElements.ElementTextVerify(GroupTab, "Groups", _currentPage, $"Modify Assay - {GroupTab.Text}");
 
-                _findElements.ElementTextVerify(PlateMap, "Plate Map", _currentPage, $"Modify Assay - Plate Map");
+                _findElements.ElementTextVerify(PlateMap, "Plate Map", _currentPage, $"Modify Assay - {PlateMap.Text}");
 
-                _findElements.ElementTextVerify(AssayMedia, "Assay Media", _currentPage, $"Modify Assay - Assay Media");
+                _findElements.ElementTextVerify(AssayMedia, "Assay Media", _currentPage, $"Modify Assay - {AssayMedia.Text}");
 
-                _findElements.ElementTextVerify(BackgroundBuffer, "Background Buffer", _currentPage, $"Modify Assay - Background Buffer");
+                _findElements.ElementTextVerify(BackgroundBuffer, "Background Buffer", _currentPage, $"Modify Assay - {BackgroundBuffer.Text}");
 
-                _findElements.ElementTextVerify(InjectionNames, "Injection Names", _currentPage, $"Modify Assay - Injection Names");
+                _findElements.ElementTextVerify(InjectionNames, "Injection Names", _currentPage, $"Modify Assay - {InjectionNames.Text}");
 
-                _findElements.ElementTextVerify(GeneralInfo, "General Info", _currentPage, $"Modify Assay - General Info");
+                _findElements.ElementTextVerify(GeneralInfo, "General Info", _currentPage, $"Modify Assay - {GeneralInfo.Text}");
 
                 ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"Modify assay header tabs has been verified");
             }
@@ -290,17 +301,31 @@ namespace SHAProject.PageObject
         {
             try
             {
+                _findElements?.VerifyElement(ExpandIcon, _currentPage, $"Group Tab - Expand-Collape Icon");
+
+                _findElements.VerifyElement(MoveSelectionUp, _currentPage, $"Group Tab  - Move Selection Up");
+
+                _findElements.VerifyElement(MoveSelectionDown, _currentPage, $"Group Tab  - Move Selection Down");
+
+                _findElements.VerifyElement(AddGroupBtn, _currentPage, $"Group Tab - Add Group Button");
+
+                _findElements.VerifyElement(GroupListArea, _currentPage, $"Group Tab - Group List Area");
+
                 _findElements.ClickElementByJavaScript(ExpandIcon, _currentPage, $"Group Tab - Expand Icon");
 
                 _findElements.VerifyElement(GroupExpansion, _currentPage, $"Group Tab - Group Expansion");
 
-                _findElements.ElementTextVerify(InjectionStrategy, "Injection Strategy", _currentPage, $"Group Expansion - Injection Strategy");
+                string InjectionStrategyText = InjectionStrategy.FindElement(By.TagName("h6")).Text;
+                _findElements.VerifyElement(InjectionStrategy, _currentPage, $"Group Expansion - {InjectionStrategyText}");
 
-                _findElements.ElementTextVerify(Pretreatment, "Pretreatment", _currentPage, $"Group Expansion - Pretreatment");
+                string PretreatmentText = Pretreatment.FindElement(By.TagName("h6")).Text;
+                _findElements.VerifyElement(Pretreatment, _currentPage, $"Group Expansion -{PretreatmentText}");
 
-                _findElements.ElementTextVerify(Assaymedia, "Assay Media", _currentPage, $"Group Expansion - Assay Media");
+                string AssaymediaText = Assaymedia.FindElement(By.TagName("h6")).Text;
+                _findElements.VerifyElement(Assaymedia, _currentPage, $"Group Expansion - {AssaymediaText}");
 
-                _findElements.ElementTextVerify(CellType, "Cell Type", _currentPage, $"Group Expansion - Cell Type");
+                string CellTypeText = CellType.FindElement(By.TagName("h6")).Text;
+                _findElements.VerifyElement(CellType, _currentPage, $"Group Expansion - {CellTypeText}");
 
                 _findElements.ClickElementByJavaScript(ExpansionIcon, _currentPage, $"Group Tab - Group Expansion back to position"); // Expand/Collapse tab is back to normal
 
@@ -308,9 +333,9 @@ namespace SHAProject.PageObject
 
                 _findElements.ClickElementByJavaScript(MoveSelectionUp, _currentPage, $"Group Tab - Move Selection Up");
 
-                _findElements.ElementTextVerify(AddGroupBtn, "Add Group", _currentPage, $"Group Tab - Add Group Button");
+                _findElements.ElementTextVerify(AddGroupBtn, "Add Group", _currentPage, $"Group Tab - {AddGroupBtn.Text}");
 
-                if (_fileUploadOrExistingFileData.IsTitrationFile == false)
+                if (_fileUploadOrExistingFileData.IsTitrationFile == false && AddGroupBtn.Enabled)
                 {
                     AddGroupBtn.Click();
 
@@ -318,7 +343,7 @@ namespace SHAProject.PageObject
 
                     _findElements.ClickElementByJavaScript(DotIcon, _currentPage, $"Add Group - Three Dot Icon");
 
-                    _findElements.ActionsClassClick(RenameButton);
+                    _findElements.ActionsClassClick(RenameButton, _currentPage, $"Rename button");
 
                     GroupRename.SendKeys(Keys.End);
                     while (GroupRename.Text.Length > 0)
@@ -327,7 +352,7 @@ namespace SHAProject.PageObject
                     }
                     Thread.Sleep(2000);
 
-                    _findElements.SendKeys(groupName, GroupRename, _currentPage, $"Given group name is  {groupName}");
+                    _findElements.SendKeys(groupName, GroupRename, _currentPage, $"Given group name is {groupName}");
 
                     ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"Group Name added in the list");
 
@@ -340,7 +365,7 @@ namespace SHAProject.PageObject
 
                     AddGroupBtn.Click();
 
-                    _findElements.ActionsClassClick(RenameButton);
+                    _findElements.ActionsClassClick(RenameButton, _currentPage, $"Rename Button");
 
                     _findElements.ClickElementByJavaScript(DotIcon, _currentPage, $"Add Group - Three Dot Icon");
 
@@ -363,12 +388,14 @@ namespace SHAProject.PageObject
 
                     _findElements.ScrollIntoViewAndClickElementByJavaScript(DeleteButton, _currentPage, $"Delete Button");
                 }
+                else
+                    ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"File type is titration type and add group button is in disable mode.");
 
                 ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"Modify assay group tab has been verified");
             }
             catch (Exception e)
             {
-                ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"Modify assay group tab has not been verified .The error is {e.Message}");
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Modify assay group tab has not been verified .The error is {e.Message}");
             }
         }
 
@@ -378,20 +405,18 @@ namespace SHAProject.PageObject
             {
                 _findElements.ClickElement(PlateMap, _currentPage, $"Plate Map Tab");
 
-                _findElements.VerifyElement(GroupList, _currentPage, $"Plate Map tab - Group List");
-
                 _findElements.VerifyElement(PlateMapArea, _currentPage, $"Plate Map tab - Plate Map table");
 
-                _findElements.ScrollIntoViewAndClickElementByJavaScript(LastGroupList, _currentPage, $"Last Group List");
+                _findElements.VerifyElement(GroupList, _currentPage, $"Plate Map tab - Group List");
+
+                _findElements.ScrollIntoViewAndClickElementByJavaScript(LastGroupList, _currentPage, $"Last Group in the list");
 
                 _findElements.ClickElement(DropdownControlGroups, _currentPage, $"Select the control popup");
 
                 int selectedIndex = selectTheControls == "Set Group as Positive Control" ? 1 : selectTheControls == "Set Group as Negative Control" ? 2 :
                                     selectTheControls == "Set Group as Vehicle Control" ? 3 : 0;
 
-                //_findElements.SelectByIndex(DropdownControlGroups, selectedIndex);
-
-                _findElements.SelectFromDropdown(DropdownControlGroups, _currentPage, "index", selectedIndex.ToString() , "Select the Controls" );
+                _findElements.SelectFromDropdown(DropdownControlGroups, _currentPage, "index", selectedIndex.ToString(), "Select the Controls" );
 
                 _findElements.VerifyElement(PlateMapArea, _currentPage, $"Selected controls in Plate Map Area ");
 
@@ -415,9 +440,15 @@ namespace SHAProject.PageObject
             {
                 _findElements.ClickElement(AssayMedia, _currentPage, $"Modify Assay - Assay Media");
 
-                _findElements.VerifyElement(Name, _currentPage, $"Assay Media - Name");
+                _findElements.ElementTextVerify(Name,"Name", _currentPage, $"Assay Media - {Name.Text}");
+
+                string assayMediaName = NameTextBox.GetAttribute("value");
+                _findElements.VerifyElement(NameTextBox, _currentPage, $"Assay Media Name - {assayMediaName}");
 
                 _findElements.VerifyElement(MediaType, _currentPage, $"Assay Media - Media Type");
+
+                string BufferValue = BufferFactorValue.GetAttribute("value");
+                _findElements.VerifyElement(BufferFactorValue, _currentPage, $"Assay Media - Buffer Factor - {BufferValue}");
 
                 _findElements.ClickElementByJavaScript(ApplyToAllGroups, _currentPage, $"Modify Assay - Apply To All groups");
 
@@ -425,7 +456,15 @@ namespace SHAProject.PageObject
 
                 _findElements.ScrollIntoViewAndClickElementByJavaScript(Groupexpansion, _currentPage, $"Group Tab - Group Expansion");
 
-                _findElements.ClickElementByJavaScript(AssayMediaDropdown, _currentPage, $"Group Tab - Assay Media drop down");
+                _findElements.VerifyElement(AssayMediaDropdown, _currentPage, $"Group Tab - Assay Media drop down");
+
+                IWebElement selectedOption = AssayMediaDropdown.FindElements(By.TagName("option"))[1];
+                string assayMediaDropdownText = selectedOption.Text;
+
+                if(assayMediaName.Equals(assayMediaDropdownText))
+                    ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"Media type was apply to all groups and assay media name was changed in the group tab.");
+                else
+                    ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Media type was apply to all groups and assay media name was not changed in the group tab.");
 
                 Groupexpansion.Click();
 
@@ -435,7 +474,7 @@ namespace SHAProject.PageObject
             }
             catch (Exception e)
             {
-                ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"Modify assay - assay media tab has not been verified. The error is {e.Message}");
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Error occurred while verifiying the assay media functionality in modify assay. The error is {e.Message}");
             }
         }
 
@@ -445,27 +484,22 @@ namespace SHAProject.PageObject
             {
                 _findElements.ClickElement(BackgroundBuffer, _currentPage, $"Modify Assay - Background Buffer");
 
-                _findElements.ElementTextVerify(Well, "Well", _currentPage, $"BackgroundBuffer - Well");
+                _findElements.ElementTextVerify(Well, "Well", _currentPage, $"BackgroundBuffer - {Well.Text}");
 
-                _findElements.ElementTextVerify(UseDefaultBF, "Use Default BF", _currentPage, $"BackgroundBuffer - Use Default BF");
+                _findElements.ElementTextVerify(UseDefaultBF, "Use Default BF", _currentPage, $"BackgroundBuffer - {UseDefaultBF.Text}");
 
-                _findElements.ElementTextVerify(BufferFactorSetting, "Buffer Factor Setting", _currentPage, $"BackgroundBuffer - Buffer Factor Setting");
+                _findElements.ElementTextVerify(BufferFactorSetting, "Buffer Factor Setting", _currentPage, $"BackgroundBuffer - {BufferFactorSetting.Text}");
 
-                /*Select All Check Box*/
+                _findElements.ElementTextVerify(SelectAllText, "Select all", _currentPage, $"BackgroundBuffer - {SelectAllText.Text}");
 
-                _findElements.ElementTextVerify(SelectAllText, "Select all", _currentPage, $"Select all Check box");
+                _findElements.VerifyElement(BackgroundWell1, _currentPage, $"Background well - {BackgroundWell1.Text}");
 
-                _findElements.VerifyElement(BackgroundWell1, _currentPage, $"Background well -1");
+                _findElements.VerifyElement(BackgroundWell2, _currentPage, $"Background well - {BackgroundWell2.Text}");
 
-                _findElements.VerifyElement(BackgroundWell2, _currentPage, $"Background well -2");
+                _findElements.VerifyElement(BackgroundWell3, _currentPage, $"Background well - {BackgroundWell3.Text}");
 
-                _findElements.VerifyElement(BackgroundWell3, _currentPage, $"Background well -3");
+                _findElements.VerifyElement(BackgroundWell4, _currentPage, $"Background well - {BackgroundWell4.Text}");
 
-                _findElements.VerifyElement(BackgroundWell4, _currentPage, $"Background well -4");
-
-                //extentTestNode.Log(Status.Pass, "Background Assigend Well Names are displayed");
-
-                /*Click on the background group in the plate map tab*/
                 _findElements.ClickElement(PlateMap, _currentPage, $"Plate Map Tab");
 
                 _findElements.ClickElementByJavaScript(BackgroundSelection, _currentPage, $"Modify Assay - Background Selection");
@@ -477,25 +511,30 @@ namespace SHAProject.PageObject
                     _findElements.ClickElementByJavaScript(selectionBackground, _currentPage, $"Modify Assay - Background Selections");
                 }
 
-                //extentTestNode.Log(selectionBackground.Displayed ? Status.Pass : Status.Fail, selectionBackground.Displayed ? "New background well names are added" : "New background well names are not added");
+                _findElements.ClickElement(BackgroundBuffer, _currentPage, $"Modify Assay - Background Selections");
 
-                _findElements.ClickElement(BackgroundBuffer, _currentPage, $"Modify Assay - Background Selections"); /* Back to Background Buffer Tab*/
+                _findElements.ClickElement(PlateMap, _currentPage, $"Plate Map Tab");
 
+                _findElements.ClickElementByJavaScript(BackgroundSelection, _currentPage, $"Modify Assay - Background Selection");
 
-                _findElements.ClickElement(UnselectDefaultBF, _currentPage, $"Unselect Default BF");
+                IWebElement unSelectionBackground = null;
+                for (int i = 1; i < 3; i++)
+                {
+                    unSelectionBackground = _driver.FindElement(By.Id("ctrl_" + i));
+                    _findElements.ClickElementByJavaScript(unSelectionBackground, _currentPage, $"Modify Assay - Background Selections");
+                }
 
-                //extentTestNode.Log(!unselectDefaultBF.Selected ? Status.Pass : Status.Fail, !unselectDefaultBF.Selected ? "DefaultBF checkbox is unselected" : "DefaultBF checkbox is not unselected");
+                _findElements.ClickElement(BackgroundBuffer, _currentPage, $"Modify Assay - Background Selections");
 
-                //jScript.ExecuteScript("arguments[0].click();", unselectDefaultBF); /* Select the DefaultBF*/
+                if(FirstBackgroundDefaultBF.Selected)
+                    ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"Use Default BF is selected for first background well");
+                else
+                    _findElements.ClickElement(FirstBackgroundDefaultBF, _currentPage, $"Unselect Default BF");
 
-                _findElements.ClickElementByJavaScript(UnselectAllCheckBox, _currentPage, $"Unselect All Chck Box");
-
-                //extentTestNode.Log(unselectAllCheckBox.Displayed ? Status.Pass : Status.Fail, unselectAllCheckBox.Displayed ? "All DefaultBF checkbox are unselected" : "All DefaultBF checkbox are not unselected");
-
-                _findElements.ClickElementByJavaScript(UnselectAllCheckBox, _currentPage, $"Unselect All Chck Box");/* Select all the Checkbox*/
-
-                //IWebElement closeIcon = driver.FindElement(By.XPath("(//img[@src=\"/images/svg/Close-X.svg\"])[8]"));
-                //jScript.ExecuteScript("arguments[0].click();", closeIcon);
+                if(SelectAllCheckBox.Selected)
+                    ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"Select all check box is already selected");
+                else
+                _findElements.ClickElementByJavaScript(SelectAllCheckBox, _currentPage, $"Unselect All Chck Box");
 
                 ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"Modify assay - background buffer tab has been verified");
             }
@@ -509,13 +548,9 @@ namespace SHAProject.PageObject
         {
             try
             {
-                //_findElements.ClickElementByJavaScript(ModifyAssayIcon, _currentPage, $"Modify Assay Icon ");
-
                 _findElements.ClickElement(InjectionNames, _currentPage, $"Modify Assay - Injection Names ");
 
-                InjectionRename.Clear();
-
-                _findElements.SendKeys(injectionName, InjectionRename, _currentPage,$"Modify Assay - Injection Count ");
+                _findElements.SendKeys(injectionName, InjectionRename, _currentPage,$"Modify Assay - Injection Renamed ");
 
                 _findElements.ClickElementByJavaScript(SaveBtn, _currentPage, $"Injection Name -Save button");
 
@@ -524,7 +559,6 @@ namespace SHAProject.PageObject
                 if (_driver.PageSource.Contains("Continue"))
                 {
                     _findElements.ClickElementByJavaScript(ContinueBtn, _currentPage, $"Injection Name - Continue Button");
-
                 }
 
                 ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"Modify assay - injection name tab has been verified");
@@ -541,7 +575,6 @@ namespace SHAProject.PageObject
             {
                 _findElements.ClickElementByJavaScript(ModifyAssayIcon, _currentPage, $"Modify Assay Icon ");
 
-                /*Click on the general info tab*/
                 Thread.Sleep(2000);
 
                 _findElements.ClickElementByJavaScript(GeneralInfo, _currentPage, $"Modify Assay -General Info ");
@@ -553,6 +586,9 @@ namespace SHAProject.PageObject
                 _findElements.VerifyElement(ProjectNumber, _currentPage, $"General Info - Project Number");
 
                 _findElements.VerifyElement(WellVolume, _currentPage, $"General Info - Well Volume");
+
+                string wellVolumeValue = WellVolumeValue.GetAttribute("value");
+                _findElements.VerifyElement(WellVolumeValue, _currentPage, $"Assay Media - Well Volume Value - {wellVolumeValue}");
 
                 _findElements.VerifyElement(PlatedBy, _currentPage, $"General Info - PlateBy");
 

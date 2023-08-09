@@ -1322,11 +1322,13 @@ namespace SHAProject.Utilities
                     _workFlow5.Barchart.SortBy = table.Rows[0]["Bar_Chart$Sort By"].ToString();
                     _extentTest.Log(Status.Pass, "Sort By for Bar Chart  is " + _workFlow5.Barchart.SortBy);
                 }
+
                 if (tblcolumns.Contains("Bar_Chart$NonBoxPlotFile"))
                 {
                     _workFlow5.Barchart.NonBoxPlotFile = table.Rows[0]["Bar_Chart$NonBoxPlotFile"].ToString();
                     _extentTest.Log(Status.Pass, "Sort By for Bar Chart  is " + _workFlow5.Barchart.SortBy);
                 }
+
                 if (tblcolumns.Contains("Bar_Chart$Expected GraphUnits"))
                 {
                     _workFlow5.Barchart.ExpectedGraphUnits = table.Rows[0]["Bar_Chart$Expected GraphUnits"].ToString();

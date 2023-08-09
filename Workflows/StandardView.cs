@@ -202,8 +202,10 @@ namespace SHAProject.Workflows
 
                 if (FileStatus || Searchedfile)
                     createWidgets?.CreateWidgets(WidgetCategories.XfStandard, fileUploadOrExistingFileData.SelectedWidgets);
+                else
+                    Assert.Fail();
             }
-            else
+            else 
                 Assert.Fail();
         }
 
@@ -278,6 +280,8 @@ namespace SHAProject.Workflows
                 if (RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
                     commonFunc.HandleCurrentWindow();
 
+                normalization.NormalizationElementsVerification();
+
                 normalization.ApplyNormalizationValues(WorkFlow5Data.ApplyToAllWidgets);
 
                 analysisPage.GoToEditWidget(WidgetCategories.XfStandard, WidgetTypes.BarChart);
@@ -311,11 +315,11 @@ namespace SHAProject.Workflows
 
                 modifyAssay.ModifyAssayHeaderTabs();
 
-                modifyAssay.GroupTabElements(WorkFlow5Data.AddGroupName);
+                //modifyAssay.GroupTabElements(WorkFlow5Data.AddGroupName);
 
-                modifyAssay.PlateMapElements(WorkFlow5Data.SelecttheControls);
+                //modifyAssay.PlateMapElements(WorkFlow5Data.SelecttheControls);
 
-                modifyAssay.AssayMediaElements();
+                //modifyAssay.AssayMediaElements();
 
                 modifyAssay.BackgroundBufferElements();
 
@@ -427,22 +431,54 @@ namespace SHAProject.Workflows
                     WidgetTypes widgetType = WidgetTypes.BarChart;
                     widgetName = widgetType.ToString();
 
-                    //graphProperties.Measurement(WorkFlow5Data.Barchart);
+                    graphProperties.Measurement(WorkFlow5Data.Barchart);
 
-                    //graphProperties.Rate(WorkFlow5Data.Barchart);
+                    graphProperties.Rate(WorkFlow5Data.Barchart);
 
-                    //graphProperties.Display(WorkFlow5Data.Barchart);
+                    graphProperties.Display(WorkFlow5Data.Barchart);
 
-                    //pgraphProperties.Normalization(WorkFlow5Data.Barchart);
+                    graphProperties.Normalization(WorkFlow5Data.Barchart);
 
-                    //graphProperties.ErrorFormat(WorkFlow5Data.Barchart, WidgetCategories.XfStandard, WidgetTypes.BarChart);
+                    graphProperties.ErrorFormat(WorkFlow5Data.Barchart, WidgetCategories.XfStandard, WidgetTypes.BarChart);
 
-                    //graphProperties.BackgroundCorrection(WorkFlow5Data.Barchart);
+                    graphProperties.BackgroundCorrection(WorkFlow5Data.Barchart);
 
-                    //graphProperties.Baseline(WorkFlow5Data.Barchart);
+                    graphProperties.Baseline(WorkFlow5Data.Barchart);
 
-                    //graphProperties.SortBy(WorkFlow5Data.Barchart);
-                    graphProperties.PanZoom(ChartType.Amchart);
+                    graphProperties.SortBy(WorkFlow5Data.Barchart);
+
+                    graphProperties.VerifyExpectedGraphUnits(WorkFlow5Data.Barchart.ExpectedGraphUnits, WidgetTypes.BarChart);
+
+                    if (WorkFlow5Data.Barchart.GraphSettingsVerify)
+                    {
+                        graphSettings.VerifyGraphSettingsIcon();
+
+                        graphSettings.YAutoScale(WorkFlow5Data.Barchart);
+
+                        graphSettings.ZeroLine(WorkFlow5Data.Barchart);
+
+                        graphSettings.Zoom(WorkFlow5Data.Barchart);
+
+                        graphSettings.GraphSettingsApply();
+                    }
+
+                    plateMap.PlateMapIcons();
+
+                    plateMap.PlateMapFunctionalities();
+
+                    if (WorkFlow5Data.Barchart.CheckNormalizationWithPlateMap)
+                        plateMap.VerifyNormalizationVal();
+
+                    plateMap.WellDataPopup("A05", "Included in the current calculation");
+
+                    groupLegends.EditWidgetGroupLegends(WidgetCategories.XfStandard, WidgetTypes.BarChart, WorkFlow5Data.Barchart);
+
+                    if (WorkFlow5Data.Barchart.IsExportRequired)
+                        exports?.EditWidgetExports(WidgetCategories.XfStandard, WidgetTypes.BarChart, WorkFlow5Data.Barchart);
+
+                    commonFunc.MoveBackToAnalysisPage();
+
+                    //graphProperties.PanZoom(ChartType.Amchart);
 
                     //graphProperties.VerifyBoxplot();
 
@@ -457,37 +493,6 @@ namespace SHAProject.Workflows
                     //analysisPage.GoToEditWidget(WidgetCategories.XfStandard, WidgetTypes.BarChart);
 
                     //graphProperties.VerifyNonBoxplotFile();
-
-                    //graphProperties.VerifyExpectedGraphUnits(WorkFlow5Data.Barchart.ExpectedGraphUnits, WidgetTypes.BarChart);
-
-                    //if (WorkFlow5Data.Barchart.GraphSettingsVerify)
-                    //{
-                    //    graphSettings.VerifyGraphSettingsIcon();
-
-                    //    graphSettings.YAutoScale(WorkFlow5Data.Barchart);
-
-                    //    graphSettings.ZeroLine(WorkFlow5Data.Barchart);
-
-                    //    graphSettings.Zoom(WorkFlow5Data.Barchart);
-
-                    //    graphSettings.GraphSettingsApply();
-                    //}
-
-                    //plateMap.PlateMapIcons();
-
-                    //plateMap.PlateMapFunctionalities();
-
-                    //if (WorkFlow5Data.Barchart.CheckNormalizationWithPlateMap)
-                    //    plateMap.VerifyNormalizationVal();
-
-                    //plateMap.WellDataPopup("A05", "Included in the current calculation");
-
-                    //groupLegends.EditWidgetGroupLegends(WidgetCategories.XfStandard, WidgetTypes.BarChart, WorkFlow5Data.Barchart);
-
-                    //if (WorkFlow5Data.Barchart.IsExportRequired)
-                    //    exports?.EditWidgetExports(WidgetCategories.XfStandard, WidgetTypes.BarChart, WorkFlow5Data.Barchart);
-
-                    commonFunc.MoveBackToAnalysisPage();
                 }
             }
             else
@@ -855,58 +860,56 @@ namespace SHAProject.Workflows
                 WidgetTypes widgetType = wType;
                 widgetName = widgetType.ToString();
 
-                graphProperties.PanZoom(ChartType.CanvasJS);
+                graphProperties.Measurement(widget);
 
-                //graphProperties.Measurement(widget);
+                graphProperties.Rate(widget);
 
-                //graphProperties.Rate(widget);
+                graphProperties.Display(widget);
 
-                //graphProperties.Display(widget);
+                graphProperties.Y(widget);
 
-                //graphProperties.Y(widget);
+                graphProperties.Normalization(widget);
 
-                //graphProperties.Normalization(widget);
+                graphProperties.ErrorFormat(widget, WidgetCategories.XfStandard, wType);
 
-                //graphProperties.ErrorFormat(widget, WidgetCategories.XfStandard, wType);
+                graphProperties.BackgroundCorrection(widget);
 
-                //graphProperties.BackgroundCorrection(widget);
+                graphProperties.Baseline(widget);
 
-                //graphProperties.Baseline(widget);
+                graphProperties.VerifyExpectedGraphUnits(widget.ExpectedGraphUnits, wType);
 
-                //graphProperties.VerifyExpectedGraphUnits(widget.ExpectedGraphUnits, wType);
+                if (widget.GraphSettingsVerify)
+                {
+                    graphSettings.VerifyGraphSettingsIcon();
 
-                //if (widget.GraphSettingsVerify)
-                //{
-                //    graphSettings.VerifyGraphSettingsIcon();
+                    graphSettings.YAutoScale(widget);
 
-                //    graphSettings.YAutoScale(widget);
+                    graphSettings.ZeroLine(widget);
 
-                //    graphSettings.ZeroLine(widget);
+                    graphSettings.DataPointSymbols(widget);
 
-                //    graphSettings.DataPointSymbols(widget);
+                    graphSettings.RateHighlight(widget);
 
-                //    graphSettings.RateHighlight(widget);
+                    graphSettings.InjectionMarkers(widget);
 
-                //    graphSettings.InjectionMarkers(widget);
+                    graphSettings.Zoom(widget);
 
-                //    graphSettings.Zoom(widget);
+                    graphSettings.GraphSettingsApply();
+                }
 
-                //    graphSettings.GraphSettingsApply();
-                //}
+                plateMap.PlateMapIcons();
 
-                //plateMap.PlateMapIcons();
+                plateMap.PlateMapFunctionalities();
 
-                //plateMap.PlateMapFunctionalities();
+                if (widget.CheckNormalizationWithPlateMap)
+                    plateMap.VerifyNormalizationVal();
 
-                //if (widget.CheckNormalizationWithPlateMap)
-                //    plateMap.VerifyNormalizationVal();
+                plateMap.WellDataPopup("A05", "Included in the current calculation");
 
-                //plateMap.WellDataPopup("A05", "Included in the current calculation");
+                groupLegends.EditWidgetGroupLegends(WidgetCategories.XfStandard, wType, widget);
 
-                //groupLegends.EditWidgetGroupLegends(WidgetCategories.XfStandard, wType, widget);
-
-                //if (widget.IsExportRequired)
-                //    exports?.EditWidgetExports(WidgetCategories.XfStandard, wType, widget);
+                if (widget.IsExportRequired)
+                    exports?.EditWidgetExports(WidgetCategories.XfStandard, wType, widget);
 
                 commonFunc.MoveBackToAnalysisPage();
             }

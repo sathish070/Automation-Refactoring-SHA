@@ -40,17 +40,50 @@ namespace SHAProject.Page_Object
         [FindsBy(How = How.XPath, Using = "//div[@id=\"ModalNormalizeSetting\"]/div")]
         public IWebElement NormalizationPopup;
 
+        [FindsBy(How = How.XPath, Using = "//div[@id=\"ModalNormalizeSetting\"]/div/div/span")]
+        public IWebElement EditNormalizationText;
+
+        [FindsBy(How = How.XPath, Using = "(//div[@class=\"col-md-4 form-group normalization-units\"])[1]")]
+        public IWebElement NormalizationField;
+
         [FindsBy(How = How.Id, Using = "normunit")]
-        public IWebElement NormalizationUnits;
+        public IWebElement NormalizationUnitsTextBox;
+
+        [FindsBy(How = How.XPath, Using = "(//div[@class=\"col-md-4 form-group normalization-units\"])[2]")]
+        public IWebElement ScaleFactorField;
 
         [FindsBy(How = How.Id, Using = "scalefactor")]
-        public IWebElement ScaleFactorField;
+        public IWebElement ScaleFactorTextBox;
+
+        [FindsBy(How = How.XPath, Using = "//div[@class=\"col-md-10 normalization-head\"]/p")]
+        public IWebElement NormalizationValuesHeading;
+
+        [FindsBy(How = How.CssSelector, Using = ".normalization-table")]
+        public IWebElement NormalizationValuesTable;
+
+        [FindsBy(How = How.XPath, Using = "//div[@class=\"col-md-2 form-group normalization-action-btns\"]/button[1]")]
+        public IWebElement SelectAllBtn;
+
+        [FindsBy(How = How.XPath, Using = "//div[@class=\"col-md-2 form-group normalization-action-btns\"]/button[2]")]
+        public IWebElement ClearAllDataBtn;
+
+        [FindsBy(How = How.XPath, Using = "//div[@class=\"col-md-2 form-group normalization-action-btns\"]/span")]
+        public IWebElement CtrlVPasteLabel;
+
+        [FindsBy(How = How.XPath, Using = "//div[@class=\"form-group checkAllGroup\"]")]
+        public IWebElement ApplyToAllWidgetsLabel;
+
+        [FindsBy(How = How.XPath, Using = "//label[@for=\"chkselectallwidget\"]")]
+        public IWebElement ApplyToAllWidgetsChkBox;
 
         [FindsBy(How = How.Id, Using = "chkselectallwidget")]
         public IWebElement ApplyWidgetsBtn;
 
         [FindsBy(How = How.CssSelector, Using = ".normalization-footer .btn-primary")]
         public IWebElement SaveBtn;
+
+        [FindsBy(How = How.XPath, Using = "//div[@class=\"modal-footer normalization-footer\"]/button[2]")]
+        public IWebElement CancelBtn;
 
         [FindsBy(How = How.Id, Using = "divnorm1")]
         public IWebElement NormalizedWell;
@@ -59,10 +92,11 @@ namespace SHAProject.Page_Object
         public IWebElement ReimportButton;
 
         [FindsBy(How = How.CssSelector, Using = ".normalization-property")]
-        public IWebElement? NormalizationField;
+        public IWebElement? NormalizationToggleBtn;
 
         #endregion
-        public void NormalizationElements()
+
+        public void NormalizationElementsVerification()
         {
             try
             {
@@ -72,6 +106,45 @@ namespace SHAProject.Page_Object
 
                 _findElements.ClickElement(NormalizationIcon, _currentPage, "Analysis Page - Normalization Icon");
 
+                _findElements.VerifyElement(NormalizationPopup, _currentPage, $"Normalization Popup");
+
+                _findElements.ElementTextVerify(EditNormalizationText, "Edit Normalization", _currentPage, $"Normalization Heading - {EditNormalizationText.Text}");
+
+                _findElements.VerifyElement(NormalizationField, _currentPage, $"Units heading text - {NormalizationField.Text}");
+
+                _findElements.VerifyElement(ScaleFactorField, _currentPage, $"Scale Factor heading text -{ScaleFactorField.Text}");
+
+                _findElements.ElementTextVerify(NormalizationValuesHeading, "Normalization Values", _currentPage, $"Normalization table heading name - {NormalizationValuesHeading.Text}");
+
+                _findElements.VerifyElement(NormalizationValuesTable, _currentPage, $"Normalization Values Table");
+
+                _findElements.ElementTextVerify(SelectAllBtn, "Select All", _currentPage, $"Normalization button -{SelectAllBtn.Text}");
+
+                _findElements.ElementTextVerify(ClearAllDataBtn, "Clear All Data", _currentPage, $"Normalization buttons -{ClearAllDataBtn.Text}");
+
+                _findElements.ElementTextVerify(CtrlVPasteLabel, "Ctrl-V to Paste", _currentPage, $"Normalization label -{CtrlVPasteLabel.Text}");
+
+                _findElements.ElementTextVerify(ApplyToAllWidgetsLabel, "Apply to all Widgets", _currentPage, $"Normalization label -{ApplyToAllWidgetsLabel.Text}");
+
+                if (!ApplyToAllWidgetsChkBox.Selected)
+                    _findElements.VerifyElement(ApplyToAllWidgetsChkBox, _currentPage, $"Apply to all widgets check box is unselected");
+                else
+                    ExtentReport.ExtentTest("ExtendTestNode", Status.Fail, $"Apply to all widgets check box is selected");
+
+                _findElements.VerifyElement(SaveBtn, _currentPage, $"Normalization buttons - {SaveBtn.Text}");
+
+                _findElements.VerifyElement(CancelBtn, _currentPage, $"Normalization buttons - {CancelBtn.Text}");
+            }
+            catch (Exception e)
+            {
+                ExtentReport.ExtentTest("ExtendTestNode", Status.Fail, $"Error occured while verfiying the file with the Normalization Popup elements. The error is {e.Message}");
+            }
+        }
+
+        public void NormalizationElements()
+        {
+            try
+            {
                 _findElements?.VerifyElement(NormalizedWell, _currentPage, "Normalized Well with Default Value Present in it");
 
                 NormalizedWell.Clear();
@@ -100,13 +173,11 @@ namespace SHAProject.Page_Object
         {
             try
             {
-                _findElements.ClickElement(NormalizationIcon, _currentPage, "Analysis Page - Normalization Icon");
+                //_findElements.ClickElement(NormalizationIcon, _currentPage, "Analysis Page - Normalization Icon");
 
-                _findElements.VerifyElement(NormalizationPopup, _currentPage, $"Normalization Popup");
+                _findElements.SendKeys(_normalizationData.Units, NormalizationUnitsTextBox, _currentPage, "Given normalization unit is - " + _normalizationData.Units);
 
-                _findElements.SendKeys(_normalizationData.Units, NormalizationUnits, _currentPage, "Given normalization unit is - " + _normalizationData.Units);
-
-                _findElements.SendKeys(_normalizationData.ScaleFactor, ScaleFactorField, _currentPage, "Given scale factor is - " + _normalizationData.ScaleFactor);
+                _findElements.SendKeys(_normalizationData.ScaleFactor, ScaleFactorTextBox, _currentPage, "Given scale factor is - " + _normalizationData.ScaleFactor);
 
                 for (int i = 0; i < _normalizationData.Values.Count; i++)
                 {
@@ -122,7 +193,7 @@ namespace SHAProject.Page_Object
             }
             catch (Exception e)
             {
-                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"The error occured in Apply Normalization Icon functionality. The error is { e.Message }");
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $" Error occurred while verifiying apply normalization values functionality. The error is { e.Message }");
             }
         }
 
@@ -130,10 +201,10 @@ namespace SHAProject.Page_Object
         {
             try
             {
-                _findElements.VerifyElement(NormalizationField, _currentPage, "Normalization toggle");
+                _findElements.VerifyElement(NormalizationToggleBtn, _currentPage, "Normalization toggle");
 
-                bool Toogle = NormalizationField.Selected;
-                ExtentReport.ExtentTest("ExtendTestNode", Toogle ? Status.Pass : Status.Fail, Toogle ? "Normalization Toddled in Enabled" : "Normalization Toddled in Disabled");
+                bool Toogle = NormalizationToggleBtn.Selected;
+                ExtentReport.ExtentTest("ExtendTestNode", Toogle ? Status.Pass : Status.Fail, Toogle ? "Normalization Toggle in Enabled" : "Normalization Toggle in Disabled");
             }
             catch (Exception ex)
             {

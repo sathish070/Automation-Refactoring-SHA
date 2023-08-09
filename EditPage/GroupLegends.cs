@@ -47,42 +47,67 @@ namespace SHAProject.EditPage
             Thread.Sleep(2000);
             try
             {
-                IReadOnlyCollection<IWebElement> groupLegends = _driver.FindElements(By.CssSelector(".stress-li")).Take(4).ToList();
-
-                foreach (IWebElement groupLegend in groupLegends)
+                if(wType != WidgetTypes.DoseResponse)
                 {
-                    if (groupLegend.Text.Contains("Background"))
-                        continue;
+                    //IReadOnlyCollection<IWebElement> groupLegends = _driver.FindElements(By.CssSelector(".stress-li")).Take(4).ToList();
 
-                    _findElements.ActionsClass(groupLegend);
+                    IReadOnlyCollection<IWebElement> groupLegends = _driver.FindElements(By.CssSelector(".stress-li"));
 
-                    // verify the group values
-
-                     string errorType = widget.ErrorFormat  == "Std Dev" ? "SD" : widget.ErrorFormat   == "SEM" ? "SM" : "None";
-
-                    IWebElement groupError = groupLegend.FindElement(By.CssSelector(".groupmean"));
-                    if (groupError.Enabled && groupError.Displayed)
+                    foreach (IWebElement groupLegend in groupLegends)
                     {
-                        if (groupLegend.Text.Contains(errorType))
+                        if (groupLegend.Text.Contains("Background"))
+                            continue;
+
+                        _findElements.ActionsClass(groupLegend);
+
+                        IWebElement groupLegendText = groupLegend.FindElement(By.CssSelector("span:nth-child(2)"));
+
+                        // verify the group values
+
+                        //string errorType = widget.ErrorFormat  == "Std Dev" ? "SD" : widget.ErrorFormat == "SEM" ? "SM" : "None";
+
+                        string errorType = widget.ErrorFormat  == "Std Dev" ? "Std Dev:" : widget.ErrorFormat == "SEM" ? "SEM:" : "None:";
+
+                        IWebElement groupError = groupLegend.FindElement(By.CssSelector(".groupmean"));
+                        if (groupError.Enabled && groupError.Displayed)
                         {
-                            _findElements.VerifyElement(groupError, _currentPage, "Mean & Error Value");
+                            if (groupLegend.Text.Contains(errorType))
+                            {
+                                _findElements.VerifyElement(groupError, _currentPage, "Mean & Error Value");
+                            }
+                            else
+                            {
+                                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, "Group details Mean & Error Value are not displayed.");
+                                ScreenShot.ScreenshotNow(_driver, _currentPage, "Error Screenshot", ScreenshotType.Error, groupError);
+                            }
                         }
-                        else
+
+                        // verify the single-click event
+                        _findElements.ActionsClassClick(groupLegend, _currentPage, $"Hightlight the group legend {groupLegendText.Text}");
+
+                        //ScreenShot.ScreenshotNow(_driver, _currentPage, $"HightLight the group legend  {groupLegend.Text}", ScreenshotType.Info, groupLegend);
+
+                        // verify the double-click event
+                        _findElements.ActionsClassDoubleClick(groupLegend, _currentPage, $"Unselect the group legend -{groupLegendText.Text}");
+
+                        ScreenShot.ScreenshotNow(_driver, _currentPage, $"After unselect the group legend - {groupLegendText.Text}", ScreenshotType.Info, groupLegend);
+                    }
+                }
+                else
+                {
+                    IReadOnlyCollection<IWebElement> CompoundList = _driver.FindElements(By.CssSelector(".col-md-12.stress-li.selected-li"));
+
+                    foreach (IWebElement Compound in CompoundList)
+                    {
+                        if (Compound.Displayed)
                         {
-                            ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, "Group details Mean & Error Value are not displayed.");
-                            ScreenShot.ScreenshotNow(_driver, _currentPage, "Error Screenshot", ScreenshotType.Error, groupError);
+                            IWebElement CompoundText = Compound.FindElement(By.CssSelector("span:nth-child(2)"));
+
+                            _findElements.ActionsClass(Compound);
+
+                            ScreenShot.ScreenshotNow(_driver, _currentPage, $"Compound List - {CompoundText.Text}", ScreenshotType.Info, Compound);
                         }
                     }
-
-                    // verify the single-click event
-                    _findElements.ActionsClassClick(groupLegend);
-
-                    ScreenShot.ScreenshotNow(_driver, _currentPage, $"HightLight the group legend  {groupLegend.Text}", ScreenshotType.Info, groupLegend);
-
-                    // verify the double-click event
-                    _findElements.ActionsClassDoubleClick(groupLegend);
-
-                    ScreenShot.ScreenshotNow(_driver, _currentPage, $"Unselect the group legend - {groupLegend.Text}", ScreenshotType.Info, groupLegend);
                 }
             }
             catch (Exception e)

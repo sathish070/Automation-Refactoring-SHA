@@ -50,7 +50,7 @@ namespace SHAProject.Utilities
                     }
                 }
 
-                ImageName = (ImageName.Replace("/", "-").Replace("|", "-").Replace(":", "").Replace("\r\n", "-"));
+                ImageName = (ImageName.Replace("/", "-").Replace("|", "-").Replace(":", "").Replace("\r\n", "-").Replace(">", ""));
                 string path = Tests.loginFolderPath;
                 string Imagefolder = status == ScreenshotType.Info ? "Success" : "Error";
                 string ImagePath = path + "\\" + currentPage + "\\" + Imagefolder + "\\" + ImageName + ".png";

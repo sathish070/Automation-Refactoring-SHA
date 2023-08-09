@@ -76,6 +76,16 @@ namespace SHAProject.Create_Widgets
 
         [FindsBy(How = How.XPath, Using = "//button[@onclick=\"DeleteWidget()\"]")]
         public IWebElement? deleteWidgetYesButton;
+
+        [FindsBy(How = How.XPath, Using = "//div[@id=\"graphlst\"]")]
+        public IWebElement? GraphListArea;
+
+        [FindsBy(How = How.XPath, Using = "//div[@id=\"sidebar-wrapper\"]")]
+        public IWebElement? ViewListArea;
+
+        [FindsBy(How = How.XPath, Using = "//div[@id=\"addNewGraph\"]")]
+        public IWebElement? AddNewGraph;
+
         #endregion
 
         #region StandardView Widget Elements
@@ -104,6 +114,10 @@ namespace SHAProject.Create_Widgets
         [FindsBy(How = How.XPath, Using = "(//li[@class='pannel-li'])[last()]")]
         private IWebElement? LastCretedView;
 
+        #endregion
+
+         #region Drag and Drop
+
         [FindsBy(How = How.XPath, Using = "(//div[@id='graphlst']/div/div)[1]")]
         private IWebElement? DragStart;
 
@@ -115,6 +129,7 @@ namespace SHAProject.Create_Widgets
 
         [FindsBy(How = How.XPath, Using = "(//div[@id='divwidget1_legend']/span)[1]")]
         private IWebElement? GroupLegend;
+
         #endregion
 
         public void AnalysisPageHeaderIcons()
@@ -151,9 +166,16 @@ namespace SHAProject.Create_Widgets
 
                 _findElements.VerifyElement(AddWidgetIcon, _currentPage, $"Analysis Page - Add Widget Icon");
 
+                _findElements.VerifyElement(GraphListArea, _currentPage, "Analysis Page - Graph List Area");
+
                 _findElements.ClickElement(SideBarOpenBtn, _currentPage, $"Analysis Page - Sidebar Open Button");
 
+                _findElements.VerifyElement(ViewListArea, _currentPage, "Analysis Page - View List Area");
+
                 _findElements.ClickElement(SideBarClosedBtn, _currentPage, $"Analysis Page - Sidebar Close Button");
+
+                _findElements.ScrollIntoView(AddNewGraph);
+                _findElements.VerifyElement(AddNewGraph, _currentPage, "Analysis Page - Add New Graph");
             }
             catch (Exception e)
             {
@@ -181,6 +203,26 @@ namespace SHAProject.Create_Widgets
 
                     if (gridStackItem.FindElements(By.CssSelector(".errorMsg")).Count == 0)
                     {
+
+                        if (gridStackItem.FindElements(By.CssSelector(".heatmap_widget")).Count ==0)
+                        {
+                            IWebElement panIcon = null;
+                            if (gridStackItem.FindElements(By.CssSelector(".Zoom")).Count > 0)
+                                panIcon = gridStackItem.FindElement(By.CssSelector(".Zoom")); // canvaschart panIcon icon
+                            else if (gridStackItem.FindElements(By.CssSelector(".zoom-btn")).Count > 0)
+                                panIcon = gridStackItem.FindElement(By.CssSelector(".zoom-btn")); // amchart panIcon icon
+
+                            ExtentReport.ExtentTest("ExtentTestNode", panIcon.Displayed ? Status.Pass : Status.Fail, panIcon.Displayed ? $"Zoom icon is displayed for {widgetName} " : $"Zoom icon is not displayed {widgetName}");
+
+                            IWebElement resetIcon = null;
+                            if (gridStackItem.FindElements(By.CssSelector(".Reset")).Count > 0)
+                                resetIcon = gridStackItem.FindElement(By.CssSelector(".Reset")); // canvaschart resetIcon icon
+                            else if (gridStackItem.FindElements(By.CssSelector(".reset-btn")).Count > 0)
+                                resetIcon = gridStackItem.FindElement(By.CssSelector(".reset-btn")); // amchart resetIcon icon
+
+                            ExtentReport.ExtentTest("ExtentTestNode", resetIcon.Displayed ? Status.Pass : Status.Fail, resetIcon.Displayed ? $"Reset icon is displayed for {widgetName}" : $"Reset icon is not displayed for {widgetName}");
+                        }
+
                         // verify the edit icon
                         IWebElement editIcon = gridStackItem.FindElement(By.CssSelector(".cell-edit-icons"));
                         _findElements.VerifyElement(editIcon, _currentPage, $"{verifywidgets[count]} - Edit Icon");
@@ -202,14 +244,23 @@ namespace SHAProject.Create_Widgets
                         if (gridStackItem.FindElements(By.CssSelector(".measurement-view")).Count > 0)
                         {
                             IWebElement measurement = gridStackItem.FindElement(By.CssSelector(".measurement-view"));
-                            _findElements.ElementTextVerify(measurement, "Measurement 1", _currentPage, $"Element name - {widgetName}");
+                            _findElements.ElementTextVerify(measurement, "Measurement 1", _currentPage, $"{widgetName}- measurement text");
                         }
 
-                        // verify the group legend element (if present)
-                        if (gridStackItem.FindElements(By.CssSelector(".platemap-legends")).Count > 0 && gridStackItem.FindElements(By.CssSelector(".cell-export-heatscrnmap")).Count == 0)
+                        if (gridStackItem.FindElements(By.CssSelector(".heatmap_widget")).Count ==0)
                         {
-                            IWebElement grouplegend = gridStackItem.FindElement(By.CssSelector(".platemap-legends"));
-                            _findElements.VerifyElement(grouplegend, _currentPage, $"{verifywidgets[count]} - Group Legends");
+                            if (gridStackItem.FindElements(By.CssSelector(".canvasjs-chart-canvas")).Count > 0)
+                            {
+                                IWebElement graphArea = gridStackItem.FindElement(By.CssSelector(".canvasjs-chart-canvas"));
+                                ExtentReport.ExtentTest("ExtentTestNode", graphArea.Displayed ? Status.Pass : Status.Fail, graphArea.Displayed ? $"Graph area is displayed for {widgetName}" : $"Graph area is not displayed for {widgetName}");
+                            }
+
+                            // verify the group legend element (if present)
+                            if (gridStackItem.FindElements(By.CssSelector(".platemap-legends")).Count > 0 && gridStackItem.FindElements(By.CssSelector(".cell-export-heatscrnmap")).Count == 0)
+                            {
+                                IWebElement grouplegend = gridStackItem.FindElement(By.CssSelector(".platemap-legends"));
+                                _findElements.VerifyElement(grouplegend, _currentPage, $"{verifywidgets[count]} - Group Legends");
+                            }
                         }
                     }
                     else
@@ -250,7 +301,6 @@ namespace SHAProject.Create_Widgets
         {
             try
             {
-                Thread.Sleep(2000);
                 _findElements.ClickElement(EditLayoutBtn, _currentPage, $"Analysis Page - Edit Layout Icon");
 
                 int widgetPosition = _commonFunc.GetWidgetPosition(wCat, wType);
@@ -258,8 +308,6 @@ namespace SHAProject.Create_Widgets
                 var deleteWidget = _driver.FindElement(By.XPath("//*[@data-widgettype='" + widgetPosition + "']/div[1]/div[2]/a/img"));
                 if (deleteWidget != null)
                 {
-                    DragandDrop();
-
                     _findElements.ClickElementByJavaScript(deleteWidget, _currentPage, $"The Deleted widget is - {wType}");
 
                     _findElements.VerifyElement(deleteWidgetPopup, _currentPage, $"Analysis Page -Delete widget popup ");
@@ -271,7 +319,6 @@ namespace SHAProject.Create_Widgets
                     ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"Deleted Widget in the Analysis page is { wType.ToString()}");
 
                     _findElements.ClickElement(ExitEditLayout, _currentPage, $"Analysis Page - Exit Edit Layout Icon");
-
                 }
                 else
                 {
@@ -297,7 +344,7 @@ namespace SHAProject.Create_Widgets
 
                 _findElements.ClickElement(LastOption,_currentPage,"Last Option");
 
-                _findElements?.ActionsClassClick(CustomViewOption);
+                _findElements?.ActionsClassClick(CustomViewOption, _currentPage, $"Custom view Option");
 
                 _findElements?.VerifyElement(CustomNameTxtBox, _currentPage, $"Analysis Page - Create Custom View Popup Name Text box");
 
@@ -312,9 +359,9 @@ namespace SHAProject.Create_Widgets
                 _findElements?.ClickElementByJavaScript(AddNewListViewIcon, _currentPage, $"Analysis Page - Add New View");
 
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                ExtentReport.ExtentTest("ExtendTestNode", Status.Fail, "Error Occured while trying to create a custom view");
+                ExtentReport.ExtentTest("ExtendTestNode", Status.Fail, $"Error Occured while trying to create a custom view. The error is {e.Message}");
             }
         }
 
@@ -328,9 +375,9 @@ namespace SHAProject.Create_Widgets
 
                 _findElements?.VerifyElement(LastCretedView, _currentPage, $"Analysis Page - Created Custom View");
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                ExtentReport.ExtentTest("ExtendTestNode", Status.Fail, "Error occured while trying to verify the create a custom view");
+                ExtentReport.ExtentTest("ExtendTestNode", Status.Fail, $"Error occured while trying to verify the create a custom view. The error is {e.Message}");
             }
         }
 
@@ -370,7 +417,7 @@ namespace SHAProject.Create_Widgets
             }
             catch (Exception e)
             {
-                ExtentReport.ExtentTest("ExtendTestNode", Status.Fail, "Unable to locate the Widget" + e.Message);
+                ExtentReport.ExtentTest("ExtendTestNode", Status.Fail, $"Unable to locate the Widget {e.Message}");
                 return false;
             }
         }
@@ -414,10 +461,10 @@ namespace SHAProject.Create_Widgets
             }
             catch (Exception ex)
             {
-                ExtentReport.ExtentTest("ExtendTestNode",Status.Fail,$"Error Occured While performing Drag and Drop Functionality with the Message: "+ex.Message);
+                ExtentReport.ExtentTest("ExtendTestNode", Status.Fail, $"Error Occured While performing Drag and Drop Functionality with the Message: "+ex.Message);
             }
 
-          
+
         }
     }
 }

@@ -191,7 +191,7 @@ namespace SHAProject.Utilities
         public string? Y { get; set; }
         public bool Normalization { get; set; }
         public string? SortBy { get; set; }
-        public string? NonBoxPlotFile { get; set; } 
+        public string? NonBoxPlotFile { get; set; }
         public string? ErrorFormat { get; set; }
         public bool BackgroundCorrection { get; set; }
         public string? Baseline { get; set; }

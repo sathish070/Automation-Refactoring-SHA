@@ -42,29 +42,30 @@ namespace SHAProject.SeleniumHelpers
             {
                 fieldName =$" {widgetName} {fieldName}";
                 IWebElement webElement = WaitForElementVisible(element);
-                if (webElement.Enabled && webElement.Displayed)
+                if (webElement != null && webElement.Enabled && webElement.Displayed)
                 {
                     ScreenShot.ScreenshotNow(_driver, currentPage, fieldName, ScreenshotType.Info, element);
-                    element.Click();
+                    webElement.Click();
                     ExtentReport.ExtentTest(currentPage == "Login" ? "ExtentTest" : "ExtentTestNode", Status.Pass, $"{fieldName} - is displayed and clickable on the page");
                     return true;
                 }
                 else
                 {
-                    ExtentReport.ExtentTest(currentPage == "Login" ? "ExtentTest" : "ExtentTestNode", Status.Fail, $"{fieldName} - is displayed not clickable on the page");
+                    ExtentReport.ExtentTest(currentPage == "Login" ? "ExtentTest" : "ExtentTestNode", Status.Fail, $"{fieldName} - is not displayed and  clickable on the page");
                     ScreenShot.ScreenshotNow(_driver, currentPage, fieldName, ScreenshotType.Error, element);
                     return false;
                 }
             }
             catch (NoSuchElementException e)
             {
-                ExtentReport.ExtentTest(currentPage == "Login" ? "ExtentTest" : "ExtentTestNode", Status.Fail, $"Element - {element} -not found on page . The error is {e.Message}");
+                ExtentReport.ExtentTest(currentPage == "Login" ? "ExtentTest" : "ExtentTestNode", Status.Fail, $"Element - {element} not found on page. The error is {e.Message}");
                 ScreenShot.ScreenshotNow(_driver, currentPage, fieldName, ScreenshotType.Error, element);
                 return false;
             }
             catch (Exception e)
             {
-                ExtentReport.ExtentTest(currentPage == "Login" ? "ExtentTest" : "ExtentTestNode", Status.Fail,  $"Unknown error { e.Message} occurred on page ");
+                ExtentReport.ExtentTest(currentPage == "Login" ? "ExtentTest" : "ExtentTestNode", Status.Fail,  $"Error occured while verifying the element - {fieldName}. The error is {e.Message}");
+                ScreenShot.ScreenshotNow(_driver, currentPage, fieldName, ScreenshotType.Error, element);
                 return false;
             }
         }
@@ -75,7 +76,7 @@ namespace SHAProject.SeleniumHelpers
             {
                 fieldName =$" {widgetName} {fieldName}";
                 IWebElement webElement = WaitForElementVisible(element);
-                if (webElement.Displayed)
+                if (webElement != null && webElement.Displayed)
                 {
                     ExtentReport.ExtentTest(currentPage=="Login"?"ExtentTest" : "ExtentTestNode", Status.Pass, $"{fieldName} is displayed");
                     ScreenShot.ScreenshotNow(_driver, currentPage, fieldName, ScreenshotType.Info, element);
@@ -88,12 +89,13 @@ namespace SHAProject.SeleniumHelpers
             }
             catch (NoSuchElementException e)
             {
-                ExtentReport.ExtentTest(currentPage == "Login" ? "ExtentTest" : "ExtentTestNode",Status.Fail, $"{element} is not found on page.");
+                ExtentReport.ExtentTest(currentPage == "Login" ? "ExtentTest" : "ExtentTestNode",Status.Fail, $"Element -{element} is not found on the page.");
                 ScreenShot.ScreenshotNow(_driver, currentPage, fieldName, ScreenshotType.Error, element);
             }
             catch (Exception e)
             {
-                ExtentReport.ExtentTest(currentPage == "Login" ? "ExtentTest" : "ExtentTestNode",Status.Fail, $"Unknown error {e.Message} is occur on page.");
+                ExtentReport.ExtentTest(currentPage == "Login" ? "ExtentTest" : "ExtentTestNode",Status.Fail, $"Error occured while verifying the element - {fieldName}. The error is {e.Message}");
+                ScreenShot.ScreenshotNow(_driver, currentPage, fieldName, ScreenshotType.Error, element);
             }
             return element;
         }
@@ -104,7 +106,7 @@ namespace SHAProject.SeleniumHelpers
             {
                 fieldName =$" {widgetName} {fieldName}";
                 IWebElement webElement = WaitForElementVisible(element);
-                if (webElement.Displayed)
+                if (webElement != null && webElement.Displayed)
                 {
                     element.Clear();
                     element.SendKeys(sendKeys);
@@ -122,17 +124,19 @@ namespace SHAProject.SeleniumHelpers
                 }
                 else
                 {
-                    ExtentReport.ExtentTest(currentPage == "Login" ? "ExtentTest" : "ExtentTestNode", Status.Fail, $"Element - {fieldName} - is not displayed on the page");
+                    ExtentReport.ExtentTest(currentPage == "Login" ? "ExtentTest" : "ExtentTestNode", Status.Fail, $"Element - {fieldName} is not displayed on the page");
                     ScreenShot.ScreenshotNow(_driver, currentPage, fieldName, ScreenshotType.Error, element);
                 }
             }
             catch (NoSuchElementException e)
             {
-                ExtentReport.ExtentTest(currentPage == "Login" ? "ExtentTest" : "ExtentTestNode", Status.Fail, $"Element - {element} -not found on page . The error is {e.Message}");
+                ExtentReport.ExtentTest(currentPage == "Login" ? "ExtentTest" : "ExtentTestNode", Status.Fail, $"Element - {element} not found on the page . The error is {e.Message}");
+                ScreenShot.ScreenshotNow(_driver, currentPage, fieldName, ScreenshotType.Error, element);
             }
             catch (Exception e)
             {
-                ExtentReport.ExtentTest(currentPage == "Login" ? "ExtentTest" : "ExtentTestNode", Status.Fail, $"Unknown error {e.Message} occurred on page ");
+                ExtentReport.ExtentTest(currentPage == "Login" ? "ExtentTest" : "ExtentTestNode", Status.Fail, $"Error occured while verifying the element - {fieldName}. The error is {e.Message}");
+                ScreenShot.ScreenshotNow(_driver, currentPage, fieldName, ScreenshotType.Error, element);
             }
         }
 
@@ -143,7 +147,7 @@ namespace SHAProject.SeleniumHelpers
                 fieldName =$" {widgetName} {fieldName}";
                 //_driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
                 IWebElement webElement = WaitForElementVisible(element);
-                if (webElement.Enabled && webElement.Displayed)
+                if (webElement != null && webElement.Enabled && webElement.Displayed)
                 {
                     ScreenShot.ScreenshotNow(_driver, currentPage, fieldName, ScreenshotType.Info, element);
                     IJavaScriptExecutor jScript = (IJavaScriptExecutor)_driver;
@@ -160,12 +164,14 @@ namespace SHAProject.SeleniumHelpers
             }
             catch (NoSuchElementException e)
             {
-                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Element - {element} -not found on page . The error is {e.Message}");
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Element - {element} not found on the page. The error is {e.Message}");
+                ScreenShot.ScreenshotNow(_driver, currentPage, fieldName, ScreenshotType.Error, element);
                 return false;
             }
             catch (Exception e)
             {
-                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Unknown error {e.Message} occurred on page ");
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Error occured while verifying the element - {fieldName}. The error is {e.Message}");
+                ScreenShot.ScreenshotNow(_driver, currentPage, fieldName, ScreenshotType.Error, element);
                 return false;
             }
         }
@@ -176,7 +182,7 @@ namespace SHAProject.SeleniumHelpers
             {
                 fieldName =$" {widgetName} {fieldName}";
                 IWebElement webElement = WaitForElementVisible(element);
-                if (webElement.Enabled && webElement.Displayed)
+                if (webElement != null && webElement.Enabled && webElement.Displayed)
                 {
                     ScreenShot.ScreenshotNow(_driver, currentPage, fieldName, ScreenshotType.Info, element);
                     IJavaScriptExecutor jScript = (IJavaScriptExecutor)_driver;
@@ -192,11 +198,13 @@ namespace SHAProject.SeleniumHelpers
             }
             catch (NoSuchElementException e)
             {
-                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Element - {element} -not found on page . The error is {e.Message}");
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Element - {element} not found on page. The error is {e.Message}");
+                ScreenShot.ScreenshotNow(_driver, currentPage, fieldName, ScreenshotType.Error, element);
             }
             catch (Exception e)
             {
-                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Unknown error {e.Message} occurred on page.");
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Error occured while verifying the element - {fieldName}. The error is {e.Message}");
+                ScreenShot.ScreenshotNow(_driver, currentPage, fieldName, ScreenshotType.Error, element);
             }
         }
 
@@ -204,12 +212,24 @@ namespace SHAProject.SeleniumHelpers
         {
             try
             {
-                IJavaScriptExecutor jScript = (IJavaScriptExecutor)_driver;
-                jScript?.ExecuteScript("arguments[0].scrollIntoView(true);", element);
+                IWebElement webElement = WaitForElementVisible(element);
+                if (webElement != null && webElement.Displayed)
+                {
+                    IJavaScriptExecutor jScript = (IJavaScriptExecutor)_driver;
+                    jScript?.ExecuteScript("arguments[0].scrollIntoView(true);", webElement);
+                }
+                else
+                {
+                    ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $" Element is not display and unable to scroll down to view");
+                }
+            }
+            catch (NoSuchElementException e)
+            {
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Element -{element} not found on page. The error is {e.Message}");
             }
             catch (Exception e)
             {
-                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $" The error is {e.Message}");
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Unable to scroll down to the element. The error is {e.Message}");
             }
         }
 
@@ -219,7 +239,7 @@ namespace SHAProject.SeleniumHelpers
             {
                 fieldName =$" {widgetName} {fieldName}";
                 IWebElement webElement = WaitForElementVisible(element);
-                if (webElement.Displayed && webElement.Text.Contains(givenName))
+                if (webElement != null && webElement.Displayed && webElement.Text.Equals(givenName))
                 {
                     ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"{fieldName} field is displayed and text contains -{element.Text.Trim()} ");
                     ScreenShot.ScreenshotNow(_driver, currentPage, fieldName, ScreenshotType.Info, element);
@@ -232,35 +252,100 @@ namespace SHAProject.SeleniumHelpers
             }
             catch (NoSuchElementException e)
             {
-                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Element - {element} -not found on page . The error is {e.Message}");
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Element -{element} not found on page . The error is {e.Message}");
+                ScreenShot.ScreenshotNow(_driver, currentPage, fieldName, ScreenshotType.Error, element);
             }
             catch (Exception e)
             {
-                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Element  - {fieldName} text verification is failed.The error is {e.Message}");
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Element -{fieldName} text verification is failed.The error is {e.Message}");
                 ScreenShot.ScreenshotNow(_driver, currentPage, fieldName, ScreenshotType.Error, element);
             }
         }
 
-        public bool ActionsClass(IWebElement element)
+        public void ActionsClass(IWebElement element)
         {
-            Actions actions = new Actions(_driver);
-            actions.MoveToElement(element).Build().Perform();
-            return true;
+            try
+            {
+                IWebElement webElement = WaitForElementVisible(element);
+                if (webElement != null && webElement.Displayed)
+                {
+                    Actions actions = new Actions(_driver);
+                    actions.MoveToElement(element).Build().Perform();
+                }
+                else
+                {
+                    ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $" Element is not display and unable to move to the element");
+                }
+            }
+            catch (NoSuchElementException e)
+            {
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Element -{element} not found on page. The error is {e.Message}");
+            }
+            catch (Exception e)
+            {
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Unable to move to the element.The error is {e.Message}");
+            }
         }
 
-        public bool ActionsClassClick(IWebElement element)
+        public void ActionsClassClick(IWebElement element, string currentPage, string fieldName)
         {
-            Actions actions = new Actions(_driver);
-            actions.MoveToElement(element).Click().Perform();
-            return true;
+            try
+            {
+                IWebElement webElement = WaitForElementVisible(element);
+                if (webElement != null && webElement.Enabled && webElement.Displayed)
+                {
+                    ScreenShot.ScreenshotNow(_driver, currentPage, fieldName, ScreenshotType.Info, element);
+                    Actions actions = new Actions(_driver);
+                    actions.MoveToElement(element).Click().Perform();
+                    ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"{fieldName} is displayed and clickable on the page");
+                }
+                else
+                {
+                    ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"{fieldName} - is not displayed and so unable to perform move action and click the element on the page");
+                    ScreenShot.ScreenshotNow(_driver, currentPage, fieldName, ScreenshotType.Error, element);
+                }
+            }
+            catch (NoSuchElementException e)
+            {
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Element - {element} not found on page. The error is {e.Message}");
+                ScreenShot.ScreenshotNow(_driver, currentPage, fieldName, ScreenshotType.Error, element);
+            }
+            catch (Exception e)
+            {
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Unable to move and click the element.The error is {e.Message}");
+                ScreenShot.ScreenshotNow(_driver, currentPage, fieldName, ScreenshotType.Error, element);
+            }
         }
 
-        public bool ActionsClassDoubleClick(IWebElement element)
+        public void ActionsClassDoubleClick(IWebElement element, string currentPage, string fieldName)
         {
-            Actions actions = new Actions(_driver);
-            //actions.MoveToElement(element).DoubleClick().Perform();
-            actions.DoubleClick(element).Perform();
-            return true;
+            try
+            {
+                IWebElement webElement = WaitForElementVisible(element);
+                if (webElement != null && webElement.Enabled && webElement.Displayed)
+                {
+                    ScreenShot.ScreenshotNow(_driver, currentPage, fieldName, ScreenshotType.Info, element);
+                    Actions actions = new Actions(_driver);
+                    //actions.MoveToElement(element).DoubleClick().Perform();
+                    actions.DoubleClick(element).Perform();
+                    ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"{fieldName} is displayed and double clickable on the page");
+                }
+                else
+                {
+                    ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"{fieldName} - is not displayed, so unable to perform move action and double click the element on the page");
+                    ScreenShot.ScreenshotNow(_driver, currentPage, fieldName, ScreenshotType.Error, element);
+                }
+            }
+            catch (NoSuchElementException e)
+            {
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Element - {element} not found on page. The error is {e.Message}");
+                ScreenShot.ScreenshotNow(_driver, currentPage, fieldName, ScreenshotType.Error, element);
+            }
+            catch (Exception e)
+            {
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Unable to move and double click the element.The error is {e.Message}");
+                ScreenShot.ScreenshotNow(_driver, currentPage, fieldName, ScreenshotType.Error, element);
+            }
         }
         public void SelectFromDropdown(IWebElement element, string currentPage, string selectionMethod, string value, string propertyName)
         {

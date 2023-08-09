@@ -50,9 +50,17 @@ namespace SHAProject.Create_Widgets
         [FindsBy(How = How.XPath, Using = "//div[@class='col-md-2 modal-right-groups']")]
         public IWebElement? AddviewGroups;
 
+        [FindsBy(How = How.XPath, Using = "//span[@id=\"Listhead\"]")]
+        public IWebElement? ListHeadName;
+
+        [FindsBy(How = How.XPath, Using = "(//div[@class='group-list-right']/span)[1]")]
+        public IWebElement? GroupListElement;
+
+        [FindsBy(How = How.XPath, Using = "(//div[@class='comp-list-right']/span)[1]")]
+        public IWebElement? CompundListElement;
         #endregion
 
-        #region StandradView Element
+        #region StandardView Element
 
         [FindsBy(How = How.CssSelector, Using = "#default-graphs .caret")]
         private IWebElement? DefaultGraphClick;
@@ -250,6 +258,7 @@ namespace SHAProject.Create_Widgets
                     case WidgetCategories.XfStandard:
                         _findElements?.ClickElement(DefaultGraphClick, _currentPage, $"Add View popup - Standard view");
                         _findElements?.ClickElement(companionView, _currentPage, "Add View popup -Standard view");
+                        VerifyAddViewPopupElements();
                         break;
 
                     case WidgetCategories.XfCustomview:
@@ -260,7 +269,7 @@ namespace SHAProject.Create_Widgets
                     case WidgetCategories.XfStandardDose:
                         _findElements?.ClickElement(DefaultGraphClick, _currentPage, $"Add View popup - Standard view");
                         _findElements?.ClickElement(companionView, _currentPage, "Add View popup - Standard Dose view");
-                        VerifyGroup();
+                        VerifyAddViewPopupElements();
                         break;
 
                     case WidgetCategories.XfStandardBlank:
@@ -271,19 +280,21 @@ namespace SHAProject.Create_Widgets
                     case WidgetCategories.XfMst:
                         _findElements?.ClickElement(AssayKitCompanionViews, _currentPage, $"Add View popup - Assay Kit Companion Views");
                         _findElements?.ClickElement(companionView, _currentPage, "Add View popup - XF Mito stress View");
+                        VerifyAddViewPopupElements();
                         DropdownSelect(_fileUploadOrExistingFileData.OligoInjection, MstOligoinjection, "Add View popup Oligo Dropdown");
                         break;
-
 
                     case WidgetCategories.XfAtp:
                         _findElements?.ClickElement(AssayKitCompanionViews, _currentPage, $"Add View popup - Assay Kit Companion Views");
                         _findElements?.ClickElement(companionView, _currentPage, "Add View popup - XF ATP Rate Assay View");
+                        VerifyAddViewPopupElements();
                         DropdownVerification();
                         break;
 
                     case WidgetCategories.XfCellEnergy:
                         _findElements?.ClickElement(AssayKitCompanionViews, _currentPage, $"Add View popup -Assay Kit Companion Views");
                         _findElements?.ClickElement(companionView, _currentPage, "Add View popup - XFCellEnergyPhenotype view");
+                        VerifyAddViewPopupElements();
                         break;
                 }
 
@@ -310,7 +321,6 @@ namespace SHAProject.Create_Widgets
                 }
 
                 _findElements?.ClickElement(AddViewButton, _currentPage, $"AddView Popup - AddView Button");
-
             }
             catch (Exception e)
             {
@@ -515,27 +525,54 @@ namespace SHAProject.Create_Widgets
 
                 ScreenShot.ScreenshotNow(_driver, _currentPage, Description, ScreenshotType.Info, Dropdown);
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, "Error Occured while selecting a " + Description + "with the Message:" + ex);
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Error Occured while selecting a {Description} with the Message {e.Message}");
             }
         }
 
-        private void VerifyGroup()
+        private void VerifyAddViewPopupElements()
         {
             try
             {
-                _findElements?.VerifyElement(AddviewGroups, _currentPage, "Add View popup Groups Area");
+                _findElements?.VerifyElement(AddviewGroups, _currentPage, $"Add View popup Groups Area");
 
-                IWebElement element = _driver.FindElement(By.XPath("(//div[@class='comp-list-right']/span)[1]"));
+                if(ListHeadName.Text == "Groups")
+                {
+                    _findElements.ClickElementByJavaScript(GroupListElement, _currentPage, $"Unselecting the First Group");
 
-                _findElements.ClickElementByJavaScript(element, _currentPage, "Unselecting the First Group");
+                    _findElements.ClickElementByJavaScript(GroupListElement, _currentPage, $"Selecting the First Group");
+                }
+                else
+                {
+                    _findElements.ClickElementByJavaScript(CompundListElement, _currentPage, $"Unselecting the First Group");
 
-                _findElements.ClickElementByJavaScript(element, _currentPage, "Selecting the First Group");
+                    _findElements.ClickElementByJavaScript(CompundListElement, _currentPage, $"Selecting the First Group");
+                }
+
+                IReadOnlyCollection<IWebElement> selectAllWidgets = _driver.FindElements(By.CssSelector(".allwidgets"));
+
+                foreach (IWebElement selectAllIcon in selectAllWidgets)
+                {
+                    if (selectAllIcon.Displayed)
+                    {
+                        _findElements.VerifyElement(selectAllIcon, _currentPage, "Select all Widgets Icom");
+                    }
+                }
+
+                IReadOnlyCollection<IWebElement> AddViewDetails = _driver.FindElements(By.CssSelector(".col-md-12.graph-details-sec"));
+
+                foreach (IWebElement Details in AddViewDetails)
+                {
+                    if (Details.Displayed)
+                    {
+                        _findElements.VerifyElement(Details, _currentPage, $"Add View Popup - Details section");
+                    }
+                }
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $" Error occured while verify the add view popup elemnts. The error is {e.Message}");
             }
         }
 
@@ -584,12 +621,11 @@ namespace SHAProject.Create_Widgets
 
                     ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"Induced option - {selectedOptionText} was selected from the dropdown.");
                     ScreenShot.ScreenshotNow(_driver, _currentPage, $"Dropdown option - {selectedOptionText}", ScreenshotType.Info, InducedDropdown);
-
                 }
             }
             catch (Exception e)
             {
-                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $" Error ocuured while verify the oligo and induced ");
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $" Error occured while verify the oligo and induced dropdown in the add view popup. The error is {e.Message}");
             }
         }
     }

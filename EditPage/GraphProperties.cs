@@ -17,7 +17,6 @@ using SeleniumExtras.WaitHelpers;
 using System.Runtime.CompilerServices;
 using System.Xml.Linq;
 using System.Security.Policy;
-using Aspose.Svg.Dom;
 using OpenQA.Selenium.Interactions;
 
 namespace SHAProject.EditPage
@@ -127,7 +126,7 @@ namespace SHAProject.EditPage
         [FindsBy(How = How.Id, Using = "chkbackground")]
         public IWebElement? BackgroundCorrectionToggle;
 
-        [FindsBy(How = How.XPath, Using ="//div[@class='graph-ms select-display hideprop chartmode-property']")]
+        [FindsBy(How = How.XPath, Using = "//div[@class='graph-ms select-display hideprop chartmode-property']")]
         public IWebElement? BoxPlotToggle;
 
         [FindsBy(How = How.XPath, Using = "(//div[@class='graph-ms select-display hideprop chartmode-property']/div/label)[1]")]
@@ -139,11 +138,29 @@ namespace SHAProject.EditPage
         [FindsBy(How = How.XPath, Using = "(//div[@class='graph-ms select-display hideprop chartmode-property']/div/label)[1]/input")]
         public IWebElement? BarToggle;
 
-        [FindsBy(How =How.XPath, Using = "//th[@id='th0']")]
+        [FindsBy(How = How.XPath, Using = "//th[@id='th0']")]
         public IWebElement? PlatemapOverallSelect;
 
         [FindsBy(How = How.XPath, Using = "//div[@class='toast-body-content']")]
         public IWebElement? BoxPlotTost;
+
+        #endregion
+
+        #region PanZoom
+        [FindsBy(How = How.XPath, Using = "(//canvas[@class='canvasjs-chart-canvas'])[2]")]
+        public IWebElement? CanvasChart;
+
+        [FindsBy(How = How.XPath, Using = "//button[@title='Switch to Pan']")]
+        public IWebElement? PanIcon;
+
+        [FindsBy(How = How.XPath, Using = "//button[@title='Switch to Zoom']")]
+        public IWebElement? ZoomIcon;
+
+        [FindsBy(How = How.XPath, Using = "//button[@title='Reset']")]
+        public IWebElement? ResetIcon;
+
+        [FindsBy(How = How.Id, Using = "divwidget1")]
+        public IWebElement? AmchartChart;
         #endregion
 
         #region Dropdown properties
@@ -386,23 +403,6 @@ namespace SHAProject.EditPage
 
         #endregion
 
-        #region PanZoom
-        [FindsBy(How = How.XPath, Using = "(//canvas[@class='canvasjs-chart-canvas'])[2]")]
-        public IWebElement? CanvasChart;
-
-        [FindsBy(How = How.XPath, Using ="//button[@title='Switch to Pan']")]
-        public IWebElement? PanIcon;
-
-        [FindsBy(How = How.XPath, Using = "//button[@title='Switch to Zoom']")]
-        public IWebElement? ZoomIcon;
-
-        [FindsBy(How = How.XPath, Using = "//button[@title='Reset']")]
-        public IWebElement? ResetIcon;
-
-        [FindsBy(How = How.Id, Using = "divwidget1")]
-        public IWebElement? AmchartChart;
-        #endregion
-
         public void GraphProperty()
         {
             _findElements.VerifyElement(GraphPropertyField, _currentPage, $"Edit Widget Page -Graph Property");
@@ -523,28 +523,28 @@ namespace SHAProject.EditPage
                     BarToggle.Click();
                     Thread.Sleep(5000);
                     var groupCount = 1;
-                    foreach( IWebElement group in BoxplotGroups)
+                    foreach (IWebElement group in BoxplotGroups)
                     {
                         _findElements.ScrollIntoView(group);
                         _findElements.VerifyElement(group, _currentPage, $"BoxPlot Groups");
                         IWebElement Group = _driver.FindElement(By.XPath("(//span[@class='col-md-12 stress-li selected-li']["+groupCount+"]/span)[2]"));
-                        String GroupName =  Group.GetAttribute("title");
+                        String GroupName = Group.GetAttribute("title");
 
                         IEnumerable<IWebElement> wellElements = _driver.FindElements(By.XPath("//span[@data-wellgroup='"+ GroupName + "']/span"));
                         IList<IWebElement> well = new List<IWebElement>(wellElements);
 
                         if (well.Count >= 5)
                         {
-                           foreach( IWebElement PlatemapWell in wellElements)
-                           {
+                            foreach (IWebElement PlatemapWell in wellElements)
+                            {
                                 _findElements.ScrollIntoView(PlatemapWell);
                                 _findElements.VerifyElement(PlatemapWell, _currentPage, $"BoxPlot Well of group: " + GroupName);
-                           }
+                            }
 
                             string color = group.GetAttribute("data-groupcolor").ToLower();
                             IWebElement Graph = _driver.FindElement(By.XPath("(//*[@stroke='"+color+"'])[1]"));
-                            _findElements.VerifyElement(Graph,_currentPage,$"BoxPlot Graph");
-                            ExtentReport.ExtentTest("ExtendTestNode",Graph.Displayed ? Status.Pass :Status.Fail,Graph.Displayed ? $"The Group Color and the Graph Color are Same" : $"The Group color doesnot matches the Graph");
+                            _findElements.VerifyElement(Graph, _currentPage, $"BoxPlot Graph");
+                            ExtentReport.ExtentTest("ExtendTestNode", Graph.Displayed ? Status.Pass : Status.Fail, Graph.Displayed ? $"The Group Color and the Graph Color are Same" : $"The Group color doesnot matches the Graph");
 
                             Actions actions = new Actions(_driver);
                             actions.MoveToElement(Graph).Perform();
@@ -559,9 +559,9 @@ namespace SHAProject.EditPage
                             //    actions.MoveToElement(Graph).Perform();
                             //    Thread.Sleep(1000);
                             //    var tooltiptext = tooltipValues.Text;
-                            //    _findElements.VerifyElement(tooltipValues, _currentPage, $"BoxPlot Well of Tooltip of "+ tooltiptext);
+                            //    findElements.VerifyElement(tooltipValues, currentPage, $"BoxPlot Well of Tooltip of "+ tooltiptext);
                             //}
-                                groupCount++;
+                            groupCount++;
                         }
                         else
                         {
@@ -580,7 +580,7 @@ namespace SHAProject.EditPage
 
                     jScript.ExecuteScript("arguments[0].click();", DisplayWells);
                     Thread.Sleep(5000);
-                    ExtentReport.ExtentTest("ExtendTestNode",BoxPlotToggle.Displayed? Status.Fail : Status.Pass,BoxPlotToggle.Displayed ? $"Boxplot Toogle is not Displayed" : $"Boxplot Toggle is Displayed");
+                    ExtentReport.ExtentTest("ExtendTestNode", BoxPlotToggle.Displayed ? Status.Fail : Status.Pass, BoxPlotToggle.Displayed ? $"Boxplot Toogle is not Displayed" : $"Boxplot Toggle is Displayed");
 
                     jScript.ExecuteScript("arguments[0].click();", DisplayGroup);
                     Thread.Sleep(5000);
@@ -601,12 +601,12 @@ namespace SHAProject.EditPage
                     _findElements.VerifyElement(BoxPlotTost, _currentPage, $"BoxPlot Graph warning Message Popup");
 
                     var status = BoxPlotTost.Text.Contains("A minimum of 5 wells in a group is required to construct a boxplot.");
-                    ExtentReport.ExtentTest("ExtendTestNode",status ? Status.Pass : Status.Fail, $"The BoxPlot warning Message Contains the given text.");
+                    ExtentReport.ExtentTest("ExtendTestNode", status ? Status.Pass : Status.Fail, $"The BoxPlot warning Message Contains the given text.");
 
                 }
                 else
                 {
-                    ExtentReport.ExtentTest("ExtendTestNode",Status.Pass,$"The BoxPlot Toggle is Disabled in the Given file");
+                    ExtentReport.ExtentTest("ExtendTestNode", Status.Pass, $"The BoxPlot Toggle is Disabled in the Given file");
                 }
             }
             catch (Exception ex)
@@ -626,7 +626,7 @@ namespace SHAProject.EditPage
 
             var tooltip = BoxPlotToggle.GetAttribute("title");
 
-            bool tooltipStatus =  tooltip.Contains("This assay does not have at least one non-background group with 5 or more Wells");
+            bool tooltipStatus = tooltip.Contains("This assay does not have at least one non-background group with 5 or more Wells");
 
             ExtentReport.ExtentTest("ExtendTestNode", tooltipStatus ? Status.Pass : Status.Fail, tooltipStatus ? $"The Tooltip Contains the given Tooltip Text" : $"The Tooltip Doesnot Contains the given toolrip");
 
