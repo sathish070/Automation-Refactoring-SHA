@@ -151,7 +151,7 @@ namespace SHAProject.SeleniumHelpers
                 {
                     ScreenShot.ScreenshotNow(_driver, currentPage, fieldName, ScreenshotType.Info, element);
                     IJavaScriptExecutor jScript = (IJavaScriptExecutor)_driver;
-                    jScript.ExecuteScript("arguments[0].click();", element);
+                    jScript.ExecuteScript("arguments[0].click();", webElement);
                     ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"{fieldName} - is displayed and clickable on the page");
                     return true;
                 }
@@ -386,5 +386,34 @@ namespace SHAProject.SeleniumHelpers
                 ScreenShot.ScreenshotNow(_driver, currentPage, $"Dropdown option - {value}", ScreenshotType.Error, element);
             }
         }
+
+        //public IWebElement VerifyGraphElement(IWebElement element, string currentPage, string fieldName, bool graphinfo = false)
+        //{
+        //    fieldName = $"{widgetName}{fieldName}";
+        //    try
+        //    {
+        //        IWebElement webElement = WaitForElementVisible(element);
+        //        if (webElement.Displayed)
+        //        {
+        //            ExtentReport.ExtentTest(currentPage == "Login" ? "ExtentTest" : "ExtentTestNode", Status.Pass, $"{fieldName} is displayed");
+        //            ScreenShot.ScreenshotNow(_driver, currentPage, fieldName, ScreenshotType.Info, element, null, graphinfo);
+        //        }
+        //        else
+        //        {
+        //            ExtentReport.ExtentTest(currentPage == "Login" ? "ExtentTest" : "ExtentTestNode", Status.Fail, $"{fieldName} is not displayed");
+        //            ScreenShot.ScreenshotNow(_driver, currentPage, fieldName, ScreenshotType.Error, element);
+        //        }
+        //    }
+        //    catch (NoSuchElementException e)
+        //    {
+        //        ExtentReport.ExtentTest(currentPage == "Login" ? "ExtentTest" : "ExtentTestNode", Status.Fail, $"{element} is not found on page.");
+        //        ScreenShot.ScreenshotNow(_driver, currentPage, fieldName, ScreenshotType.Error, element);
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        ExtentReport.ExtentTest(currentPage == "Login" ? "ExtentTest" : "ExtentTestNode", Status.Fail, $"Unknown error {e.Message} is occur on page.");
+        //    }
+        //    return element;
+        //}
     }
 }

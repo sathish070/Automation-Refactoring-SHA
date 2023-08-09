@@ -120,7 +120,6 @@ namespace SHAProject.Utilities
     {
         Amchart,
         CanvasJS,
-        Bar
     }
 
     public enum ScreenshotType

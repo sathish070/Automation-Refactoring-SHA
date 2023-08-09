@@ -146,23 +146,6 @@ namespace SHAProject.EditPage
 
         #endregion
 
-        #region PanZoom
-        [FindsBy(How = How.XPath, Using = "(//canvas[@class='canvasjs-chart-canvas'])[2]")]
-        public IWebElement? CanvasChart;
-
-        [FindsBy(How = How.XPath, Using = "//button[@title='Switch to Pan']")]
-        public IWebElement? PanIcon;
-
-        [FindsBy(How = How.XPath, Using = "//button[@title='Switch to Zoom']")]
-        public IWebElement? ZoomIcon;
-
-        [FindsBy(How = How.XPath, Using = "//button[@title='Reset']")]
-        public IWebElement? ResetIcon;
-
-        [FindsBy(How = How.Id, Using = "divwidget1")]
-        public IWebElement? AmchartChart;
-        #endregion
-
         #region Dropdown properties
 
         public void Measurement(WidgetItems graphProperties)
@@ -433,27 +416,27 @@ namespace SHAProject.EditPage
             }
         }
 
-        public void VerifyExpectedGraphUnits(string ExpectedGraphUnits, WidgetTypes widgetType)
-        {
-            try
-            {
-                Thread.Sleep(2000);
+        //public void VerifyExpectedGraphUnits(string ExpectedGraphUnits, WidgetTypes widgetType)
+        //{
+        //    try
+        //    {
+        //        Thread.Sleep(2000);
 
-                ChartType chartType = _commonFunc.GetChartType(widgetType);
-                string graphUnits = _commonFunc.GetGraphUnits(chartType);
+        //        ChartType chartType = _commonFunc.GetChartType(widgetType);
+        //        string graphUnits = _commonFunc.GetGraphUnits(chartType);
 
-                if (graphUnits == ExpectedGraphUnits)
-                    ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"The graph units -{graphUnits} and exact graph units -{ExpectedGraphUnits} are equal.");
-                else
-                    ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"The graph units -{graphUnits} and exact graph units -{ExpectedGraphUnits} are not equal.");
+        //        if (graphUnits == ExpectedGraphUnits)
+        //            ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"The graph units -{graphUnits} and exact graph units -{ExpectedGraphUnits} are equal.");
+        //        else
+        //            ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"The graph units -{graphUnits} and exact graph units -{ExpectedGraphUnits} are not equal.");
 
-                ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"Verify Normalization units has been verified.");
-            }
-            catch (Exception e)
-            {
-                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Verify Normalization units has not been verified. The error is {e.Message}");
-            }
-        }
+        //        ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"Verify Normalization units has been verified.");
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Verify Normalization units has not been verified. The error is {e.Message}");
+        //    }
+        //}
 
         public void VerifyDropdown()
         {
@@ -629,42 +612,6 @@ namespace SHAProject.EditPage
             bool tooltipStatus = tooltip.Contains("This assay does not have at least one non-background group with 5 or more Wells");
 
             ExtentReport.ExtentTest("ExtendTestNode", tooltipStatus ? Status.Pass : Status.Fail, tooltipStatus ? $"The Tooltip Contains the given Tooltip Text" : $"The Tooltip Doesnot Contains the given toolrip");
-
-        }
-
-        public void PanZoom(ChartType Chart)
-        {
-            IWebElement? element = ChartType.CanvasJS == Chart ? CanvasChart : AmchartChart;
-
-            _findElements.VerifyElement(element, _currentPage, $"Canvas Chart");
-
-            Actions actions = new Actions(_driver);
-            actions.MoveToElement(element)
-                  .ClickAndHold()
-                  .Build()
-                  .Perform();
-
-            actions.MoveByOffset(300, 150)
-                  .Release()
-                  .Build()
-                  .Perform();
-
-
-            _findElements.ClickElementByJavaScript(PanIcon, _currentPage, $"Pan Icon functionality");
-
-            actions.MoveToElement(element)
-                  .ClickAndHold()
-                  .Build()
-                  .Perform();
-
-            actions.MoveByOffset(300, 150)
-                  .Release()
-                  .Build()
-                  .Perform();
-
-            _findElements.ClickElementByJavaScript(ResetIcon, _currentPage, $"Reset Icon");
-
-            _findElements.VerifyElement(element, _currentPage, $"Canvas Chart");
 
         }
     }

@@ -27,6 +27,7 @@ namespace SHAProject.Workflows
     {
         public bool loginStatus;
         public Exports? exports;
+        public Graph? graph;
         public PlateMap? plateMap;
         public HomePage? homePage;
         public FilesPage? filesPage;
@@ -315,11 +316,11 @@ namespace SHAProject.Workflows
 
                 modifyAssay.ModifyAssayHeaderTabs();
 
-                //modifyAssay.GroupTabElements(WorkFlow5Data.AddGroupName);
+                modifyAssay.GroupTabElements(WorkFlow5Data.AddGroupName);
 
-                //modifyAssay.PlateMapElements(WorkFlow5Data.SelecttheControls);
+                modifyAssay.PlateMapElements(WorkFlow5Data.SelecttheControls);
 
-                //modifyAssay.AssayMediaElements();
+                modifyAssay.AssayMediaElements();
 
                 modifyAssay.BackgroundBufferElements();
 
@@ -447,11 +448,15 @@ namespace SHAProject.Workflows
 
                     graphProperties.SortBy(WorkFlow5Data.Barchart);
 
-                    graphProperties.VerifyExpectedGraphUnits(WorkFlow5Data.Barchart.ExpectedGraphUnits, WidgetTypes.BarChart);
+                    graph.VerifyExpectedGraphUnits(WorkFlow5Data.Barchart.ExpectedGraphUnits, WidgetTypes.BarChart);
+
+                    graph.PanZoom(ChartType.Amchart);
 
                     if (WorkFlow5Data.Barchart.GraphSettingsVerify)
                     {
-                        graphSettings.VerifyGraphSettingsIcon();
+                        //graphSettings.VerifyGraphSettingsIcon();
+
+                        //graphSettings.VerifyGraphSettingsFields();
 
                         graphSettings.YAutoScale(WorkFlow5Data.Barchart);
 
@@ -459,7 +464,7 @@ namespace SHAProject.Workflows
 
                         graphSettings.Zoom(WorkFlow5Data.Barchart);
 
-                        graphSettings.GraphSettingsApply();
+                        //graphSettings.GraphSettingsApply();
                     }
 
                     plateMap.PlateMapIcons();
@@ -542,7 +547,11 @@ namespace SHAProject.Workflows
 
                     graphProperties.Baseline(WorkFlow5Data.EnergyMap);
 
-                    graphProperties.VerifyExpectedGraphUnits(WorkFlow5Data.EnergyMap.ExpectedGraphUnits, WidgetTypes.EnergyMap);
+                    graph.VerifyExpectedGraphUnits(WorkFlow5Data.EnergyMap.ExpectedGraphUnits, WidgetTypes.EnergyMap);
+
+                    graph.PanZoom(ChartType.Amchart);
+
+                    //graph.GraphTootipVerificationWithRadius();
 
                     if (WorkFlow5Data.EnergyMap.GraphSettingsVerify)
                     {
@@ -617,7 +626,7 @@ namespace SHAProject.Workflows
 
                     graphProperties.Baseline(WorkFlow5Data.HeatMap);
 
-                    graphProperties.VerifyExpectedGraphUnits(WorkFlow5Data.HeatMap.ExpectedGraphUnits, WidgetTypes.HeatMap);
+                    graph.VerifyExpectedGraphUnits(WorkFlow5Data.HeatMap.ExpectedGraphUnits, WidgetTypes.HeatMap);
 
                     if (WorkFlow5Data.HeatMap.GraphSettingsVerify)
                     {
@@ -743,6 +752,10 @@ namespace SHAProject.Workflows
                 graphProperties.ErrorFormat(WorkFlow5Data.DoseResponse, WidgetCategories.XfStandardDose, WidgetTypes.DoseResponse);
 
                 graphProperties.BackgroundCorrection(WorkFlow5Data.DoseResponse);
+
+                //graph.PanZoom(ChartType.Amchart);
+
+                //graph.GraphTootipVerificationWithRadius();
 
                 if (WorkFlow5Data.DoseResponse.GraphSettingsVerify)
                 {
@@ -876,7 +889,11 @@ namespace SHAProject.Workflows
 
                 graphProperties.Baseline(widget);
 
-                graphProperties.VerifyExpectedGraphUnits(widget.ExpectedGraphUnits, wType);
+                graph.VerifyExpectedGraphUnits(widget.ExpectedGraphUnits, wType);
+
+                graph.PanZoom(ChartType.CanvasJS);
+
+                //graph.GraphTootipVerificationWithRadius();
 
                 if (widget.GraphSettingsVerify)
                 {

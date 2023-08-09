@@ -49,7 +49,10 @@ namespace SHAProject.Create_Widgets
         //[FindsBy(How = How.XPath, Using = "(//div[@col-id=\"Name\"])[2]")]
         //public IWebElement? selectFirstResultedFile;
 
-        [FindsBy(How = How.XPath, Using = "(//span[@class=\"ag-cell-value\"]/span)[1]")]
+        //[FindsBy(How = How.XPath, Using = "(//span[@class=\"ag-cell-value\"]/span)[1]")]
+        //public IWebElement? selectFirstResultedFile;
+
+        [FindsBy(How = How.XPath, Using = "(//span[@class=\"ag-cell-value\"])[1]")]
         public IWebElement? selectFirstResultedFile;
         #endregion
 
@@ -576,6 +579,8 @@ namespace SHAProject.Create_Widgets
             try
             {
                 _findElements.ClickElement(filesTab, _currentPage, "Files Tab");
+
+                Thread.Sleep(3000);
 
                 _findElements.SendKeys(fileName, searchTextBox, _currentPage, $"Given file name is - {fileName}");
 

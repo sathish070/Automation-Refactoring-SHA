@@ -24,6 +24,7 @@ namespace SHAProject.Workflows
     {
         public bool loginStatus;
         public Exports? exports;
+        public Graph? graph;
         public PlateMap? plateMap;
         public HomePage? homePage;
         public FilesPage? filesPage;
@@ -241,7 +242,11 @@ namespace SHAProject.Workflows
 
                     graphProperties.ErrorFormat(WorkFlow8Data.CellEnergyPhenotype, WidgetCategories.XfStandard, WidgetTypes.XfCellEnergyPhenotype);
 
-                    graphProperties.VerifyExpectedGraphUnits(WorkFlow8Data.CellEnergyPhenotype.ExpectedGraphUnits, WidgetTypes.XfCellEnergyPhenotype);
+                    graph.VerifyExpectedGraphUnits(WorkFlow8Data.CellEnergyPhenotype.ExpectedGraphUnits, WidgetTypes.XfCellEnergyPhenotype);
+
+                    graph.PanZoom(ChartType.Amchart);
+
+                    //graph.GraphTootipVerificationWithRadius();
 
                     if (WorkFlow8Data.CellEnergyPhenotype.GraphSettingsVerify)
                     {
@@ -297,7 +302,11 @@ namespace SHAProject.Workflows
 
                     graphProperties.SortBy(WorkFlow8Data.MetabolicPotentialOCR);
 
-                    graphProperties.VerifyExpectedGraphUnits(WorkFlow8Data.MetabolicPotentialOCR.ExpectedGraphUnits, WidgetTypes.MetabolicPotentialOcr);
+                    graph.VerifyExpectedGraphUnits(WorkFlow8Data.MetabolicPotentialOCR.ExpectedGraphUnits, WidgetTypes.MetabolicPotentialOcr);
+
+                    graph.PanZoom(ChartType.Amchart);
+
+                    //graph.GraphTootipVerificationWithRadius();
 
                     if (WorkFlow8Data.MetabolicPotentialOCR.GraphSettingsVerify)
                     {
@@ -369,7 +378,11 @@ namespace SHAProject.Workflows
 
                     graphProperties.SortBy(WorkFlow8Data.MetabolicPotentialECAR);
 
-                    graphProperties.VerifyExpectedGraphUnits(WorkFlow8Data.MetabolicPotentialECAR.ExpectedGraphUnits, WidgetTypes.MetabolicPotentialEcar);
+                    graph.VerifyExpectedGraphUnits(WorkFlow8Data.MetabolicPotentialECAR.ExpectedGraphUnits, WidgetTypes.MetabolicPotentialEcar);
+
+                    graph.PanZoom(ChartType.Amchart);
+
+                    //graph.GraphTootipVerificationWithRadius();
 
                     if (WorkFlow8Data.MetabolicPotentialECAR.GraphSettingsVerify)
                     {
@@ -445,7 +458,11 @@ namespace SHAProject.Workflows
 
                     graphProperties.SortBy(WorkFlow8Data.BaselineOCR);
 
-                    graphProperties.VerifyExpectedGraphUnits(WorkFlow8Data.BaselineOCR.ExpectedGraphUnits, WidgetTypes.BaselineOcr);
+                    graph.VerifyExpectedGraphUnits(WorkFlow8Data.BaselineOCR.ExpectedGraphUnits, WidgetTypes.BaselineOcr);
+
+                    graph.PanZoom(ChartType.Amchart);
+
+                    //graph.GraphTootipVerificationWithRadius();
 
                     if (WorkFlow8Data.BaselineOCR.GraphSettingsVerify)
                     {
@@ -521,7 +538,11 @@ namespace SHAProject.Workflows
 
                     graphProperties.SortBy(WorkFlow8Data.BaselineECAR);
 
-                    graphProperties.VerifyExpectedGraphUnits(WorkFlow8Data.BaselineECAR.ExpectedGraphUnits, WidgetTypes.BaselineEcar);
+                    graph.VerifyExpectedGraphUnits(WorkFlow8Data.BaselineECAR.ExpectedGraphUnits, WidgetTypes.BaselineEcar);
+
+                    graph.PanZoom(ChartType.Amchart);
+
+                    //graph.GraphTootipVerificationWithRadius();
 
                     if (WorkFlow8Data.BaselineECAR.GraphSettingsVerify)
                     {
@@ -597,7 +618,11 @@ namespace SHAProject.Workflows
 
                     graphProperties.SortBy(WorkFlow8Data.StressedOCR);
 
-                    graphProperties.VerifyExpectedGraphUnits(WorkFlow8Data.StressedOCR.ExpectedGraphUnits, WidgetTypes.StressedOcr);
+                    graph.VerifyExpectedGraphUnits(WorkFlow8Data.StressedOCR.ExpectedGraphUnits, WidgetTypes.StressedOcr);
+
+                    graph.PanZoom(ChartType.Amchart);
+
+                    //graph.GraphTootipVerificationWithRadius();
 
                     if (WorkFlow8Data.StressedOCR.GraphSettingsVerify)
                     {
@@ -673,7 +698,11 @@ namespace SHAProject.Workflows
 
                     graphProperties.SortBy(WorkFlow8Data.StressedECAR);
 
-                    graphProperties.VerifyExpectedGraphUnits(WorkFlow8Data.StressedECAR.ExpectedGraphUnits, WidgetTypes.StressedEcar);
+                    graph.VerifyExpectedGraphUnits(WorkFlow8Data.StressedECAR.ExpectedGraphUnits, WidgetTypes.StressedEcar);
+
+                    graph.PanZoom(ChartType.Amchart);
+
+                    //graph.GraphTootipVerificationWithRadius();
 
                     if (WorkFlow8Data.StressedECAR.GraphSettingsVerify)
                     {

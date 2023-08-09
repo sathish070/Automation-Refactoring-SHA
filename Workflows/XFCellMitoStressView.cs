@@ -26,6 +26,7 @@ namespace SHAProject.Workflows
         public static readonly string currentPage = "XF Cell Mito Stress View";
         public bool loginStatus;
         public Exports? exports;
+        public Graph? graph;
         public PlateMap? plateMap;
         public HomePage? homePage;
         public FilesPage? filesPage;
@@ -333,7 +334,11 @@ namespace SHAProject.Workflows
 
                     graphProperties.Baseline(WorkFlow6Data.MitochondrialRespiration);
 
-                    graphProperties.VerifyExpectedGraphUnits(WorkFlow6Data.MitochondrialRespiration.ExpectedGraphUnits, WidgetTypes.MitochondrialRespiration);
+                    graph.VerifyExpectedGraphUnits(WorkFlow6Data.MitochondrialRespiration.ExpectedGraphUnits, WidgetTypes.MitochondrialRespiration);
+
+                    graph.PanZoom(ChartType.Amchart);
+
+                    //graph.GraphTootipVerificationWithRadius();
 
                     if (WorkFlow6Data.MitochondrialRespiration.GraphSettingsVerify)
                     {
@@ -412,7 +417,11 @@ namespace SHAProject.Workflows
 
                     //Need to work on Graph Proiperty - Chart
 
-                    graphProperties.VerifyExpectedGraphUnits(WorkFlow6Data.BasalRespiration.ExpectedGraphUnits, WidgetTypes.Basal);
+                    graph.VerifyExpectedGraphUnits(WorkFlow6Data.BasalRespiration.ExpectedGraphUnits, WidgetTypes.Basal);
+
+                    graph.PanZoom(ChartType.Amchart);
+
+                    //graph.GraphTootipVerificationWithRadius();
 
                     if (WorkFlow6Data.BasalRespiration.GraphSettingsVerify)
                     {
@@ -483,7 +492,11 @@ namespace SHAProject.Workflows
 
                     //Need to work on Graph Proiperty - Chart
 
-                    graphProperties.VerifyExpectedGraphUnits(WorkFlow6Data.AcuteResponse.ExpectedGraphUnits, WidgetTypes.AcuteResponse);
+                    graph.VerifyExpectedGraphUnits(WorkFlow6Data.AcuteResponse.ExpectedGraphUnits, WidgetTypes.AcuteResponse);
+
+                    graph.PanZoom(ChartType.Amchart);
+
+                    //graph.GraphTootipVerificationWithRadius();
 
                     if (WorkFlow6Data.AcuteResponse.GraphSettingsVerify)
                     {
@@ -556,7 +569,11 @@ namespace SHAProject.Workflows
 
                     //Need to work on Graph Property - Chart
 
-                    graphProperties.VerifyExpectedGraphUnits(WorkFlow6Data.ProtonLeak.ExpectedGraphUnits, WidgetTypes.ProtonLeak);
+                    graph.VerifyExpectedGraphUnits(WorkFlow6Data.ProtonLeak.ExpectedGraphUnits, WidgetTypes.ProtonLeak);
+
+                    graph.PanZoom(ChartType.Amchart);
+
+                    //graph.GraphTootipVerificationWithRadius();
 
                     if (WorkFlow6Data.ProtonLeak.GraphSettingsVerify)
                     {
@@ -630,7 +647,11 @@ namespace SHAProject.Workflows
 
                     //Need to work on Graph Property - Chart
 
-                    graphProperties.VerifyExpectedGraphUnits(WorkFlow6Data.MaximalRespiration.ExpectedGraphUnits, WidgetTypes.MaximalRespiration);
+                    graph.VerifyExpectedGraphUnits(WorkFlow6Data.MaximalRespiration.ExpectedGraphUnits, WidgetTypes.MaximalRespiration);
+
+                    graph.PanZoom(ChartType.Amchart);
+
+                    //graph.GraphTootipVerificationWithRadius();
 
                     if (WorkFlow6Data.MaximalRespiration.GraphSettingsVerify)
                     {
@@ -704,7 +725,11 @@ namespace SHAProject.Workflows
 
                     //Need to work on Graph Property - Chart
 
-                    graphProperties.VerifyExpectedGraphUnits(WorkFlow6Data.SpareRespiratoryCapacity.ExpectedGraphUnits, WidgetTypes.SpareRespiratoryCapacity);
+                    graph.VerifyExpectedGraphUnits(WorkFlow6Data.SpareRespiratoryCapacity.ExpectedGraphUnits, WidgetTypes.SpareRespiratoryCapacity);
+
+                    graph.PanZoom(ChartType.Amchart);
+
+                    //graph.GraphTootipVerificationWithRadius();
 
                     if (WorkFlow6Data.SpareRespiratoryCapacity.GraphSettingsVerify)
                     {
@@ -778,7 +803,11 @@ namespace SHAProject.Workflows
 
                     //Need to work on Graph Property - Chart
 
-                    graphProperties.VerifyExpectedGraphUnits(WorkFlow6Data.NonmitoO2Consumption.ExpectedGraphUnits, WidgetTypes.NonMitoO2Consumption);
+                    graph.VerifyExpectedGraphUnits(WorkFlow6Data.NonmitoO2Consumption.ExpectedGraphUnits, WidgetTypes.NonMitoO2Consumption);
+
+                    graph.PanZoom(ChartType.Amchart);
+
+                    //graph.GraphTootipVerificationWithRadius();
 
                     if (WorkFlow6Data.NonmitoO2Consumption.GraphSettingsVerify)
                     {
@@ -852,7 +881,11 @@ namespace SHAProject.Workflows
 
                     //Need to work on Graph Property - Chart
 
-                    graphProperties.VerifyExpectedGraphUnits(WorkFlow6Data.ATPProductionCoupledRespiration.ExpectedGraphUnits, WidgetTypes.AtpProductionCoupledRespiration);
+                    graph.VerifyExpectedGraphUnits(WorkFlow6Data.ATPProductionCoupledRespiration.ExpectedGraphUnits, WidgetTypes.AtpProductionCoupledRespiration);
+
+                    graph.PanZoom(ChartType.Amchart);
+
+                    //graph.GraphTootipVerificationWithRadius();
 
                     if (WorkFlow6Data.ATPProductionCoupledRespiration.GraphSettingsVerify)
                     {
@@ -923,7 +956,11 @@ namespace SHAProject.Workflows
 
                     //Need to work on Graph Property - Chart
 
-                    graphProperties.VerifyExpectedGraphUnits(WorkFlow6Data.CouplingEfficiency.ExpectedGraphUnits, WidgetTypes.CouplingEfficiencyPercent);
+                    graph.VerifyExpectedGraphUnits(WorkFlow6Data.CouplingEfficiency.ExpectedGraphUnits, WidgetTypes.CouplingEfficiencyPercent);
+
+                    graph.PanZoom(ChartType.Amchart);
+
+                    //graph.GraphTootipVerificationWithRadius();
 
                     if (WorkFlow6Data.CouplingEfficiency.GraphSettingsVerify)
                     {
@@ -995,7 +1032,11 @@ namespace SHAProject.Workflows
 
                     //Need to work on Graph Proiperty - Chart
 
-                    graphProperties.VerifyExpectedGraphUnits(WorkFlow6Data.SpareRespiratoryCapacityPercentage.ExpectedGraphUnits, WidgetTypes.SpareRespiratoryCapacityPercent);
+                    graph.VerifyExpectedGraphUnits(WorkFlow6Data.SpareRespiratoryCapacityPercentage.ExpectedGraphUnits, WidgetTypes.SpareRespiratoryCapacityPercent);
+
+                    graph.PanZoom(ChartType.Amchart);
+
+                    //graph.GraphTootipVerificationWithRadius();
 
                     if (WorkFlow6Data.SpareRespiratoryCapacityPercentage.GraphSettingsVerify)
                     {

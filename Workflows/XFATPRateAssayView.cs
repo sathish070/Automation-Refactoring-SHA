@@ -35,6 +35,7 @@ namespace SHAProject.Workflows
     {
         public bool loginStatus;
         public Exports? exports;
+        public Graph? graph;
         public PlateMap? plateMap;
         public HomePage? homePage;
         public FilesPage? filesPage;
@@ -188,6 +189,7 @@ namespace SHAProject.Workflows
             normalization = new Normalization(currentPage, driver, loginClass.findElements, normalizationData, fileUploadOrExistingFileData, commonFunc);
             plateMap = new PlateMap(currentPage, driver, loginClass.findElements, commonFunc, fileUploadOrExistingFileData, fileUploadOrExistingFileData.FileType, normalizationData);
             createWidgets = new CreateWidgetFromAddView(currentPage, driver, loginClass.findElements, fileUploadOrExistingFileData, commonFunc);
+            graph =new Graph(currentPage, driver, loginClass.findElements, commonFunc);
 
         }
 
@@ -270,7 +272,11 @@ namespace SHAProject.Workflows
 
                 graphProperties.ErrorFormat(WorkFlow7Data.MitoATPProductionRate, WidgetCategories.XfAtp, WidgetTypes.MitoAtpProductionRate);
 
-                graphProperties.VerifyExpectedGraphUnits(WorkFlow7Data.MitoATPProductionRate.ExpectedGraphUnits, WidgetTypes.MitoAtpProductionRate);
+                graph.VerifyExpectedGraphUnits(WorkFlow7Data.MitoATPProductionRate.ExpectedGraphUnits, WidgetTypes.MitoAtpProductionRate);
+
+                graph.PanZoom(ChartType.CanvasJS);
+
+                //graph.GraphTootipVerificationWithRadius();
 
                 if (WorkFlow7Data.MitoATPProductionRate.GraphSettingsVerify)
                 {
@@ -343,7 +349,11 @@ namespace SHAProject.Workflows
 
                 graphProperties.ErrorFormat(WorkFlow7Data.GlycoATPProductionRate, WidgetCategories.XfAtp, WidgetTypes.GlycoAtpProductionRate);
 
-                graphProperties.VerifyExpectedGraphUnits(WorkFlow7Data.GlycoATPProductionRate.ExpectedGraphUnits, WidgetTypes.GlycoAtpProductionRate);
+                graph.VerifyExpectedGraphUnits(WorkFlow7Data.GlycoATPProductionRate.ExpectedGraphUnits, WidgetTypes.GlycoAtpProductionRate);
+
+                graph.PanZoom(ChartType.Amchart);
+
+                //graph.GraphTootipVerificationWithRadius();
 
                 if (WorkFlow7Data.GlycoATPProductionRate.GraphSettingsVerify)
                 {
@@ -416,7 +426,11 @@ namespace SHAProject.Workflows
 
                 graphProperties.ErrorFormat(WorkFlow7Data.ATPProductionRateData, WidgetCategories.XfAtp, WidgetTypes.AtpProductionRateData);
 
-                graphProperties.VerifyExpectedGraphUnits(WorkFlow7Data.ATPProductionRateData.ExpectedGraphUnits, WidgetTypes.AtpProductionRateData);
+                graph.VerifyExpectedGraphUnits(WorkFlow7Data.ATPProductionRateData.ExpectedGraphUnits, WidgetTypes.AtpProductionRateData);
+
+                graph.PanZoom(ChartType.Amchart);
+
+                //graph.GraphTootipVerificationWithRadius();
 
                 if (WorkFlow7Data.ATPProductionRateData.GraphSettingsVerify)
                 {
@@ -491,7 +505,11 @@ namespace SHAProject.Workflows
 
                 graphProperties.ErrorFormat(WorkFlow7Data.ATPProductionRate_Basal, WidgetCategories.XfAtp, WidgetTypes.AtpProductionRateBasal);
 
-                graphProperties.VerifyExpectedGraphUnits(WorkFlow7Data.ATPProductionRate_Basal.ExpectedGraphUnits, WidgetTypes.AtpProductionRateBasal);
+                graph.VerifyExpectedGraphUnits(WorkFlow7Data.ATPProductionRate_Basal.ExpectedGraphUnits, WidgetTypes.AtpProductionRateBasal);
+
+                graph.PanZoom(ChartType.Amchart);
+
+                //graph.GraphTootipVerificationWithRadius();
 
                 if (WorkFlow7Data.ATPProductionRate_Basal.GraphSettingsVerify)
                 {
@@ -568,7 +586,11 @@ namespace SHAProject.Workflows
 
                 graphProperties.ErrorFormat(WorkFlow7Data.ATPproductionRate_Induced, WidgetCategories.XfAtp, WidgetTypes.AtpProductionRateInduced);
 
-                graphProperties.VerifyExpectedGraphUnits(WorkFlow7Data.ATPproductionRate_Induced.ExpectedGraphUnits, WidgetTypes.AtpProductionRateInduced);
+                graph.VerifyExpectedGraphUnits(WorkFlow7Data.ATPproductionRate_Induced.ExpectedGraphUnits, WidgetTypes.AtpProductionRateInduced);
+
+                graph.PanZoom(ChartType.Amchart);
+
+                //graph.GraphTootipVerificationWithRadius();
 
                 if (WorkFlow7Data.ATPproductionRate_Induced.GraphSettingsVerify)
                 {
@@ -639,7 +661,11 @@ namespace SHAProject.Workflows
 
                 graphProperties.ErrorFormat(WorkFlow7Data.EnergeticMap_Basal, WidgetCategories.XfAtp, WidgetTypes.EnergeticMapBasal);
 
-                graphProperties.VerifyExpectedGraphUnits(WorkFlow7Data.EnergeticMap_Basal.ExpectedGraphUnits, WidgetTypes.EnergeticMapBasal);
+                graph.VerifyExpectedGraphUnits(WorkFlow7Data.EnergeticMap_Basal.ExpectedGraphUnits, WidgetTypes.EnergeticMapBasal);
+
+                graph.PanZoom(ChartType.Amchart);
+
+                //graph.GraphTootipVerificationWithRadius();
 
                 if (WorkFlow7Data.EnergeticMap_Basal.GraphSettingsVerify)
                 {
@@ -712,7 +738,11 @@ namespace SHAProject.Workflows
 
                 graphProperties.ErrorFormat(WorkFlow7Data.EnergeticMap_Induced, WidgetCategories.XfAtp, WidgetTypes.EnergeticMapInduced);
 
-                graphProperties.VerifyExpectedGraphUnits(WorkFlow7Data.EnergeticMap_Induced.ExpectedGraphUnits, WidgetTypes.EnergeticMapInduced);
+                graph.VerifyExpectedGraphUnits(WorkFlow7Data.EnergeticMap_Induced.ExpectedGraphUnits, WidgetTypes.EnergeticMapInduced);
+
+                graph.PanZoom(ChartType.Amchart);
+
+                //graph.GraphTootipVerificationWithRadius();
 
                 if (WorkFlow7Data.EnergeticMap_Induced.GraphSettingsVerify)
                 {
@@ -786,7 +816,11 @@ namespace SHAProject.Workflows
 
                 graphProperties.ErrorFormat(WorkFlow7Data.XFATPRateIndex, WidgetCategories.XfAtp, WidgetTypes.XfAtpRateIndex);
 
-                graphProperties.VerifyExpectedGraphUnits(WorkFlow7Data.XFATPRateIndex.ExpectedGraphUnits, WidgetTypes.XfAtpRateIndex);
+                graph.VerifyExpectedGraphUnits(WorkFlow7Data.XFATPRateIndex.ExpectedGraphUnits, WidgetTypes.XfAtpRateIndex);
+
+                graph.PanZoom(ChartType.Amchart);
+
+                //graph.GraphTootipVerificationWithRadius();
 
                 if (WorkFlow7Data.XFATPRateIndex.GraphSettingsVerify)
                 {
