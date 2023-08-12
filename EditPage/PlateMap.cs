@@ -202,6 +202,8 @@ namespace SHAProject.EditPage
 
                 foreach (IWebElement plateMapHeader in plateMapHead)
                 {
+                    _findElements.ScrollIntoView(plateMapHeader);
+
                     _findElements.ClickElementByJavaScript(plateMapHeader, _currentPage, $"Unselect the plate map header - {plateMapHeader.Text}");
 
                     _findElements.ClickElementByJavaScript(plateMapHeader, _currentPage, $"Select the plate map header - {plateMapHeader.Text}");
@@ -241,7 +243,10 @@ namespace SHAProject.EditPage
             try
             {
                 if (type == "WellSelectionMode")
+                {
+                    _findElements.ScrollIntoView(WellSelection);
                     _findElements.ClickElementByJavaScript(WellSelection, _currentPage, $"PlateMap -WellSelection");
+                }
                 else if (type == "FlagMode")
                     _findElements.ClickElementByJavaScript(FlagSelection, _currentPage, $"PlateMap - FlagSelection");
                 else if (type == "UnflagMode")

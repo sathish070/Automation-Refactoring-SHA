@@ -1,23 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Automation\\VsGit\\SHAProject.csproj": {}
+    "D:\\Divakar\\SathishGit\\SHAProject.csproj": {}
   },
   "projects": {
-    "D:\\Automation\\VsGit\\SHAProject.csproj": {
+    "D:\\Divakar\\SathishGit\\SHAProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Automation\\VsGit\\SHAProject.csproj",
+        "projectUniqueName": "D:\\Divakar\\SathishGit\\SHAProject.csproj",
         "projectName": "SHAProject",
-        "projectPath": "D:\\Automation\\VsGit\\SHAProject.csproj",
+        "projectPath": "D:\\Divakar\\SathishGit\\SHAProject.csproj",
         "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-        "outputPath": "D:\\Automation\\VsGit\\obj\\",
+        "outputPath": "D:\\Divakar\\SathishGit\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
           "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -132,7 +134,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
         }
       }
     }

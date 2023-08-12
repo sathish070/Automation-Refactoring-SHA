@@ -63,6 +63,12 @@ namespace SHAProject.EditPage
 
         #region CheckBox Fields Elements
 
+        [FindsBy(How = How.Id, Using = "yaxismax-settings")]
+        public IWebElement? YAxisMaxField;
+
+        [FindsBy(How = How.Id, Using = "yaxismin-settings")]
+        public IWebElement? YAxisMinField;
+
         [FindsBy(How = How.CssSelector, Using = "#graphSettings > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(6)")]
         public IWebElement? XAutoScaleField;
 
@@ -74,6 +80,12 @@ namespace SHAProject.EditPage
 
         [FindsBy(How = How.XPath, Using = "//label[@for='Yautoscale']")]
         public IWebElement? YAutoScaleCheckBox;
+
+        [FindsBy(How = How.Id, Using = "yaxisenergymax-settings")]
+        public IWebElement? EnergyYAxisMaxField;
+
+        [FindsBy(How = How.Id, Using = "yaxisenergymin-settings")]
+        public IWebElement? EnergyYAxisMinField;
 
         [FindsBy(How = How.CssSelector, Using = "//div[@id=\"yautoscaleenergy-settings\"]")]
         public IWebElement? YEnergyAutoScaleField;
@@ -187,16 +199,16 @@ namespace SHAProject.EditPage
         [FindsBy(How = How.CssSelector, Using = "#doseGraphSettings > div > div > div.modal-body > div.graph-setting-options.right > div:nth-child(10)")]
         public IWebElement? logarithmicScaleTag;
 
-        [FindsBy(How = How.CssSelector, Using = "div.row.g-set-form.yaxis.hidyaxis:first-of-type")]
+        [FindsBy(How = How.Id, Using = "Ymax")]
         public IWebElement? YMaxTextBox;
 
-        [FindsBy(How = How.CssSelector, Using = "div.row.g-set-form.yaxis.hidyaxis:nth-of-type(2)")]
+        [FindsBy(How = How.Id, Using = "Ymin")]
         public IWebElement? YMinTextBox;
 
-        [FindsBy(How = How.XPath, Using = "(//div[@class=\"graph-setting-options right\"])[1]/div[3]")]
+        [FindsBy(How = How.Id, Using = "Ymax-energy")]
         public IWebElement? EnergyMapYMaxTextBox;
 
-        [FindsBy(How = How.XPath, Using = "(//div[@class=\"graph-setting-options right\"])[1]/div[4]")]
+        [FindsBy(How = How.Id, Using = "Ymin-energy")]
         public IWebElement? EnergyMapYMinTextBox;
         #endregion
 
@@ -218,13 +230,18 @@ namespace SHAProject.EditPage
         public IWebElement? DataTableSettingtPopupWindowCloseIcon;
 
         [FindsBy(How = How.CssSelector, Using = ".ui-iggrid-header.ui-widget-header.ui-iggrid-multiheader-cell.ui-draggable.ui-iggrid-headercell-featureenabled")]
-        public IList<IWebElement> DataTableWidgetList { get; set; }
+        public IList<IWebElement?> DataTableWidgetList { get; set; }
 
         #endregion
 
+        public void GraphInitialize()
+        {
+            graph = new(_currentPage, _driver, _findElements, _commonFunc);
+        }
+
         public void VerifyGraphSettingsIcon()
         {
-            Graph graph = new Graph(_currentPage, _driver, _findElements, _commonFunc);
+            GraphInitialize();
 
             _findElements.ClickElementByJavaScript(GraphSettingIcon, _currentPage, $"Graph settings - Icon");
 
@@ -233,6 +250,8 @@ namespace SHAProject.EditPage
 
         public void VerifyDoseGraphSettingsIcon()
         {
+            GraphInitialize();
+
             _findElements.ClickElementByJavaScript(GraphSettingIcon, _currentPage, $"Dose Graph settings - Icon");
 
             _findElements.VerifyElement(DoseGraphSettingsDisplayPopup, _currentPage, $"Dose Graph Settings Popup");
@@ -240,6 +259,8 @@ namespace SHAProject.EditPage
 
         public void VerifyDoseKineticGraphSettingsIcon()
         {
+            GraphInitialize();
+
             _findElements.ClickElementByJavaScript(DosekineticGraphSettingIcon, _currentPage, $"Dose kinetic Graph settings - Icon");
 
             _findElements.VerifyElement(GraphSettingsDisplayPopup, _currentPage, $"Dose kinetic Graph Settings Popup");
@@ -249,7 +270,7 @@ namespace SHAProject.EditPage
 
         public void XAutoScale(WidgetItems widget)
         {
-            if (GraphSettingsDisplayPopup.Displayed)
+            if (!GraphSettingsDisplayPopup.Displayed)
                 VerifyGraphSettingsIcon();
 
             _findElements.ElementTextVerify(XAutoScaleField, "Auto Scale", _currentPage, "Graph Setting - X Auto Scale");
@@ -259,35 +280,9 @@ namespace SHAProject.EditPage
             GraphSettingsApply();
         }
 
-        public void YAutoScale(WidgetItems widget)
-        {
-            if (GraphSettingsDisplayPopup.Displayed)
-                VerifyGraphSettingsIcon();
-
-            _findElements.ElementTextVerify(YAutoScaleField, "Auto Scale", _currentPage, "Graph Setting - Y Auto Scale");
-
-            VerifySelectCheckBox(YAutoScaleField, YAutoScaleCheckBox, widget.GraphSettings.RemoveYAutoScale, "Y AutoScale");
-
-            GraphSettingsApply();
-
-            VerifyYaxisMaxAndMinValues();
-        }
-
-        public void YEnergyAutoScale(WidgetItems widget)
-        {
-            if (GraphSettingsDisplayPopup.Displayed)
-                VerifyGraphSettingsIcon();
-
-            _findElements.ElementTextVerify(YEnergyAutoScaleField, "Auto Scale", _currentPage, "Graph Setting - Y Auto Scale");
-
-            VerifySelectCheckBox(YEnergyAutoScaleField, YAutoScaleEnergyCheckBox, widget.GraphSettings.RemoveYAutoScale, "Y AutoScale");
-
-            GraphSettingsApply();
-        }
-
         public void ZeroLine(WidgetItems widget)
         {
-            if (GraphSettingsDisplayPopup.Displayed)
+            if (!GraphSettingsDisplayPopup.Displayed)
                 VerifyGraphSettingsIcon();
 
             _findElements.ElementTextVerify(ZeroLineField, "Zero Line", _currentPage, "Graph Setting - Zero Line");
@@ -299,7 +294,7 @@ namespace SHAProject.EditPage
 
         public void DataPointSymbols(WidgetItems widget)
         {
-            if (GraphSettingsDisplayPopup.Displayed)
+            if (!GraphSettingsDisplayPopup.Displayed)
                 VerifyGraphSettingsIcon();
 
             _findElements.ElementTextVerify(DataPointSymbolsField, "Data Point Symbols", _currentPage, "Graph Setting - Data Point Symbols");
@@ -311,7 +306,7 @@ namespace SHAProject.EditPage
 
         public void RateHighlight(WidgetItems widget)
         {
-            if (GraphSettingsDisplayPopup.Displayed)
+            if (!GraphSettingsDisplayPopup.Displayed)
                 VerifyGraphSettingsIcon();
 
             _findElements.ElementTextVerify(RateHighlightField, "Rate Highlight", _currentPage, "Graph Setting - Rate Highlight");
@@ -323,7 +318,7 @@ namespace SHAProject.EditPage
 
         public void InjectionMarkers(WidgetItems widget)
         {
-            if (GraphSettingsDisplayPopup.Displayed)
+            if (!GraphSettingsDisplayPopup.Displayed)
                 VerifyGraphSettingsIcon();
 
             _findElements.ElementTextVerify(InjectionMarkersField, "Injection Markers", _currentPage, "Graph Setting - Injection Markers");
@@ -335,7 +330,7 @@ namespace SHAProject.EditPage
 
         public void Zoom(WidgetItems widget)
         {
-            if (GraphSettingsDisplayPopup.Displayed)
+            if (!GraphSettingsDisplayPopup.Displayed)
                 VerifyGraphSettingsIcon();
 
             _findElements.ElementTextVerify(ZoomField, "Zoom", _currentPage, "Graph Setting - Zoom");
@@ -348,7 +343,7 @@ namespace SHAProject.EditPage
         // Dose graph settings
         public void DoseXAutoScale(WidgetItems widget)
         {
-            if (DoseGraphSettingsDisplayPopup.Displayed)
+            if (!DoseGraphSettingsDisplayPopup.Displayed)
                 VerifyDoseGraphSettingsIcon();
 
             _findElements.ElementTextVerify(DoseXAutoScaleField, "DoseX AutoScale", _currentPage, "Graph Setting - DoseX AutoScale");
@@ -360,7 +355,7 @@ namespace SHAProject.EditPage
 
         public void DoseYAutoScale(WidgetItems widget)
         {
-            if (DoseGraphSettingsDisplayPopup.Displayed)
+            if (!DoseGraphSettingsDisplayPopup.Displayed)
                 VerifyDoseGraphSettingsIcon();
 
             _findElements.ElementTextVerify(DoseYAutoScaleField, "DoseY AutoScale", _currentPage, "Graph Setting - DoseY AutoScale");
@@ -372,7 +367,7 @@ namespace SHAProject.EditPage
 
         public void DoseZeroLine(WidgetItems widget)
         {
-            if (DoseGraphSettingsDisplayPopup.Displayed)
+            if (!DoseGraphSettingsDisplayPopup.Displayed)
                 VerifyDoseGraphSettingsIcon();
 
             _findElements.ElementTextVerify(DoseZeroLineField, "Dose Zero Line", _currentPage, "Graph Setting - Dose Zero Line");
@@ -384,7 +379,7 @@ namespace SHAProject.EditPage
 
         public void DoseDataPointsSymbols(WidgetItems widget)
         {
-            if (DoseGraphSettingsDisplayPopup.Displayed)
+            if (!DoseGraphSettingsDisplayPopup.Displayed)
                 VerifyDoseGraphSettingsIcon();
 
             _findElements.ElementTextVerify(DoseDataPointSymbolsField, "Dose Data Point Symbols", _currentPage, "Graph Setting - Dose Data Point Symbols");
@@ -396,7 +391,7 @@ namespace SHAProject.EditPage
 
         public void DoseZoom(WidgetItems widget)
         {
-            if (DoseGraphSettingsDisplayPopup.Displayed)
+            if (!DoseGraphSettingsDisplayPopup.Displayed)
                 VerifyDoseGraphSettingsIcon();
 
             _findElements.ElementTextVerify(DoseZoomField, "Dose Zoom", _currentPage, "Graph Setting - Dose Zoom");
@@ -441,17 +436,20 @@ namespace SHAProject.EditPage
                 ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Expected {propertyName} is not verified. The error is {e.Message}");
             }
         }
-
         #endregion
 
         public void GraphSettingsApply()
         {
             _findElements.ClickElementByJavaScript(ApplyButton, _currentPage, $"Graph settings - Apply Button");
+
+            Thread.Sleep(2000);
         }
 
         public void DoseGraphSettingsApply()
         {
             _findElements.ClickElementByJavaScript(DoseApplyButton, _currentPage, $"Dose Graph settings - Apply Button");
+
+            Thread.Sleep(2000);
         }
 
         public void GraphSettingSyncToView()
@@ -493,49 +491,67 @@ namespace SHAProject.EditPage
             }
         }
 
-        public void VerifyYaxisMaxAndMinValues()
+        public void YAutoScale(WidgetItems widget)
         {
             try
             {
+                GraphInitialize();
+
                 Thread.Sleep(4000);
 
                  (double maxValue, double minValue, List<double> doubles)= graph.GraphYmaxYminVerification();
 
-                if (YMaxTextBox.Displayed)
-                {
-                    _findElements.VerifyElement(YMaxTextBox, _currentPage, "Graphsettings Default yAxis Maximum value Verified");
-                    _findElements.VerifyElement(YMinTextBox, _currentPage, "Graphsettings Default yAxis Minimum value Verified");
-                }
-                else
-                {
-                    _findElements.VerifyElement(EnergyMapYMaxTextBox, _currentPage, "Graphsettings entered value-Now Edited yAxis Maximum value Verified");
-                    _findElements.VerifyElement(EnergyMapYMinTextBox, _currentPage, "Graphsettings entered value-Now Edited yAxis Minimum value Verified");
-                }
-
-                IWebElement svgElement = YMaxTextBox.Displayed ? _driver.FindElement(By.Id("Yautoscale")) : _driver.FindElement(By.Id("Yautoscale-energy"));
-
-                _findElements.ClickElementByJavaScript(svgElement, _currentPage, $"Y axis - Check box" );
-                //jScript.ExecuteScript("arguments[0].click();", svgElement);
                 double graphAutoscaleIncValue = maxValue + (maxValue * 20 / 100);
                 double graphAutoscaleDecValue = minValue == 0 ? 1 : minValue + (minValue * 20 / 100);
-                if (YMaxTextBox.Displayed)
+
+                if (!GraphSettingsDisplayPopup.Displayed)
+                    VerifyGraphSettingsIcon();
+               
+                if (YAxisMaxField.Displayed)
                 {
-                    _findElements.SendKeys(graphAutoscaleIncValue.ToString(), YMaxTextBox, _currentPage, $"Given group name is {graphAutoscaleIncValue}");
-                    _findElements.SendKeys(graphAutoscaleDecValue.ToString(), YMinTextBox, _currentPage, $"Given group name is {graphAutoscaleDecValue}");
+                    _findElements.ElementTextVerify(YAxisMaxField, "Y Axis Max", _currentPage, $"Graph Setting - Y Axis Max");
+
+                    _findElements.ElementTextVerify(YAxisMinField, "Y Axis Min", _currentPage, $"Graph Setting - Y Axis Min");
+
+                    _findElements.ElementTextVerify(YAutoScaleField, "Auto Scale", _currentPage, $"Graph Setting - Y Auto Scale");
+
+                    _findElements.VerifyElement(YMaxTextBox, _currentPage, $"Default Y-Axis Max value in the graph settings");
+
+                    _findElements.VerifyElement(YMinTextBox, _currentPage, $"Default Y-Axis Min value in the graph settings");
+
+                    VerifySelectCheckBox(YAutoScaleField, YAutoScaleCheckBox, widget.GraphSettings.RemoveYAutoScale, $"Energy Map Y AutoScale");
+
+                    _findElements.SendKeys(graphAutoscaleIncValue.ToString(), YMaxTextBox, _currentPage, $"The Given Y-Axis Max Value is {graphAutoscaleIncValue}");
+
+                    _findElements.SendKeys(graphAutoscaleDecValue.ToString(), YMinTextBox, _currentPage, $"The Given Y-Axis Min Value is {graphAutoscaleDecValue}");
                 }
                 else
                 {
-                    _findElements.SendKeys(graphAutoscaleIncValue.ToString(), EnergyMapYMaxTextBox, _currentPage, $"Given group name is {graphAutoscaleIncValue}");
-                    _findElements.SendKeys(graphAutoscaleDecValue.ToString(), EnergyMapYMinTextBox, _currentPage, $"Given group name is {graphAutoscaleDecValue}");
+                    _findElements.ElementTextVerify(EnergyYAxisMaxField, "Y Axis Max", _currentPage, $"Graph Setting - Energy Map Y Axis Max");
+
+                    _findElements.ElementTextVerify(EnergyYAxisMinField, "Y Axis Min", _currentPage, $"Graph Setting - Energy Map Y Axis Min");
+
+                    _findElements.ElementTextVerify(YEnergyAutoScaleField, "Auto Scale", _currentPage, $"Graph Setting - Energy Y Auto Scale");
+
+                    _findElements.VerifyElement(EnergyMapYMaxTextBox, _currentPage, $"Default Energy Map Y-Axis Max value in the graph settings");
+
+                    _findElements.VerifyElement(EnergyMapYMinTextBox, _currentPage, $"Default Energy Map Y-Axis Min value in the graph settings");
+
+                    VerifySelectCheckBox(YEnergyAutoScaleField, YAutoScaleEnergyCheckBox, widget.GraphSettings.RemoveYAutoScale, $"Energy Map Y AutoScale");
+
+                    _findElements.SendKeys(graphAutoscaleIncValue.ToString(), EnergyMapYMaxTextBox, _currentPage, $"The Given Y-Axis Max Value is {graphAutoscaleIncValue}");
+
+                    _findElements.SendKeys(graphAutoscaleDecValue.ToString(), EnergyMapYMinTextBox, _currentPage, $"The Given Y-Axis Min Value is {graphAutoscaleDecValue}");
                 }
+
                 GraphSettingsApply();
 
                 Thread.Sleep(8000);
                 graph.GraphYmaxYminVerification();
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Unknown error: {ex.Message} occurred on the page.");
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Error Occurred while verifying the Y- Axis and Auto Scale in the graph settings. The error is {e.Message}");
             }
         }
     }

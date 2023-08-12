@@ -42,21 +42,37 @@ namespace SHAProject.EditPage
         [FindsBy(How = How.XPath, Using = "//div[@class=\"graph-ocr-msrmt col-lg-12\"]")]
         public IWebElement? GraphPropertyField;
 
-        [FindsBy(How = How.XPath, Using ="//div[@id='grapharea']/div[1]")]
-        public IWebElement? GraphAreaField;
+        [FindsBy(How = How.XPath, Using = "(//canvas[@class='canvasjs-chart-canvas'])[2]")]
+        public IWebElement? CanvasChart;
+
+        [FindsBy(How = How.XPath, Using = "//div[@class=\"barchart-area ui-resizable barwidget\"]")]
+        public IWebElement? AMchartChart;
+
+        [FindsBy(How = How.XPath, Using = "//td[@id='tbl1']")]
+        public IWebElement? Platemapwell;
 
         // Dropdown properties
+
+        [FindsBy(How = How.CssSelector, Using = ".graph-ms.select-measurement.hideprop p")]
+        public IWebElement? MeasurementText;
+
         [FindsBy(How = How.CssSelector, Using = ".graph-ms.select-measurement.hideprop")]
         public IWebElement? MeasurementField;
 
         [FindsBy(How = How.Id, Using = "ddl_measurement")]
         public IWebElement? MeasurementDropdown;
 
-        [FindsBy(How = How.CssSelector, Using = ".graph-ms.select-measurement.rate.hiderate")]
+        [FindsBy(How = How.XPath, Using = "(//div[@class=\"graph-ms select-measurement rate hiderate rate-property\"])/label")]
+        public IWebElement? RateText;
+
+        [FindsBy(How = How.XPath, Using = "(//div[@class=\"graph-ms select-measurement rate hiderate rate-property\"]")]
         public IWebElement? RateField;
 
         [FindsBy(How = How.Id, Using = "ddl_view")]
         public IWebElement? RateDropdown;
+
+        [FindsBy(How = How.CssSelector, Using = ".graph-ms.error-form.errorformat p")]
+        public IWebElement? ErrorFormatText;
 
         [FindsBy(How = How.CssSelector, Using = ".graph-ms.error-form.errorformat")]
         public IWebElement? ErrorFormatField;
@@ -64,11 +80,17 @@ namespace SHAProject.EditPage
         [FindsBy(How = How.Id, Using = "ddl_err")]
         public IWebElement? ErrorFormatDropdown;
 
-        [FindsBy(How = How.CssSelector, Using = "#baselineselection")]
+        [FindsBy(How = How.XPath, Using = "(//div[@id=\"baselineselection\"])/p")]
+        public IWebElement? BaselineText;
+
+        [FindsBy(How = How.CssSelector, Using = ".graph-ms select-baseline hideprop baselinedrp-property")]
         public IWebElement? BaselineField;
 
         [FindsBy(How = How.Id, Using = "ddl_baseline")]
         public IWebElement? BaselineDropdown;
+
+        [FindsBy(How = How.CssSelector, Using = ".sortby-property p")]
+        public IWebElement? SortByText;
 
         [FindsBy(How = How.CssSelector, Using = ".sortby-property")]
         public IWebElement? SortByField;
@@ -89,8 +111,12 @@ namespace SHAProject.EditPage
         public IWebElement? InducedDropdown;
 
         // Toggle button properties
+
         [FindsBy(How = How.CssSelector, Using = ".graph-ms.select-display.hideprop")]
         public IWebElement? DisplayField;
+
+        [FindsBy(How = How.CssSelector, Using = ".graph-ms.select-display.hideprop p")]
+        public IWebElement? DisplayText;
 
         [FindsBy(How = How.Id, Using = "dispaly")]
         public IWebElement? DisplayToggle;
@@ -100,6 +126,9 @@ namespace SHAProject.EditPage
 
         [FindsBy(How = How.XPath, Using = "//input[@name=\"rddisplay\"][@value=\"1\"]")]
         public IWebElement? DisplayWells;
+
+        [FindsBy(How = How.CssSelector, Using = ".graph-ms.select-y1.hideprop p")]
+        public IWebElement? YText;
 
         [FindsBy(How = How.CssSelector, Using = ".graph-ms.select-y1.hideprop")]
         public IWebElement? YField;
@@ -112,19 +141,6 @@ namespace SHAProject.EditPage
 
         [FindsBy(How = How.XPath, Using = "//input[@id=\"rddy1\"][@value=\"1\"]")]
         public IWebElement? YLevel;
-
-        // Toggle properties
-        [FindsBy(How = How.CssSelector, Using = ".graph-ms.select-normal.normalization-toggle")]
-        public IWebElement? NormalizationField;
-
-        [FindsBy(How = How.Id, Using = "chknormalize")]
-        public IWebElement? NormalizationToggle;
-
-        [FindsBy(How = How.CssSelector, Using =".graph-ms.bg-correction.hideprop")]
-        public IWebElement? BackgroundCorrectionField;
-
-        [FindsBy(How = How.Id, Using = "chkbackground")]
-        public IWebElement? BackgroundCorrectionToggle;
 
         [FindsBy(How = How.XPath, Using = "//div[@class='graph-ms select-display hideprop chartmode-property']")]
         public IWebElement? BoxPlotToggle;
@@ -144,27 +160,49 @@ namespace SHAProject.EditPage
         [FindsBy(How = How.XPath, Using = "//div[@class='toast-body-content']")]
         public IWebElement? BoxPlotTost;
 
+        // Toggle properties
+        [FindsBy(How = How.CssSelector, Using = ".graph-ms.select-normal.normalization-toggle p")]
+        public IWebElement? NormalizationText;
+
+        [FindsBy(How = How.CssSelector, Using = ".graph-ms.select-normal.normalization-toggle")]
+        public IWebElement? NormalizationField;
+
+        [FindsBy(How = How.Id, Using = "chknormalize")]
+        public IWebElement? NormalizationToggle;
+
+        [FindsBy(How = How.CssSelector, Using = ".graph-ms.bg-correction.hideprop p")]
+        public IWebElement? BackgroundCorrectionText;
+
+        [FindsBy(How = How.CssSelector, Using =".graph-ms.bg-correction.hideprop")]
+        public IWebElement? BackgroundCorrectionField;
+
+        [FindsBy(How = How.Id, Using = "chkbackground")]
+        public IWebElement? BackgroundCorrectionToggle;
+
         #endregion
 
         #region Dropdown properties
 
         public void Measurement(WidgetItems graphProperties)
         {
-            _findElements.ElementTextVerify(MeasurementField, "Measurement", _currentPage, "Graph Property - Measurement");
+            _findElements.ElementTextVerify(MeasurementText, "Measurement", _currentPage, $"Graph Property - Measurement");
 
             VerifySelectDropdown(MeasurementField, MeasurementDropdown, graphProperties.Measurement, "Measurement");
+
+            Graph graph = new(_currentPage, _driver, _findElements, _commonFunc);
+
         }
 
         public void Rate(WidgetItems graphProperties)
         {
-            _findElements.ElementTextVerify(RateField, "Rate", _currentPage, "Graph Property - Rate");
+            _findElements.ElementTextVerify(RateText, "Rate", _currentPage, "Graph Property - Rate");
 
             VerifySelectDropdown(RateField, RateDropdown, graphProperties.Rate, "Rate");
         }
 
         public void ErrorFormat(WidgetItems graphProperties, WidgetCategories wCat, WidgetTypes wType)
         {
-            _findElements.ElementTextVerify(ErrorFormatField, "Error Format", _currentPage, $"Graph Property - Error Format");
+            _findElements.ElementTextVerify(ErrorFormatText, "Error Format", _currentPage, $"Graph Property - Error Format");
 
             List<string> ErrorFormatOptions = null;
             //int widgetPosition = _commonFunc.GetWidgetPosition(wCat, wType);
@@ -179,14 +217,14 @@ namespace SHAProject.EditPage
 
         public void Baseline(WidgetItems graphProperties)
         {
-            _findElements.ElementTextVerify(BaselineField, "Baseline", _currentPage, $"Graph Property - Baseline");
+            _findElements.ElementTextVerify(BaselineText, "Baseline", _currentPage, $"Graph Property - Baseline");
 
             VerifySelectDropdown(BaselineField, BaselineDropdown, graphProperties.Baseline, "Baseline");
         }
 
         public void SortBy(WidgetItems graphProperties)
         {
-            _findElements.ElementTextVerify(SortByField, "Sort By", _currentPage, $"Graph Property - Sort By");
+            _findElements.ElementTextVerify(SortByText, "Sort By", _currentPage, $"Graph Property - Sort By");
 
             VerifySelectDropdown(SortByField, SortByDropdown, graphProperties.SortBy, "Sort By");
         }
@@ -255,23 +293,22 @@ namespace SHAProject.EditPage
                 ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Expected {propertyName} is not verified. The error is {e.Message}");
             }
         }
-
         #endregion
 
         #region Toggle button properties
 
         public void Display(WidgetItems graphProperties)
         {
-            _findElements.ElementTextVerify(DisplayField, "Display", _currentPage, "Graph Property - Display");
+            _findElements.ElementTextVerify(DisplayText, "Display", _currentPage, $"Graph Property - Display");
 
             VerifySelectToggleBtn(DisplayField, DisplayToggle, graphProperties.Display, "Display");
         }
 
         public void Y(WidgetItems graphProperties)
         {
-            _findElements.ElementTextVerify(YField, "Y", _currentPage, "Graph Property - Y");
+            _findElements.ElementTextVerify(YText, "Y", _currentPage, $"Graph Property - Y");
 
-            VerifySelectToggleBtn(YField, YToggle, graphProperties.Y, "Y");
+            VerifySelectToggleBtn(YField, YToggle, graphProperties.Y,  $"Y");
         }
 
         public void VerifySelectToggleBtn(IWebElement fieldElement, IWebElement toggleElement, string expectedText, string propertyName)
@@ -324,12 +361,12 @@ namespace SHAProject.EditPage
         #region Toggle properties
         public void Normalization(WidgetItems graphProperties)
         {
-            _findElements.ElementTextVerify(NormalizationField, "Normalization", _currentPage, "Graph Property - Normalization");
+            _findElements.ElementTextVerify(NormalizationText, "Normalization", _currentPage, $"Graph Property - Normalization");
 
             string Opacity = NormalizationToggle.GetCssValue("opacity");
             if (Opacity == "1")
             {
-                VerifySelectToggle(NormalizationField, NormalizationToggle, graphProperties.Normalization, "Normalization");
+                VerifySelectToggle(NormalizationField, NormalizationToggle, graphProperties.Normalization, $"Normalization");
             }
             else
             {
@@ -339,7 +376,7 @@ namespace SHAProject.EditPage
 
         public void BackgroundCorrection(WidgetItems graphProperties)
         {
-            _findElements.ElementTextVerify(BackgroundCorrectionField, "Background Correction", _currentPage, "GraphProperty - BackgroundCorrection");
+            _findElements.ElementTextVerify(BackgroundCorrectionText, "Background Correction", _currentPage, $"GraphProperty - BackgroundCorrection");
 
             VerifySelectToggle(BackgroundCorrectionField, BackgroundCorrectionToggle, graphProperties.BackgroundCorrection, "BackgroundCorrection");
         }
@@ -389,11 +426,6 @@ namespace SHAProject.EditPage
         public void GraphProperty()
         {
             _findElements.VerifyElement(GraphPropertyField, _currentPage, $"Edit Widget Page -Graph Property");
-        }
-
-        public void GraphArea()
-        {
-            _findElements.VerifyElement(GraphAreaField, _currentPage, $"Edit Widget Page -Graph Area");
         }
 
         public void Graphproperties()
@@ -611,8 +643,45 @@ namespace SHAProject.EditPage
 
             bool tooltipStatus = tooltip.Contains("This assay does not have at least one non-background group with 5 or more Wells");
 
-            ExtentReport.ExtentTest("ExtendTestNode", tooltipStatus ? Status.Pass : Status.Fail, tooltipStatus ? $"The Tooltip Contains the given Tooltip Text" : $"The Tooltip Doesnot Contains the given toolrip");
+            ExtentReport.ExtentTest("ExtendTestNode", tooltipStatus ? Status.Pass : Status.Fail, tooltipStatus ? $"The Tooltip Contains the given Tooltip Text" : $"The Tooltip does not Contains the given toolrip");
 
+        }
+
+        public void verifydroupdownandgraph(ChartType chart)
+        {
+            IWebElement? Chart = chart == ChartType.CanvasJS ? CanvasChart : AMchartChart;
+            Actions actions = new Actions(_driver);
+            actions.MoveToElement(MeasurementDropdown)
+                    .Click()
+                    .Build()
+                    .Perform();
+
+            MeasurementDropdown.SendKeys("2");
+
+            IJavaScriptExecutor jsExecutor = (IJavaScriptExecutor)_driver;
+            string script = "currentchartsrc.axisX[0].stripLines[0].options.color = '#FFFF00';";
+            jsExecutor.ExecuteScript(script);
+
+            // Execute JavaScript to trigger chart rendering
+            string renderScript = "currentchartsrc.render();";
+            jsExecutor.ExecuteScript(renderScript);
+
+            _findElements.SelectFromDropdown(MeasurementDropdown, _currentPage, "text", "5", "Measurement Dropdown");
+            actions.Release();
+
+            _findElements.VerifyElement(Chart, _currentPage, $"Graph with Changes");
+            Thread.Sleep(1000);
+            actions.MoveToElement(Platemapwell)
+                   .Build()
+                   .Perform();
+
+            IWebElement WellDataPopup = _driver.FindElement(By.XPath("(//div[@id='Groupdetail1']/div/div)[3]"));
+
+            _findElements.VerifyElement(WellDataPopup, _currentPage, $"Measurement Changes");
+
+            var text = WellDataPopup.Text.Split("Measurement")[1];
+            bool result = text.Contains("2");
+            ExtentReport.ExtentTest("ExtendTestNode", result ? Status.Pass : Status.Fail, result ? $"Measurement Changes has affected the Platemap and all over the Widget" : $"Measusement change Does not affect the Graph or platemap");
         }
     }
 }

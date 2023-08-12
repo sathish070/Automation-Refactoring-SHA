@@ -1,5 +1,6 @@
 ﻿using AventStack.ExtentReports;
 using OpenQA.Selenium;
+using SHAProject.EditPage;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -32,6 +33,10 @@ namespace SHAProject.Utilities
                     if (ImageName == "DataTable Header widgetName")
                     {
                         jScript.ExecuteScript("arguments[0].setAttribute('style', arguments[1]);", element, " border: 3px solid red; position: absolute;");
+                    }
+                    if (ImageName.Contains("Graph Y-Axis"))
+                    {
+                        jScript.ExecuteScript("arguments[0].setAttribute('style', arguments[1]);", element, " border: 3px solid red; stroke: red; stroke-width:3px;");
                     }
                     else
                     {

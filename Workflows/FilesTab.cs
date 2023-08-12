@@ -274,7 +274,6 @@ namespace SHAProject.Workflows
                 {
                     files = filesPage.FilesPageRedirect();
                     filesPage.fileUpload();
-
                 }
             }
             else
@@ -297,7 +296,6 @@ namespace SHAProject.Workflows
                 {
                     files = filesPage.FilesPageRedirect();
                     filesPage.folderFunctions();
-
                 }
             }
             else
@@ -320,7 +318,6 @@ namespace SHAProject.Workflows
                 {
                     files = filesPage.FilesPageRedirect();
                     filesPage.renameAnddelete();
-
                 }
             }
             else
@@ -343,7 +340,6 @@ namespace SHAProject.Workflows
                 {
                     files = filesPage.FilesPageRedirect();
                     filesPage.HeaderIconFunction();
-
                 }
             }
             else

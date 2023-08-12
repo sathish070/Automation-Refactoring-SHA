@@ -174,6 +174,8 @@ namespace SHAProject.Workflows
             }
 
             ObjectInitalized();
+
+            ExtentReport.CreateExtentTestNode("Create XF ATP Rate Assay View");
         }
 
         public void ObjectInitalized()
@@ -190,13 +192,11 @@ namespace SHAProject.Workflows
             plateMap = new PlateMap(currentPage, driver, loginClass.findElements, commonFunc, fileUploadOrExistingFileData, fileUploadOrExistingFileData.FileType, normalizationData);
             createWidgets = new CreateWidgetFromAddView(currentPage, driver, loginClass.findElements, fileUploadOrExistingFileData, commonFunc);
             graph =new Graph(currentPage, driver, loginClass.findElements, commonFunc);
-
         }
 
         [Test, Order(1)]
         public void CreateXFATPRateAssayView()
         {
-            ExtentReport.CreateExtentTestNode("Create XF ATP Rate Assay View");
             if (loginStatus)
             {
                 bool FileStatus = false;
@@ -221,6 +221,8 @@ namespace SHAProject.Workflows
         [Test, Order(2)]
         public void CreateXFATPRateAssayViewLayout()
         {
+            ExtentReport.CreateExtentTestNode("Create XF ATP Rate Assay View Layout");
+
             if (WorkFlow7Data.AnalysisLayoutVerification)
             {
                 string currentPath = commonFunc.GetCurrentPath();
@@ -230,8 +232,6 @@ namespace SHAProject.Workflows
 
                 if (!currentPath.Contains("Analysis"))
                     CreateXFATPRateAssayView();
-
-                ExtentReport.CreateExtentTestNode("CreateXFATPRateAssayViewLayout");
 
                 if (RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
                     commonFunc.HandleCurrentWindow();
@@ -247,6 +247,9 @@ namespace SHAProject.Workflows
         [Test, Order(3)]
         public void MitoAtpProductionRatewidget()
         {
+
+            ExtentReport.CreateExtentTestNode("Mito ATP Production Rate Widget");
+
             string currentPath = commonFunc.GetCurrentPath();
 
             if (currentPath.Contains("Widget/Edit"))
@@ -254,8 +257,6 @@ namespace SHAProject.Workflows
 
             if (!currentPath.Contains("Analysis"))
                 CreateXFATPRateAssayView();
-
-            ExtentReport.CreateExtentTestNode("MitoATPProductionRateWidget");
 
             bool hasEditWidgetPageGone = analysisPage.GoToEditWidget(WidgetCategories.XfAtp, WidgetTypes.MitoAtpProductionRate);
             if (hasEditWidgetPageGone)
@@ -267,8 +268,7 @@ namespace SHAProject.Workflows
 
                 graphProperties.Induced(WorkFlow7Data.MitoATPProductionRate);
 
-                if (fileUploadOrExistingFileData.IsNormalized)
-                    graphProperties.Normalization(WorkFlow7Data.MitoATPProductionRate);
+                graphProperties.Normalization(WorkFlow7Data.MitoATPProductionRate);
 
                 graphProperties.ErrorFormat(WorkFlow7Data.MitoATPProductionRate, WidgetCategories.XfAtp, WidgetTypes.MitoAtpProductionRate);
 
@@ -280,15 +280,11 @@ namespace SHAProject.Workflows
 
                 if (WorkFlow7Data.MitoATPProductionRate.GraphSettingsVerify)
                 {
-                    graphSettings.VerifyGraphSettingsIcon();
-
                     graphSettings.YAutoScale(WorkFlow7Data.MitoATPProductionRate);
 
                     graphSettings.ZeroLine(WorkFlow7Data.MitoATPProductionRate);
 
                     graphSettings.Zoom(WorkFlow7Data.MitoATPProductionRate);
-
-                    graphSettings.GraphSettingsApply();
                 }
 
                 plateMap.PlateMapIcons();
@@ -325,6 +321,9 @@ namespace SHAProject.Workflows
         [Test, Order(4)]
         public void GlycoAtpProductionRatewidget()
         {
+
+            ExtentReport.CreateExtentTestNode("Glyco ATP Production Rate");
+
             string currentPath = commonFunc.GetCurrentPath();
 
             if (currentPath.Contains("Widget/Edit"))
@@ -333,8 +332,6 @@ namespace SHAProject.Workflows
             if (!currentPath.Contains("Analysis"))
                 CreateXFATPRateAssayView();
 
-            ExtentReport.CreateExtentTestNode("Glyco ATP Production Rate");
-
             bool hasEditWidgetPageGone = analysisPage.GoToEditWidget(WidgetCategories.XfAtp, WidgetTypes.GlycoAtpProductionRate);
             if (hasEditWidgetPageGone)
             {
@@ -342,10 +339,10 @@ namespace SHAProject.Workflows
                 widgetName = widgetType.ToString();
 
                 graphProperties.Oligo(WorkFlow7Data.GlycoATPProductionRate);
+
                 graphProperties.Induced(WorkFlow7Data.GlycoATPProductionRate);
 
-                if (fileUploadOrExistingFileData.IsNormalized)
-                    graphProperties.Normalization(WorkFlow7Data.GlycoATPProductionRate);
+                graphProperties.Normalization(WorkFlow7Data.GlycoATPProductionRate);
 
                 graphProperties.ErrorFormat(WorkFlow7Data.GlycoATPProductionRate, WidgetCategories.XfAtp, WidgetTypes.GlycoAtpProductionRate);
 
@@ -357,15 +354,11 @@ namespace SHAProject.Workflows
 
                 if (WorkFlow7Data.GlycoATPProductionRate.GraphSettingsVerify)
                 {
-                    graphSettings.VerifyGraphSettingsIcon();
-
                     graphSettings.YAutoScale(WorkFlow7Data.GlycoATPProductionRate);
 
                     graphSettings.ZeroLine(WorkFlow7Data.MitoATPProductionRate);
 
                     graphSettings.Zoom(WorkFlow7Data.GlycoATPProductionRate);
-
-                    graphSettings.GraphSettingsApply();
                 }
 
                 plateMap.PlateMapIcons();
@@ -401,6 +394,8 @@ namespace SHAProject.Workflows
         [Test, Order(5)]
         public void ATPProductionRateDataWidget()
         {
+            ExtentReport.CreateExtentTestNode("ATP Production Rate Data");
+
             string currentPath = commonFunc.GetCurrentPath();
 
             if (currentPath.Contains("Widget/Edit"))
@@ -408,8 +403,6 @@ namespace SHAProject.Workflows
 
             if (!currentPath.Contains("Analysis"))
                 CreateXFATPRateAssayView();
-
-            ExtentReport.CreateExtentTestNode("ATP Production Rate Data");
 
             bool hasEditWidgetPageGone = analysisPage.GoToEditWidget(WidgetCategories.XfAtp, WidgetTypes.AtpProductionRateData);
             if (hasEditWidgetPageGone)
@@ -434,15 +427,11 @@ namespace SHAProject.Workflows
 
                 if (WorkFlow7Data.ATPProductionRateData.GraphSettingsVerify)
                 {
-                    graphSettings.VerifyGraphSettingsIcon();
-
                     graphSettings.YAutoScale(WorkFlow7Data.ATPProductionRateData);
 
                     graphSettings.ZeroLine(WorkFlow7Data.ATPProductionRateData);
 
                     graphSettings.Zoom(WorkFlow7Data.ATPProductionRateData);
-
-                    graphSettings.GraphSettingsApply();
                 }
 
                 plateMap.PlateMapIcons();
@@ -478,6 +467,8 @@ namespace SHAProject.Workflows
         [Test, Order(6)]
         public void ATPProductionRateBasalWidget()
         {
+            ExtentReport.CreateExtentTestNode("ATP Production Rate - Basal");
+
             string currentPath = commonFunc.GetCurrentPath();
 
             if (currentPath.Contains("Widget/Edit"))
@@ -485,8 +476,6 @@ namespace SHAProject.Workflows
 
             if (!currentPath.Contains("Analysis"))
                 CreateXFATPRateAssayView();
-
-            ExtentReport.CreateExtentTestNode("ATP Production Rate - Basal");
 
             bool hasEditWidgetPageGone = analysisPage.GoToEditWidget(WidgetCategories.XfAtp, WidgetTypes.AtpProductionRateBasal);
             if (hasEditWidgetPageGone)
@@ -500,8 +489,7 @@ namespace SHAProject.Workflows
 
                 graphProperties.Display(WorkFlow7Data.ATPProductionRate_Basal);
 
-                if (fileUploadOrExistingFileData.IsNormalized)
-                    graphProperties.Normalization(WorkFlow7Data.ATPProductionRate_Basal);
+                graphProperties.Normalization(WorkFlow7Data.ATPProductionRate_Basal);
 
                 graphProperties.ErrorFormat(WorkFlow7Data.ATPProductionRate_Basal, WidgetCategories.XfAtp, WidgetTypes.AtpProductionRateBasal);
 
@@ -513,15 +501,11 @@ namespace SHAProject.Workflows
 
                 if (WorkFlow7Data.ATPProductionRate_Basal.GraphSettingsVerify)
                 {
-                    graphSettings.VerifyGraphSettingsIcon();
-
                     graphSettings.YAutoScale(WorkFlow7Data.ATPProductionRate_Basal);
 
                     graphSettings.ZeroLine(WorkFlow7Data.ATPProductionRate_Basal);
 
                     graphSettings.Zoom(WorkFlow7Data.ATPProductionRate_Basal);
-
-                    graphSettings.GraphSettingsApply();
                 }
 
                 plateMap.PlateMapIcons();
@@ -559,6 +543,8 @@ namespace SHAProject.Workflows
         [Test, Order(7)]
         public void ATPProductionRateInducedWidget()
         {
+            ExtentReport.CreateExtentTestNode("ATP Production Rate - Induced");
+
             string currentPath = commonFunc.GetCurrentPath();
 
             if (currentPath.Contains("Widget/Edit"))
@@ -566,8 +552,6 @@ namespace SHAProject.Workflows
 
             if (!currentPath.Contains("Analysis"))
                 CreateXFATPRateAssayView();
-
-            ExtentReport.CreateExtentTestNode("ATP Production Rate - Induced");
 
             bool hasEditWidgetPageGone = analysisPage.GoToEditWidget(WidgetCategories.XfAtp, WidgetTypes.AtpProductionRateInduced);
             if (hasEditWidgetPageGone)
@@ -581,8 +565,7 @@ namespace SHAProject.Workflows
 
                 graphProperties.Display(WorkFlow7Data.ATPproductionRate_Induced);
 
-                if (fileUploadOrExistingFileData.IsNormalized)
-                    graphProperties.Normalization(WorkFlow7Data.ATPproductionRate_Induced);
+                graphProperties.Normalization(WorkFlow7Data.ATPproductionRate_Induced);
 
                 graphProperties.ErrorFormat(WorkFlow7Data.ATPproductionRate_Induced, WidgetCategories.XfAtp, WidgetTypes.AtpProductionRateInduced);
 
@@ -594,15 +577,11 @@ namespace SHAProject.Workflows
 
                 if (WorkFlow7Data.ATPproductionRate_Induced.GraphSettingsVerify)
                 {
-                    graphSettings.VerifyGraphSettingsIcon();
-
                     graphSettings.YAutoScale(WorkFlow7Data.ATPproductionRate_Induced);
 
                     graphSettings.ZeroLine(WorkFlow7Data.ATPproductionRate_Induced);
 
                     graphSettings.Zoom(WorkFlow7Data.ATPproductionRate_Induced);
-
-                    graphSettings.GraphSettingsApply();
                 }
 
                 plateMap.PlateMapIcons();
@@ -636,6 +615,8 @@ namespace SHAProject.Workflows
         [Test, Order(8)]
         public void EnergeticMapBasalWidget()
         {
+            ExtentReport.CreateExtentTestNode("EnergeticMap - Basal");
+
             string currentPath = commonFunc.GetCurrentPath();
 
             if (currentPath.Contains("Widget/Edit"))
@@ -643,8 +624,6 @@ namespace SHAProject.Workflows
 
             if (!currentPath.Contains("Analysis"))
                 CreateXFATPRateAssayView();
-
-            ExtentReport.CreateExtentTestNode("EnergeticMap - Basal");
 
             bool hasEditWidgetPageGone = analysisPage.GoToEditWidget(WidgetCategories.XfAtp, WidgetTypes.EnergeticMapBasal);
             if (hasEditWidgetPageGone)
@@ -656,8 +635,7 @@ namespace SHAProject.Workflows
 
                 graphProperties.Induced(WorkFlow7Data.EnergeticMap_Basal);
 
-                if (fileUploadOrExistingFileData.IsNormalized)
-                    graphProperties.Normalization(WorkFlow7Data.EnergeticMap_Basal);
+                graphProperties.Normalization(WorkFlow7Data.EnergeticMap_Basal);
 
                 graphProperties.ErrorFormat(WorkFlow7Data.EnergeticMap_Basal, WidgetCategories.XfAtp, WidgetTypes.EnergeticMapBasal);
 
@@ -669,15 +647,11 @@ namespace SHAProject.Workflows
 
                 if (WorkFlow7Data.EnergeticMap_Basal.GraphSettingsVerify)
                 {
-                    graphSettings.VerifyGraphSettingsIcon();
-
                     graphSettings.YAutoScale(WorkFlow7Data.EnergeticMap_Basal);
 
                     graphSettings.ZeroLine(WorkFlow7Data.EnergeticMap_Basal);
 
                     graphSettings.Zoom(WorkFlow7Data.EnergeticMap_Basal);
-
-                    graphSettings.GraphSettingsApply();
                 }
 
                 plateMap.PlateMapIcons();
@@ -713,6 +687,8 @@ namespace SHAProject.Workflows
         [Test, Order(9)]
         public void EnergeticMapInducedWidget()
         {
+            ExtentReport.CreateExtentTestNode("EnergeticMap - Induced");
+
             string currentPath = commonFunc.GetCurrentPath();
 
             if (currentPath.Contains("Widget/Edit"))
@@ -720,8 +696,6 @@ namespace SHAProject.Workflows
 
             if (!currentPath.Contains("Analysis"))
                 CreateXFATPRateAssayView();
-
-            ExtentReport.CreateExtentTestNode("EnergeticMap - Induced");
 
             bool hasEditWidgetPageGone = analysisPage.GoToEditWidget(WidgetCategories.XfAtp, WidgetTypes.EnergeticMapInduced);
             if (hasEditWidgetPageGone)
@@ -733,8 +707,7 @@ namespace SHAProject.Workflows
 
                 graphProperties.Induced(WorkFlow7Data.EnergeticMap_Induced);
 
-                if (fileUploadOrExistingFileData.IsNormalized)
-                    graphProperties.Normalization(WorkFlow7Data.EnergeticMap_Induced);
+                graphProperties.Normalization(WorkFlow7Data.EnergeticMap_Induced);
 
                 graphProperties.ErrorFormat(WorkFlow7Data.EnergeticMap_Induced, WidgetCategories.XfAtp, WidgetTypes.EnergeticMapInduced);
 
@@ -746,15 +719,11 @@ namespace SHAProject.Workflows
 
                 if (WorkFlow7Data.EnergeticMap_Induced.GraphSettingsVerify)
                 {
-                    graphSettings.VerifyGraphSettingsIcon();
-
                     graphSettings.YAutoScale(WorkFlow7Data.EnergeticMap_Induced);
 
                     graphSettings.ZeroLine(WorkFlow7Data.EnergeticMap_Induced);
 
                     graphSettings.Zoom(WorkFlow7Data.EnergeticMap_Induced);
-
-                    graphSettings.GraphSettingsApply();
                 }
 
                 plateMap.PlateMapIcons();
@@ -790,6 +759,7 @@ namespace SHAProject.Workflows
         [Test, Order(10)]
         public void ATPRateIndexWidget()
         {
+            ExtentReport.CreateExtentTestNode("ATP Rate Index Widget");
 
             string currentPath = commonFunc.GetCurrentPath();
 
@@ -798,8 +768,6 @@ namespace SHAProject.Workflows
 
             if (!currentPath.Contains("Analysis"))
                 CreateXFATPRateAssayView();
-
-            ExtentReport.CreateExtentTestNode("Workflow-7: ATPRateIndexWidget");
 
             bool hasEditWidgetPageGone = analysisPage.GoToEditWidget(WidgetCategories.XfAtp, WidgetTypes.XfAtpRateIndex);
             if (hasEditWidgetPageGone)
@@ -811,8 +779,7 @@ namespace SHAProject.Workflows
 
                 graphProperties.Induced(WorkFlow7Data.XFATPRateIndex);
 
-                if (fileUploadOrExistingFileData.IsNormalized)
-                    graphProperties.Normalization(WorkFlow7Data.XFATPRateIndex);
+                graphProperties.Normalization(WorkFlow7Data.XFATPRateIndex);
 
                 graphProperties.ErrorFormat(WorkFlow7Data.XFATPRateIndex, WidgetCategories.XfAtp, WidgetTypes.XfAtpRateIndex);
 
@@ -824,15 +791,11 @@ namespace SHAProject.Workflows
 
                 if (WorkFlow7Data.XFATPRateIndex.GraphSettingsVerify)
                 {
-                    graphSettings.VerifyGraphSettingsIcon();
-
                     graphSettings.YAutoScale(WorkFlow7Data.MitoATPProductionRate);
 
                     graphSettings.ZeroLine(WorkFlow7Data.MitoATPProductionRate);
 
                     graphSettings.Zoom(WorkFlow7Data.MitoATPProductionRate);
-
-                    graphSettings.GraphSettingsApply();
                 }
 
                 plateMap.PlateMapIcons();
@@ -869,6 +832,8 @@ namespace SHAProject.Workflows
         //[Test, Order(11)]
         //public void DataTableWidget()
         //{
+        //    ExtentReport.CreateExtentTestNode("Data Table");
+
         //    string currentPath = commonFunc.GetCurrentPath();
 
         //    if (currentPath.Contains("Widget/Edit"))
@@ -876,8 +841,6 @@ namespace SHAProject.Workflows
 
         //    if (!currentPath.Contains("Analysis"))
         //        CreateXFATPRateAssayView();
-
-        //    ExtentReport.CreateExtentTestNode("DataTable");
 
         //    bool hasEditWidgetPageGone = analysisPage.GoToEditWidget(WidgetCategories.XfAtp, WidgetTypes.DataTable);
         //    if (hasEditWidgetPageGone)
