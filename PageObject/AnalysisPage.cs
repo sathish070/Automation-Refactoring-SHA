@@ -404,7 +404,6 @@ namespace SHAProject.Create_Widgets
                 else if (widgetType == WidgetTypes.DataTable)
                 {
                     widgetDiv = _driver.FindElement(By.XPath("//*[@id='averagecalculation1']/div[1]/div[1]/a/img"));
-
                 }
                 else
                 {
@@ -463,8 +462,6 @@ namespace SHAProject.Create_Widgets
             {
                 ExtentReport.ExtentTest("ExtendTestNode", Status.Fail, $"Error Occured While performing Drag and Drop Functionality with the Message: "+ex.Message);
             }
-
-
         }
     }
 }

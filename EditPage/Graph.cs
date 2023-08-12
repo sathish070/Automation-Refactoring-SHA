@@ -1,4 +1,8 @@
-﻿using AventStack.ExtentReports;
+﻿using AngleSharp.Io;
+using Aspose.Svg.Drawing;
+using Aspose.Svg.Net;
+using AventStack.ExtentReports;
+using AventStack.ExtentReports.Gherkin.Model;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using SeleniumExtras.PageObjects;
@@ -7,6 +11,7 @@ using SHAProject.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -37,19 +42,37 @@ namespace SHAProject.EditPage
         [FindsBy(How = How.XPath, Using = "(//canvas[@class='canvasjs-chart-canvas'])[2]")]
         public IWebElement? CanvasChart;
 
-        [FindsBy(How = How.XPath, Using = "//button[@title='Switch to Pan']")]
+        //[FindsBy(How = How.XPath, Using = "//button[@title='Switch to Pan']")]
+        //public IWebElement? PanIcon;
+
+        [FindsBy(How = How.XPath, Using = "//button[@class=\"zoom-btn\"]")]
         public IWebElement? PanIcon;
 
-        [FindsBy(How = How.XPath, Using = "//button[@title='Switch to Zoom']")]
+        [FindsBy(How = How.XPath, Using = "//button[@class=\"reset-btn\"]")]
         public IWebElement? ZoomIcon;
+
+        //[FindsBy(How = How.XPath, Using = "//button[@title='Switch to Zoom']")]
+        //public IWebElement? ZoomIcon;
 
         [FindsBy(How = How.XPath, Using = "//button[@title='Reset']")]
         public IWebElement? ResetIcon;
 
-        [FindsBy(How = How.Id, Using = "divwidget1")]
+        //[FindsBy(How = How.Id, Using = "divwidget1")]
+        //public IWebElement? AMchartChart;
+
+        [FindsBy(How = How.XPath, Using = "//div[@class=\"barchart-area ui-resizable barwidget\"]")]
         public IWebElement? AMchartChart;
 
         #endregion
+
+
+        [FindsBy(How = How.XPath, Using = "//div[@id='grapharea']/div[1]")]
+        public IWebElement? GraphAreaField;
+
+        public void GraphArea()
+        {
+            _findElements.VerifyElement(GraphAreaField, _currentPage, $"Edit Widget Page -Graph Area");
+        }
 
         public void PanZoom(ChartType Chart)
         {
@@ -68,7 +91,7 @@ namespace SHAProject.EditPage
                   .Build()
                   .Perform();
 
-            _findElements.ClickElementByJavaScript(PanIcon, _currentPage, $"Pan Icon functionality");
+            _findElements.ClickElementByJavaScript(PanIcon, _currentPage, $"Pan Icon");
 
             actions.MoveToElement(element)
                   .ClickAndHold()
@@ -108,18 +131,19 @@ namespace SHAProject.EditPage
             }
         }
 
-        public void GraphTootipVerificationWithRadius()
+        public void AmChartToolTip()
         {
             try
             {
                 string path = "(//*[@r='2' or @r='3' or @r='5' or @r='6'])";
-                IList<IWebElement> elements = _driver.FindElements(By.XPath(path));
+                IList<IWebElement> toolTips = _driver.FindElements(By.XPath(path));
 
-                foreach (IWebElement element in elements.Take(5))
+                foreach (IWebElement toolTip in toolTips.Take(5))
                 {
-                    _findElements.ActionsClass(element);
+                    _findElements.ActionsClass(toolTip);
                     Thread.Sleep(1000);
-                    _findElements.VerifyElement(element, _currentPage, "Tootip graph");
+                    string tooltipId = toolTip.GetAttribute("id");
+                    _findElements.VerifyElement(toolTip, _currentPage, $"Tooltip graph {tooltipId}");
                 }
             }
             catch (Exception e)
@@ -150,13 +174,28 @@ namespace SHAProject.EditPage
             }
         }
 
+        public void CanvasChartTooltip()
+        {
+            Thread.Sleep(5000);
+
+            Actions actions = new Actions(_driver);
+
+            actions.MoveToElement(CanvasChart).MoveByOffset(0, 0).Build().Perform();
+
+            IWebElement tooltip = _driver.FindElement(By.XPath("//div[@class=\"canvasjs-chart-tooltip\"]/div"));
+
+            string tooltipValue = tooltip.Text;
+
+            ScreenShot.ScreenshotNow(_driver, _currentPage, $"Canvas Chart tooltip value - {tooltipValue}", ScreenshotType.Error, tooltip);
+        }
+
         public (double maxValue, double minValue, List<double> doubles) GraphYmaxYminVerification()
         {
+            double maxValue = 0.0;
+            double minValue = 0.0;
+
             try
             {
-                double maxValue = 0.0; // Initialize with appropriate default value
-                double minValue = 0.0; // Initialize with appropriate default value
-
                 IList<IWebElement> nextSiblings = GetNextSiblings("[transform='translate(16,0)'] g");
                 List<double> doubles = GetTspanTextValues(nextSiblings);
 
@@ -168,32 +207,29 @@ namespace SHAProject.EditPage
                     Thread.Sleep(1000);
                     if (item.Displayed)
                     {
-                        //_findElements.WaitForElementVisible(item);
-
                         if (!string.IsNullOrEmpty(item.Text))
                         {
                             if (double.TryParse(item.Text, out double itemValue))
                             {
                                 if (itemValue == maxValue)
-                                    //jScript?.ExecuteScript("arguments[0].scrollIntoView({ behavior: 'smooth', block: 'start' });", item);
-                                    //_findElements.VerifyGraphElement(item, _currentPage, $"Graph yAxis Maximum value: {maxValue}", true);
-                                    _findElements.VerifyElement(item, _currentPage, $"Graph yAxis Maximum value: {maxValue}");
+                                {
+                                    _findElements.ScrollIntoView(item);
+                                    _findElements.VerifyElement(item, _currentPage, $"Graph Y-Axis Maximum value: {maxValue}");
+                                }
 
                                 if (itemValue == minValue)
-                                    // _findElements.ScrollIntoView(item);
-
-                                    //jScript?.ExecuteScript("arguments[0].scrollIntoView({ behavior: 'smooth', block: 'center' });", item);
-
-                                    //_findElements.VerifyGraphElement(item, _currentPage, $"Graph yAxis Minimum value: {minValue}", true);
-                                _findElements.VerifyElement(item, _currentPage, "Graph yAxis Minimum value: {minValue}");
+                                {
+                                    _findElements.ScrollIntoView(item);
+                                    _findElements.VerifyElement(item, _currentPage, "Graph Y-Axis Minimum value: {minValue}");
+                                }
                             }
                         }
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Unknown error: {ex.Message} occurred on the page.");
+                ExtentReport.ExtentTest("ExtentTestNode", Status.Fail, $"Error Occurred while verifying the graph maximum and minimum value. The error is {e.Message}");
             }
             return (maxValue, minValue, doubles);
         }

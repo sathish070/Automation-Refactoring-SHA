@@ -164,6 +164,8 @@ namespace SHAProject.Workflows
             }   
 
             ObjectInitalized();
+
+            ExtentReport.CreateExtentTestNode("CreateQuickView");
         }
 
         public void ObjectInitalized()
@@ -180,13 +182,12 @@ namespace SHAProject.Workflows
             createWidgets = new CreateWidgetFromAddView(currentPage, driver, loginClass.findElements, fileUploadOrExistingFileData, commonFunc);
             normalization = new Normalization(currentPage, driver, loginClass.findElements, normalizationData, fileUploadOrExistingFileData, commonFunc);
             plateMap = new PlateMap(currentPage, driver, loginClass.findElements, commonFunc, fileUploadOrExistingFileData, fileUploadOrExistingFileData.FileType, normalizationData);
+            graph = new Graph(currentPage, driver, loginClass.findElements, commonFunc);
         }
 
         [Test, Order(1)]
         public void CreateQuickView()
         {
-            ExtentReport.CreateExtentTestNode("CreateQuickView");
-
             if (loginStatus)
             {
                 bool FileStatus = false;
@@ -213,6 +214,8 @@ namespace SHAProject.Workflows
         [Test, Order(2)]
         public void CheckQuickViewLayout()
         {
+            ExtentReport.CreateExtentTestNode("CreateQuickViewLayout");
+
             if (WorkFlow5Data.AnalysisLayoutVerification)
             {
                 string currentPath = commonFunc.GetCurrentPath();
@@ -222,8 +225,6 @@ namespace SHAProject.Workflows
 
                 if (!currentPath.Contains("Analysis"))
                     CreateQuickView();
-
-                ExtentReport.CreateExtentTestNode("CreateQuickViewLayout");
 
                 analysisPage.AnalysisPageHeaderIcons();
 
@@ -236,6 +237,8 @@ namespace SHAProject.Workflows
         [Test, Order(4)]
         public void CheckAnalysisPageFunctionality()
         {
+            ExtentReport.CreateExtentTestNode("Check Analysis Page Functionality");
+
             string currentPath = commonFunc.GetCurrentPath();
 
             if (currentPath.Contains("Widget/Edit"))
@@ -243,8 +246,6 @@ namespace SHAProject.Workflows
 
             if (!currentPath.Contains("Analysis"))
                 CreateQuickView();
-
-            ExtentReport.CreateExtentTestNode("Check Analysis Page Functionality");
 
             Thread.Sleep(3000);
             if (RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
@@ -264,6 +265,8 @@ namespace SHAProject.Workflows
         [Test, Order(5)]
         public void NormalizationConcept()
         {
+            ExtentReport.CreateExtentTestNode("Normalization Concept");
+
             if (WorkFlow5Data.NormalizationVerification)
             {
                 string currentPath = commonFunc.GetCurrentPath();
@@ -273,8 +276,6 @@ namespace SHAProject.Workflows
 
                 if (!currentPath.Contains("Analysis"))
                     CreateQuickView();
-
-                ExtentReport.CreateExtentTestNode("Normalization Concept");
 
                 Thread.Sleep(3000);
 
@@ -302,6 +303,8 @@ namespace SHAProject.Workflows
         [Test, Order(6)]
         public void ModifyAssay()
         {
+            ExtentReport.CreateExtentTestNode("Modify Assay");
+
             if (WorkFlow5Data.ModifyAssay)
             {
                 string currentPath = commonFunc.GetCurrentPath();
@@ -311,8 +314,6 @@ namespace SHAProject.Workflows
 
                 if (!currentPath.Contains("Analysis"))
                     CreateQuickView();
-
-                ExtentReport.CreateExtentTestNode("Modify Assay");
 
                 modifyAssay.ModifyAssayHeaderTabs();
 
@@ -335,6 +336,8 @@ namespace SHAProject.Workflows
         [Test, Order(7)]
         public void CheckEditWidgetPage()
         {
+            ExtentReport.CreateExtentTestNode("Check Edit Widget Page Functionality");
+
             string currentPath = commonFunc.GetCurrentPath();
 
             if (currentPath.Contains("Widget/Edit"))
@@ -346,8 +349,6 @@ namespace SHAProject.Workflows
             if (!driver.Title.Contains(fileUploadOrExistingFileData.FileName))
                 filesPage.SearchFilesInFileTab(fileUploadOrExistingFileData.FileName);
 
-            ExtentReport.CreateExtentTestNode("Check Edit Widget Page Functionality");
-
             bool hasEditWidgetPageGone = analysisPage.GoToEditWidget(WidgetCategories.XfStandard, WorkFlow5Data.SelectWidgetName);
             if (hasEditWidgetPageGone)
             {
@@ -357,7 +358,7 @@ namespace SHAProject.Workflows
 
                 graphSettings.GraphSettingsApply();
 
-                graphProperties.GraphArea();
+                graph.GraphArea();
 
                 plateMap.PlateMapArea();
 
@@ -406,6 +407,8 @@ namespace SHAProject.Workflows
         [Test, Order(9)]
         public void BarChart()
         {
+            ExtentReport.CreateExtentTestNode("Bar Chart");
+
             if (fileUploadOrExistingFileData.SelectedWidgets.Contains(WidgetTypes.BarChart))
             {
                 string currentPath = commonFunc.GetCurrentPath();
@@ -420,8 +423,6 @@ namespace SHAProject.Workflows
                     filesPage.SearchFilesInFileTab(fileUploadOrExistingFileData.FileName);
 
                 Thread.Sleep(5000);
-
-                ExtentReport.CreateExtentTestNode("Bar Chart");
 
                 if (RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
                     commonFunc.HandleCurrentWindow();
@@ -452,19 +453,15 @@ namespace SHAProject.Workflows
 
                     graph.PanZoom(ChartType.Amchart);
 
+                    graph.AmChartToolTip();
+
                     if (WorkFlow5Data.Barchart.GraphSettingsVerify)
                     {
-                        //graphSettings.VerifyGraphSettingsIcon();
-
-                        //graphSettings.VerifyGraphSettingsFields();
-
                         graphSettings.YAutoScale(WorkFlow5Data.Barchart);
 
                         graphSettings.ZeroLine(WorkFlow5Data.Barchart);
 
                         graphSettings.Zoom(WorkFlow5Data.Barchart);
-
-                        //graphSettings.GraphSettingsApply();
                     }
 
                     plateMap.PlateMapIcons();
@@ -482,8 +479,6 @@ namespace SHAProject.Workflows
                         exports?.EditWidgetExports(WidgetCategories.XfStandard, WidgetTypes.BarChart, WorkFlow5Data.Barchart);
 
                     commonFunc.MoveBackToAnalysisPage();
-
-                    //graphProperties.PanZoom(ChartType.Amchart);
 
                     //graphProperties.VerifyBoxplot();
 
@@ -509,6 +504,8 @@ namespace SHAProject.Workflows
         [Test, Order(10)]
         public void EnergyMap()
         {
+            ExtentReport.CreateExtentTestNode("Energy Map");
+
             if (fileUploadOrExistingFileData.SelectedWidgets.Contains(WidgetTypes.EnergyMap))
             {
                 string currentPath = commonFunc.GetCurrentPath();
@@ -524,8 +521,6 @@ namespace SHAProject.Workflows
 
                 if (RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
                     commonFunc.HandleCurrentWindow();
-
-                ExtentReport.CreateExtentTestNode("Energy Map");
 
                 bool hasEditWidgetPageGone = analysisPage.GoToEditWidget(WidgetCategories.XfStandard, WidgetTypes.EnergyMap);
                 if (hasEditWidgetPageGone)
@@ -551,19 +546,15 @@ namespace SHAProject.Workflows
 
                     graph.PanZoom(ChartType.Amchart);
 
-                    //graph.GraphTootipVerificationWithRadius();
+                    graph.AmChartToolTip();
 
                     if (WorkFlow5Data.EnergyMap.GraphSettingsVerify)
                     {
-                        graphSettings.VerifyGraphSettingsIcon();
-
                         graphSettings.XAutoScale(WorkFlow5Data.EnergyMap);
 
-                        graphSettings.YEnergyAutoScale(WorkFlow5Data.EnergyMap);
+                        graphSettings.YAutoScale(WorkFlow5Data.EnergyMap);
 
                         graphSettings.Zoom(WorkFlow5Data.EnergyMap);
-
-                        graphSettings.GraphSettingsApply();
                     }
 
                     plateMap.PlateMapIcons();
@@ -592,6 +583,8 @@ namespace SHAProject.Workflows
         [Test, Order(11)]
         public void HeatMap()
         {
+            ExtentReport.CreateExtentTestNode("Heat Map");
+
             if (fileUploadOrExistingFileData.SelectedWidgets.Contains(WidgetTypes.HeatMap))
             {
                 string currentPath = commonFunc.GetCurrentPath();
@@ -607,8 +600,6 @@ namespace SHAProject.Workflows
 
                 if (RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
                     commonFunc.HandleCurrentWindow();
-
-                ExtentReport.CreateExtentTestNode("Heat Map");
 
                 bool hasEditWidgetPageGone = analysisPage.GoToEditWidget(WidgetCategories.XfStandard, WidgetTypes.HeatMap);
                 if (hasEditWidgetPageGone)
@@ -630,8 +621,6 @@ namespace SHAProject.Workflows
 
                     if (WorkFlow5Data.HeatMap.GraphSettingsVerify)
                     {
-                        graphSettings.VerifyGraphSettingsIcon();
-
                         graphSettings.YAutoScale(WorkFlow5Data.HeatMap);
 
                         graphSettings.ZeroLine(WorkFlow5Data.HeatMap);
@@ -643,8 +632,6 @@ namespace SHAProject.Workflows
                         graphSettings.InjectionMarkers(WorkFlow5Data.HeatMap);
 
                         graphSettings.Zoom(WorkFlow5Data.HeatMap);
-
-                        graphSettings.GraphSettingsApply();
                     }
 
                     plateMap.HeatMapPlateMapIcons();
@@ -679,6 +666,8 @@ namespace SHAProject.Workflows
         [Test, Order(12)]
         public void DoseResponseAddWidget()
         {
+            ExtentReport.CreateExtentTestNode("Dose Response in Add Widget");
+
             string currentPath = commonFunc.GetCurrentPath();
 
             if (currentPath.Contains("Widget/Edit"))
@@ -689,8 +678,6 @@ namespace SHAProject.Workflows
 
             if (!driver.Title.Contains(fileUploadOrExistingFileData.FileName))
                 filesPage.SearchFilesInFileTab(fileUploadOrExistingFileData.FileName);
-
-            ExtentReport.CreateExtentTestNode("Dose Response in Add Widget");
 
             Thread.Sleep(10000);
 
@@ -705,6 +692,8 @@ namespace SHAProject.Workflows
         [Test, Order(13)]
         public void DoseResponseAddView()
         {
+            ExtentReport.CreateExtentTestNode("Dose Response in Add View");
+
             string currentPath = commonFunc.GetCurrentPath();
 
             if (currentPath.Contains("Widget/Edit"))
@@ -716,14 +705,14 @@ namespace SHAProject.Workflows
             if (!driver.Title.Contains(fileUploadOrExistingFileData.FileName))
                 filesPage.SearchFilesInFileTab(fileUploadOrExistingFileData.FileName);
 
-            ExtentReport.CreateExtentTestNode("Dose Response in Add View");
-
             createWidgets?.CreateWidgets(WidgetCategories.XfStandardDose, WorkFlow5Data.AddDoseWidget);
         }
 
         [Test, Order(14)]
         public void Dose_Response()
         {
+            ExtentReport.CreateExtentTestNode("Dose Response Widget");
+
             string currentPath = commonFunc.GetCurrentPath();
 
             if (currentPath.Contains("Widget/Edit"))
@@ -734,8 +723,6 @@ namespace SHAProject.Workflows
 
             if (!driver.Title.Contains(fileUploadOrExistingFileData.FileName))
                 filesPage.SearchFilesInFileTab(fileUploadOrExistingFileData.FileName);
-
-            ExtentReport.CreateExtentTestNode("Dose Response Widget");
 
             bool hasEditWidgetPageGone = analysisPage.GoToEditWidget(WidgetCategories.XfStandardDose, WidgetTypes.DoseResponse);
             if (hasEditWidgetPageGone)
@@ -753,14 +740,12 @@ namespace SHAProject.Workflows
 
                 graphProperties.BackgroundCorrection(WorkFlow5Data.DoseResponse);
 
-                //graph.PanZoom(ChartType.Amchart);
+                graph.PanZoom(ChartType.CanvasJS);
 
-                //graph.GraphTootipVerificationWithRadius();
+                graph.AmChartToolTip();
 
                 if (WorkFlow5Data.DoseResponse.GraphSettingsVerify)
                 {
-                    graphSettings.VerifyDoseGraphSettingsIcon();
-
                     graphSettings.DoseYAutoScale(WorkFlow5Data.DoseResponse);
 
                     graphSettings.DoseXAutoScale(WorkFlow5Data.DoseResponse);
@@ -770,8 +755,6 @@ namespace SHAProject.Workflows
                     graphSettings.DataPointSymbols(WorkFlow5Data.DoseResponse);
 
                     graphSettings.DoseZoom(WorkFlow5Data.DoseResponse);
-
-                    graphSettings.DoseGraphSettingsApply();
 
                     // Dose graph settings
                     graphSettings.VerifyDoseKineticGraphSettingsIcon();
@@ -788,7 +771,6 @@ namespace SHAProject.Workflows
 
                     graphSettings.Zoom(WorkFlow5Data.DoseResponse);
 
-                    graphSettings.GraphSettingsApply();
                 }
 
                 plateMap.PlateMapIcons();
@@ -815,6 +797,8 @@ namespace SHAProject.Workflows
         [Test, Order(15)]
         public void BlankView()
         {
+            ExtentReport.CreateExtentTestNode("Create Blank View");
+
             string currentPath = commonFunc.GetCurrentPath();
 
             if (currentPath.Contains("Widget/Edit"))
@@ -826,8 +810,6 @@ namespace SHAProject.Workflows
             if (!driver.Title.Contains(fileUploadOrExistingFileData.FileName))
                 filesPage.SearchFilesInFileTab(fileUploadOrExistingFileData.FileName);
 
-            ExtentReport.CreateExtentTestNode("Create Blank View");
-
             List<WidgetTypes> widgets = new List<WidgetTypes>();
 
             createWidgets.CreateWidgets(WidgetCategories.XfStandardBlank, widgets);
@@ -838,6 +820,8 @@ namespace SHAProject.Workflows
         [Test, Order(16)]
         public void CustomView()
         {
+            ExtentReport.CreateExtentTestNode("Create Custom View");
+
             string currentPath = commonFunc.GetCurrentPath();
 
             if (currentPath.Contains("Widget/Edit"))
@@ -848,8 +832,6 @@ namespace SHAProject.Workflows
 
             if (!driver.Title.Contains(fileUploadOrExistingFileData.FileName))
                 filesPage.SearchFilesInFileTab( fileUploadOrExistingFileData.FileName);
-
-            ExtentReport.CreateExtentTestNode("Create Custom View");
 
             analysisPage.CreateCustomView(WorkFlow5Data);
 
@@ -893,7 +875,7 @@ namespace SHAProject.Workflows
 
                 graph.PanZoom(ChartType.CanvasJS);
 
-                //graph.GraphTootipVerificationWithRadius();
+                graph.CanvasChartTooltip();
 
                 if (widget.GraphSettingsVerify)
                 {

@@ -1,0 +1,3221 @@
+
+
+<!DOCTYPE html>
+<html>
+	
+	<head>
+	<meta /> 
+	<meta name='robots' content='noodp, noydir' />
+	<meta name='viewport' content='width=device-width, initial-scale=1' />
+	
+	<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600' rel='stylesheet' type='text/css' />
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+	<link href='https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@8539670db814bf19a0ddbe9a6d19058aea0cf981/v3html/css/extent.css' type='text/css' rel='stylesheet' />
+  
+	<title>Seahorse Automation </title>
+
+	<style type='text/css'>
+		/* json-tree */
+		.jstBracket,.jstComma,.jstValue{white-space:pre-wrap}.jstValue{font-size:10px;font-weight:400;font-family:"Lucida Console",Monaco,monospace}.jstProperty{color:#666;word-wrap:break-word}.jstBool{color:#2525CC}.jstNum{color:#D036D0}.jstNull{color:gray}.jstStr{color:#2DB669}.jstFold:after{content:' -';cursor:pointer}.jstExpand{white-space:normal}.jstExpand:after{content:' +';cursor:pointer}.jstFolded{white-space:normal!important}.jstHiddenBlock{display:none}
+		
+	</style>
+	
+	<script type="text/javascript">
+		/*! json-tree - v0.2.2 - 2017-09-25, MIT LICENSE */
+		var JSONTree=function(){var n={"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#x27;","/":"&#x2F;"},t=0,r=0;this.create=function(n,t){return r+=1,N(u(n,0,!1),{class:"jstValue"})};var e=function(t){return t.replace(/[&<>'"]/g,function(t){return n[t]})},s=function(){return r+"_"+t++},u=function(n,t,r){if(null===n)return f(r?t:0);switch(typeof n){case"boolean":return l(n,r?t:0);case"number":return i(n,r?t:0);case"string":return o(n,r?t:0);default:return n instanceof Array?a(n,t,r):c(n,t,r)}},c=function(n,t,r){var e=s(),u=Object.keys(n).map(function(r){return j(r,n[r],t+1,!0)}).join(m()),c=[g("{",r?t:0,e),N(u,{id:e}),p("}",t)].join("\n");return N(c,{})},a=function(n,t,r){var e=s(),c=n.map(function(n){return u(n,t+1,!0)}).join(m());return[g("[",r?t:0,e),N(c,{id:e}),p("]",t)].join("\n")},o=function(n,t){var r=e(JSON.stringify(n));return N(v(r,t),{class:"jstStr"})},i=function(n,t){return N(v(n,t),{class:"jstNum"})},l=function(n,t){return N(v(n,t),{class:"jstBool"})},f=function(n){return N(v("null",n),{class:"jstNull"})},j=function(n,t,r){var s=v(e(JSON.stringify(n))+": ",r),c=N(u(t,r,!1),{});return N(s+c,{class:"jstProperty"})},m=function(){return N(",\n",{class:"jstComma"})},N=function(n,t){return d("span",t,n)},d=function(n,t,r){return"<"+n+Object.keys(t).map(function(n){return" "+n+'="'+t[n]+'"'}).join("")+">"+r+"</"+n+">"},g=function(n,t,r){return N(v(n,t),{class:"jstBracket"})+N("",{class:"jstFold",onclick:"JSONTree.toggle('"+r+"')"})};this.toggle=function(n){var t=document.getElementById(n),r=t.parentNode,e=t.previousElementSibling;""===t.className?(t.className="jstHiddenBlock",r.className="jstFolded",e.className="jstExpand"):(t.className="",r.className="",e.className="jstFold")};var p=function(n,t){return N(v(n,t),{})},v=function(n,t){return Array(2*t+1).join(" ")+n};return this}();
+	</script>
+</head>
+
+
+	<body class='extent default hide-overflow '>
+		<div id='theme-selector' alt='Click to toggle theme. To enable by default, use theme configuration.' title='Click to toggle theme. To enable by default, use theme configuration.'>
+			<span><i class='material-icons'>desktop_windows</i></span>
+		</div>
+		
+		<nav>
+	<div class="nav-wrapper">
+		<a href="#!" class="brand-logo black"><img src="https://cdn.rawgit.com/extent-framework/extent-github-cdn/d74480e/commons/img/logo.png"></a>
+		<ul id='slide-out' class='side-nav fixed hide-on-med-and-down'>
+			<li class='waves-effect active'><a href='#!' view='test-view' onclick="configureView(0);chartsView('test');"><i class='material-icons'>dashboard</i></a></li>
+            			<li class='waves-effect'><a href='#!' onclick="configureView(-1);chartsView('dashboard');" view='dashboard-view'><i class='material-icons'>track_changes</i></a></li>
+		</ul>
+		<span class='report-name'><b>Seahorse Automation Testing</b></span>
+		<span class='report-headline'></span>
+		<ul id='nav-mobile' class='right hide-on-med-and-down nav-right'>
+			<a href='#!'><span class='label blue darken-3 suite-start-time'>11-08-2023 10:59:21 PM</span></a>
+		</ul>
+	</div>
+</nav>
+
+		<!-- container -->
+		<div class='container'>
+			<div id='test-view' class='view'>
+	<section id='controls'>
+		<div class='controls grey lighten-4'>
+			<!-- test toggle -->
+			<div class='chip transparent'>
+				<a class='dropdown-button tests-toggle' data-activates='tests-toggle' data-constrainwidth='true' data-beloworigin='true' data-hover='true' href='#'>
+				<i class='material-icons'>warning</i> Status
+				</a>
+				<ul id='tests-toggle' class='dropdown-content'>
+					<li status='pass'><a href='#!'>Pass <i class='material-icons green-text'>check_circle</i></a></li>
+															<li status='fail'><a href='#!'>Fail <i class='material-icons red-text'>cancel</i></a></li>
+																				<li class='divider'></li>
+					<li status='clear' clear='true'><a href='#!'>Clear Filters <i class='material-icons'>clear</i></a></li>
+				</ul>
+			</div>
+			<!-- test toggle -->
+			<!-- category toggle -->
+			<!-- category toggle -->
+			<!-- clear filters -->
+			<div class='chip transparent hide'>
+				<a class='' id='clear-filters' alt='Clear Filters' title='Clear Filters'>
+				<i class='material-icons'>close</i> Clear
+				</a>
+			</div>
+			<!-- clear filters -->
+			<!-- enable dashboard -->
+			<div id='toggle-test-view-charts' class='chip transparent'>
+				<a class='' id='enable-dashboard' alt='Enable Dashboard' title='Enable Dashboard'>
+				<i class='material-icons'>track_changes</i> Dashboard
+				</a>
+			</div>
+			<!-- enable dashboard -->
+			<!-- search -->
+			<div class='chip transparent' alt='Search Tests' title='Search Tests'>
+				<a href="#" class='search-div'>
+				<i class='material-icons'>search</i> Search
+				</a>
+				<div class='input-field left hide'>
+					<input id='search-tests' type='text' class='validate browser-default' placeholder='Search Tests...'>
+				</div>
+			</div>
+			<!-- search -->
+		</div>
+	</section>
+	
+
+<div id='test-view-charts' class='subview-full'>
+    <div id='charts-row' class='row nm-v nm-h'>
+        <div class='col s12 m6 l6 np-h'>
+            <div class='card-panel nm-v'>
+                <div class='left panel-name'>Tests</div>
+                <div class='chart-box' style="max-height:94px;">
+                    <canvas id='parent-analysis' width='90' height='80'></canvas>
+                </div>
+                <div class='block text-small'>
+                    <span class='tooltipped' data-position='top' data-tooltip='66.66666666666666%'><span class='strong'>2</span> tests passed</span>
+                </div>
+                <div class='block text-small'>
+                    <span class='tooltipped' data-position='top' data-tooltip='33.33333333333333%'><span class='strong'>1</span> failed,</span>
+					<span class='tooltipped' data-position='top' data-tooltip='0%'><span class='strong'>0</span> skipped, </span>
+					<span class='tooltipped' data-position='top' data-tooltip='0%'><span class='strong'>0</span> others</span>
+                </div>
+            </div>
+        </div>
+        <div class='col s12 m6 l6 np-h'>
+            <div class='card-panel nm-v'>
+                <div class='left panel-name'>Steps</div>
+                <div class='chart-box' style="max-height:94px;">
+                    <canvas id='child-analysis' width='90' height='80'></canvas>
+                </div>
+                <div class='block text-small'>
+                    <span class='tooltipped' data-position='top' data-tooltip='10%'><span class='strong'>1</span> steps passed</span>
+                </div>
+                <div class='block text-small'>
+                    <span class='tooltipped' data-position='top' data-tooltip='90%'><span class='strong'>9</span> failed,</span>
+					<span class='tooltipped' data-position='top' data-tooltip='0%'><span class='strong'>0</span> skipped,</span>
+					<span class='tooltipped' data-position='top' data-tooltip='0%'><span class='strong'>0</span> others</span>                
+				</div>
+            </div>
+        </div>
+		    </div>
+</div>
+	<div class='subview-left left'>
+		<div class='view-summary'>
+			<ul id='test-collection' class='test-collection'>
+				<li class='test displayed active  pass' status='pass' test-id='33'>
+					<div class='test-heading'>
+						<span class='test-name'>Excel Reader</span>
+						<span class='test-time'>11-08-2023 10:59:21 PM</span>
+						<span class='test-status right pass'>Pass</span>
+					</div>
+					<div class='test-content hide'>
+						<div class='test-time-info'>
+							<span class='label start-time'>11-08-2023 10:59:21 PM</span>
+							<span class='label end-time'>11-08-2023 10:59:42 PM</span>
+							<span class='label time-taken grey lighten-1 white-text'>0h:0m:20s.710ms</span>
+						</div>
+							<div class='test-steps'>
+								<table class='bordered table-results'>
+									<thead>
+										<tr>
+											<th>Status</th>
+											<th>Timestamp</th>
+											<th>Details</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:21</td>
+											<td class='step-details'>
+The Selected browser is Chrome																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:21</td>
+											<td class='step-details'>
+Website: https://airborne-rogue1.sbx-10.aws.agilent.com/Account/Login																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:21</td>
+											<td class='step-details'>
+Username: divakarA@mailinator.com																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:21</td>
+											<td class='step-details'>
+Password: Aitech@275																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:21</td>
+											<td class='step-details'>
+All required Data's are available! and the verified sheet name is Login																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:21</td>
+											<td class='step-details'>
+Excel read status success for login page																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+FileUpload required status is false																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Existing file name status is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+FileName status is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+FileExtension is present - xflr																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+File Titration type is True																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+File Normalization status is True																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Oligo Injection is selected as - 2nd Injection																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+File Type is XFe96																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Analysis page layout verification is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Normalization Verification is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+All required Data's are available! and the verified sheet name is Normalization																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+ScaleFactor for Barchart is False																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+The Normalizied file name is ATPRA DEMO DoseResponse 1																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+ModifyAssay Verification is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+oligo for mitoATP Production Rate  is 2nd																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+induced for mitoATP Production Rate  is 1st																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+normalization for mitoATP Production Rate is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+error format for mitoATP Production Rate  is OFF																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Normalized GraphUnits for mitoATP Production Rate value is mitoATP Production Rate (pmol/min/100 units/cell)																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+GraphSettingsVerify for mito ATP Production Rate is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Zeroline in GraphSettings for mito ATP Production Rate is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Normalization needs to be verified with platemap																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+PlateMap Sync to View needs to be verified with platemap																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+GraphSettings Sync to View needs to be verified with platemap																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Exports is required.																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+oligo for glycoATP Production Rate  is 2nd																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Induced for glycoATP Production Rate  is 1st																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+normalizationfor ATP Production Rate Data is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+error formatfor ATP Production Rate Data  is Std Dev																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Normalized GraphUnits for glycoATP Production Rate value is glycoATP Production Rate (pmol/min/100 units/cell)																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+GraphSettingsVerify for glyco ATP Production Rate is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Zeroline in GraphSettings for glyco ATP Production Rate is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Normalization needs to be verified with platemap																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+PlateMap Sync to View needs to be verified with platemap																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+GraphSettings Sync to View needs to be verified with platemap																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Exports is required.																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+oligo forATP Production Rate Data  is 2nd																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+induced for ATP Production Rate Data  is 1st																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+normalizationfor ATP Production Rate Data is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+error format for ATP Production Rate Data  is Std Dev																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Normalized GraphUnits forATP Production Rate Data value is ATP Production Rate (pmol/min/1000 units/cell)																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+GraphSettingsVerify for ATP Production Rate Data is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Zeroline in GraphSettings for ATP Production Rate Data is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Normalization needs to be verified with platemap																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+PlateMap Sync to View needs to be verified with platemap																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+GraphSettings Sync to View needs to be verified with platemap																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Exports is required.																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Displaymode for ATPProduction Rate (Basal)  is Group																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Oligo for ATPProduction Rate(Basal)  is 2nd																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Induced for ATPProduction Rate (Basal)  is 1st																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Displaymode for ATPProduction Rate (Basal)  is Group																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Normalizationfor ATP Production Rate (Basal) is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Error format for  ATPProduction Rate (Basal) is OFF																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Normalized GraphUnits forATPProduction Rate (Basal) value is ATP Production Rate (pmol/min/100 units/cell)																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+GraphSettings Verify for ATP Production Rate (Basal) is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Reomve Zeroline in GraphSettings for ATP Production Rate (Basal) is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Normalization needs to be verified with platemap																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+PlateMap Sync to View needs to be verified with platemap																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+GraphSettings Sync to View needs to be verified with platemap																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Exports is required.																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+displaymode for ATP Production Rate (Induced)  is Group																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Oligo for ATP Production Rate (Induced)  is 2nd																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Induced for ATP Production Rate (Induced)  is 1st																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Normalizationfor ATP Production Rate (Induced) is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+error format for  ATP Production Rate (Induced )is Std Dev																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Normalized GraphUnits for ATP Production Rate (Induced) value is ATP Production Rate (pmol/min/100 units/cell)																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+GraphSettings Verify for ATP Production Rate (Induced) is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Remove Zeroline in GraphSettings for ATPProduction Rate (Induced) is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Normalization needs to be verified with platemap																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+PlateMap Sync to View needs to be verified with platemap																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+GraphSettings Sync to View needs to be verified with platemap																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Exports is required.																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Oligo EnergeticMap Rate (Basal)  is 2nd																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Induced EnergeticMap Rate (Basal) is 1st																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Normalization for EnergeticMap Rate (Basal) is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Error formatfor EnergeticMap Rate (Basal)  is Std Dev																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Normalized GraphUnits EnergeticMap Rate (Basal) value is mitoATP Production Rate (pmol/min/100 units/cell)																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+GraphSettingsVerify for EnergeticMap Rate (Basal) is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Zeroline in GraphSettings EnergeticMap (Basal) Rate is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Normalization needs to be verified with platemap																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+PlateMap Sync to View needs to be verified with platemap																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+GraphSettings Sync to View needs to be verified with platemap																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Exports is required.																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Oligo for EnergeticMap Rate (Induced) is 2nd																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Induced for EnergeticMap Rate (Induced) is 1st																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Normalization for EnergeticMap Rate (Induced) is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Error format for EnergeticMap Rate (Induced)   is Std Dev																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+GraphSettingsVerify for EnergeticMap Rate (Induced) is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Remove Zeroline in GraphSettings for EnergeticMap Rate (Induced) is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Normalization needs to be verified with platemap																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+PlateMap Sync to View needs to be verified with platemap																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+GraphSettings Sync to View needs to be verified with platemap																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Exports is required.																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+oligo for XF ATP Rate Index is 2nd																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+induced for XF ATP Rate Index is 1st																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+normalizationfor ATP Production Rate Data is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+error format for XF ATP Rate Index   is Std Dev																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Normalized GraphUnits for XF ATP Rate Indexvalue is mitoATP Production Rate/glycoATP Production Rate																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+GraphSettingsVerify for XF ATP Rate Index is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Remove Zeroline in GraphSettings for  XF ATP Rate Index is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Normalization needs to be verified with platemap																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+PlateMap Sync to View needs to be verified with platemap																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+GraphSettings Sync to View needs to be verified with platemap																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Exports is required.																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+oligo for Data Table Widget  is 2nd																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+normalizationfor ATP Production Rate Data is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+error format for Data Table Widget    is Std Dev																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+GraphSettingsVerify for Data Table Widget  is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+File Normalization status is True																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+All required Data's are available! and the verified sheet name is Workflow-7																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Excel read status is true for XF ATP Rate AssayView																							</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+					</div>
+				</li>
+				<li class='test displayed active  pass' status='pass' test-id='34'>
+					<div class='test-heading'>
+						<span class='test-name'>LoginPage</span>
+						<span class='test-time'>11-08-2023 10:59:26 PM</span>
+						<span class='test-status right pass'>Pass</span>
+					</div>
+					<div class='test-content hide'>
+						<div class='test-time-info'>
+							<span class='label start-time'>11-08-2023 10:59:26 PM</span>
+							<span class='label end-time'>11-08-2023 10:59:42 PM</span>
+							<span class='label time-taken grey lighten-1 white-text'>0h:0m:15s.381ms</span>
+						</div>
+							<div class='test-steps'>
+								<table class='bordered table-results'>
+									<thead>
+										<tr>
+											<th>Status</th>
+											<th>Timestamp</th>
+											<th>Details</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:30</td>
+											<td class='step-details'>
+DoseResponse Login Page -Email Field is displayed																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:32</td>
+											<td class='step-details'>
+Screenshot  -  DoseResponse Login Page -Email Field												<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\Login\Success\ DoseResponse Login Page -Email Field.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\Login\Success\ DoseResponse Login Page -Email Field.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\Login\Success\ DoseResponse Login Page -Email Field.png'>											</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:33</td>
+											<td class='step-details'>
+The given text - divakarA@mailinator.com and element text are equal																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:34</td>
+											<td class='step-details'>
+Screenshot  -  DoseResponse Given mail id is divakarA@mailinator.com												<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\Login\Success\ DoseResponse Given mail id is divakarA@mailinator.com.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\Login\Success\ DoseResponse Given mail id is divakarA@mailinator.com.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\Login\Success\ DoseResponse Given mail id is divakarA@mailinator.com.png'>											</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:35</td>
+											<td class='step-details'>
+DoseResponse Login Page- Password Field is displayed																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:36</td>
+											<td class='step-details'>
+Screenshot  -  DoseResponse Login Page- Password Field												<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\Login\Success\ DoseResponse Login Page- Password Field.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\Login\Success\ DoseResponse Login Page- Password Field.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\Login\Success\ DoseResponse Login Page- Password Field.png'>											</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:37</td>
+											<td class='step-details'>
+The given text - Aitech@275 and element text are equal																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:38</td>
+											<td class='step-details'>
+Screenshot  -  DoseResponse Given Password is Aitech@275												<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\Login\Success\ DoseResponse Given Password is Aitech@275.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\Login\Success\ DoseResponse Given Password is Aitech@275.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\Login\Success\ DoseResponse Given Password is Aitech@275.png'>											</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:41</td>
+											<td class='step-details'>
+Screenshot  -  DoseResponse Login Page - Sign in Button												<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\Login\Success\ DoseResponse Login Page - Sign in Button.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\Login\Success\ DoseResponse Login Page - Sign in Button.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\Login\Success\ DoseResponse Login Page - Sign in Button.png'>											</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+DoseResponse Login Page - Sign in Button - is displayed and clickable on the page																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>22:59:42</td>
+											<td class='step-details'>
+Login successfully with the given credentials																							</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+					</div>
+				</li>
+				<li class='test displayed active has-leaf fail' status='fail' test-id='35'>
+					<div class='test-heading'>
+						<span class='test-name'>WorkFlow -7 : XF ATP Rate Assay View</span>
+						<span class='test-time'>11-08-2023 10:59:42 PM</span>
+						<span class='test-status right fail'>Fail</span>
+					</div>
+					<div class='test-content hide'>
+						<div class='test-time-info'>
+							<span class='label start-time'>11-08-2023 10:59:42 PM</span>
+							<span class='label end-time'>11-08-2023 11:10:14 PM</span>
+							<span class='label time-taken grey lighten-1 white-text'>0h:10m:32s.320ms</span>
+						</div>
+						<ul class='collapsible node-list' data-collapsible='accordion'>
+														<li class='node level-1 leaf pass' status='pass' test-id='36'>
+								<div class='collapsible-header'>
+									<div class='node-name'>Create XF ATP Rate Assay View</div>
+									<span class='node-time'>11-08-2023 10:59:42 PM</span>
+									&middot; <span class='node-duration'>0h:1m:41s.939ms</span>
+									<span class='test-status right pass'>Pass</span>
+								</div>
+								<div class='collapsible-body'>
+																		<div class='node-steps'>
+										<table class='bordered table-results'>
+											<thead>
+												<tr>
+													<th>Status</th>
+													<th>Timestamp</th>
+													<th>Details</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:00:01</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse Files Tab														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Files Tab.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Files Tab.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Files Tab.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:00:05</td>
+													<td class='step-details'>
+DoseResponse Files Tab - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:00:09</td>
+													<td class='step-details'>
+The given text - SmokeA Titration 10_0_1_53 and element text are equal																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:00:10</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse Given file name is - SmokeA Titration 10_0_1_53														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Given file name is - SmokeA Titration 10_0_1_53.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Given file name is - SmokeA Titration 10_0_1_53.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Given file name is - SmokeA Titration 10_0_1_53.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:00:14</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse Files Tab - First file														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Files Tab - First file.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Files Tab - First file.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Files Tab - First file.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:00:15</td>
+													<td class='step-details'>
+DoseResponse Files Tab - First file - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:00:15</td>
+													<td class='step-details'>
+Existing file selected successfully																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:00:25</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse Analysis Page - Side View Toggle Button														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Side View Toggle Button.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Side View Toggle Button.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Side View Toggle Button.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:00:26</td>
+													<td class='step-details'>
+DoseResponse Analysis Page - Side View Toggle Button - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:00:28</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse Analysis Page - Add New List														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Add New List.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Add New List.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Add New List.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:00:30</td>
+													<td class='step-details'>
+DoseResponse Analysis Page - Add New List - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:00:30</td>
+													<td class='step-details'>
+Screenshot  - Add View														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\Add View.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\Add View.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\Add View.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:00:31</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse Add View popup - Assay Kit Companion Views														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Add View popup - Assay Kit Companion Views.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Add View popup - Assay Kit Companion Views.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Add View popup - Assay Kit Companion Views.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:00:32</td>
+													<td class='step-details'>
+DoseResponse Add View popup - Assay Kit Companion Views - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:00:33</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse Add View popup - XF ATP Rate Assay View														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Add View popup - XF ATP Rate Assay View.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Add View popup - XF ATP Rate Assay View.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Add View popup - XF ATP Rate Assay View.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:00:34</td>
+													<td class='step-details'>
+DoseResponse Add View popup - XF ATP Rate Assay View - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:00:34</td>
+													<td class='step-details'>
+DoseResponse Add View popup Groups Area is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:00:36</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse Add View popup Groups Area														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Add View popup Groups Area.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Add View popup Groups Area.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Add View popup Groups Area.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:00:38</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse Unselecting the First Group														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Unselecting the First Group.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Unselecting the First Group.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Unselecting the First Group.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:00:39</td>
+													<td class='step-details'>
+DoseResponse Unselecting the First Group - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:00:40</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse Selecting the First Group														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Selecting the First Group.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Selecting the First Group.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Selecting the First Group.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:00:41</td>
+													<td class='step-details'>
+DoseResponse Selecting the First Group - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:00:41</td>
+													<td class='step-details'>
+DoseResponse Select all Widgets Icom is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:00:42</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse Select all Widgets Icom														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Select all Widgets Icom.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Select all Widgets Icom.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Select all Widgets Icom.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:00:44</td>
+													<td class='step-details'>
+DoseResponse Add View Popup - Details section is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:00:45</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse Add View Popup - Details section														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Add View Popup - Details section.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Add View Popup - Details section.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Add View Popup - Details section.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:00:47</td>
+													<td class='step-details'>
+Add View Popup - Oligo dropdownoption - 1 was selected from the dropdown.																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:00:48</td>
+													<td class='step-details'>
+Screenshot  - Dropdown option - 1														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\Dropdown option - 1.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\Dropdown option - 1.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\Dropdown option - 1.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:00:49</td>
+													<td class='step-details'>
+Verification Passed for option 1: Expected 'N/A', Actual 'N/A'																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:00:49</td>
+													<td class='step-details'>
+Induced option - N/A was selected from the dropdown.																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:00:50</td>
+													<td class='step-details'>
+Screenshot  - Dropdown option - N-A														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\Dropdown option - N-A.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\Dropdown option - N-A.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\Dropdown option - N-A.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:00:51</td>
+													<td class='step-details'>
+Add View Popup - Oligo dropdownoption - 2 was selected from the dropdown.																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:00:52</td>
+													<td class='step-details'>
+Screenshot  - Dropdown option - 2														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\Dropdown option - 2.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\Dropdown option - 2.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\Dropdown option - 2.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:00:54</td>
+													<td class='step-details'>
+Verification Passed for option 2: Expected '1st', Actual '1st'																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:00:54</td>
+													<td class='step-details'>
+Induced option - 1st was selected from the dropdown.																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:00:55</td>
+													<td class='step-details'>
+Screenshot  - Dropdown option - 1st														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\Dropdown option - 1st.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\Dropdown option - 1st.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\Dropdown option - 1st.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:00:56</td>
+													<td class='step-details'>
+Add View Popup - Oligo dropdownoption - 3 was selected from the dropdown.																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:00:57</td>
+													<td class='step-details'>
+Screenshot  - Dropdown option - 3														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\Dropdown option - 3.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\Dropdown option - 3.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\Dropdown option - 3.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:00:58</td>
+													<td class='step-details'>
+Verification Passed for option 3: Expected '1st, 2nd', Actual '1st'																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:00:58</td>
+													<td class='step-details'>
+Verification Passed for option 3: Expected '1st, 2nd', Actual '1st'																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:00:58</td>
+													<td class='step-details'>
+Induced option - 1st was selected from the dropdown.																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:00:59</td>
+													<td class='step-details'>
+Screenshot  - Dropdown option - 1st														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\Dropdown option - 1st.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\Dropdown option - 1st.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\Dropdown option - 1st.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:01:02</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse XfAtp - MitoAtpProductionRate widget														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse XfAtp - MitoAtpProductionRate widget.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse XfAtp - MitoAtpProductionRate widget.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse XfAtp - MitoAtpProductionRate widget.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:01:03</td>
+													<td class='step-details'>
+DoseResponse XfAtp - MitoAtpProductionRate widget - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:01:04</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse XfAtp - GlycoAtpProductionRate widget														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse XfAtp - GlycoAtpProductionRate widget.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse XfAtp - GlycoAtpProductionRate widget.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse XfAtp - GlycoAtpProductionRate widget.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:01:05</td>
+													<td class='step-details'>
+DoseResponse XfAtp - GlycoAtpProductionRate widget - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:01:06</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse XfAtp - AtpProductionRateData widget														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse XfAtp - AtpProductionRateData widget.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse XfAtp - AtpProductionRateData widget.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse XfAtp - AtpProductionRateData widget.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:01:07</td>
+													<td class='step-details'>
+DoseResponse XfAtp - AtpProductionRateData widget - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:01:09</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse XfAtp - AtpProductionRateBasal widget														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse XfAtp - AtpProductionRateBasal widget.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse XfAtp - AtpProductionRateBasal widget.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse XfAtp - AtpProductionRateBasal widget.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:01:10</td>
+													<td class='step-details'>
+DoseResponse XfAtp - AtpProductionRateBasal widget - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:01:11</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse XfAtp - AtpProductionRateInduced widget														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse XfAtp - AtpProductionRateInduced widget.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse XfAtp - AtpProductionRateInduced widget.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse XfAtp - AtpProductionRateInduced widget.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:01:12</td>
+													<td class='step-details'>
+DoseResponse XfAtp - AtpProductionRateInduced widget - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:01:13</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse XfAtp - EnergeticMapBasal widget														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse XfAtp - EnergeticMapBasal widget.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse XfAtp - EnergeticMapBasal widget.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse XfAtp - EnergeticMapBasal widget.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:01:14</td>
+													<td class='step-details'>
+DoseResponse XfAtp - EnergeticMapBasal widget - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:01:16</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse XfAtp - EnergeticMapInduced widget														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse XfAtp - EnergeticMapInduced widget.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse XfAtp - EnergeticMapInduced widget.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse XfAtp - EnergeticMapInduced widget.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:01:17</td>
+													<td class='step-details'>
+DoseResponse XfAtp - EnergeticMapInduced widget - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:01:18</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse XfAtp - XfAtpRateIndex widget														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse XfAtp - XfAtpRateIndex widget.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse XfAtp - XfAtpRateIndex widget.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse XfAtp - XfAtpRateIndex widget.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:01:19</td>
+													<td class='step-details'>
+DoseResponse XfAtp - XfAtpRateIndex widget - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:01:20</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse XfAtp - DataTable widget														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse XfAtp - DataTable widget.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse XfAtp - DataTable widget.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse XfAtp - DataTable widget.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:01:21</td>
+													<td class='step-details'>
+DoseResponse XfAtp - DataTable widget - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:01:23</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse AddView Popup - AddView Button														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse AddView Popup - AddView Button.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse AddView Popup - AddView Button.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse AddView Popup - AddView Button.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:01:24</td>
+													<td class='step-details'>
+DoseResponse AddView Popup - AddView Button - is displayed and clickable on the page																											</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+																							</li>
+							<li class='node level-1 leaf fail' status='fail' test-id='37'>
+								<div class='collapsible-header'>
+									<div class='node-name'>Create XF ATP Rate Assay View Layout</div>
+									<span class='node-time'>11-08-2023 11:01:24 PM</span>
+									&middot; <span class='node-duration'>0h:1m:1s.853ms</span>
+									<span class='test-status right fail'>Fail</span>
+								</div>
+								<div class='collapsible-body'>
+																		<div class='node-steps'>
+										<table class='bordered table-results'>
+											<thead>
+												<tr>
+													<th>Status</th>
+													<th>Timestamp</th>
+													<th>Details</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:01:30</td>
+													<td class='step-details'>
+DoseResponse Analysis Page - Breadcrum File is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:01:32</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse Analysis Page - Breadcrum File														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Breadcrum File.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Breadcrum File.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Breadcrum File.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:01:33</td>
+													<td class='step-details'>
+DoseResponse Analysis Page - Breadcrum View is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:01:34</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse Analysis Page - Breadcrum View														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Breadcrum View.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Breadcrum View.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Breadcrum View.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:01:35</td>
+													<td class='step-details'>
+DoseResponse Analysis Page - Warning DataQc is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:01:36</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse Analysis Page - Warning DataQc														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Warning DataQc.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Warning DataQc.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Warning DataQc.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:01:38</td>
+													<td class='step-details'>
+DoseResponse Analysis Page - Normalization Icon is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:01:39</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse Analysis Page - Normalization Icon														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Normalization Icon.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Normalization Icon.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Normalization Icon.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:01:40</td>
+													<td class='step-details'>
+DoseResponse Analysis Page - Modify Assay Icon is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:01:41</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse Analysis Page - Modify Assay Icon														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Modify Assay Icon.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Modify Assay Icon.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Modify Assay Icon.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:01:43</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse Analysis Page - Export View Icon														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Export View Icon.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Export View Icon.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Export View Icon.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:01:44</td>
+													<td class='step-details'>
+DoseResponse Analysis Page - Export View Icon - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:01:45</td>
+													<td class='step-details'>
+DoseResponse Analysis Page - Export View - Excel is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:01:46</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse Analysis Page - Export View - Excel														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Export View - Excel.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Export View - Excel.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Export View - Excel.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:01:48</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse Analysis Page - Export View Icon														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Export View Icon.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Export View Icon.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Export View Icon.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:01:49</td>
+													<td class='step-details'>
+DoseResponse Analysis Page - Export View Icon - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:01:49</td>
+													<td class='step-details'>
+DoseResponse Analysis Page - Export View - Prism is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:01:51</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse Analysis Page - Export View - Prism														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Export View - Prism.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Export View - Prism.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Export View - Prism.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:01:52</td>
+													<td class='step-details'>
+DoseResponse Analysis Page - Edit Layout Icon is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:01:53</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse Analysis Page - Edit Layout Icon														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Edit Layout Icon.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Edit Layout Icon.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Edit Layout Icon.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:01:54</td>
+													<td class='step-details'>
+DoseResponse Analysis Page - Add Widget Icon is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:01:55</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse Analysis Page - Add Widget Icon														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Add Widget Icon.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Add Widget Icon.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Add Widget Icon.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:01:56</td>
+													<td class='step-details'>
+DoseResponse Analysis Page - Graph List Area is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:01:57</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse Analysis Page - Graph List Area														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Graph List Area.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Graph List Area.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Graph List Area.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:02:00</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse Analysis Page - Sidebar Open Button														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Sidebar Open Button.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Sidebar Open Button.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Sidebar Open Button.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:02:01</td>
+													<td class='step-details'>
+DoseResponse Analysis Page - Sidebar Open Button - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:02:01</td>
+													<td class='step-details'>
+DoseResponse Analysis Page - View List Area is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:02:02</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse Analysis Page - View List Area														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - View List Area.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - View List Area.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - View List Area.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:02:04</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse Analysis Page - Sidebar Close Button														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Sidebar Close Button.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Sidebar Close Button.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Sidebar Close Button.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:02:05</td>
+													<td class='step-details'>
+DoseResponse Analysis Page - Sidebar Close Button - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:02:05</td>
+													<td class='step-details'>
+DoseResponse Analysis Page - Add New Graph is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>23:02:07</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse Analysis Page - Add New Graph														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Add New Graph.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Add New Graph.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Success\ DoseResponse Analysis Page - Add New Graph.png'>													</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:02:08</td>
+													<td class='step-details'>
+DoseResponse Element name -  field is not displayed and does not contains the text																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:02:09</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse Element name -														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ DoseResponse Element name - .png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ DoseResponse Element name - .png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ DoseResponse Element name - .png'>													</td>
+												</tr>
+												<tr class='log' status='warning'>
+													<td class='status warning' title='Warning' alt='Warning'>
+														<i class='material-icons'>warning</i>
+													</td>
+													<td class='timestamp'>23:02:10</td>
+													<td class='step-details'>
+has buffer factor value issue																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:02:10</td>
+													<td class='step-details'>
+DoseResponse Element name -  field is not displayed and does not contains the text																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:02:11</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse Element name -														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ DoseResponse Element name - .png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ DoseResponse Element name - .png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ DoseResponse Element name - .png'>													</td>
+												</tr>
+												<tr class='log' status='warning'>
+													<td class='status warning' title='Warning' alt='Warning'>
+														<i class='material-icons'>warning</i>
+													</td>
+													<td class='timestamp'>23:02:12</td>
+													<td class='step-details'>
+has buffer factor value issue																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:02:12</td>
+													<td class='step-details'>
+DoseResponse Element name -  field is not displayed and does not contains the text																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:02:13</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse Element name -														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ DoseResponse Element name - .png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ DoseResponse Element name - .png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ DoseResponse Element name - .png'>													</td>
+												</tr>
+												<tr class='log' status='warning'>
+													<td class='status warning' title='Warning' alt='Warning'>
+														<i class='material-icons'>warning</i>
+													</td>
+													<td class='timestamp'>23:02:14</td>
+													<td class='step-details'>
+has buffer factor value issue																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:02:14</td>
+													<td class='step-details'>
+DoseResponse Element name -  field is not displayed and does not contains the text																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:02:16</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse Element name -														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ DoseResponse Element name - .png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ DoseResponse Element name - .png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ DoseResponse Element name - .png'>													</td>
+												</tr>
+												<tr class='log' status='warning'>
+													<td class='status warning' title='Warning' alt='Warning'>
+														<i class='material-icons'>warning</i>
+													</td>
+													<td class='timestamp'>23:02:17</td>
+													<td class='step-details'>
+has buffer factor value issue																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:02:17</td>
+													<td class='step-details'>
+DoseResponse Element name -  field is not displayed and does not contains the text																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:02:18</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse Element name -														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ DoseResponse Element name - .png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ DoseResponse Element name - .png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ DoseResponse Element name - .png'>													</td>
+												</tr>
+												<tr class='log' status='warning'>
+													<td class='status warning' title='Warning' alt='Warning'>
+														<i class='material-icons'>warning</i>
+													</td>
+													<td class='timestamp'>23:02:19</td>
+													<td class='step-details'>
+has buffer factor value issue																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:02:19</td>
+													<td class='step-details'>
+DoseResponse Element name -  field is not displayed and does not contains the text																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:02:20</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse Element name -														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ DoseResponse Element name - .png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ DoseResponse Element name - .png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ DoseResponse Element name - .png'>													</td>
+												</tr>
+												<tr class='log' status='warning'>
+													<td class='status warning' title='Warning' alt='Warning'>
+														<i class='material-icons'>warning</i>
+													</td>
+													<td class='timestamp'>23:02:21</td>
+													<td class='step-details'>
+has buffer factor value issue																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:02:21</td>
+													<td class='step-details'>
+DoseResponse Element name -  field is not displayed and does not contains the text																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:02:22</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse Element name -														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ DoseResponse Element name - .png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ DoseResponse Element name - .png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ DoseResponse Element name - .png'>													</td>
+												</tr>
+												<tr class='log' status='warning'>
+													<td class='status warning' title='Warning' alt='Warning'>
+														<i class='material-icons'>warning</i>
+													</td>
+													<td class='timestamp'>23:02:23</td>
+													<td class='step-details'>
+has buffer factor value issue																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:02:23</td>
+													<td class='step-details'>
+DoseResponse Element name -  field is not displayed and does not contains the text																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:02:25</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse Element name -														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ DoseResponse Element name - .png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ DoseResponse Element name - .png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ DoseResponse Element name - .png'>													</td>
+												</tr>
+												<tr class='log' status='warning'>
+													<td class='status warning' title='Warning' alt='Warning'>
+														<i class='material-icons'>warning</i>
+													</td>
+													<td class='timestamp'>23:02:26</td>
+													<td class='step-details'>
+has buffer factor value issue																											</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+																							</li>
+							<li class='node level-1 leaf fail' status='fail' test-id='38'>
+								<div class='collapsible-header'>
+									<div class='node-name'>Mito ATP Production Rate Widget</div>
+									<span class='node-time'>11-08-2023 11:02:26 PM</span>
+									&middot; <span class='node-duration'>0h:0m:54s.676ms</span>
+									<span class='test-status right fail'>Fail</span>
+								</div>
+								<div class='collapsible-body'>
+																		<div class='node-steps'>
+										<table class='bordered table-results'>
+											<thead>
+												<tr>
+													<th>Status</th>
+													<th>Timestamp</th>
+													<th>Details</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:02:42</td>
+													<td class='step-details'>
+Error occured while verifying the element -  DoseResponse Analysis Page - Edit Icon. The error is Timed out after 10 seconds																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:02:43</td>
+													<td class='step-details'>
+Screenshot  -  DoseResponse Analysis Page - Edit Icon														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ DoseResponse Analysis Page - Edit Icon.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ DoseResponse Analysis Page - Edit Icon.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ DoseResponse Analysis Page - Edit Icon.png'>													</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:02:55</td>
+													<td class='step-details'>
+Element - MitoAtpProductionRate Graph Property - Oligo text verification is failed.The error is Timed out after 10 seconds																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:02:56</td>
+													<td class='step-details'>
+An error occured in taking screenshot. The error is Could not find element by: By.XPath: //div[@class="graph-ms error-form hideoligo oligo-property"]; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:02:57</td>
+													<td class='step-details'>
+Element - SeleniumExtras.PageObjects.WebElementProxy is not found on the page . The error is Could not find element by: By.Id: ddl_oligo; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:03:07</td>
+													<td class='step-details'>
+Element - MitoAtpProductionRate Graph Property - Induced text verification is failed.The error is Timed out after 10 seconds																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:03:08</td>
+													<td class='step-details'>
+An error occured in taking screenshot. The error is Could not find element by: By.XPath: //div[@class="graph-ms error-form hideoligo-induced induced-property"]; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:03:09</td>
+													<td class='step-details'>
+Element - SeleniumExtras.PageObjects.WebElementProxy is not found on the page . The error is Could not find element by: By.Id: ddl_induced; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:03:19</td>
+													<td class='step-details'>
+Element - MitoAtpProductionRate Graph Property - Normalization text verification is failed.The error is Timed out after 10 seconds																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:03:20</td>
+													<td class='step-details'>
+An error occured in taking screenshot. The error is Could not find element by: By.CssSelector: .graph-ms.select-normal.normalization-toggle p; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+																							</li>
+							<li class='node level-1 leaf fail' status='fail' test-id='39'>
+								<div class='collapsible-header'>
+									<div class='node-name'>Glyco ATP Production Rate</div>
+									<span class='node-time'>11-08-2023 11:03:21 PM</span>
+									&middot; <span class='node-duration'>0h:0m:54s.290ms</span>
+									<span class='test-status right fail'>Fail</span>
+								</div>
+								<div class='collapsible-body'>
+																		<div class='node-steps'>
+										<table class='bordered table-results'>
+											<thead>
+												<tr>
+													<th>Status</th>
+													<th>Timestamp</th>
+													<th>Details</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:03:38</td>
+													<td class='step-details'>
+Error occured while verifying the element -  MitoAtpProductionRate Analysis Page - Edit Icon. The error is Timed out after 10 seconds																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:03:39</td>
+													<td class='step-details'>
+Screenshot  -  MitoAtpProductionRate Analysis Page - Edit Icon														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ MitoAtpProductionRate Analysis Page - Edit Icon.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ MitoAtpProductionRate Analysis Page - Edit Icon.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ MitoAtpProductionRate Analysis Page - Edit Icon.png'>													</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:03:50</td>
+													<td class='step-details'>
+Element - GlycoAtpProductionRate Graph Property - Oligo text verification is failed.The error is Timed out after 10 seconds																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:03:51</td>
+													<td class='step-details'>
+An error occured in taking screenshot. The error is Could not find element by: By.XPath: //div[@class="graph-ms error-form hideoligo oligo-property"]; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:03:52</td>
+													<td class='step-details'>
+Element - SeleniumExtras.PageObjects.WebElementProxy is not found on the page . The error is Could not find element by: By.Id: ddl_oligo; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:04:02</td>
+													<td class='step-details'>
+Element - GlycoAtpProductionRate Graph Property - Induced text verification is failed.The error is Timed out after 10 seconds																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:04:03</td>
+													<td class='step-details'>
+An error occured in taking screenshot. The error is Could not find element by: By.XPath: //div[@class="graph-ms error-form hideoligo-induced induced-property"]; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:04:04</td>
+													<td class='step-details'>
+Element - SeleniumExtras.PageObjects.WebElementProxy is not found on the page . The error is Could not find element by: By.Id: ddl_induced; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:04:15</td>
+													<td class='step-details'>
+Element - GlycoAtpProductionRate Graph Property - Normalization text verification is failed.The error is Timed out after 10 seconds																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:04:16</td>
+													<td class='step-details'>
+An error occured in taking screenshot. The error is Could not find element by: By.CssSelector: .graph-ms.select-normal.normalization-toggle p; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+																							</li>
+							<li class='node level-1 leaf fail' status='fail' test-id='40'>
+								<div class='collapsible-header'>
+									<div class='node-name'>ATP Production Rate Data</div>
+									<span class='node-time'>11-08-2023 11:04:17 PM</span>
+									&middot; <span class='node-duration'>0h:0m:54s.598ms</span>
+									<span class='test-status right fail'>Fail</span>
+								</div>
+								<div class='collapsible-body'>
+																		<div class='node-steps'>
+										<table class='bordered table-results'>
+											<thead>
+												<tr>
+													<th>Status</th>
+													<th>Timestamp</th>
+													<th>Details</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:04:33</td>
+													<td class='step-details'>
+Error occured while verifying the element -  GlycoAtpProductionRate Analysis Page - Edit Icon. The error is Timed out after 10 seconds																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:04:34</td>
+													<td class='step-details'>
+Screenshot  -  GlycoAtpProductionRate Analysis Page - Edit Icon														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ GlycoAtpProductionRate Analysis Page - Edit Icon.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ GlycoAtpProductionRate Analysis Page - Edit Icon.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ GlycoAtpProductionRate Analysis Page - Edit Icon.png'>													</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:04:46</td>
+													<td class='step-details'>
+Element - AtpProductionRateData Graph Property - Oligo text verification is failed.The error is Timed out after 10 seconds																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:04:47</td>
+													<td class='step-details'>
+An error occured in taking screenshot. The error is Could not find element by: By.XPath: //div[@class="graph-ms error-form hideoligo oligo-property"]; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:04:48</td>
+													<td class='step-details'>
+Element - SeleniumExtras.PageObjects.WebElementProxy is not found on the page . The error is Could not find element by: By.Id: ddl_oligo; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:04:58</td>
+													<td class='step-details'>
+Element - AtpProductionRateData Graph Property - Induced text verification is failed.The error is Timed out after 10 seconds																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:04:59</td>
+													<td class='step-details'>
+An error occured in taking screenshot. The error is Could not find element by: By.XPath: //div[@class="graph-ms error-form hideoligo-induced induced-property"]; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:05:00</td>
+													<td class='step-details'>
+Element - SeleniumExtras.PageObjects.WebElementProxy is not found on the page . The error is Could not find element by: By.Id: ddl_induced; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:05:10</td>
+													<td class='step-details'>
+Element - AtpProductionRateData Graph Property - Normalization text verification is failed.The error is Timed out after 10 seconds																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:05:11</td>
+													<td class='step-details'>
+An error occured in taking screenshot. The error is Could not find element by: By.CssSelector: .graph-ms.select-normal.normalization-toggle p; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+																							</li>
+							<li class='node level-1 leaf fail' status='fail' test-id='41'>
+								<div class='collapsible-header'>
+									<div class='node-name'>ATP Production Rate - Basal</div>
+									<span class='node-time'>11-08-2023 11:05:12 PM</span>
+									&middot; <span class='node-duration'>0h:1m:6s.870ms</span>
+									<span class='test-status right fail'>Fail</span>
+								</div>
+								<div class='collapsible-body'>
+																		<div class='node-steps'>
+										<table class='bordered table-results'>
+											<thead>
+												<tr>
+													<th>Status</th>
+													<th>Timestamp</th>
+													<th>Details</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:05:29</td>
+													<td class='step-details'>
+Error occured while verifying the element -  AtpProductionRateData Analysis Page - Edit Icon. The error is Timed out after 10 seconds																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:05:30</td>
+													<td class='step-details'>
+Screenshot  -  AtpProductionRateData Analysis Page - Edit Icon														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ AtpProductionRateData Analysis Page - Edit Icon.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ AtpProductionRateData Analysis Page - Edit Icon.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ AtpProductionRateData Analysis Page - Edit Icon.png'>													</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:05:41</td>
+													<td class='step-details'>
+Element - AtpProductionRateBasal Graph Property - Oligo text verification is failed.The error is Timed out after 10 seconds																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:05:42</td>
+													<td class='step-details'>
+An error occured in taking screenshot. The error is Could not find element by: By.XPath: //div[@class="graph-ms error-form hideoligo oligo-property"]; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:05:43</td>
+													<td class='step-details'>
+Element - SeleniumExtras.PageObjects.WebElementProxy is not found on the page . The error is Could not find element by: By.Id: ddl_oligo; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:05:54</td>
+													<td class='step-details'>
+Element - AtpProductionRateBasal Graph Property - Induced text verification is failed.The error is Timed out after 10 seconds																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:05:55</td>
+													<td class='step-details'>
+An error occured in taking screenshot. The error is Could not find element by: By.XPath: //div[@class="graph-ms error-form hideoligo-induced induced-property"]; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:05:56</td>
+													<td class='step-details'>
+Element - SeleniumExtras.PageObjects.WebElementProxy is not found on the page . The error is Could not find element by: By.Id: ddl_induced; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:06:06</td>
+													<td class='step-details'>
+Element - AtpProductionRateBasal Graph Property - Display text verification is failed.The error is Timed out after 10 seconds																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:06:07</td>
+													<td class='step-details'>
+An error occured in taking screenshot. The error is Could not find element by: By.CssSelector: .graph-ms.select-display.hideprop p; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:06:08</td>
+													<td class='step-details'>
+Element -  is not found on the page . The error is Could not find element by: By.Id: dispaly; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:06:18</td>
+													<td class='step-details'>
+Element - AtpProductionRateBasal Graph Property - Normalization text verification is failed.The error is Timed out after 10 seconds																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:06:19</td>
+													<td class='step-details'>
+An error occured in taking screenshot. The error is Could not find element by: By.CssSelector: .graph-ms.select-normal.normalization-toggle p; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+																							</li>
+							<li class='node level-1 leaf fail' status='fail' test-id='42'>
+								<div class='collapsible-header'>
+									<div class='node-name'>ATP Production Rate - Induced</div>
+									<span class='node-time'>11-08-2023 11:06:20 PM</span>
+									&middot; <span class='node-duration'>0h:1m:6s.816ms</span>
+									<span class='test-status right fail'>Fail</span>
+								</div>
+								<div class='collapsible-body'>
+																		<div class='node-steps'>
+										<table class='bordered table-results'>
+											<thead>
+												<tr>
+													<th>Status</th>
+													<th>Timestamp</th>
+													<th>Details</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:06:37</td>
+													<td class='step-details'>
+Error occured while verifying the element -  AtpProductionRateBasal Analysis Page - Edit Icon. The error is Timed out after 10 seconds																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:06:38</td>
+													<td class='step-details'>
+Screenshot  -  AtpProductionRateBasal Analysis Page - Edit Icon														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ AtpProductionRateBasal Analysis Page - Edit Icon.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ AtpProductionRateBasal Analysis Page - Edit Icon.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ AtpProductionRateBasal Analysis Page - Edit Icon.png'>													</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:06:49</td>
+													<td class='step-details'>
+Element - AtpProductionRateInduced Graph Property - Oligo text verification is failed.The error is Timed out after 10 seconds																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:06:50</td>
+													<td class='step-details'>
+An error occured in taking screenshot. The error is Could not find element by: By.XPath: //div[@class="graph-ms error-form hideoligo oligo-property"]; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:06:51</td>
+													<td class='step-details'>
+Element - SeleniumExtras.PageObjects.WebElementProxy is not found on the page . The error is Could not find element by: By.Id: ddl_oligo; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:07:01</td>
+													<td class='step-details'>
+Element - AtpProductionRateInduced Graph Property - Induced text verification is failed.The error is Timed out after 10 seconds																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:07:02</td>
+													<td class='step-details'>
+An error occured in taking screenshot. The error is Could not find element by: By.XPath: //div[@class="graph-ms error-form hideoligo-induced induced-property"]; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:07:03</td>
+													<td class='step-details'>
+Element - SeleniumExtras.PageObjects.WebElementProxy is not found on the page . The error is Could not find element by: By.Id: ddl_induced; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:07:14</td>
+													<td class='step-details'>
+Element - AtpProductionRateInduced Graph Property - Display text verification is failed.The error is Timed out after 10 seconds																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:07:15</td>
+													<td class='step-details'>
+An error occured in taking screenshot. The error is Could not find element by: By.CssSelector: .graph-ms.select-display.hideprop p; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:07:16</td>
+													<td class='step-details'>
+Element -  is not found on the page . The error is Could not find element by: By.Id: dispaly; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:07:26</td>
+													<td class='step-details'>
+Element - AtpProductionRateInduced Graph Property - Normalization text verification is failed.The error is Timed out after 10 seconds																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:07:27</td>
+													<td class='step-details'>
+An error occured in taking screenshot. The error is Could not find element by: By.CssSelector: .graph-ms.select-normal.normalization-toggle p; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+																							</li>
+							<li class='node level-1 leaf fail' status='fail' test-id='43'>
+								<div class='collapsible-header'>
+									<div class='node-name'>EnergeticMap - Basal</div>
+									<span class='node-time'>11-08-2023 11:07:28 PM</span>
+									&middot; <span class='node-duration'>0h:0m:54s.416ms</span>
+									<span class='test-status right fail'>Fail</span>
+								</div>
+								<div class='collapsible-body'>
+																		<div class='node-steps'>
+										<table class='bordered table-results'>
+											<thead>
+												<tr>
+													<th>Status</th>
+													<th>Timestamp</th>
+													<th>Details</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:07:44</td>
+													<td class='step-details'>
+Error occured while verifying the element -  AtpProductionRateInduced Analysis Page - Edit Icon. The error is Timed out after 10 seconds																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:07:45</td>
+													<td class='step-details'>
+Screenshot  -  AtpProductionRateInduced Analysis Page - Edit Icon														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ AtpProductionRateInduced Analysis Page - Edit Icon.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ AtpProductionRateInduced Analysis Page - Edit Icon.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ AtpProductionRateInduced Analysis Page - Edit Icon.png'>													</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:07:57</td>
+													<td class='step-details'>
+Element - AtpProductionRateInduced Graph Property - Oligo text verification is failed.The error is Timed out after 10 seconds																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:07:58</td>
+													<td class='step-details'>
+An error occured in taking screenshot. The error is Could not find element by: By.XPath: //div[@class="graph-ms error-form hideoligo oligo-property"]; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:07:59</td>
+													<td class='step-details'>
+Element - SeleniumExtras.PageObjects.WebElementProxy is not found on the page . The error is Could not find element by: By.Id: ddl_oligo; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:08:09</td>
+													<td class='step-details'>
+Element - AtpProductionRateInduced Graph Property - Induced text verification is failed.The error is Timed out after 10 seconds																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:08:10</td>
+													<td class='step-details'>
+An error occured in taking screenshot. The error is Could not find element by: By.XPath: //div[@class="graph-ms error-form hideoligo-induced induced-property"]; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:08:11</td>
+													<td class='step-details'>
+Element - SeleniumExtras.PageObjects.WebElementProxy is not found on the page . The error is Could not find element by: By.Id: ddl_induced; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:08:21</td>
+													<td class='step-details'>
+Element - AtpProductionRateInduced Graph Property - Normalization text verification is failed.The error is Timed out after 10 seconds																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:08:22</td>
+													<td class='step-details'>
+An error occured in taking screenshot. The error is Could not find element by: By.CssSelector: .graph-ms.select-normal.normalization-toggle p; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+																							</li>
+							<li class='node level-1 leaf fail' status='fail' test-id='44'>
+								<div class='collapsible-header'>
+									<div class='node-name'>EnergeticMap - Induced</div>
+									<span class='node-time'>11-08-2023 11:08:23 PM</span>
+									&middot; <span class='node-duration'>0h:0m:54s.764ms</span>
+									<span class='test-status right fail'>Fail</span>
+								</div>
+								<div class='collapsible-body'>
+																		<div class='node-steps'>
+										<table class='bordered table-results'>
+											<thead>
+												<tr>
+													<th>Status</th>
+													<th>Timestamp</th>
+													<th>Details</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:08:40</td>
+													<td class='step-details'>
+Error occured while verifying the element -  AtpProductionRateInduced Analysis Page - Edit Icon. The error is Timed out after 10 seconds																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:08:41</td>
+													<td class='step-details'>
+Screenshot  -  AtpProductionRateInduced Analysis Page - Edit Icon														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ AtpProductionRateInduced Analysis Page - Edit Icon.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ AtpProductionRateInduced Analysis Page - Edit Icon.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ AtpProductionRateInduced Analysis Page - Edit Icon.png'>													</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:08:52</td>
+													<td class='step-details'>
+Element - EnergeticMapInduced Graph Property - Oligo text verification is failed.The error is Timed out after 10 seconds																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:08:53</td>
+													<td class='step-details'>
+An error occured in taking screenshot. The error is Could not find element by: By.XPath: //div[@class="graph-ms error-form hideoligo oligo-property"]; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:08:54</td>
+													<td class='step-details'>
+Element - SeleniumExtras.PageObjects.WebElementProxy is not found on the page . The error is Could not find element by: By.Id: ddl_oligo; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:09:05</td>
+													<td class='step-details'>
+Element - EnergeticMapInduced Graph Property - Induced text verification is failed.The error is Timed out after 10 seconds																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:09:06</td>
+													<td class='step-details'>
+An error occured in taking screenshot. The error is Could not find element by: By.XPath: //div[@class="graph-ms error-form hideoligo-induced induced-property"]; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:09:07</td>
+													<td class='step-details'>
+Element - SeleniumExtras.PageObjects.WebElementProxy is not found on the page . The error is Could not find element by: By.Id: ddl_induced; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:09:17</td>
+													<td class='step-details'>
+Element - EnergeticMapInduced Graph Property - Normalization text verification is failed.The error is Timed out after 10 seconds																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:09:18</td>
+													<td class='step-details'>
+An error occured in taking screenshot. The error is Could not find element by: By.CssSelector: .graph-ms.select-normal.normalization-toggle p; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+																							</li>
+							<li class='node level-1 leaf fail' status='fail' test-id='45'>
+								<div class='collapsible-header'>
+									<div class='node-name'>ATP Rate Index Widget</div>
+									<span class='node-time'>11-08-2023 11:09:19 PM</span>
+									&middot; <span class='node-duration'>0h:0m:54s.632ms</span>
+									<span class='test-status right fail'>Fail</span>
+								</div>
+								<div class='collapsible-body'>
+																		<div class='node-steps'>
+										<table class='bordered table-results'>
+											<thead>
+												<tr>
+													<th>Status</th>
+													<th>Timestamp</th>
+													<th>Details</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:09:35</td>
+													<td class='step-details'>
+Error occured while verifying the element -  EnergeticMapInduced Analysis Page - Edit Icon. The error is Timed out after 10 seconds																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:09:37</td>
+													<td class='step-details'>
+Screenshot  -  EnergeticMapInduced Analysis Page - Edit Icon														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ EnergeticMapInduced Analysis Page - Edit Icon.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ EnergeticMapInduced Analysis Page - Edit Icon.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-11-08-2023-10-59-21\XF ATP Rate AssayView\Error\ EnergeticMapInduced Analysis Page - Edit Icon.png'>													</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:09:48</td>
+													<td class='step-details'>
+Element - XfAtpRateIndex Graph Property - Oligo text verification is failed.The error is Timed out after 10 seconds																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:09:49</td>
+													<td class='step-details'>
+An error occured in taking screenshot. The error is Could not find element by: By.XPath: //div[@class="graph-ms error-form hideoligo oligo-property"]; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:09:50</td>
+													<td class='step-details'>
+Element - SeleniumExtras.PageObjects.WebElementProxy is not found on the page . The error is Could not find element by: By.Id: ddl_oligo; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:10:00</td>
+													<td class='step-details'>
+Element - XfAtpRateIndex Graph Property - Induced text verification is failed.The error is Timed out after 10 seconds																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:10:01</td>
+													<td class='step-details'>
+An error occured in taking screenshot. The error is Could not find element by: By.XPath: //div[@class="graph-ms error-form hideoligo-induced induced-property"]; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:10:03</td>
+													<td class='step-details'>
+Element - SeleniumExtras.PageObjects.WebElementProxy is not found on the page . The error is Could not find element by: By.Id: ddl_induced; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:10:13</td>
+													<td class='step-details'>
+Element - XfAtpRateIndex Graph Property - Normalization text verification is failed.The error is Timed out after 10 seconds																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>23:10:14</td>
+													<td class='step-details'>
+An error occured in taking screenshot. The error is Could not find element by: By.CssSelector: .graph-ms.select-normal.normalization-toggle p; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+																							</li>
+						</ul>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!-- subview left -->
+	<div class='subview-right left'>
+		<div class='view-summary'>
+			<div id='step-filters' class="right sr-filters">
+				<a class="btn-floating waves-effect waves-light green" status="pass" alt="pass" title="pass"><i class="material-icons">check_circle</i></a>
+				<a class="btn-floating waves-effect waves-light red" status="fail" alt="fail" title="fail"><i class="material-icons">cancel</i></a>
+				<a class="btn-floating waves-effect waves-light red darken-4" status="fatal" alt="fatal" title="fatal"><i class="material-icons">cancel</i></a>
+				<a class="btn-floating waves-effect waves-light pink text-lighten-1" status="error" alt="error" title="error"><i class="material-icons">error</i></a>
+				<a class="btn-floating waves-effect waves-light orange" alt="warning" status="warning" title="warning"><i class="material-icons">warning</i></a>
+				<a class="btn-floating waves-effect waves-light teal" status="skip" alt="skip" title="skip"><i class="material-icons">redo</i></a>
+				<a class="btn-floating waves-effect waves-light grey" status="clear" alt="Clear filters" title="Clear filters"><i class="material-icons">clear</i></a>
+			</div>
+			<h5 class='test-name'></h5>
+		</div>
+	</div>
+	<!-- subview right -->
+</div>
+<!-- test view -->
+
+			
+			<!-- category view -->
+			
+<!-- exception view -->
+
+			
+
+<div id='dashboard-view' class='view hide'>
+	<div class='card-panel transparent np-v'>
+		<h5>Dashboard</h5>
+
+		<div class='row'>
+			<div class='col s2'>
+				<div class='card-panel r'>
+          Tests
+          <div class='panel-lead'>3</div>
+				</div>
+			</div>
+			<div class='col s2'>
+				<div class='card-panel r'>
+          Steps
+          <div class='panel-lead'>10</div>
+				</div>
+			</div>
+			<div class='col s2'>
+				<div class='card-panel r'>
+					Start
+					<div class='panel-lead'>11-08-2023 10:59:21 PM</div>
+				</div>
+			</div>
+			<div class='col s2'>
+				<div class='card-panel r'>
+			 		End
+			 		<div class='panel-lead'>11-08-2023 11:10:15 PM</div>
+				</div>
+			</div>
+			<div class='col s2'>
+				<div class='card-panel r'>
+					Time Taken
+					<div class='panel-lead'>00:10:53.9729132</div>
+				</div>
+			</div>
+			<div class='col s4'>
+				<div class='card-panel dashboard-environment'>
+					<span class='right label cyan white-text'>Environment</span><p>&nbsp;</p>
+					<table>
+						<tr>
+							<th>Name</th>
+							<th>Value</th>
+						</tr>
+							<tr>
+								<td>Execution Time</td>
+								<td>11-08-2023-10-59-21</td>
+							</tr>
+							<tr>
+								<td>Environment</td>
+								<td>QA</td>
+							</tr>
+					</table>
+				</div>
+			</div>
+					</div>
+	</div>
+</div>
+<!-- dashboard view -->
+
+			<!-- testrunner-logs view -->
+		</div>
+		<!-- container -->
+		<script>
+			var statusGroup = {
+                parentCount: 3,
+				passParent: 2,
+				failParent: 1,
+				fatalParent: 0,
+				errorParent: 0,
+				warningParent: 0,
+				skipParent: 0,
+				exceptionsParent: 1,
+				childCount: 10,
+				passChild: 1,
+				failChild: 9,
+				fatalChild: 0,
+				errorChild: 0,
+				warningChild: 0,
+				skipChild: 0,
+				infoChild: 0,
+				debugChild: 0,
+				exceptionsChild: 9,
+				grandChildCount: 0,
+				passGrandChild: 0,
+				failGrandChild: 0,
+				fatalGrandChild: 0,
+				errorGrandChild: 0,
+				warningGrandChild: 0,
+				skipGrandChild: 0,
+				infoGrandChild: 0,
+				debugGrandChild: 0,
+				exceptionsGrandChild: 0,
+			};
+		</script>
+		<script src='https://cdn.rawgit.com/extent-framework/extent-github-cdn/c23457b/v3html/js/extent.js' type='text/javascript'></script>
+		<script type='text/javascript'>
+			
+		</script>
+	</body>
+</html>

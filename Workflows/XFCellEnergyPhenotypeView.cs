@@ -143,6 +143,8 @@ namespace SHAProject.Workflows
             }
 
             ObjectInitalize();
+
+            ExtentReport.CreateExtentTestNode("Create XF Cell Energy Phenotype View");
         }
 
         public void ObjectInitalize()
@@ -159,13 +161,12 @@ namespace SHAProject.Workflows
             createWidgets = new CreateWidgetFromAddView(currentPage, driver, loginClass.findElements, fileUploadOrExistingFileData, commonFunc);
             normalization = new Normalization(currentPage, driver, loginClass.findElements, normalizationData, fileUploadOrExistingFileData, commonFunc);
             plateMap = new PlateMap(currentPage, driver, loginClass.findElements, commonFunc, fileUploadOrExistingFileData, fileUploadOrExistingFileData.FileType, normalizationData);
+            graph = new Graph(currentPage, driver, loginClass.findElements, commonFunc);
         }
 
         [Test, Order(1)]
         public void CreateCellEnergyView()
         {
-            ExtentReport.CreateExtentTestNode("Create XF Cell Energy Phenotype View");
-
             if (loginStatus)
             {
                 bool FileStatus = false;
@@ -190,6 +191,8 @@ namespace SHAProject.Workflows
         [Test, Order(2)]
         public void CheckCellEnergyViewLayout()
         {
+            ExtentReport.CreateExtentTestNode("CheckCellEnergyViewLayout");
+
             if (WorkFlow8Data.LayoutVerification)
             {
                 string currentPath = commonFunc.GetCurrentPath();
@@ -199,8 +202,6 @@ namespace SHAProject.Workflows
 
                 if (!currentPath.Contains("Analysis"))
                     CreateCellEnergyView();
-
-                ExtentReport.CreateExtentTestNode("CheckCellEnergyViewLayout");
 
                 if (RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
                     commonFunc.HandleCurrentWindow();
@@ -218,6 +219,8 @@ namespace SHAProject.Workflows
         [Test, Order(3)]
         public void XFCellEnergyPhenotype()
         {
+            ExtentReport.CreateExtentTestNode("XF Cell Energy Phenotype");
+
             if (fileUploadOrExistingFileData.SelectedWidgets.Contains(WidgetTypes.XfCellEnergyPhenotype))
             {
                 string currentPath = commonFunc.GetCurrentPath();
@@ -228,8 +231,6 @@ namespace SHAProject.Workflows
                 if (!currentPath.Contains("Analysis"))
                     CreateCellEnergyView();
 
-                ExtentReport.CreateExtentTestNode("XF Cell Energy Phenotype");
-
                 if (RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
                     commonFunc.HandleCurrentWindow();
 
@@ -237,8 +238,7 @@ namespace SHAProject.Workflows
 
                 if (hasEditWidgetPageGone)
                 {
-                    if (fileUploadOrExistingFileData.IsNormalized)
-                        graphProperties.Normalization(WorkFlow8Data.CellEnergyPhenotype);
+                    graphProperties.Normalization(WorkFlow8Data.CellEnergyPhenotype);
 
                     graphProperties.ErrorFormat(WorkFlow8Data.CellEnergyPhenotype, WidgetCategories.XfStandard, WidgetTypes.XfCellEnergyPhenotype);
 
@@ -250,15 +250,11 @@ namespace SHAProject.Workflows
 
                     if (WorkFlow8Data.CellEnergyPhenotype.GraphSettingsVerify)
                     {
-                        graphSettings.VerifyGraphSettingsIcon();
-
                         graphSettings.XAutoScale(WorkFlow8Data.CellEnergyPhenotype);
 
                         graphSettings.YAutoScale(WorkFlow8Data.CellEnergyPhenotype);
 
                         graphSettings.Zoom(WorkFlow8Data.CellEnergyPhenotype);
-
-                        graphSettings.GraphSettingsApply();
                     }
 
                     groupLegends.EditWidgetGroupLegends(WidgetCategories.XfCellEnergy, WidgetTypes.XfCellEnergyPhenotype, WorkFlow8Data.CellEnergyPhenotype);
@@ -278,6 +274,8 @@ namespace SHAProject.Workflows
         [Test, Order(4)]
         public void MetabolicPotentialOCR()
         {
+            ExtentReport.CreateExtentTestNode("Metabolic Potential OCR");
+
             if (fileUploadOrExistingFileData.SelectedWidgets.Contains(WidgetTypes.MetabolicPotentialOcr))
             {
                 string currentPath = commonFunc.GetCurrentPath();
@@ -287,8 +285,6 @@ namespace SHAProject.Workflows
 
                 if (!currentPath.Contains("Analysis"))
                     CreateCellEnergyView();
-
-                ExtentReport.CreateExtentTestNode("Metabolic Potential OCR");
 
                 if (RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
                     commonFunc.HandleCurrentWindow();
@@ -310,19 +306,14 @@ namespace SHAProject.Workflows
 
                     if (WorkFlow8Data.MetabolicPotentialOCR.GraphSettingsVerify)
                     {
-                        graphSettings.VerifyGraphSettingsIcon();
-
                         graphSettings.XAutoScale(WorkFlow8Data.MetabolicPotentialOCR);
 
                         graphSettings.ZeroLine(WorkFlow8Data.MetabolicPotentialOCR);
 
                         graphSettings.Zoom(WorkFlow8Data.MetabolicPotentialOCR);
-
-                        graphSettings.GraphSettingsApply();
                     }
 
                     ResultStatus platemapWellCountResult = plateMap.VerifyPlateMapRowandCloumnWell(WidgetTypes.MetabolicPotentialOcr);
-
                     if (platemapWellCountResult.Status)
                         ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"{platemapWellCountResult.Message}{WidgetTypes.MetabolicPotentialOcr}");
                     else
@@ -354,6 +345,8 @@ namespace SHAProject.Workflows
         [Test, Order(5)]
         public void MetabolicPotentialECAR()
         {
+            ExtentReport.CreateExtentTestNode("Metabolic Potential ECAR");
+
             if (fileUploadOrExistingFileData.SelectedWidgets.Contains(WidgetTypes.MetabolicPotentialEcar))
             {
                 string currentPath = commonFunc.GetCurrentPath();
@@ -363,8 +356,6 @@ namespace SHAProject.Workflows
 
                 if (!currentPath.Contains("Analysis"))
                     CreateCellEnergyView();
-
-                ExtentReport.CreateExtentTestNode("Metabolic Potential ECAR");
 
                 if (RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
                     commonFunc.HandleCurrentWindow();
@@ -386,19 +377,14 @@ namespace SHAProject.Workflows
 
                     if (WorkFlow8Data.MetabolicPotentialECAR.GraphSettingsVerify)
                     {
-                        graphSettings.VerifyGraphSettingsIcon();
-
                         graphSettings.XAutoScale(WorkFlow8Data.MetabolicPotentialECAR);
 
                         graphSettings.ZeroLine(WorkFlow8Data.MetabolicPotentialECAR);
 
                         graphSettings.Zoom(WorkFlow8Data.MetabolicPotentialECAR);
-
-                        graphSettings.GraphSettingsApply();
                     }
 
                     ResultStatus platemapWellCountResult = plateMap.VerifyPlateMapRowandCloumnWell(WidgetTypes.MetabolicPotentialEcar);
-
                     if (platemapWellCountResult.Status)
                         ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"{platemapWellCountResult.Message}{WidgetTypes.MetabolicPotentialEcar}");
                     else
@@ -430,6 +416,8 @@ namespace SHAProject.Workflows
         [Test, Order(6)]
         public void BaselineOCR()
         {
+            ExtentReport.CreateExtentTestNode("Baseline OCR");
+
             if (fileUploadOrExistingFileData.SelectedWidgets.Contains(WidgetTypes.BaselineOcr))
             {
                 string currentPath = commonFunc.GetCurrentPath();
@@ -440,8 +428,6 @@ namespace SHAProject.Workflows
                 if (!currentPath.Contains("Analysis"))
                     CreateCellEnergyView();
 
-                ExtentReport.CreateExtentTestNode("Baseline OCR");
-
                 if (RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
                     commonFunc.HandleCurrentWindow();
 
@@ -451,8 +437,7 @@ namespace SHAProject.Workflows
                 {
                     graphProperties.Display(WorkFlow8Data.BaselineOCR);
 
-                    if (fileUploadOrExistingFileData.IsNormalized)
-                        graphProperties.Normalization(WorkFlow8Data.BaselineOCR);
+                    graphProperties.Normalization(WorkFlow8Data.BaselineOCR);
 
                     graphProperties.ErrorFormat(WorkFlow8Data.BaselineOCR, WidgetCategories.XfCellEnergy, WidgetTypes.BaselineOcr);
 
@@ -466,19 +451,14 @@ namespace SHAProject.Workflows
 
                     if (WorkFlow8Data.BaselineOCR.GraphSettingsVerify)
                     {
-                        graphSettings.VerifyGraphSettingsIcon();
-
                         graphSettings.XAutoScale(WorkFlow8Data.BaselineOCR);
 
                         graphSettings.ZeroLine(WorkFlow8Data.BaselineOCR);
 
                         graphSettings.Zoom(WorkFlow8Data.BaselineOCR);
-
-                        graphSettings.GraphSettingsApply();
                     }
 
                     ResultStatus platemapWellCountResult = plateMap.VerifyPlateMapRowandCloumnWell(WidgetTypes.BaselineOcr);
-
                     if (platemapWellCountResult.Status)
                         ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"{platemapWellCountResult.Message}{WidgetTypes.BaselineOcr}");
                     else
@@ -510,6 +490,8 @@ namespace SHAProject.Workflows
         [Test, Order(7)]
         public void BaselineECAR()
         {
+            ExtentReport.CreateExtentTestNode("Baseline ECAR");
+
             if (fileUploadOrExistingFileData.SelectedWidgets.Contains(WidgetTypes.BaselineEcar))
             {
                 string currentPath = commonFunc.GetCurrentPath();
@@ -520,8 +502,6 @@ namespace SHAProject.Workflows
                 if (!currentPath.Contains("Analysis"))
                     CreateCellEnergyView();
 
-                ExtentReport.CreateExtentTestNode("Baseline ECAR");
-
                 if (RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
                     commonFunc.HandleCurrentWindow();
 
@@ -531,8 +511,7 @@ namespace SHAProject.Workflows
                 {
                     graphProperties.Display(WorkFlow8Data.BaselineECAR);
 
-                    if (fileUploadOrExistingFileData.IsNormalized)
-                        graphProperties.Normalization(WorkFlow8Data.BaselineECAR);
+                    graphProperties.Normalization(WorkFlow8Data.BaselineECAR);
 
                     graphProperties.ErrorFormat(WorkFlow8Data.BaselineECAR, WidgetCategories.XfCellEnergy, WidgetTypes.BaselineEcar);
 
@@ -558,7 +537,6 @@ namespace SHAProject.Workflows
                     }
 
                     ResultStatus platemapWellCountResult = plateMap.VerifyPlateMapRowandCloumnWell(WidgetTypes.BaselineEcar);
-
                     if (platemapWellCountResult.Status)
                         ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"{platemapWellCountResult.Message}{WidgetTypes.BaselineEcar}");
                     else
@@ -590,6 +568,8 @@ namespace SHAProject.Workflows
         [Test, Order(8)]
         public void StressedOCR()
         {
+            ExtentReport.CreateExtentTestNode("Stressed OCR");
+
             if (fileUploadOrExistingFileData.SelectedWidgets.Contains(WidgetTypes.StressedOcr))
             {
                 string currentPath = commonFunc.GetCurrentPath();
@@ -600,8 +580,6 @@ namespace SHAProject.Workflows
                 if (!currentPath.Contains("Analysis"))
                     CreateCellEnergyView();
 
-                ExtentReport.CreateExtentTestNode("Stressed OCR");
-
                 if (RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
                     commonFunc.HandleCurrentWindow();
 
@@ -611,8 +589,7 @@ namespace SHAProject.Workflows
                 {
                     graphProperties.Display(WorkFlow8Data.StressedOCR);
 
-                    if (fileUploadOrExistingFileData.IsNormalized)
-                        graphProperties.Normalization(WorkFlow8Data.StressedOCR);
+                    graphProperties.Normalization(WorkFlow8Data.StressedOCR);
 
                     graphProperties.ErrorFormat(WorkFlow8Data.StressedOCR, WidgetCategories.XfCellEnergy, WidgetTypes.StressedOcr);
 
@@ -626,19 +603,14 @@ namespace SHAProject.Workflows
 
                     if (WorkFlow8Data.StressedOCR.GraphSettingsVerify)
                     {
-                        graphSettings.VerifyGraphSettingsIcon();
-
                         graphSettings.XAutoScale(WorkFlow8Data.StressedOCR);
 
                         graphSettings.ZeroLine(WorkFlow8Data.StressedOCR);
 
                         graphSettings.Zoom(WorkFlow8Data.StressedOCR);
-
-                        graphSettings.GraphSettingsApply();
                     }
 
                     ResultStatus platemapWellCountResult = plateMap.VerifyPlateMapRowandCloumnWell(WidgetTypes.StressedOcr);
-
                     if (platemapWellCountResult.Status)
                         ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"{platemapWellCountResult.Message}{WidgetTypes.StressedOcr}");
                     else
@@ -670,6 +642,8 @@ namespace SHAProject.Workflows
         [Test, Order(9)]
         public void StressedECAR()
         {
+            ExtentReport.CreateExtentTestNode("Stressed ECAR");
+
             if (fileUploadOrExistingFileData.SelectedWidgets.Contains(WidgetTypes.StressedEcar))
             {
                 string currentPath = commonFunc.GetCurrentPath();
@@ -680,8 +654,6 @@ namespace SHAProject.Workflows
                 if (!currentPath.Contains("Analysis"))
                     CreateCellEnergyView();
 
-                ExtentReport.CreateExtentTestNode("Stressed ECAR");
-
                 if (RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
                     commonFunc.HandleCurrentWindow();
 
@@ -691,8 +663,7 @@ namespace SHAProject.Workflows
                 {
                     graphProperties.Display(WorkFlow8Data.StressedECAR);
 
-                    if (fileUploadOrExistingFileData.IsNormalized)
-                        graphProperties.Normalization(WorkFlow8Data.StressedECAR);
+                    graphProperties.Normalization(WorkFlow8Data.StressedECAR);
 
                     graphProperties.ErrorFormat(WorkFlow8Data.StressedECAR, WidgetCategories.XfCellEnergy, WidgetTypes.StressedEcar);
 
@@ -706,19 +677,14 @@ namespace SHAProject.Workflows
 
                     if (WorkFlow8Data.StressedECAR.GraphSettingsVerify)
                     {
-                        graphSettings.VerifyGraphSettingsIcon();
-
                         graphSettings.XAutoScale(WorkFlow8Data.StressedECAR);
 
                         graphSettings.ZeroLine(WorkFlow8Data.StressedECAR);
 
                         graphSettings.Zoom(WorkFlow8Data.StressedECAR);
-
-                        graphSettings.GraphSettingsApply();
                     }
 
                     ResultStatus platemapWellCountResult = plateMap.VerifyPlateMapRowandCloumnWell(WidgetTypes.StressedEcar);
-
                     if (platemapWellCountResult.Status)
                         ExtentReport.ExtentTest("ExtentTestNode", Status.Pass, $"{platemapWellCountResult.Message}{WidgetTypes.StressedEcar}");
                     else
@@ -750,6 +716,8 @@ namespace SHAProject.Workflows
         [Test, Order(10)]
         public void DataTable()
         {
+            ExtentReport.CreateExtentTestNode("Data Table");
+
             if (fileUploadOrExistingFileData.SelectedWidgets.Contains(WidgetTypes.DataTable))
             {
                 string currentPath = commonFunc.GetCurrentPath();
@@ -760,14 +728,11 @@ namespace SHAProject.Workflows
                 if (!currentPath.Contains("Analysis"))
                     CreateCellEnergyView();
 
-                ExtentReport.CreateExtentTestNode("Data Table");
-
                 bool hasEditWidgetPageGone = analysisPage.GoToEditWidget(WidgetCategories.XfCellEnergy, WidgetTypes.DataTable);
 
                 if (hasEditWidgetPageGone)
                 {
-                    if (fileUploadOrExistingFileData.IsNormalized)
-                        graphProperties.Normalization(WorkFlow8Data.DataTable);
+                    graphProperties.Normalization(WorkFlow8Data.DataTable);
 
                     graphProperties.ErrorFormat(WorkFlow8Data.DataTable, WidgetCategories.XfCellEnergy, WidgetTypes.DataTable);
 

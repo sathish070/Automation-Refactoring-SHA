@@ -1,0 +1,3066 @@
+
+
+<!DOCTYPE html>
+<html>
+	
+	<head>
+	<meta /> 
+	<meta name='robots' content='noodp, noydir' />
+	<meta name='viewport' content='width=device-width, initial-scale=1' />
+	
+	<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600' rel='stylesheet' type='text/css' />
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+	<link href='https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@8539670db814bf19a0ddbe9a6d19058aea0cf981/v3html/css/extent.css' type='text/css' rel='stylesheet' />
+  
+	<title>Seahorse Automation </title>
+
+	<style type='text/css'>
+		/* json-tree */
+		.jstBracket,.jstComma,.jstValue{white-space:pre-wrap}.jstValue{font-size:10px;font-weight:400;font-family:"Lucida Console",Monaco,monospace}.jstProperty{color:#666;word-wrap:break-word}.jstBool{color:#2525CC}.jstNum{color:#D036D0}.jstNull{color:gray}.jstStr{color:#2DB669}.jstFold:after{content:' -';cursor:pointer}.jstExpand{white-space:normal}.jstExpand:after{content:' +';cursor:pointer}.jstFolded{white-space:normal!important}.jstHiddenBlock{display:none}
+		
+	</style>
+	
+	<script type="text/javascript">
+		/*! json-tree - v0.2.2 - 2017-09-25, MIT LICENSE */
+		var JSONTree=function(){var n={"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#x27;","/":"&#x2F;"},t=0,r=0;this.create=function(n,t){return r+=1,N(u(n,0,!1),{class:"jstValue"})};var e=function(t){return t.replace(/[&<>'"]/g,function(t){return n[t]})},s=function(){return r+"_"+t++},u=function(n,t,r){if(null===n)return f(r?t:0);switch(typeof n){case"boolean":return l(n,r?t:0);case"number":return i(n,r?t:0);case"string":return o(n,r?t:0);default:return n instanceof Array?a(n,t,r):c(n,t,r)}},c=function(n,t,r){var e=s(),u=Object.keys(n).map(function(r){return j(r,n[r],t+1,!0)}).join(m()),c=[g("{",r?t:0,e),N(u,{id:e}),p("}",t)].join("\n");return N(c,{})},a=function(n,t,r){var e=s(),c=n.map(function(n){return u(n,t+1,!0)}).join(m());return[g("[",r?t:0,e),N(c,{id:e}),p("]",t)].join("\n")},o=function(n,t){var r=e(JSON.stringify(n));return N(v(r,t),{class:"jstStr"})},i=function(n,t){return N(v(n,t),{class:"jstNum"})},l=function(n,t){return N(v(n,t),{class:"jstBool"})},f=function(n){return N(v("null",n),{class:"jstNull"})},j=function(n,t,r){var s=v(e(JSON.stringify(n))+": ",r),c=N(u(t,r,!1),{});return N(s+c,{class:"jstProperty"})},m=function(){return N(",\n",{class:"jstComma"})},N=function(n,t){return d("span",t,n)},d=function(n,t,r){return"<"+n+Object.keys(t).map(function(n){return" "+n+'="'+t[n]+'"'}).join("")+">"+r+"</"+n+">"},g=function(n,t,r){return N(v(n,t),{class:"jstBracket"})+N("",{class:"jstFold",onclick:"JSONTree.toggle('"+r+"')"})};this.toggle=function(n){var t=document.getElementById(n),r=t.parentNode,e=t.previousElementSibling;""===t.className?(t.className="jstHiddenBlock",r.className="jstFolded",e.className="jstExpand"):(t.className="",r.className="",e.className="jstFold")};var p=function(n,t){return N(v(n,t),{})},v=function(n,t){return Array(2*t+1).join(" ")+n};return this}();
+	</script>
+</head>
+
+
+	<body class='extent default hide-overflow '>
+		<div id='theme-selector' alt='Click to toggle theme. To enable by default, use theme configuration.' title='Click to toggle theme. To enable by default, use theme configuration.'>
+			<span><i class='material-icons'>desktop_windows</i></span>
+		</div>
+		
+		<nav>
+	<div class="nav-wrapper">
+		<a href="#!" class="brand-logo black"><img src="https://cdn.rawgit.com/extent-framework/extent-github-cdn/d74480e/commons/img/logo.png"></a>
+		<ul id='slide-out' class='side-nav fixed hide-on-med-and-down'>
+			<li class='waves-effect active'><a href='#!' view='test-view' onclick="configureView(0);chartsView('test');"><i class='material-icons'>dashboard</i></a></li>
+            			<li class='waves-effect'><a href='#!' onclick="configureView(-1);chartsView('dashboard');" view='dashboard-view'><i class='material-icons'>track_changes</i></a></li>
+		</ul>
+		<span class='report-name'><b>Seahorse Automation Testing</b></span>
+		<span class='report-headline'></span>
+		<ul id='nav-mobile' class='right hide-on-med-and-down nav-right'>
+			<a href='#!'><span class='label blue darken-3 suite-start-time'>10-08-2023 09:17:54 PM</span></a>
+		</ul>
+	</div>
+</nav>
+
+		<!-- container -->
+		<div class='container'>
+			<div id='test-view' class='view'>
+	<section id='controls'>
+		<div class='controls grey lighten-4'>
+			<!-- test toggle -->
+			<div class='chip transparent'>
+				<a class='dropdown-button tests-toggle' data-activates='tests-toggle' data-constrainwidth='true' data-beloworigin='true' data-hover='true' href='#'>
+				<i class='material-icons'>warning</i> Status
+				</a>
+				<ul id='tests-toggle' class='dropdown-content'>
+					<li status='pass'><a href='#!'>Pass <i class='material-icons green-text'>check_circle</i></a></li>
+															<li status='fail'><a href='#!'>Fail <i class='material-icons red-text'>cancel</i></a></li>
+										<li status='error'><a href='#!'>Error <i class='material-icons red-text lighten-2'>error</i></a></li>
+															<li class='divider'></li>
+					<li status='clear' clear='true'><a href='#!'>Clear Filters <i class='material-icons'>clear</i></a></li>
+				</ul>
+			</div>
+			<!-- test toggle -->
+			<!-- category toggle -->
+			<!-- category toggle -->
+			<!-- clear filters -->
+			<div class='chip transparent hide'>
+				<a class='' id='clear-filters' alt='Clear Filters' title='Clear Filters'>
+				<i class='material-icons'>close</i> Clear
+				</a>
+			</div>
+			<!-- clear filters -->
+			<!-- enable dashboard -->
+			<div id='toggle-test-view-charts' class='chip transparent'>
+				<a class='' id='enable-dashboard' alt='Enable Dashboard' title='Enable Dashboard'>
+				<i class='material-icons'>track_changes</i> Dashboard
+				</a>
+			</div>
+			<!-- enable dashboard -->
+			<!-- search -->
+			<div class='chip transparent' alt='Search Tests' title='Search Tests'>
+				<a href="#" class='search-div'>
+				<i class='material-icons'>search</i> Search
+				</a>
+				<div class='input-field left hide'>
+					<input id='search-tests' type='text' class='validate browser-default' placeholder='Search Tests...'>
+				</div>
+			</div>
+			<!-- search -->
+		</div>
+	</section>
+	
+
+<div id='test-view-charts' class='subview-full'>
+    <div id='charts-row' class='row nm-v nm-h'>
+        <div class='col s12 m6 l6 np-h'>
+            <div class='card-panel nm-v'>
+                <div class='left panel-name'>Tests</div>
+                <div class='chart-box' style="max-height:94px;">
+                    <canvas id='parent-analysis' width='90' height='80'></canvas>
+                </div>
+                <div class='block text-small'>
+                    <span class='tooltipped' data-position='top' data-tooltip='66.66666666666666%'><span class='strong'>2</span> tests passed</span>
+                </div>
+                <div class='block text-small'>
+                    <span class='tooltipped' data-position='top' data-tooltip='33.33333333333333%'><span class='strong'>1</span> failed,</span>
+					<span class='tooltipped' data-position='top' data-tooltip='0%'><span class='strong'>0</span> skipped, </span>
+					<span class='tooltipped' data-position='top' data-tooltip='0%'><span class='strong'>0</span> others</span>
+                </div>
+            </div>
+        </div>
+        <div class='col s12 m6 l6 np-h'>
+            <div class='card-panel nm-v'>
+                <div class='left panel-name'>Steps</div>
+                <div class='chart-box' style="max-height:94px;">
+                    <canvas id='child-analysis' width='90' height='80'></canvas>
+                </div>
+                <div class='block text-small'>
+                    <span class='tooltipped' data-position='top' data-tooltip='55.55555555555556%'><span class='strong'>5</span> steps passed</span>
+                </div>
+                <div class='block text-small'>
+                    <span class='tooltipped' data-position='top' data-tooltip='33.33333333333333%'><span class='strong'>3</span> failed,</span>
+					<span class='tooltipped' data-position='top' data-tooltip='0%'><span class='strong'>0</span> skipped,</span>
+					<span class='tooltipped' data-position='top' data-tooltip='11.11111111111111%'><span class='strong'>1</span> others</span>                
+				</div>
+            </div>
+        </div>
+		    </div>
+</div>
+	<div class='subview-left left'>
+		<div class='view-summary'>
+			<ul id='test-collection' class='test-collection'>
+				<li class='test displayed active  pass' status='pass' test-id='1'>
+					<div class='test-heading'>
+						<span class='test-name'>Excel Reader</span>
+						<span class='test-time'>10-08-2023 09:17:54 PM</span>
+						<span class='test-status right pass'>Pass</span>
+					</div>
+					<div class='test-content hide'>
+						<div class='test-time-info'>
+							<span class='label start-time'>10-08-2023 09:17:54 PM</span>
+							<span class='label end-time'>10-08-2023 09:18:26 PM</span>
+							<span class='label time-taken grey lighten-1 white-text'>0h:0m:32s.007ms</span>
+						</div>
+							<div class='test-steps'>
+								<table class='bordered table-results'>
+									<thead>
+										<tr>
+											<th>Status</th>
+											<th>Timestamp</th>
+											<th>Details</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:17:54</td>
+											<td class='step-details'>
+The Selected browser is Chrome																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:17:54</td>
+											<td class='step-details'>
+Website: https://airborne-rogue1.sbx-10.aws.agilent.com/Account/Login																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:17:54</td>
+											<td class='step-details'>
+Username: divakarA@mailinator.com																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:17:54</td>
+											<td class='step-details'>
+Password: Aitech@275																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:17:54</td>
+											<td class='step-details'>
+All required Data's are available! and the verified sheet name is Login																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:17:54</td>
+											<td class='step-details'>
+Excel read status success for login page																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:26</td>
+											<td class='step-details'>
+Layout Verification for the files tab is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:26</td>
+											<td class='step-details'>
+Pagination Verification for the files tab is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:26</td>
+											<td class='step-details'>
+The given page number is2																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:26</td>
+											<td class='step-details'>
+The given file list number is10																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:26</td>
+											<td class='step-details'>
+The given file first name is SmokeA																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:26</td>
+											<td class='step-details'>
+The given file middle name is Titration																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:26</td>
+											<td class='step-details'>
+The given file last name is 10_0_1_53																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:26</td>
+											<td class='step-details'>
+The given file full name is SmokeA Titration 10_0_1_53																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:26</td>
+											<td class='step-details'>
+The given categories is Demo Data																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:26</td>
+											<td class='step-details'>
+The given date is 2023																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:26</td>
+											<td class='step-details'>
+The given Instrument type is Xfe96																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:26</td>
+											<td class='step-details'>
+The given License is Assay Kit																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:26</td>
+											<td class='step-details'>
+The given folder name is Sample-1																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:26</td>
+											<td class='step-details'>
+The given sub folder name is Sample-2																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:26</td>
+											<td class='step-details'>
+The given sub folder name is Sample-3																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:26</td>
+											<td class='step-details'>
+Fileupload path is present																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:26</td>
+											<td class='step-details'>
+FileName is present - login_loginPage.png,
+login_loginPage.png,
+SHA Automation Functions.pdf,
+SmokeA Titration 10_0_1_53.xflr,
+SmokeB Titration 10_0_1_53.xflr,
+SmokeC Titration 10_0_1_53.xflr																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:26</td>
+											<td class='step-details'>
+File loacted folder path is /Sample-1 /Sample-2																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:26</td>
+											<td class='step-details'>
+Add categories isData Sample																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:26</td>
+											<td class='step-details'>
+Rename for the folder isSample Folder																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:26</td>
+											<td class='step-details'>
+Delete the folder Verification for the files tab is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:26</td>
+											<td class='step-details'>
+Download File Verification for the files tab is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:26</td>
+											<td class='step-details'>
+Make a Copy Verification for the files tab is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:26</td>
+											<td class='step-details'>
+The given copy file path is/Sample-1																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:26</td>
+											<td class='step-details'>
+Move to folder Verification for the files tab is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:26</td>
+											<td class='step-details'>
+The given folder path is/Sample-1 /Sample-2																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:26</td>
+											<td class='step-details'>
+The selected file isReplace																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:26</td>
+											<td class='step-details'>
+Delete the files for the files tab is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:26</td>
+											<td class='step-details'>
+Assay kit Verification for the files tab is false																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:26</td>
+											<td class='step-details'>
+Export files verification for the files tab is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:26</td>
+											<td class='step-details'>
+Send to verification for the files tab is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:26</td>
+											<td class='step-details'>
+The given mail id isdivakarA@mailinator.com																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:26</td>
+											<td class='step-details'>
+Rename verification for the files tab is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:26</td>
+											<td class='step-details'>
+Add Favorite verification for the files tab is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:26</td>
+											<td class='step-details'>
+Add category for the files is true																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:26</td>
+											<td class='step-details'>
+The given Category Name isSHA Data's																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:26</td>
+											<td class='step-details'>
+The given edited Category Name isSHA Data																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:26</td>
+											<td class='step-details'>
+All required Data's are available! and the verified sheet name is FilesTab																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:26</td>
+											<td class='step-details'>
+Excel read status is true for Files Tab																							</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+					</div>
+				</li>
+				<li class='test displayed active  pass' status='pass' test-id='2'>
+					<div class='test-heading'>
+						<span class='test-name'>LoginPage</span>
+						<span class='test-time'>10-08-2023 09:18:10 PM</span>
+						<span class='test-status right pass'>Pass</span>
+					</div>
+					<div class='test-content hide'>
+						<div class='test-time-info'>
+							<span class='label start-time'>10-08-2023 09:18:10 PM</span>
+							<span class='label end-time'>10-08-2023 09:18:26 PM</span>
+							<span class='label time-taken grey lighten-1 white-text'>0h:0m:16s.515ms</span>
+						</div>
+							<div class='test-steps'>
+								<table class='bordered table-results'>
+									<thead>
+										<tr>
+											<th>Status</th>
+											<th>Timestamp</th>
+											<th>Details</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:14</td>
+											<td class='step-details'>
+Login Page -Email Field is displayed																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:15</td>
+											<td class='step-details'>
+Screenshot  -   Login Page -Email Field												<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Login\Success\  Login Page -Email Field.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Login\Success\  Login Page -Email Field.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Login\Success\  Login Page -Email Field.png'>											</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:17</td>
+											<td class='step-details'>
+The given text - divakarA@mailinator.com and element text are equal																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:18</td>
+											<td class='step-details'>
+Screenshot  -   Given mail id is divakarA@mailinator.com												<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Login\Success\  Given mail id is divakarA@mailinator.com.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Login\Success\  Given mail id is divakarA@mailinator.com.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Login\Success\  Given mail id is divakarA@mailinator.com.png'>											</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:19</td>
+											<td class='step-details'>
+Login Page- Password Field is displayed																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:20</td>
+											<td class='step-details'>
+Screenshot  -   Login Page- Password Field												<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Login\Success\  Login Page- Password Field.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Login\Success\  Login Page- Password Field.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Login\Success\  Login Page- Password Field.png'>											</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:21</td>
+											<td class='step-details'>
+The given text - Aitech@275 and element text are equal																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:23</td>
+											<td class='step-details'>
+Screenshot  -   Given Password is Aitech@275												<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Login\Success\  Given Password is Aitech@275.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Login\Success\  Given Password is Aitech@275.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Login\Success\  Given Password is Aitech@275.png'>											</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:25</td>
+											<td class='step-details'>
+Screenshot  -   Login Page - Sign in Button												<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Login\Success\  Login Page - Sign in Button.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Login\Success\  Login Page - Sign in Button.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Login\Success\  Login Page - Sign in Button.png'>											</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:26</td>
+											<td class='step-details'>
+Login Page - Sign in Button - is displayed and clickable on the page																							</td>
+										</tr>
+										<tr class='log' status='pass'>
+											<td class='status pass' title='Pass' alt='Pass'>
+												<i class='material-icons'>check_circle</i>
+											</td>
+											<td class='timestamp'>21:18:26</td>
+											<td class='step-details'>
+Login successfully with the given credentials																							</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+					</div>
+				</li>
+				<li class='test displayed active has-leaf fail' status='fail' test-id='3'>
+					<div class='test-heading'>
+						<span class='test-name'>FilesTab</span>
+						<span class='test-time'>10-08-2023 09:18:26 PM</span>
+						<span class='test-status right fail'>Fail</span>
+					</div>
+					<div class='test-content hide'>
+						<div class='test-time-info'>
+							<span class='label start-time'>10-08-2023 09:18:26 PM</span>
+							<span class='label end-time'>10-08-2023 09:24:47 PM</span>
+							<span class='label time-taken grey lighten-1 white-text'>0h:6m:20s.955ms</span>
+						</div>
+						<ul class='collapsible node-list' data-collapsible='accordion'>
+														<li class='node level-1 leaf pass' status='pass' test-id='4'>
+								<div class='collapsible-header'>
+									<div class='node-name'>LayoutVerification</div>
+									<span class='node-time'>10-08-2023 09:18:26 PM</span>
+									&middot; <span class='node-duration'>0h:1m:22s.398ms</span>
+									<span class='test-status right pass'>Pass</span>
+								</div>
+								<div class='collapsible-body'>
+																		<div class='node-steps'>
+										<table class='bordered table-results'>
+											<thead>
+												<tr>
+													<th>Status</th>
+													<th>Timestamp</th>
+													<th>Details</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:18:41</td>
+													<td class='step-details'>
+Screenshot  -   Home Page -Files tab Navigate link Button														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Home Page -Files tab Navigate link Button.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Home Page -Files tab Navigate link Button.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Home Page -Files tab Navigate link Button.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:18:44</td>
+													<td class='step-details'>
+Home Page -Files tab Navigate link Button - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:18:44</td>
+													<td class='step-details'>
+Files Page - Files tab Navigate link Button is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:18:46</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Files tab Navigate link Button														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Files tab Navigate link Button.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Files tab Navigate link Button.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Files tab Navigate link Button.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:18:47</td>
+													<td class='step-details'>
+Files Page - Folder List is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:18:48</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Folder List														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Folder List.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Folder List.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Folder List.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:18:49</td>
+													<td class='step-details'>
+Files Page - Breadcrums Bar is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:18:50</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Breadcrums Bar														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Breadcrums Bar.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Breadcrums Bar.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Breadcrums Bar.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:18:51</td>
+													<td class='step-details'>
+Files Page - Header Icons is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:18:53</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Header Icons														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Header Icons.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Header Icons.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Header Icons.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:18:54</td>
+													<td class='step-details'>
+Files Page - Files List is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:18:55</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Files List														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Files List.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Files List.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Files List.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:18:56</td>
+													<td class='step-details'>
+Files Page - Pagination is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:18:57</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Pagination														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Pagination.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Pagination.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Pagination.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:18:58</td>
+													<td class='step-details'>
+Files Page - Upload File is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:00</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Upload File														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Upload File.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Upload File.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Upload File.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:01</td>
+													<td class='step-details'>
+Files Page - Download File is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:02</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Download File														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Download File.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Download File.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Download File.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:03</td>
+													<td class='step-details'>
+Files Page - Copy Files is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:04</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Copy Files														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Copy Files.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Copy Files.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Copy Files.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:05</td>
+													<td class='step-details'>
+Files Page - Move Files to Folder is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:07</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Move Files to Folder														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Move Files to Folder.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Move Files to Folder.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Move Files to Folder.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:08</td>
+													<td class='step-details'>
+Files Page - Delete Files is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:09</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Delete Files														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Delete Files.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Delete Files.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Delete Files.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:10</td>
+													<td class='step-details'>
+Files Page - Add Assay Kit to Files is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:11</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Add Assay Kit to Files														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Add Assay Kit to Files.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Add Assay Kit to Files.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Add Assay Kit to Files.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:13</td>
+													<td class='step-details'>
+Files Page - Export Files is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:14</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Export Files														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Export Files.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Export Files.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Export Files.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:15</td>
+													<td class='step-details'>
+Files Page - Send Files is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:16</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Send Files														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Send Files.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Send Files.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Send Files.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:17</td>
+													<td class='step-details'>
+Files Page - Rename Files is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:18</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Rename Files														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Rename Files.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Rename Files.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Rename Files.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:19</td>
+													<td class='step-details'>
+Files Page - Add Favourites to the Files is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:21</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Add Favourites to the Files														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Add Favourites to the Files.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Add Favourites to the Files.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Add Favourites to the Files.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:22</td>
+													<td class='step-details'>
+Files Page - Categories is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:23</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Categories														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Categories.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Categories.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Categories.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:24</td>
+													<td class='step-details'>
+Files Page - Add new Assay is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:25</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Add new Assay														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Add new Assay.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Add new Assay.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Add new Assay.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:27</td>
+													<td class='step-details'>
+Files Page - Create new Project is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:28</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Create new Project														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Create new Project.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Create new Project.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Create new Project.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:29</td>
+													<td class='step-details'>
+Files Page - Add new Folder is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:30</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Add new Folder														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Add new Folder.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Add new Folder.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Add new Folder.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:31</td>
+													<td class='step-details'>
+Files Page - File Name is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:32</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - File Name														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - File Name.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - File Name.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - File Name.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:33</td>
+													<td class='step-details'>
+Files Page - Categories is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:35</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Categories														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Categories.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Categories.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Categories.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:36</td>
+													<td class='step-details'>
+Files Page - Run-On-Date is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:37</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Run-On-Date														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Run-On-Date.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Run-On-Date.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Run-On-Date.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:38</td>
+													<td class='step-details'>
+Files Page - last Modified is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:39</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - last Modified														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - last Modified.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - last Modified.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - last Modified.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:40</td>
+													<td class='step-details'>
+Files Page - Size is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:42</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Size														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Size.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Size.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Size.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:43</td>
+													<td class='step-details'>
+Files Page - Instrument Type is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:44</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Instrument Type														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Instrument Type.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Instrument Type.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Instrument Type.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:45</td>
+													<td class='step-details'>
+Files Page - License is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:46</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - License														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - License.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - License.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - License.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:47</td>
+													<td class='step-details'>
+Files Page - Favorite is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:49</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Favorite														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Favorite.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Favorite.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Favorite.png'>													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+																							</li>
+							<li class='node level-1 leaf pass' status='pass' test-id='5'>
+								<div class='collapsible-header'>
+									<div class='node-name'>PaginationVerification</div>
+									<span class='node-time'>10-08-2023 09:19:50 PM</span>
+									&middot; <span class='node-duration'>0h:0m:44s.563ms</span>
+									<span class='test-status right pass'>Pass</span>
+								</div>
+								<div class='collapsible-body'>
+																		<div class='node-steps'>
+										<table class='bordered table-results'>
+											<thead>
+												<tr>
+													<th>Status</th>
+													<th>Timestamp</th>
+													<th>Details</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:50</td>
+													<td class='step-details'>
+Files Page - Page Dropdown is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:51</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Page Dropdown														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Page Dropdown.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Page Dropdown.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Page Dropdown.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:52</td>
+													<td class='step-details'>
+Files Page - Pagination List is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:53</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Pagination List														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Pagination List.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Pagination List.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Pagination List.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:54</td>
+													<td class='step-details'>
+Files Page - First Page Icon is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:56</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - First Page Icon														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - First Page Icon.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - First Page Icon.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - First Page Icon.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:57</td>
+													<td class='step-details'>
+Files Page - Previous Page Icon is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:58</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Previous Page Icon														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Previous Page Icon.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Previous Page Icon.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Previous Page Icon.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:19:59</td>
+													<td class='step-details'>
+Files Page - Pagination Number is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:00</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Pagination Number														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Pagination Number.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Pagination Number.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Pagination Number.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:01</td>
+													<td class='step-details'>
+Files Page - Favorite is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:03</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Favorite														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Favorite.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Favorite.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Favorite.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:04</td>
+													<td class='step-details'>
+Files Page - Favorite is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:05</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Favorite														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Favorite.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Favorite.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Favorite.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:06</td>
+													<td class='step-details'>
+Files Page - Favorite is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:07</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Favorite														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Favorite.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Favorite.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Favorite.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:10</td>
+													<td class='step-details'>
+Screenshot  -   Files page - Last page icon														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files page - Last page icon.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files page - Last page icon.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files page - Last page icon.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:11</td>
+													<td class='step-details'>
+Files page - Last page icon - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:12</td>
+													<td class='step-details'>
+Screenshot  -   Files page - First Page Icon														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files page - First Page Icon.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files page - First Page Icon.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files page - First Page Icon.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:13</td>
+													<td class='step-details'>
+Files page - First Page Icon - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:15</td>
+													<td class='step-details'>
+Screenshot  -   Files page - Next Page Icon														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files page - Next Page Icon.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files page - Next Page Icon.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files page - Next Page Icon.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:16</td>
+													<td class='step-details'>
+Files page - Next Page Icon - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:17</td>
+													<td class='step-details'>
+Screenshot  -   Files page - Previous Page Icon														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files page - Previous Page Icon.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files page - Previous Page Icon.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files page - Previous Page Icon.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:18</td>
+													<td class='step-details'>
+Files page - Previous Page Icon - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:18</td>
+													<td class='step-details'>
+Files Page - pagination Last page Number is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:20</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - pagination Last page Number														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - pagination Last page Number.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - pagination Last page Number.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - pagination Last page Number.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:22</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - pagination Last page Number														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - pagination Last page Number.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - pagination Last page Number.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - pagination Last page Number.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:23</td>
+													<td class='step-details'>
+Files Page - pagination Last page Number - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:23</td>
+													<td class='step-details'>
+Files Page - pagination First page Number is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:24</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - pagination First page Number														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - pagination First page Number.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - pagination First page Number.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - pagination First page Number.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:27</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Pagination first Number														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Pagination first Number.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Pagination first Number.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Pagination first Number.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:28</td>
+													<td class='step-details'>
+Files Page - Pagination first Number - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:28</td>
+													<td class='step-details'>
+Files Page - Pagination First page Number is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:29</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Pagination First page Number														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Pagination First page Number.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Pagination First page Number.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Pagination First page Number.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:32</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - pagination text box														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - pagination text box.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - pagination text box.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - pagination text box.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:33</td>
+													<td class='step-details'>
+Files Page - pagination text box - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:33</td>
+													<td class='step-details'>
+File list - 10option - 10 was selected from the dropdown.																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:34</td>
+													<td class='step-details'>
+Screenshot  - Dropdown option - 10														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\Dropdown option - 10.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\Dropdown option - 10.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\Dropdown option - 10.png'>													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+																							</li>
+							<li class='node level-1 leaf pass' status='pass' test-id='6'>
+								<div class='collapsible-header'>
+									<div class='node-name'>SearchBoxVerification</div>
+									<span class='node-time'>10-08-2023 09:20:35 PM</span>
+									&middot; <span class='node-duration'>0h:0m:21s.418ms</span>
+									<span class='test-status right pass'>Pass</span>
+								</div>
+								<div class='collapsible-body'>
+																		<div class='node-steps'>
+										<table class='bordered table-results'>
+											<thead>
+												<tr>
+													<th>Status</th>
+													<th>Timestamp</th>
+													<th>Details</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:36</td>
+													<td class='step-details'>
+Files Page - Files Searched by File First Name is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:37</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Files Searched by File First Name														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Files Searched by File First Name.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Files Searched by File First Name.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Files Searched by File First Name.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:39</td>
+													<td class='step-details'>
+Files Page - Files Searched by File Middle Name is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:40</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Files Searched by File Middle Name														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Files Searched by File Middle Name.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Files Searched by File Middle Name.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Files Searched by File Middle Name.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:42</td>
+													<td class='step-details'>
+Files Page - Files Searched by File Last Name is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:43</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Files Searched by File Last Name														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Files Searched by File Last Name.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Files Searched by File Last Name.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Files Searched by File Last Name.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:45</td>
+													<td class='step-details'>
+Files Page - Files Searched by File Full Name is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:46</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Files Searched by File Full Name														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Files Searched by File Full Name.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Files Searched by File Full Name.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Files Searched by File Full Name.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:47</td>
+													<td class='step-details'>
+Files Page - Files Searched by Categories is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:49</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Files Searched by Categories														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Files Searched by Categories.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Files Searched by Categories.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Files Searched by Categories.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:50</td>
+													<td class='step-details'>
+Files Page - Files Searched by Date is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:51</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Files Searched by Date														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Files Searched by Date.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Files Searched by Date.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Files Searched by Date.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:53</td>
+													<td class='step-details'>
+Files Page - Files Searched by Instrument is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:54</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Files Searched by Instrument														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Files Searched by Instrument.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Files Searched by Instrument.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Files Searched by Instrument.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:56</td>
+													<td class='step-details'>
+Files Page - Files Searched by License is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:57</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Files Searched by License														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Files Searched by License.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Files Searched by License.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Files Searched by License.png'>													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+																							</li>
+							<li class='node level-1 leaf pass' status='pass' test-id='7'>
+								<div class='collapsible-header'>
+									<div class='node-name'>Create New Assay and Project</div>
+									<span class='node-time'>10-08-2023 09:20:58 PM</span>
+									&middot; <span class='node-duration'>0h:0m:32s.425ms</span>
+									<span class='test-status right pass'>Pass</span>
+								</div>
+								<div class='collapsible-body'>
+																		<div class='node-steps'>
+										<table class='bordered table-results'>
+											<thead>
+												<tr>
+													<th>Status</th>
+													<th>Timestamp</th>
+													<th>Details</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:58</td>
+													<td class='step-details'>
+Files Page - Add new Assay is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:20:59</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Add new Assay														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Add new Assay.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Add new Assay.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Add new Assay.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:01</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - pagination Last page Number														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - pagination Last page Number.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - pagination Last page Number.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - pagination Last page Number.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:04</td>
+													<td class='step-details'>
+Files Page - pagination Last page Number - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:05</td>
+													<td class='step-details'>
+Files Page - Assay Template is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:06</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Assay Template														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Assay Template.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Assay Template.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Assay Template.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:07</td>
+													<td class='step-details'>
+Files Page - Assay Template Close Button is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:08</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Assay Template Close Button														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Assay Template Close Button.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Assay Template Close Button.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Assay Template Close Button.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:09</td>
+													<td class='step-details'>
+Files Page - Assay Template Create Button is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:10</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Assay Template Create Button														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Assay Template Create Button.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Assay Template Create Button.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Assay Template Create Button.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:12</td>
+													<td class='step-details'>
+Files Page - Assay Template Cancel Button is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:13</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Assay Template Cancel Button														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Assay Template Cancel Button.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Assay Template Cancel Button.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Assay Template Cancel Button.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:15</td>
+													<td class='step-details'>
+Screenshot  -   Cancel Button														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Cancel Button.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Cancel Button.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Cancel Button.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:16</td>
+													<td class='step-details'>
+Cancel Button - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:16</td>
+													<td class='step-details'>
+Files Page - New Project is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:18</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - New Project														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - New Project.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - New Project.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - New Project.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:20</td>
+													<td class='step-details'>
+Screenshot  -   New Project														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  New Project.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  New Project.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  New Project.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:23</td>
+													<td class='step-details'>
+New Project - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:23</td>
+													<td class='step-details'>
+Files Page - New Project Template is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:24</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - New Project Template														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - New Project Template.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - New Project Template.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - New Project Template.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:26</td>
+													<td class='step-details'>
+Files Page - New Project Template Close Button is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:27</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - New Project Template Close Button														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - New Project Template Close Button.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - New Project Template Close Button.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - New Project Template Close Button.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:29</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Close Button														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Close Button.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Close Button.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Close Button.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:30</td>
+													<td class='step-details'>
+Files Page - Close Button - is displayed and clickable on the page																											</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+																							</li>
+							<li class='node level-1 leaf fail' status='fail' test-id='8'>
+								<div class='collapsible-header'>
+									<div class='node-name'>Create New Folder</div>
+									<span class='node-time'>10-08-2023 09:21:30 PM</span>
+									&middot; <span class='node-duration'>0h:0m:23s.047ms</span>
+									<span class='test-status right fail'>Fail</span>
+								</div>
+								<div class='collapsible-body'>
+																		<div class='node-steps'>
+										<table class='bordered table-results'>
+											<thead>
+												<tr>
+													<th>Status</th>
+													<th>Timestamp</th>
+													<th>Details</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:30</td>
+													<td class='step-details'>
+Files Page - Add new Folder is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:32</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Add new Folder														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Add new Folder.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Add new Folder.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Add new Folder.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:34</td>
+													<td class='step-details'>
+Screenshot  -   New Folder														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  New Folder.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  New Folder.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  New Folder.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:35</td>
+													<td class='step-details'>
+New Folder - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:36</td>
+													<td class='step-details'>
+Files Page - Add new Folder Template Popup is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:37</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Add new Folder Template Popup														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Add new Folder Template Popup.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Add new Folder Template Popup.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Add new Folder Template Popup.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:38</td>
+													<td class='step-details'>
+Files Page - Add new Folder Template folder Dropdown is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:39</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Add new Folder Template folder Dropdown														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Add new Folder Template folder Dropdown.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Add new Folder Template folder Dropdown.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Add new Folder Template folder Dropdown.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:40</td>
+													<td class='step-details'>
+Files Page - Add new Folder Template folder name text box is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:41</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Add new Folder Template folder name text box														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Add new Folder Template folder name text box.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Add new Folder Template folder name text box.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Add new Folder Template folder name text box.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:43</td>
+													<td class='step-details'>
+Files Page - Add new Folder Template Cancel button is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:44</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Add new Folder Template Cancel button														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Add new Folder Template Cancel button.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Add new Folder Template Cancel button.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Add new Folder Template Cancel button.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:45</td>
+													<td class='step-details'>
+Files Page - Add new Folder Template Create button is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:46</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Add new Folder Template Create button														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Add new Folder Template Create button.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Add new Folder Template Create button.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Add new Folder Template Create button.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:47</td>
+													<td class='step-details'>
+Files Page - Add new Folder Template new Folder Name is Entered is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:49</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Add new Folder Template new Folder Name is Entered														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Add new Folder Template new Folder Name is Entered.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Add new Folder Template new Folder Name is Entered.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Add new Folder Template new Folder Name is Entered.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:51</td>
+													<td class='step-details'>
+Screenshot  -   Create Button														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Create Button.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Create Button.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Create Button.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:52</td>
+													<td class='step-details'>
+Create Button - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:52</td>
+													<td class='step-details'>
+Files Page - Newly Created FolderSample-1 is displayed																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>21:21:53</td>
+													<td class='step-details'>
+An error occured in taking screenshot. The error is unexpected alert open: {Alert text : Folder name already exist}
+  (Session info: chrome=115.0.5790.170)																											</td>
+												</tr>
+												<tr class='log' status='error'>
+													<td class='status error' title='Error' alt='Error'>
+														<i class='material-icons'>error</i>
+													</td>
+													<td class='timestamp'>21:21:53</td>
+													<td class='step-details'>
+Error Occured While Creating a new Folder .The error is element not interactable
+  (Session info: chrome=115.0.5790.170)																											</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+																							</li>
+							<li class='node level-1 leaf pass' status='pass' test-id='9'>
+								<div class='collapsible-header'>
+									<div class='node-name'>Upload a file functionality</div>
+									<span class='node-time'>10-08-2023 09:21:53 PM</span>
+									&middot; <span class='node-duration'>0h:0m:45s.456ms</span>
+									<span class='test-status right pass'>Pass</span>
+								</div>
+								<div class='collapsible-body'>
+																		<div class='node-steps'>
+										<table class='bordered table-results'>
+											<thead>
+												<tr>
+													<th>Status</th>
+													<th>Timestamp</th>
+													<th>Details</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:54</td>
+													<td class='step-details'>
+Files Page - Add new Folder is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:55</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Add new Folder														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Add new Folder.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Add new Folder.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Add new Folder.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:57</td>
+													<td class='step-details'>
+Screenshot  -   Upload File Icon														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Upload File Icon.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Upload File Icon.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Upload File Icon.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:59</td>
+													<td class='step-details'>
+Upload File Icon - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:21:59</td>
+													<td class='step-details'>
+Files Page - Upload File popup Close button is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:22:01</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Upload File popup Close button														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Upload File popup Close button.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Upload File popup Close button.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Upload File popup Close button.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:22:02</td>
+													<td class='step-details'>
+Files Page - Selected File added in the file list is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:22:03</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Selected File added in the file list														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Selected File added in the file list.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Selected File added in the file list.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Selected File added in the file list.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:22:04</td>
+													<td class='step-details'>
+Files Page - Remove File Icon is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:22:05</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Remove File Icon														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Remove File Icon.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Remove File Icon.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Remove File Icon.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:22:08</td>
+													<td class='step-details'>
+Screenshot  -   Files page - First Page Icon														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files page - First Page Icon.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files page - First Page Icon.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files page - First Page Icon.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:22:09</td>
+													<td class='step-details'>
+Files page - First Page Icon - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:22:09</td>
+													<td class='step-details'>
+Files Page - Selected file is Deleted is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:22:10</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Selected file is Deleted														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Selected file is Deleted.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Selected file is Deleted.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Selected file is Deleted.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:22:11</td>
+													<td class='step-details'>
+Files Page - Selected files are in folder is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:22:12</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Selected files are in folder														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Selected files are in folder.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Selected files are in folder.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Selected files are in folder.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:22:15</td>
+													<td class='step-details'>
+Files Page - Upload File folder is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:22:16</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Upload File folder														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Upload File folder.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Upload File folder.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Upload File folder.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:22:19</td>
+													<td class='step-details'>
+Screenshot  -   Upload Button														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Upload Button.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Upload Button.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Upload Button.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:22:20</td>
+													<td class='step-details'>
+Upload Button - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:22:28</td>
+													<td class='step-details'>
+Files Page - Upload File Count is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:22:29</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Upload File Count														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Upload File Count.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Upload File Count.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Upload File Count.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:22:30</td>
+													<td class='step-details'>
+Files Page - Valid and Invalid Files is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:22:32</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Valid and Invalid Files														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Valid and Invalid Files.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Valid and Invalid Files.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Valid and Invalid Files.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:22:33</td>
+													<td class='step-details'>
+Files Page - Upload File Template - Done Button is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:22:34</td>
+													<td class='step-details'>
+Screenshot  -    Files Page - Upload File Template - Done Button														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\   Files Page - Upload File Template - Done Button.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\   Files Page - Upload File Template - Done Button.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\   Files Page - Upload File Template - Done Button.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:22:36</td>
+													<td class='step-details'>
+Screenshot  -   Done Button														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Done Button.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Done Button.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Done Button.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:22:37</td>
+													<td class='step-details'>
+Done Button - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:22:38</td>
+													<td class='step-details'>
+Files Page - Valid files are added in the files list is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:22:39</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Valid files are added in the files list														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Valid files are added in the files list.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Valid files are added in the files list.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Valid files are added in the files list.png'>													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+																							</li>
+							<li class='node level-1 leaf fail' status='fail' test-id='10'>
+								<div class='collapsible-header'>
+									<div class='node-name'>Create Folder and Sub Folder Functionality</div>
+									<span class='node-time'>10-08-2023 09:22:40 PM</span>
+									&middot; <span class='node-duration'>0h:0m:37s.648ms</span>
+									<span class='test-status right fail'>Fail</span>
+								</div>
+								<div class='collapsible-body'>
+																		<div class='node-steps'>
+										<table class='bordered table-results'>
+											<thead>
+												<tr>
+													<th>Status</th>
+													<th>Timestamp</th>
+													<th>Details</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:22:40</td>
+													<td class='step-details'>
+Files Page - My File Arrow Icon is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:22:41</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - My File Arrow Icon														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - My File Arrow Icon.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - My File Arrow Icon.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - My File Arrow Icon.png'>													</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>21:22:53</td>
+													<td class='step-details'>
+Error occured while verifying the element -   Files Page - Folder Arrow Icon. The error is Timed out after 10 seconds																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>21:22:53</td>
+													<td class='step-details'>
+An error occured in taking screenshot. The error is Could not find element by: By.XPath: //span[@class='ic opened-arrow']; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>21:23:03</td>
+													<td class='step-details'>
+Error occured while verifying the element -   Folder Arrow. The error is Timed out after 10 seconds																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>21:23:03</td>
+													<td class='step-details'>
+An error occured in taking screenshot. The error is Could not find element by: By.XPath: //span[@class='ic opened-arrow']; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>21:23:13</td>
+													<td class='step-details'>
+Error occured while verifying the element -   Files Page - Sub Folder Arrow Icon. The error is Timed out after 10 seconds																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>21:23:13</td>
+													<td class='step-details'>
+An error occured in taking screenshot. The error is Could not find element by: By.XPath: (//span[@class='ic opened-arrow'])[2]; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:23:14</td>
+													<td class='step-details'>
+Screenshot  -   Folder														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Folder.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Folder.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Folder.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:23:15</td>
+													<td class='step-details'>
+Folder - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:23:15</td>
+													<td class='step-details'>
+Files Page - Files in the folder is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:23:16</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Files in the folder														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Files in the folder.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Files in the folder.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Files in the folder.png'>													</td>
+												</tr>
+												<tr class='log' status='error'>
+													<td class='status error' title='Error' alt='Error'>
+														<i class='material-icons'>error</i>
+													</td>
+													<td class='timestamp'>21:23:17</td>
+													<td class='step-details'>
+Error Occured While Creating a new Folder .The error is no such element: Unable to locate element: {"method":"xpath","selector":"//label[@title='Sample-2']"}
+  (Session info: chrome=115.0.5790.170); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+																							</li>
+							<li class='node level-1 leaf error' status='error' test-id='11'>
+								<div class='collapsible-header'>
+									<div class='node-name'>Rename and Delete Functionality</div>
+									<span class='node-time'>10-08-2023 09:23:17 PM</span>
+									&middot; <span class='node-duration'>0h:0m:0s.131ms</span>
+									<span class='test-status right error'>Error</span>
+								</div>
+								<div class='collapsible-body'>
+																		<div class='node-steps'>
+										<table class='bordered table-results'>
+											<thead>
+												<tr>
+													<th>Status</th>
+													<th>Timestamp</th>
+													<th>Details</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:23:18</td>
+													<td class='step-details'>
+Folder arrow is displayed																											</td>
+												</tr>
+												<tr class='log' status='error'>
+													<td class='status error' title='Error' alt='Error'>
+														<i class='material-icons'>error</i>
+													</td>
+													<td class='timestamp'>21:23:18</td>
+													<td class='step-details'>
+Error Occured While Creating a new Folder .The error is Could not find element by: By.XPath: //span[@class='ic opened-arrow']; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+																							</li>
+							<li class='node level-1 leaf fail' status='fail' test-id='12'>
+								<div class='collapsible-header'>
+									<div class='node-name'>Header Icon Functionality</div>
+									<span class='node-time'>10-08-2023 09:23:18 PM</span>
+									&middot; <span class='node-duration'>0h:1m:29s.479ms</span>
+									<span class='test-status right fail'>Fail</span>
+								</div>
+								<div class='collapsible-body'>
+																		<div class='node-steps'>
+										<table class='bordered table-results'>
+											<thead>
+												<tr>
+													<th>Status</th>
+													<th>Timestamp</th>
+													<th>Details</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:23:18</td>
+													<td class='step-details'>
+File was selected successfully																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:23:19</td>
+													<td class='step-details'>
+The existing files was selected and downloaded header icon is already enabled																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:23:20</td>
+													<td class='step-details'>
+Screenshot  -   Download														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Download.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Download.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Download.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:23:21</td>
+													<td class='step-details'>
+Download - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:23:23</td>
+													<td class='step-details'>
+Screenshot  -   Ok Button														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Ok Button.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Ok Button.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Ok Button.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:23:25</td>
+													<td class='step-details'>
+Ok Button - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:23:25</td>
+													<td class='step-details'>
+The existing file was selected and Make a copy header icon is already enabled																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:23:27</td>
+													<td class='step-details'>
+Screenshot  -   Make a copy														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Make a copy.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Make a copy.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Make a copy.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:23:28</td>
+													<td class='step-details'>
+Make a copy - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:23:28</td>
+													<td class='step-details'>
+Files Page - Make A Copy Close Icon is displayed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:23:30</td>
+													<td class='step-details'>
+Screenshot  -   Files Page - Make A Copy Close Icon														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Make A Copy Close Icon.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Make A Copy Close Icon.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Files Page - Make A Copy Close Icon.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:23:31</td>
+													<td class='step-details'>
+Copied File Path - /Sample-1option - /Sample-1 was selected from the dropdown.																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:23:32</td>
+													<td class='step-details'>
+Screenshot  - Dropdown option - -Sample-1														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\Dropdown option - -Sample-1.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\Dropdown option - -Sample-1.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\Dropdown option - -Sample-1.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:23:34</td>
+													<td class='step-details'>
+Screenshot  -   Copy File														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Copy File.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Copy File.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Copy File.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:23:35</td>
+													<td class='step-details'>
+Copy File - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:23:36</td>
+													<td class='step-details'>
+The existing files were selected, and the Move to Folder header icon is already enabled.																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:23:37</td>
+													<td class='step-details'>
+Screenshot  -   Move to folder														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Move to folder.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Move to folder.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Move to folder.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:23:38</td>
+													<td class='step-details'>
+Move to folder - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>21:23:38</td>
+													<td class='step-details'>
+Move to the Folder Icon verification has failed. The error is - Cannot locate element with text: /Sample-1 /Sample-2; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:23:38</td>
+													<td class='step-details'>
+The existing files was selected and delete file header icon is enabled																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:23:40</td>
+													<td class='step-details'>
+Screenshot  -   Delete Icon														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Delete Icon.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Delete Icon.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Delete Icon.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:23:41</td>
+													<td class='step-details'>
+Delete Icon - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:23:43</td>
+													<td class='step-details'>
+Screenshot  -   Delete Yes Icon														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Delete Yes Icon.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Delete Yes Icon.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Delete Yes Icon.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:23:44</td>
+													<td class='step-details'>
+Delete Yes Icon - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:23:44</td>
+													<td class='step-details'>
+Delete The File Icon verification has been Passed																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:23:44</td>
+													<td class='step-details'>
+The existing files was selected and Export - header icon is already enabled																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:23:45</td>
+													<td class='step-details'>
+Screenshot  -   Export Element														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Export Element.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Export Element.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Export Element.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:23:46</td>
+													<td class='step-details'>
+Export Element - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:23:48</td>
+													<td class='step-details'>
+Screenshot  -   Excel Icon														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Excel Icon.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Excel Icon.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Excel Icon.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:23:49</td>
+													<td class='step-details'>
+Excel Icon - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>21:23:59</td>
+													<td class='step-details'>
+Error occured while verifying the element -   Excel Ok Button. The error is Timed out after 10 seconds																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>21:24:00</td>
+													<td class='step-details'>
+Screenshot  -   Excel Ok Button														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Error\  Excel Ok Button.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Error\  Excel Ok Button.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Error\  Excel Ok Button.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:24:03</td>
+													<td class='step-details'>
+Screenshot  -   Prism Icon														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Prism Icon.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Prism Icon.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Prism Icon.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:24:04</td>
+													<td class='step-details'>
+Prism Icon - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>21:24:14</td>
+													<td class='step-details'>
+Error occured while verifying the element -   Prism Ok Button. The error is Timed out after 10 seconds																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>21:24:15</td>
+													<td class='step-details'>
+Screenshot  -   Prism Ok Button														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Error\  Prism Ok Button.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Error\  Prism Ok Button.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Error\  Prism Ok Button.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:24:17</td>
+													<td class='step-details'>
+Screenshot  -   Export Element														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Export Element.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Export Element.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Export Element.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:24:19</td>
+													<td class='step-details'>
+Export Element - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:24:20</td>
+													<td class='step-details'>
+Screenshot  -   DQR Icon														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  DQR Icon.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  DQR Icon.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  DQR Icon.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:24:21</td>
+													<td class='step-details'>
+DQR Icon - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>21:24:31</td>
+													<td class='step-details'>
+Error occured while verifying the element -   DQR Ok button. The error is Timed out after 10 seconds																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>21:24:32</td>
+													<td class='step-details'>
+Screenshot  -   DQR Ok button														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Error\  DQR Ok button.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Error\  DQR Ok button.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Error\  DQR Ok button.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:24:34</td>
+													<td class='step-details'>
+The existing files was selected and Send To - header icon is enabled																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:24:35</td>
+													<td class='step-details'>
+Screenshot  -   Send to Element														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Send to Element.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Send to Element.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Send to Element.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:24:36</td>
+													<td class='step-details'>
+Send to Element - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:24:38</td>
+													<td class='step-details'>
+Screenshot  -   Send button														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Send button.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Send button.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Send button.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:24:39</td>
+													<td class='step-details'>
+Send button - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:24:40</td>
+													<td class='step-details'>
+The existing files was selected and Rename - header icon is enabled																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:24:41</td>
+													<td class='step-details'>
+Screenshot  -   Rename Icon														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Rename Icon.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Rename Icon.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Rename Icon.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:24:42</td>
+													<td class='step-details'>
+Rename Icon - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>21:24:42</td>
+													<td class='step-details'>
+Rename the Files Icon verification has been failed. The error is -element not interactable
+  (Session info: chrome=115.0.5790.170)																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:24:42</td>
+													<td class='step-details'>
+The existing files was selected and Favorite - header icon is already enabled																											</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:24:44</td>
+													<td class='step-details'>
+Screenshot  -   Fav Icon														<img class='r-img' title='' onerror='this.style.display="none"' data-featherlight='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Fav Icon.png' src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Fav Icon.png' data-src='D:\Divakar\New Projects\SHAProject\Logs\SHA_Chrome-10-08-2023-9-17-54\Files Tab\Success\  Fav Icon.png'>													</td>
+												</tr>
+												<tr class='log' status='pass'>
+													<td class='status pass' title='Pass' alt='Pass'>
+														<i class='material-icons'>check_circle</i>
+													</td>
+													<td class='timestamp'>21:24:45</td>
+													<td class='step-details'>
+Fav Icon - is displayed and clickable on the page																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>21:24:46</td>
+													<td class='step-details'>
+Add Favorite Icon verification has been failed. The error is -element click intercepted: Element <div class="ag-selection-checkbox" role="presentation">...</div> is not clickable at point (394, 207). Other element would receive the click: <div class="modal fade show" id="renamemodel" tabindex="-1" role="dialog" aria-labelledby="basicModal" style="display: block;">...</div>
+  (Session info: chrome=115.0.5790.170)																											</td>
+												</tr>
+												<tr class='log' status='fail'>
+													<td class='status fail' title='Fail' alt='Fail'>
+														<i class='material-icons'>cancel</i>
+													</td>
+													<td class='timestamp'>21:24:47</td>
+													<td class='step-details'>
+Add Categories Icon verification has been failed. The error is -element click intercepted: Element <div class="ag-selection-checkbox" role="presentation">...</div> is not clickable at point (394, 207). Other element would receive the click: <div class="modal fade show" id="renamemodel" tabindex="-1" role="dialog" aria-labelledby="basicModal" style="display: block;">...</div>
+  (Session info: chrome=115.0.5790.170)																											</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+																							</li>
+						</ul>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!-- subview left -->
+	<div class='subview-right left'>
+		<div class='view-summary'>
+			<div id='step-filters' class="right sr-filters">
+				<a class="btn-floating waves-effect waves-light green" status="pass" alt="pass" title="pass"><i class="material-icons">check_circle</i></a>
+				<a class="btn-floating waves-effect waves-light red" status="fail" alt="fail" title="fail"><i class="material-icons">cancel</i></a>
+				<a class="btn-floating waves-effect waves-light red darken-4" status="fatal" alt="fatal" title="fatal"><i class="material-icons">cancel</i></a>
+				<a class="btn-floating waves-effect waves-light pink text-lighten-1" status="error" alt="error" title="error"><i class="material-icons">error</i></a>
+				<a class="btn-floating waves-effect waves-light orange" alt="warning" status="warning" title="warning"><i class="material-icons">warning</i></a>
+				<a class="btn-floating waves-effect waves-light teal" status="skip" alt="skip" title="skip"><i class="material-icons">redo</i></a>
+				<a class="btn-floating waves-effect waves-light grey" status="clear" alt="Clear filters" title="Clear filters"><i class="material-icons">clear</i></a>
+			</div>
+			<h5 class='test-name'></h5>
+		</div>
+	</div>
+	<!-- subview right -->
+</div>
+<!-- test view -->
+
+			
+			<!-- category view -->
+			
+<!-- exception view -->
+
+			
+
+<div id='dashboard-view' class='view hide'>
+	<div class='card-panel transparent np-v'>
+		<h5>Dashboard</h5>
+
+		<div class='row'>
+			<div class='col s2'>
+				<div class='card-panel r'>
+          Tests
+          <div class='panel-lead'>3</div>
+				</div>
+			</div>
+			<div class='col s2'>
+				<div class='card-panel r'>
+          Steps
+          <div class='panel-lead'>9</div>
+				</div>
+			</div>
+			<div class='col s2'>
+				<div class='card-panel r'>
+					Start
+					<div class='panel-lead'>10-08-2023 09:17:54 PM</div>
+				</div>
+			</div>
+			<div class='col s2'>
+				<div class='card-panel r'>
+			 		End
+			 		<div class='panel-lead'>10-08-2023 09:24:47 PM</div>
+				</div>
+			</div>
+			<div class='col s2'>
+				<div class='card-panel r'>
+					Time Taken
+					<div class='panel-lead'>00:07:03.4049541</div>
+				</div>
+			</div>
+			<div class='col s4'>
+				<div class='card-panel dashboard-environment'>
+					<span class='right label cyan white-text'>Environment</span><p>&nbsp;</p>
+					<table>
+						<tr>
+							<th>Name</th>
+							<th>Value</th>
+						</tr>
+							<tr>
+								<td>Execution Time</td>
+								<td>10-08-2023-9-17-54</td>
+							</tr>
+							<tr>
+								<td>Environment</td>
+								<td>QA</td>
+							</tr>
+					</table>
+				</div>
+			</div>
+					</div>
+	</div>
+</div>
+<!-- dashboard view -->
+
+			<!-- testrunner-logs view -->
+		</div>
+		<!-- container -->
+		<script>
+			var statusGroup = {
+                parentCount: 3,
+				passParent: 2,
+				failParent: 1,
+				fatalParent: 0,
+				errorParent: 0,
+				warningParent: 0,
+				skipParent: 0,
+				exceptionsParent: 1,
+				childCount: 9,
+				passChild: 5,
+				failChild: 3,
+				fatalChild: 0,
+				errorChild: 1,
+				warningChild: 0,
+				skipChild: 0,
+				infoChild: 0,
+				debugChild: 0,
+				exceptionsChild: 4,
+				grandChildCount: 0,
+				passGrandChild: 0,
+				failGrandChild: 0,
+				fatalGrandChild: 0,
+				errorGrandChild: 0,
+				warningGrandChild: 0,
+				skipGrandChild: 0,
+				infoGrandChild: 0,
+				debugGrandChild: 0,
+				exceptionsGrandChild: 0,
+			};
+		</script>
+		<script src='https://cdn.rawgit.com/extent-framework/extent-github-cdn/c23457b/v3html/js/extent.js' type='text/javascript'></script>
+		<script type='text/javascript'>
+			
+		</script>
+	</body>
+</html>

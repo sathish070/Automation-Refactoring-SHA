@@ -161,6 +161,8 @@ namespace SHAProject.Workflows
             }
 
             ObjectInitalized();
+
+            ExtentReport.CreateExtentTestNode("XF Cell Mito Stress View");
         }
         public void ObjectInitalized()
         {
@@ -175,12 +177,12 @@ namespace SHAProject.Workflows
             normalization = new Normalization(currentPage, driver, loginClass.findElements, normalizationData, fileUploadOrExistingFileData, commonFunc);
             plateMap = new PlateMap(currentPage, driver, loginClass.findElements, commonFunc, fileUploadOrExistingFileData, fileUploadOrExistingFileData.FileType, normalizationData);
             createWidgets = new CreateWidgetFromAddView(currentPage, driver, loginClass.findElements, fileUploadOrExistingFileData, commonFunc);
+            graph = new Graph(currentPage, driver, loginClass.findElements, commonFunc);
         }
 
         [Test, Order(1)]
         public void CreateXFCellMitoStressView()
         {
-            ExtentReport.CreateExtentTestNode("XF Cell Mito Stress View");
             if (loginStatus)
             {
                 bool FileStatus = false;
@@ -205,6 +207,8 @@ namespace SHAProject.Workflows
         [Test, Order(2)]
         public void CheckXFCellMitoStressViewLayout()
         {
+            ExtentReport.CreateExtentTestNode("XF Cell Mito Stress View Layout");
+
             if (WorkFlow6Data.AnalysisLayoutVerification)
             {
                 string currentPath = commonFunc.GetCurrentPath();
@@ -214,8 +218,6 @@ namespace SHAProject.Workflows
 
                 if (!currentPath.Contains("Analysis"))
                     CreateXFCellMitoStressView();
-
-                ExtentReport.CreateExtentTestNode("XF Cell Mito Stress View Layout");
 
                 analysisPage.AnalysisPageHeaderIcons();
 
@@ -228,6 +230,9 @@ namespace SHAProject.Workflows
         [Test, Order(3)]
         public void NormalizationConcept()
         {
+
+            ExtentReport.CreateExtentTestNode("Normalization Concept");
+
             if (WorkFlow6Data.NormalizationVerification)
             {
                 string currentPath = commonFunc.GetCurrentPath();
@@ -237,8 +242,6 @@ namespace SHAProject.Workflows
 
                 if (!currentPath.Contains("Analysis"))
                     CreateXFCellMitoStressView();
-
-                ExtentReport.CreateExtentTestNode("Normalization Concept");
 
                 Thread.Sleep(3000);
 
@@ -264,6 +267,8 @@ namespace SHAProject.Workflows
         [Test, Order(4)]
         public void ModifyAssay()
         {
+            ExtentReport.CreateExtentTestNode("Modify Assay");
+
             if (WorkFlow6Data.ModifyAssay)
             {
                 string currentPath = commonFunc.GetCurrentPath();
@@ -273,8 +278,6 @@ namespace SHAProject.Workflows
 
                 if (!currentPath.Contains("Analysis"))
                     CreateXFCellMitoStressView();
-
-                ExtentReport.CreateExtentTestNode("Modify Assay");
 
                 modifyAssay.ModifyAssayHeaderTabs();
 
@@ -297,6 +300,8 @@ namespace SHAProject.Workflows
         [Test, Order(5)]
         public void MitochondrialRespiration()
         {
+            ExtentReport.CreateExtentTestNode("Mitochondrial Respiration");
+
             if (fileUploadOrExistingFileData.SelectedWidgets.Contains(WidgetTypes.MitochondrialRespiration))
             {
                 string currentPath = commonFunc.GetCurrentPath();
@@ -309,8 +314,6 @@ namespace SHAProject.Workflows
 
                 if (!driver.Title.Contains(fileUploadOrExistingFileData.FileName))
                     filesPage.SearchFilesInFileTab(fileUploadOrExistingFileData.FileName);
-
-                ExtentReport.CreateExtentTestNode("Mitochondrial Respiration");
 
                 bool hasEditWidgetPageGone = analysisPage.GoToEditWidget(WidgetCategories.XfMst, WidgetTypes.MitochondrialRespiration);
                 if (hasEditWidgetPageGone)
@@ -342,8 +345,6 @@ namespace SHAProject.Workflows
 
                     if (WorkFlow6Data.MitochondrialRespiration.GraphSettingsVerify)
                     {
-                        graphSettings.VerifyGraphSettingsIcon();
-
                         graphSettings.YAutoScale(WorkFlow6Data.MitochondrialRespiration);
 
                         graphSettings.ZeroLine(WorkFlow6Data.MitochondrialRespiration);
@@ -355,8 +356,6 @@ namespace SHAProject.Workflows
                         graphSettings.InjectionMarkers(WorkFlow6Data.MitochondrialRespiration);
 
                         graphSettings.Zoom(WorkFlow6Data.MitochondrialRespiration);
-
-                        graphSettings.GraphSettingsApply();
                     }
 
                     plateMap.PlateMapIcons();
@@ -385,6 +384,8 @@ namespace SHAProject.Workflows
         [Test, Order(6)]
         public void BasalRespiration()
         {
+            ExtentReport.CreateExtentTestNode("Basal Respiration");
+
             if (fileUploadOrExistingFileData.SelectedWidgets.Contains(WidgetTypes.Basal))
             {
                 string currentPath = commonFunc.GetCurrentPath();
@@ -398,7 +399,6 @@ namespace SHAProject.Workflows
                 if (!driver.Title.Contains(fileUploadOrExistingFileData.FileName))
                     filesPage.SearchFilesInFileTab(fileUploadOrExistingFileData.FileName);
 
-                ExtentReport.CreateExtentTestNode("Basal Respiration");
                 bool hasEditWidgetPageGone = analysisPage.GoToEditWidget(WidgetCategories.XfMst, WidgetTypes.Basal);
                 if (hasEditWidgetPageGone)
                 {
@@ -425,15 +425,11 @@ namespace SHAProject.Workflows
 
                     if (WorkFlow6Data.BasalRespiration.GraphSettingsVerify)
                     {
-                        graphSettings.VerifyGraphSettingsIcon();
-
                         graphSettings.YAutoScale(WorkFlow6Data.BasalRespiration);
 
                         graphSettings.ZeroLine(WorkFlow6Data.BasalRespiration);
 
                         graphSettings.Zoom(WorkFlow6Data.BasalRespiration);
-
-                        graphSettings.GraphSettingsApply();
                     }
 
                     plateMap.PlateMapIcons();
@@ -462,6 +458,8 @@ namespace SHAProject.Workflows
         [Test, Order(7)]
         public void AcuteResponse()
         {
+            ExtentReport.CreateExtentTestNode("Acute Response");
+
             if (fileUploadOrExistingFileData.SelectedWidgets.Contains(WidgetTypes.AcuteResponse))
             {
                 string currentPath = commonFunc.GetCurrentPath();
@@ -475,7 +473,6 @@ namespace SHAProject.Workflows
                 if (!driver.Title.Contains(fileUploadOrExistingFileData.FileName))
                     filesPage.SearchFilesInFileTab(fileUploadOrExistingFileData.FileName);
 
-                ExtentReport.CreateExtentTestNode("Acute Response");
                 bool hasEditWidgetPageGone = analysisPage.GoToEditWidget(WidgetCategories.XfMst, WidgetTypes.AcuteResponse);
                 if (hasEditWidgetPageGone)
                 {
@@ -500,15 +497,11 @@ namespace SHAProject.Workflows
 
                     if (WorkFlow6Data.AcuteResponse.GraphSettingsVerify)
                     {
-                        graphSettings.VerifyGraphSettingsIcon();
-
                         graphSettings.YAutoScale(WorkFlow6Data.AcuteResponse);
 
                         graphSettings.ZeroLine(WorkFlow6Data.AcuteResponse);
 
                         graphSettings.Zoom(WorkFlow6Data.AcuteResponse);
-
-                        graphSettings.GraphSettingsApply();
                     }
 
                     plateMap.PlateMapIcons();
@@ -537,6 +530,8 @@ namespace SHAProject.Workflows
         [Test, Order(8)]
         public void ProtonLeak()
         {
+            ExtentReport.CreateExtentTestNode("Proton Leak");
+
             if (fileUploadOrExistingFileData.SelectedWidgets.Contains(WidgetTypes.ProtonLeak))
             {
                 string currentPath = commonFunc.GetCurrentPath();
@@ -550,7 +545,6 @@ namespace SHAProject.Workflows
                 if (!driver.Title.Contains(fileUploadOrExistingFileData.FileName))
                     filesPage.SearchFilesInFileTab(fileUploadOrExistingFileData.FileName);
 
-                ExtentReport.CreateExtentTestNode("Proton Leak");
                 bool hasEditWidgetPageGone = analysisPage.GoToEditWidget(WidgetCategories.XfMst, WidgetTypes.ProtonLeak);
                 if (hasEditWidgetPageGone)
                 {
@@ -577,15 +571,11 @@ namespace SHAProject.Workflows
 
                     if (WorkFlow6Data.ProtonLeak.GraphSettingsVerify)
                     {
-                        graphSettings.VerifyGraphSettingsIcon();
-
                         graphSettings.YAutoScale(WorkFlow6Data.ProtonLeak);
 
                         graphSettings.ZeroLine(WorkFlow6Data.ProtonLeak);
 
                         graphSettings.Zoom(WorkFlow6Data.ProtonLeak);
-
-                        graphSettings.GraphSettingsApply();
                     }
 
                     plateMap.PlateMapIcons();
@@ -614,6 +604,8 @@ namespace SHAProject.Workflows
         [Test, Order(9)]
         public void MaximalRespiration()
         {
+            ExtentReport.CreateExtentTestNode("Maximal Respiration");
+
             if (fileUploadOrExistingFileData.SelectedWidgets.Contains(WidgetTypes.MaximalRespiration))
             {
                 string currentPath = commonFunc.GetCurrentPath();
@@ -626,8 +618,6 @@ namespace SHAProject.Workflows
 
                 if (!driver.Title.Contains(fileUploadOrExistingFileData.FileName))
                     filesPage.SearchFilesInFileTab(fileUploadOrExistingFileData.FileName);
-
-                ExtentReport.CreateExtentTestNode("Maximal Respiration");
 
                 bool hasEditWidgetPageGone = analysisPage.GoToEditWidget(WidgetCategories.XfMst, WidgetTypes.MaximalRespiration);
                 if (hasEditWidgetPageGone)
@@ -655,15 +645,11 @@ namespace SHAProject.Workflows
 
                     if (WorkFlow6Data.MaximalRespiration.GraphSettingsVerify)
                     {
-                        graphSettings.VerifyGraphSettingsIcon();
-
                         graphSettings.YAutoScale(WorkFlow6Data.MaximalRespiration);
 
                         graphSettings.ZeroLine(WorkFlow6Data.MaximalRespiration);
 
                         graphSettings.Zoom(WorkFlow6Data.MaximalRespiration);
-
-                        graphSettings.GraphSettingsApply();
                     }
 
                     plateMap.PlateMapIcons();
@@ -692,6 +678,8 @@ namespace SHAProject.Workflows
         [Test, Order(10)]
         public void SpareRespiratory()
         {
+            ExtentReport.CreateExtentTestNode("Spare Respiratory Capacity");
+
             if (fileUploadOrExistingFileData.SelectedWidgets.Contains(WidgetTypes.SpareRespiratoryCapacity))
             {
                 string currentPath = commonFunc.GetCurrentPath();
@@ -704,8 +692,6 @@ namespace SHAProject.Workflows
 
                 if (!driver.Title.Contains(fileUploadOrExistingFileData.FileName))
                     filesPage.SearchFilesInFileTab(fileUploadOrExistingFileData.FileName);
-
-                ExtentReport.CreateExtentTestNode("Spare Respiratory Capacity");
 
                 bool hasEditWidgetPageGone = analysisPage.GoToEditWidget(WidgetCategories.XfMst, WidgetTypes.SpareRespiratoryCapacity);
                 if (hasEditWidgetPageGone)
@@ -733,15 +719,11 @@ namespace SHAProject.Workflows
 
                     if (WorkFlow6Data.SpareRespiratoryCapacity.GraphSettingsVerify)
                     {
-                        graphSettings.VerifyGraphSettingsIcon();
-
                         graphSettings.YAutoScale(WorkFlow6Data.SpareRespiratoryCapacity);
 
                         graphSettings.ZeroLine(WorkFlow6Data.SpareRespiratoryCapacity);
 
                         graphSettings.Zoom(WorkFlow6Data.SpareRespiratoryCapacity);
-
-                        graphSettings.GraphSettingsApply();
                     }
 
                     plateMap.PlateMapIcons();
@@ -770,6 +752,8 @@ namespace SHAProject.Workflows
         [Test, Order(11)]
         public void NonMitochondrialRespiration()
         {
+                            ExtentReport.CreateExtentTestNode("Non Mitochondrial Respiration");
+
             if (fileUploadOrExistingFileData.SelectedWidgets.Contains(WidgetTypes.NonMitoO2Consumption))
             {
                 string currentPath = commonFunc.GetCurrentPath();
@@ -782,8 +766,6 @@ namespace SHAProject.Workflows
 
                 if (!driver.Title.Contains(fileUploadOrExistingFileData.FileName))
                     filesPage.SearchFilesInFileTab(fileUploadOrExistingFileData.FileName);
-
-                ExtentReport.CreateExtentTestNode("Non Mitochondrial Respiration");
 
                 bool hasEditWidgetPageGone = analysisPage.GoToEditWidget(WidgetCategories.XfMst, WidgetTypes.NonMitoO2Consumption);
                 if (hasEditWidgetPageGone)
@@ -811,15 +793,11 @@ namespace SHAProject.Workflows
 
                     if (WorkFlow6Data.NonmitoO2Consumption.GraphSettingsVerify)
                     {
-                        graphSettings.VerifyGraphSettingsIcon();
-
                         graphSettings.YAutoScale(WorkFlow6Data.NonmitoO2Consumption);
 
                         graphSettings.ZeroLine(WorkFlow6Data.NonmitoO2Consumption);
 
                         graphSettings.Zoom(WorkFlow6Data.NonmitoO2Consumption);
-
-                        graphSettings.GraphSettingsApply();
                     }
 
                     plateMap.PlateMapIcons();
@@ -848,6 +826,8 @@ namespace SHAProject.Workflows
         [Test, Order(12)]
         public void ATPProduction()
         {
+            ExtentReport.CreateExtentTestNode("ATP Production Coupled Respiration");
+
             if (fileUploadOrExistingFileData.SelectedWidgets.Contains(WidgetTypes.AtpProductionCoupledRespiration))
             {
                 string currentPath = commonFunc.GetCurrentPath();
@@ -860,8 +840,6 @@ namespace SHAProject.Workflows
 
                 if (!driver.Title.Contains(fileUploadOrExistingFileData.FileName))
                     filesPage.SearchFilesInFileTab(fileUploadOrExistingFileData.FileName);
-
-                ExtentReport.CreateExtentTestNode("ATP Production Coupled Respiration");
 
                 bool hasEditWidgetPageGone = analysisPage.GoToEditWidget(WidgetCategories.XfMst, WidgetTypes.AtpProductionCoupledRespiration);
                 if (hasEditWidgetPageGone)
@@ -889,15 +867,11 @@ namespace SHAProject.Workflows
 
                     if (WorkFlow6Data.ATPProductionCoupledRespiration.GraphSettingsVerify)
                     {
-                        graphSettings.VerifyGraphSettingsIcon();
-
                         graphSettings.YAutoScale(WorkFlow6Data.ATPProductionCoupledRespiration);
 
                         graphSettings.ZeroLine(WorkFlow6Data.ATPProductionCoupledRespiration);
 
                         graphSettings.Zoom(WorkFlow6Data.ATPProductionCoupledRespiration);
-
-                        graphSettings.GraphSettingsApply();
                     }
 
                     plateMap.PlateMapIcons();
@@ -926,6 +900,8 @@ namespace SHAProject.Workflows
         [Test, Order(13)]
         public void CouplingEfficiency()
         {
+            ExtentReport.CreateExtentTestNode("Coupling Efficiency % ");
+
             if (fileUploadOrExistingFileData.SelectedWidgets.Contains(WidgetTypes.CouplingEfficiencyPercent))
             {
                 string currentPath = commonFunc.GetCurrentPath();
@@ -939,7 +915,6 @@ namespace SHAProject.Workflows
                 if (!driver.Title.Contains(fileUploadOrExistingFileData.FileName))
                     filesPage.SearchFilesInFileTab(fileUploadOrExistingFileData.FileName);
 
-                ExtentReport.CreateExtentTestNode("Coupling Efficiency % ");
                 bool hasEditWidgetPageGone = analysisPage.GoToEditWidget(WidgetCategories.XfMst, WidgetTypes.CouplingEfficiencyPercent);
                 if (hasEditWidgetPageGone)
                 {
@@ -964,15 +939,11 @@ namespace SHAProject.Workflows
 
                     if (WorkFlow6Data.CouplingEfficiency.GraphSettingsVerify)
                     {
-                        graphSettings.VerifyGraphSettingsIcon();
-
                         graphSettings.YAutoScale(WorkFlow6Data.CouplingEfficiency);
 
                         graphSettings.ZeroLine(WorkFlow6Data.CouplingEfficiency);
 
                         graphSettings.Zoom(WorkFlow6Data.CouplingEfficiency);
-
-                        graphSettings.GraphSettingsApply();
                     }
 
                     plateMap.PlateMapIcons();
@@ -1001,6 +972,8 @@ namespace SHAProject.Workflows
         [Test, Order(14)]
         public void SpareRespiratoryCapacity()
         {
+            ExtentReport.CreateExtentTestNode("Spare Respiratory Capacity");
+
             if (fileUploadOrExistingFileData.SelectedWidgets.Contains(WidgetTypes.SpareRespiratoryCapacityPercent))
             {
                 string currentPath = commonFunc.GetCurrentPath();
@@ -1013,8 +986,6 @@ namespace SHAProject.Workflows
 
                 if (!driver.Title.Contains(fileUploadOrExistingFileData.FileName))
                     filesPage.SearchFilesInFileTab(fileUploadOrExistingFileData.FileName);
-
-                ExtentReport.CreateExtentTestNode("Spare Respiratory Capacity");
 
                 bool hasEditWidgetPageGone = analysisPage.GoToEditWidget(WidgetCategories.XfMst, WidgetTypes.SpareRespiratoryCapacityPercent);
                 if (hasEditWidgetPageGone)
@@ -1040,15 +1011,11 @@ namespace SHAProject.Workflows
 
                     if (WorkFlow6Data.SpareRespiratoryCapacityPercentage.GraphSettingsVerify)
                     {
-                        graphSettings.VerifyGraphSettingsIcon();
-
                         graphSettings.YAutoScale(WorkFlow6Data.SpareRespiratoryCapacityPercentage);
 
                         graphSettings.ZeroLine(WorkFlow6Data.SpareRespiratoryCapacityPercentage);
 
                         graphSettings.Zoom(WorkFlow6Data.SpareRespiratoryCapacityPercentage);
-
-                        graphSettings.GraphSettingsApply();
                     }
 
                     plateMap.PlateMapIcons();
@@ -1077,6 +1044,7 @@ namespace SHAProject.Workflows
         [Test, Order(15)]
         public void DataTable()
         {
+            ExtentReport.CreateExtentTestNode("Data Table");
 
             if (fileUploadOrExistingFileData.SelectedWidgets.Contains(WidgetTypes.DataTable))
             {
@@ -1090,8 +1058,6 @@ namespace SHAProject.Workflows
 
                 if (!driver.Title.Contains(fileUploadOrExistingFileData.FileName))
                     filesPage.SearchFilesInFileTab(fileUploadOrExistingFileData.FileName);
-
-                ExtentReport.CreateExtentTestNode("Data Table");
 
                 bool hasEditWidgetPageGone = analysisPage.GoToEditWidget(WidgetCategories.XfMst, WidgetTypes.DataTable);
                 if (hasEditWidgetPageGone)
